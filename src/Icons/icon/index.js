@@ -1,3 +1,5 @@
+export { default as EyeClose } from './EyeClose'
+export { default as EyeOpen } from './EyeOpen'
 export { default as Left } from './Left'
 export { default as Right } from './Right'
 export { default as Search } from './Search'
