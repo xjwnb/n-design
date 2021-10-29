@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-10-29 15:47:40
+ * @LastEditTime: 2021-10-29 17:01:57
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -14,7 +14,7 @@ import React, {
 } from "react";
 import "./App.css";
 // Components
-import { Button, Input } from "./components/index";
+import { Button, Input, Radio } from "./components/index";
 import { Left, Right, Search } from "./Icons/icon/index";
 
 function App() {
@@ -183,6 +183,20 @@ function App() {
         <Input.TextArea onPressEnter={handlePressEnter} />
         <Input.TextArea bordered={false} />
       </div>
+
+      {/* 单选 radio */}
+      <Radio.Group value={1}>
+        <Radio value={1}>A</Radio>
+        <Radio value={2}>B</Radio>
+        <Radio value={3}>C</Radio>
+      </Radio.Group>
+
+
+      <Radio.Group value={2}>
+        <Radio value={1}>a</Radio>
+        <Radio value={2}>b</Radio>
+        <Radio value={3}>c</Radio>
+      </Radio.Group>
     </div>
   );
 }
