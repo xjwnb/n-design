@@ -118,6 +118,7 @@
       box-sizing: border-box;
       outline-style: none;
       width: 100%;
+      background-color: #fff;
 
       &::placeholder {
         color: #bfbfbf;
@@ -157,4 +158,28 @@
 .n_search_icons {
   // width: 65px;
   padding: 0 !important;
+}
+
+// textarea
+.n_input_textarea {
+  outline-style: none;
+  // border: none;
+  border: 1px solid $border;
+  padding: 4px 11px;
+  font-size: 14px;
+  background-color: #fff;
+
+  &:hover {
+    border: 1px solid #40a9ff;
+  }
+
+  &:focus {
+    border: 1px solid #40a9ff;
+    box-shadow: 0 0 3px #40a9ff;
+  }
+
+  &::placeholder {
+    color: #bfbfbf;
+    text-overflow: ellipsis;
+  }
 }

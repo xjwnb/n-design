@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-10-29 14:26:31
+ * @LastEditTime: 2021-10-29 15:47:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -30,6 +30,20 @@ function App() {
    * 输入框 change
    */
   const handleInputChange = function (event: BaseSyntheticEvent) {
+    console.log(event);
+  };
+
+  /**
+   * 搜索框按钮点击
+   */
+  const handleSearch = function (value: string, event: BaseSyntheticEvent) {
+    console.log(value, event);
+  };
+
+  /**
+   * textarea 回车事件
+   */
+  const handlePressEnter = function (event: KeyboardEvent) {
     console.log(event);
   };
 
@@ -162,7 +176,12 @@ function App() {
           width={200}
           loading
           enterButton="Search"
+          onSearch={handleSearch}
         />
+
+        {/* textarea */}
+        <Input.TextArea onPressEnter={handlePressEnter} />
+        <Input.TextArea bordered={false} />
       </div>
     </div>
   );

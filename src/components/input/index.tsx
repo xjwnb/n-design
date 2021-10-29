@@ -1,12 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2021-10-28 14:31:22
- * @LastEditTime: 2021-10-29 14:25:33
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \n-design\src\components\input\index.tsx
- */
-
 import React, {
   useRef,
   useState,
@@ -32,12 +23,25 @@ interface IProps {
   size?: sizeValue;
   prefix?: ReactElement;
   suffix?: ReactElement;
+  maxLength?: number;
 
   onChange?: Function;
+  onBlur?: Function;
+  onFocus?: Function;
 }
 
 export default function Input(props: IProps) {
-  const { placeholder, value, size, prefix, suffix, onChange } = props;
+  const {
+    placeholder,
+    value,
+    size,
+    prefix,
+    suffix,
+    maxLength,
+    onChange,
+    onBlur,
+    onFocus,
+  } = props;
 
   const [inputValue, setinputValue] = useState(value);
   const [showBorder, setshowBorder] = useState<boolean>(false);
@@ -75,6 +79,20 @@ export default function Input(props: IProps) {
     onChange && onChange(event);
   };
 
+  /**
+   * input - focus
+   */
+  const handleFocus = function (event: BaseSyntheticEvent) {
+    onFocus && onFocus(event);
+  };
+
+  /**
+   * input - blur
+   */
+  const handleBlur = function (event: BaseSyntheticEvent) {
+    onBlur && onBlur(event);
+  };
+
   return (
     <div className={style.input_container}>
       {!prefix && (
@@ -87,10 +105,13 @@ export default function Input(props: IProps) {
           ].join(" ")}
           value={inputValue}
           ref={inputRef}
+          maxLength={maxLength}
           // style={{
           //   paddingLeft: prefix ? "30px" : "11px",
           // }}
           onChange={handleChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
         ></input>
       )}
       {prefix && (
@@ -108,7 +129,10 @@ export default function Input(props: IProps) {
               placeholder={placeholder}
               value={inputValue}
               ref={inputRef}
+              maxLength={maxLength}
               onChange={handleChange}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
             />
           )}
           {suffix && <span className={style.iconSuffix}>{suffix}</span>}
@@ -168,10 +192,25 @@ interface searchProps {
   enterButton?: string | boolean;
   allowClear?: boolean;
   loading?: boolean;
+
+  onSearch?: Function;
+  onChange?: Function;
+  onFocus?: Function;
+  onBlur?: Function;
 }
 
 Input.Search = function Search(searchProps: searchProps) {
-  const { placeholder, width, enterButton, allowClear, loading } = searchProps;
+  const {
+    placeholder,
+    width,
+    enterButton,
+    allowClear,
+    loading,
+    onSearch,
+    onChange,
+    onFocus,
+    onBlur,
+  } = searchProps;
 
   const [showClear, setshowClear] = useState<boolean>(false);
   const [searchValue, setsearchValue] = useState<string | undefined>("");
@@ -187,6 +226,7 @@ Input.Search = function Search(searchProps: searchProps) {
    */
   const handleSearchInput = function (event: BaseSyntheticEvent) {
     setsearchValue(searchInputRef.current?.value);
+    onChange && onChange(event);
   };
 
   /**
@@ -197,6 +237,27 @@ Input.Search = function Search(searchProps: searchProps) {
     setshowClear(!showClear);
     setinputFocus(true);
     searchInputRef.current?.focus();
+  };
+
+  /**
+   * 点击搜索
+   */
+  const handleClickSearch = function (event: BaseSyntheticEvent) {
+    onSearch && onSearch(searchValue, event);
+  };
+
+  /**
+   * input - focus
+   */
+  const handleFocus = function (event: BaseSyntheticEvent) {
+    onFocus && onFocus(event);
+  };
+
+  /**
+   * input - blur
+   */
+  const handleBlur = function (event: BaseSyntheticEvent) {
+    onBlur && onBlur(event);
   };
 
   /**
@@ -215,7 +276,6 @@ Input.Search = function Search(searchProps: searchProps) {
         );
       }
     } else if (enterButton === true) {
-      // return <SearchIcon color="#fff" />;
       if (!loading) {
         return <SearchIcon color="#fff" />;
       } else {
@@ -280,6 +340,8 @@ Input.Search = function Search(searchProps: searchProps) {
           value={searchValue}
           ref={searchInputRef}
           onChange={handleSearchInput}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
         />
         {showClear && (
           <span className={style.closeFill} onClick={handleClickClose}>
@@ -287,7 +349,10 @@ Input.Search = function Search(searchProps: searchProps) {
           </span>
         )}
       </span>
-      <span className={style.n_input_search_container}>
+      <span
+        className={style.n_input_search_container}
+        onClick={handleClickSearch}
+      >
         {/* loading */}
         {/* <span className={style.search_loading}>{loading && <Loading />}</span> */}
         {/* {loading && !enterButton && <Button icon={<Loading />}></Button>} */}
@@ -306,5 +371,68 @@ Input.Search = function Search(searchProps: searchProps) {
         )}
       </span>
     </div>
+  );
+};
+
+// Input.TextArea
+
+interface textAreaProps {
+  rows?: number;
+  cols?: number;
+  placeholder?: string;
+  maxLength?: number;
+  value?: string;
+  bordered?: boolean;
+
+  onPressEnter?: Function;
+}
+
+Input.TextArea = function TextArea(Props: textAreaProps) {
+  const {
+    rows,
+    cols,
+    maxLength,
+    placeholder,
+    value,
+    bordered = true,
+    onPressEnter,
+  } = Props;
+
+  const [textareaVal, settextareaVal] = useState(value);
+
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    textareaRef.current?.addEventListener("keyup", (event: KeyboardEvent) => {
+      if (event.code === "Enter") {
+        onPressEnter && onPressEnter(event);
+      }
+    });
+  }, [onPressEnter]);
+
+  /**
+   * 输入事件
+   */
+  const handleTextareaChange = function () {
+    settextareaVal(textareaRef.current?.value);
+  };
+
+  return (
+    <>
+      <textarea
+        className={[`${style.n_input_textarea}`].join(" ")}
+        cols={cols}
+        rows={rows}
+        placeholder={placeholder}
+        maxLength={maxLength}
+        value={textareaVal}
+        ref={textareaRef}
+        onChange={handleTextareaChange}
+        style={{
+          border: !bordered ? "none" : "",
+          boxShadow: !bordered ? "none" : "",
+        }}
+      ></textarea>
+    </>
   );
 };
