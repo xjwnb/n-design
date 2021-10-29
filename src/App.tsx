@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-10-28 17:23:48
+ * @LastEditTime: 2021-10-29 14:26:31
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -34,7 +34,7 @@ function App() {
   };
 
   useEffect(() => {
-    console.log(inputValue);
+    // console.log(inputValue);
   }, [inputValue]);
 
   return (
@@ -134,12 +134,35 @@ function App() {
           value={inputValue}
           onChange={handleInputChange}
           prefix={<Search />}
+          suffix={<Left />}
         />
-        <br />
         <br />
         <br />
         {/* 密码框 */}
         <Input.Password placeholder="密码交出来" />
+        <br />
+        <br />
+        {/* 搜索框 */}
+        <Input.Search placeholder="查什么东西" width={200} />
+        <Input.Search placeholder="查什么东西" width={200} enterButton />
+        <Input.Search
+          placeholder="查什么东西"
+          width={200}
+          enterButton="Search"
+        />
+        <Input.Search
+          placeholder="查什么东西"
+          width={200}
+          allowClear
+          enterButton="Search"
+        />
+        <Input.Search placeholder="查什么东西" width={200} loading />
+        <Input.Search
+          placeholder="查什么东西"
+          width={200}
+          loading
+          enterButton="Search"
+        />
       </div>
     </div>
   );

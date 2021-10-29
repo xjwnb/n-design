@@ -29,6 +29,7 @@
 
   &::placeholder {
     color: #bfbfbf;
+    text-overflow: ellipsis;
   }
 
   &.n_input_lg {
@@ -40,11 +41,27 @@
   }
 }
 
-.iconPrefix {
-  position: absolute;
-  top: 7px;
-  left: 5;
-  z-index: 2;
+.iconPrefix,
+.iconSuffix {
+  margin: 0 4px;
+  display: flex;
+  align-items: center;
+}
+
+.input_flex_content {
+  border: 1px solid $border;
+  border-radius: 2px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+
+  input {
+    border: none;
+    outline-style: none;
+    width: 100%;
+    line-height: 1.4rem;
+  }
 }
 
 .input_container {
@@ -65,4 +82,79 @@
     right: 10px;
     top: 8px;
   }
+}
+
+// 搜索框
+.n_input_search {
+  box-sizing: border-box;
+  display: flex;
+
+  .n_search_input_container {
+    display: flex;
+    align-items: center;
+    padding: 4px 10px;
+    box-sizing: border-box;
+    position: relative;
+    border: 1px solid $border;
+    border-radius: 2px 0 0 2px;
+    transition: all 0.3s;
+
+    .search_loading {
+      animation: rotateAnimation 2s;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes rotateAnimation {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .n_search_input {
+      border: none;
+      box-sizing: border-box;
+      outline-style: none;
+      width: 100%;
+
+      &::placeholder {
+        color: #bfbfbf;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .closeFill {
+      cursor: pointer;
+      position: absolute;
+      right: 6px;
+      top: 22%;
+      transition: all 0.3s;
+    }
+  }
+
+  .n_input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .n_input_search_container {
+    height: 32px;
+    display: inline-block;
+    line-height: 32px;
+    text-align: center;
+
+    button {
+      height: 32px;
+      box-sizing: border-box;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+}
+
+.n_search_icons {
+  // width: 65px;
+  padding: 0 !important;
 }

@@ -18,7 +18,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "svgr": "svgr -d src/Icons/ assets/",
+    "svgr": "svgr -d src/Icons/test assets/",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

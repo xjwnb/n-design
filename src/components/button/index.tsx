@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 13:35:33
- * @LastEditTime: 2021-10-28 14:27:20
+ * @LastEditTime: 2021-10-29 14:01:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\components\button\index.tsx
@@ -24,14 +24,30 @@ type IProps = {
   danger?: Boolean;
   href?: string;
   target?: string;
-  onClick?: Function
+
+  style?: object;
+  className?: string;
+
+  onClick?: Function;
 };
 
 function Button(Props: IProps) {
-  const { children, type, size, shape, icon, block, disabled, danger, href, target } = Props;
+  const {
+    children,
+    type,
+    size,
+    shape,
+    icon,
+    block,
+    disabled,
+    danger,
+    href,
+    target,
+    className,
+    style: styleObj,
+  } = Props;
 
   const handleClick = function (event: SyntheticEvent) {
-    console.log(event);
     if (href) {
       const aEle = document.createElement("a");
       aEle.setAttribute("href", href);
@@ -50,18 +66,28 @@ function Button(Props: IProps) {
         `${size && size === "small" ? style.n_btn_sm : ""}`,
         `${shape ? `${style[`n_btn_${shape}`]}` : ""}`,
         `${danger ? `${style.n_btn_dangerous}` : ""}`,
+        `${className}`,
       ].join(" ")}
       style={{
         width: block ? "100%" : "",
+        ...styleObj,
       }}
       onClick={handleClick}
     >
-      <>
+      <div className={style.n_btn_content}>
         {/* Icon */}
-        {icon && <span className={style.btn_icon}>{icon}</span>}
+        {icon && (
+          <div className={style.btn_icon} style={{ paddingTop: 4 }}>
+            {icon}
+          </div>
+        )}
         {/* children */}
-        {children && <span>{children}</span>}
-      </>
+        {children && (
+          <div className={style.btn_icon} style={{ padding: "4px 0" }}>
+            {children}
+          </div>
+        )}
+      </div>
     </button>
   );
 }
