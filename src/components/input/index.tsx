@@ -1,13 +1,18 @@
 /*
  * @Author: your name
  * @Date: 2021-10-28 14:31:22
- * @LastEditTime: 2021-10-28 17:09:53
+ * @LastEditTime: 2021-10-28 17:32:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\components\input\index.tsx
  */
 
-import React, { useRef, useState, BaseSyntheticEvent } from "react";
+import React, {
+  useRef,
+  useState,
+  BaseSyntheticEvent,
+  ReactElement,
+} from "react";
 import { EyeOpen, EyeClose } from "../../Icons/icon/index";
 import style from "./index.module.scss";
 
@@ -17,12 +22,13 @@ interface IProps {
   placeholder?: string;
   value?: string;
   size?: sizeValue;
+  prefix?: ReactElement;
 
   onChange?: Function;
 }
 
 export default function Input(props: IProps) {
-  const { placeholder, value, size, onChange } = props;
+  const { placeholder, value, size, prefix, onChange } = props;
   const [inputValue, setinputValue] = useState(value);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -35,7 +41,8 @@ export default function Input(props: IProps) {
   };
 
   return (
-    <>
+    <div className={style.input_container}>
+      {prefix ? <span className={style.iconPrefix}>{prefix}</span> : ""}
       <input
         placeholder={placeholder}
         className={[
@@ -45,9 +52,12 @@ export default function Input(props: IProps) {
         ].join(" ")}
         value={inputValue}
         ref={inputRef}
+        style={{
+          paddingLeft: prefix ? "30px" : 0,
+        }}
         onChange={handleChange}
       ></input>
-    </>
+    </div>
   );
 }
 

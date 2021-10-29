@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-10-28 16:46:52
+ * @LastEditTime: 2021-10-28 17:23:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -128,6 +128,12 @@ function App() {
           value={inputValue}
           onChange={handleInputChange}
           size="small"
+        />
+        <Input
+          placeholder="开始操作"
+          value={inputValue}
+          onChange={handleInputChange}
+          prefix={<Search />}
         />
         <br />
         <br />

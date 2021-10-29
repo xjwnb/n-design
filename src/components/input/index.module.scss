@@ -16,6 +16,7 @@
   outline-style: none;
   line-height: 1.4rem;
   height: 32px;
+  position: relative;
 
   &:hover {
     border: 1px solid #40a9ff;
@@ -37,6 +38,17 @@
   &.n_input_sm {
     height: 24px;
   }
+}
+
+.iconPrefix {
+  position: absolute;
+  top: 7px;
+  left: 5;
+  z-index: 2;
+}
+
+.input_container {
+  position: relative;
 }
 
 // password
