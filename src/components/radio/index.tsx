@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-29 16:12:00
- * @LastEditTime: 2021-10-29 17:34:18
+ * @LastEditTime: 2021-10-30 23:06:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\components\radio\index.tsx
@@ -43,33 +43,40 @@ export default function Radio(Props: radioProps) {
   const { radioName, groupValue, radioChange } = useContext(GroupContext);
 
   const [radioValue, setradioValue] = useState(groupValue);
-  const [radioValueType] = useState<string>(typeof radioValue);
+  // const [radioValueType] = useState<string>(typeof radioValue);
 
-  useEffect(() => {}, [radioName, groupValue]);
+  useEffect(() => {
+    setradioValue(groupValue);
+  }, [groupValue]);
 
   const handleRadioChange = function (event: BaseSyntheticEvent) {
     let radioRefValue: number | string | undefined = radioRef.current?.value;
-    if (radioValueType === "number") {
-      radioRefValue = Number(radioRefValue);
-    }
     setradioValue(radioRefValue);
-    radioChange && radioChange(radioRefValue);
+    radioChange && radioChange(radioRefValue, event);
   };
 
   return (
     <label className={style.n_radio_wrapper}>
-      <span className={style.n_radio}>
+      <span
+        className={[
+          `${style.n_radio}`,
+          `${
+            String(radioValue) === String(value) ? style.n_radio_checked : ""
+          }`,
+        ].join(" ")}
+      >
         <input
+          className={[`${style.n_radio_input}`].join(" ")}
           type="radio"
           name={radioName}
           value={value}
           ref={radioRef}
-          checked={radioValue === value}
+          checked={String(radioValue) === String(value)}
           onChange={handleRadioChange}
         />
-        <span className="n_radio_inner"></span>
+        <span className={style.n_radio_inner}></span>
       </span>
-      <span>{children}</span>
+      <span className={style.n_radio_text}>{children}</span>
     </label>
   );
 }
@@ -85,7 +92,7 @@ interface groupProps {
 }
 
 Radio.Group = function Group(Props: groupProps) {
-  const { children, value } = Props;
+  const { children, value, onChange } = Props;
 
   const [groupVal, setgroupVal] = useState(value);
 
@@ -97,8 +104,9 @@ Radio.Group = function Group(Props: groupProps) {
         value={{
           radioName: name,
           groupValue: groupVal,
-          radioChange: (newVal: string | number) => {
+          radioChange: (newVal: string | number, event: BaseSyntheticEvent) => {
             setgroupVal(newVal);
+            onChange && onChange(event);
           },
         }}
       >
