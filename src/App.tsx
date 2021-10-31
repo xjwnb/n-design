@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-10-30 22:10:18
+ * @LastEditTime: 2021-10-31 09:02:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -195,7 +195,7 @@ function App() {
       <Radio.Group value={1} onChange={handleRadioChange}>
         <Radio value={1}>A</Radio>
         <Radio value={2}>B</Radio>
-        <Radio value={3}>C</Radio>
+        <Radio value={3} disabled>C</Radio>
       </Radio.Group>
 
       <Radio.Group value={2} onChange={handleRadioChange}>

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-29 16:12:00
- * @LastEditTime: 2021-10-30 23:06:54
+ * @LastEditTime: 2021-10-31 09:04:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\components\radio\index.tsx
@@ -33,10 +33,11 @@ const GroupContext = createContext(defaultContext);
 interface radioProps {
   value?: string | number;
   children?: string;
+  disabled?: boolean;
 }
 
 export default function Radio(Props: radioProps) {
-  const { value, children } = Props;
+  const { value, children, disabled } = Props;
 
   const radioRef = useRef<HTMLInputElement>(null);
 
@@ -50,13 +51,21 @@ export default function Radio(Props: radioProps) {
   }, [groupValue]);
 
   const handleRadioChange = function (event: BaseSyntheticEvent) {
+    if (disabled) {
+      return;
+    }
     let radioRefValue: number | string | undefined = radioRef.current?.value;
     setradioValue(radioRefValue);
     radioChange && radioChange(radioRefValue, event);
   };
 
   return (
-    <label className={style.n_radio_wrapper}>
+    <label
+      className={[
+        `${style.n_radio_wrapper}`,
+        `${disabled ? style.n_radio_disabled : ""}`,
+      ].join(" ")}
+    >
       <span
         className={[
           `${style.n_radio}`,
