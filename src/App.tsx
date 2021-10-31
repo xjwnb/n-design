@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-10-31 09:02:00
+ * @LastEditTime: 2021-10-31 15:30:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -195,7 +195,9 @@ function App() {
       <Radio.Group value={1} onChange={handleRadioChange}>
         <Radio value={1}>A</Radio>
         <Radio value={2}>B</Radio>
-        <Radio value={3} disabled>C</Radio>
+        <Radio value={3} disabled>
+          C
+        </Radio>
       </Radio.Group>
 
       <Radio.Group value={2} onChange={handleRadioChange}>
@@ -203,6 +205,70 @@ function App() {
         <Radio value={2}>b</Radio>
         <Radio value={3}>c</Radio>
       </Radio.Group>
+
+      <Radio.Group
+        value={2}
+        onChange={handleRadioChange}
+        options={[
+          {
+            label: "LOL",
+            value: "1",
+          },
+          {
+            label: "使命召唤",
+            value: "2",
+          },
+          {
+            label: "绝地求生",
+            value: "3",
+            disabled: true,
+          },
+        ]}
+      />
+
+      <Radio.Group
+        value={2}
+        onChange={handleRadioChange}
+        optionType="button"
+        options={[
+          {
+            label: "LOL",
+            value: "1",
+          },
+          {
+            label: "使命召唤",
+            value: "2",
+          },
+          {
+            label: "绝地求生",
+            value: "3",
+            disabled: true,
+          },
+        ]}
+      />
+      <br />
+      <br />
+      <Radio.Group
+        value={2}
+        onChange={handleRadioChange}
+        optionType="button"
+        buttonStyle="solid"
+        options={[
+          {
+            label: "LOL",
+            value: "1",
+          },
+          {
+            label: "使命召唤",
+            value: "2",
+          },
+          {
+            label: "绝地求生",
+            value: "3",
+            disabled: true,
+          },
+        ]}
+      />
     </div>
   );
 }
