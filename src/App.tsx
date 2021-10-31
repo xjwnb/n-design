@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-10-31 15:30:11
+ * @LastEditTime: 2021-10-31 18:41:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -14,7 +14,7 @@ import React, {
 } from "react";
 import "./App.css";
 // Components
-import { Button, Input, Radio } from "./components/index";
+import { Button, Input, Radio, Switch } from "./components/index";
 import { Left, Right, Search } from "./Icons/icon/index";
 
 function App() {
@@ -52,6 +52,16 @@ function App() {
    */
   const handleRadioChange = function (event: BaseSyntheticEvent) {
     console.log(event);
+  };
+
+  /**
+   * swich change
+   */
+  const handleSwitchChange = function (
+    checked: boolean,
+    event: BaseSyntheticEvent
+  ) {
+    console.log(checked, event);
   };
 
   useEffect(() => {
@@ -192,83 +202,99 @@ function App() {
       </div>
 
       {/* 单选 radio */}
-      <Radio.Group value={1} onChange={handleRadioChange}>
-        <Radio value={1}>A</Radio>
-        <Radio value={2}>B</Radio>
-        <Radio value={3} disabled>
-          C
-        </Radio>
-      </Radio.Group>
+      <div>
+        <h1>Radio</h1>
+        <Radio.Group value={1} onChange={handleRadioChange}>
+          <Radio value={1}>A</Radio>
+          <Radio value={2}>B</Radio>
+          <Radio value={3} disabled>
+            C
+          </Radio>
+        </Radio.Group>
 
-      <Radio.Group value={2} onChange={handleRadioChange}>
-        <Radio value={1}>a</Radio>
-        <Radio value={2}>b</Radio>
-        <Radio value={3}>c</Radio>
-      </Radio.Group>
+        <Radio.Group value={2} onChange={handleRadioChange}>
+          <Radio value={1}>a</Radio>
+          <Radio value={2}>b</Radio>
+          <Radio value={3}>c</Radio>
+        </Radio.Group>
 
-      <Radio.Group
-        value={2}
-        onChange={handleRadioChange}
-        options={[
-          {
-            label: "LOL",
-            value: "1",
-          },
-          {
-            label: "使命召唤",
-            value: "2",
-          },
-          {
-            label: "绝地求生",
-            value: "3",
-            disabled: true,
-          },
-        ]}
-      />
+        <Radio.Group
+          value={2}
+          onChange={handleRadioChange}
+          options={[
+            {
+              label: "LOL",
+              value: "1",
+            },
+            {
+              label: "使命召唤",
+              value: "2",
+            },
+            {
+              label: "绝地求生",
+              value: "3",
+              disabled: true,
+            },
+          ]}
+        />
 
-      <Radio.Group
-        value={2}
-        onChange={handleRadioChange}
-        optionType="button"
-        options={[
-          {
-            label: "LOL",
-            value: "1",
-          },
-          {
-            label: "使命召唤",
-            value: "2",
-          },
-          {
-            label: "绝地求生",
-            value: "3",
-            disabled: true,
-          },
-        ]}
-      />
-      <br />
-      <br />
-      <Radio.Group
-        value={2}
-        onChange={handleRadioChange}
-        optionType="button"
-        buttonStyle="solid"
-        options={[
-          {
-            label: "LOL",
-            value: "1",
-          },
-          {
-            label: "使命召唤",
-            value: "2",
-          },
-          {
-            label: "绝地求生",
-            value: "3",
-            disabled: true,
-          },
-        ]}
-      />
+        <Radio.Group
+          value={2}
+          onChange={handleRadioChange}
+          optionType="button"
+          options={[
+            {
+              label: "LOL",
+              value: "1",
+            },
+            {
+              label: "使命召唤",
+              value: "2",
+            },
+            {
+              label: "绝地求生",
+              value: "3",
+              disabled: true,
+            },
+          ]}
+        />
+        <br />
+        <br />
+        <Radio.Group
+          value={2}
+          onChange={handleRadioChange}
+          optionType="button"
+          buttonStyle="solid"
+          options={[
+            {
+              label: "LOL",
+              value: "1",
+            },
+            {
+              label: "使命召唤",
+              value: "2",
+            },
+            {
+              label: "绝地求生",
+              value: "3",
+              disabled: true,
+            },
+          ]}
+        />
+      </div>
+
+      {/* switch */}
+      <div>
+        <h1>Switch</h1>
+        <Switch defaultValue onChange={handleSwitchChange} />
+        <Switch defaultValue onChange={handleSwitchChange} disabled />
+        <Switch defaultValue checkedChildren="开启" unCheckedChildren="关闭" />
+        <Switch
+          defaultValue
+          checkedChildren={<Left color="#fff" />}
+          unCheckedChildren={<Right color="#fff" />}
+        />
+      </div>
     </div>
   );
 }
