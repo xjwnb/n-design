@@ -5,6 +5,7 @@
 
   &:hover .n_image_preview {
     display: block;
+    transition: all 0.6s cubic-bezier(0.78, 0.14, 0.15, 0.86);
   }
 
 
@@ -16,7 +17,7 @@
     right: 0;
     bottom: 0;
     background-color: rgba(#000000, 0.6);
-    transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+    transition: all 0.6s cubic-bezier(0.78, 0.14, 0.15, 0.86);
 
     .n_image_preview_text {
       font-size: 14px;

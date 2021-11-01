@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-01 11:33:08
+ * @LastEditTime: 2021-11-01 13:34:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -307,6 +307,17 @@ function App() {
           title="什么东西"
           width={200}
         />
+
+        <Image.PreviewGroup>
+          <Image
+            src="https://xkc-oss-bucket.oss-cn-guangzhou.aliyuncs.com/descriptionPicture/1612895649258_preview.jpg?versionId=CAEQCRiBgICFg6WgvBciIGYzZjM5YTFlYzcxZjRlMDZhMWFjZDIyMGJmNWM4ZDNh"
+            width={200}
+          />
+          <Image
+            src="https://xkc-oss-bucket.oss-cn-guangzhou.aliyuncs.com/descriptionPicture/1612949921591_author2.jpg?versionId=CAEQCRiBgMCSrZ2tvBciIGNlYWE5NDU4Y2FlZTQ1ZDFhMGIwYmMzZGY2ODU2NzVj"
+            width={200}
+          />
+        </Image.PreviewGroup>
       </div>
     </div>
   );

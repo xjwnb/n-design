@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-01 10:13:47
- * @LastEditTime: 2021-11-01 11:23:11
+ * @LastEditTime: 2021-11-01 15:27:11
  * @LastEditors: Please set LastEditors
  * @Description: 预览容器
  * @FilePath: \n-design\src\components\image\components\previewContainer\index.tsx
@@ -13,22 +13,27 @@ import {
   Narrow,
   Enlarge,
   Close,
+  Left,
+  Right,
 } from "../../../../Icons/icon/index";
 import "./index.scss";
 
 interface IProps {
-  src?: string;
+  src: Array<{ id: number; src: string }>;
+  currentIndex?: number;
   onClose?: Function;
 }
 
 export default function PreviewContainer(Props: IProps) {
-  const { src, onClose } = Props;
+  const { src, currentIndex = 0, onClose } = Props;
 
   const [scale, setscale] = useState<number>(1);
   const SCALE_MULTIPLE = 0.25;
 
   const [rotate, setrotate] = useState<number>(0);
   const ROTATE_MULTIPLE = 90;
+
+  const [index, setindex] = useState(currentIndex);
 
   /**
    * 关闭
@@ -66,20 +71,35 @@ export default function PreviewContainer(Props: IProps) {
     setrotate(rotate + ROTATE_MULTIPLE);
   };
 
+  /**
+   * 左边一张
+   */
+  const handleLeft = function () {
+    index !== 0 && setindex(index - 1);
+  };
+
+  /**
+   * 右边一张
+   */
+  const handleRight = function () {
+    index < src.length - 1 && setindex(index + 1);
+  };
+
   useEffect(() => {
+    console.log(src);
     document.body.style.overflowY = "hidden";
     document.documentElement.style.overflowY = "hidden";
     return () => {
       document.body.style.overflowY = "auto";
       document.documentElement.style.overflowY = "auto";
     };
-  }, []);
+  }, [src]);
 
   return (
     <div className="preview_container">
       <img
         className="preview_img"
-        src={src}
+        src={src[index].src}
         alt=""
         style={{
           transform: `scale(${scale}) rotate(${rotate}deg)`,
@@ -124,7 +144,26 @@ export default function PreviewContainer(Props: IProps) {
           </li>
         </ul>
       </div>
-      <div className="preview_aside_control"></div>
+      <div className="preview_aside_control">
+        <div
+          className={[
+            "preview_aside_icon",
+            `${index === 0 ? "preview_aside_icon_disabled" : ""}`,
+          ].join(" ")}
+          onClick={handleLeft}
+        >
+          <Left color="#fff" width={30} height={30} />
+        </div>
+        <div
+          className={[
+            "preview_aside_icon",
+            `${index === src.length - 1 ? "preview_aside_icon_disabled" : ""}`,
+          ].join(" ")}
+          onClick={handleRight}
+        >
+          <Right color="#fff" width={30} height={30} />
+        </div>
+      </div>
     </div>
   );
 }
