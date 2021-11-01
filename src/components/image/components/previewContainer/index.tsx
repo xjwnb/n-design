@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-01 10:13:47
- * @LastEditTime: 2021-11-01 15:27:11
+ * @LastEditTime: 2021-11-01 15:31:22
  * @LastEditors: Please set LastEditors
  * @Description: 预览容器
  * @FilePath: \n-design\src\components\image\components\previewContainer\index.tsx
@@ -144,26 +144,30 @@ export default function PreviewContainer(Props: IProps) {
           </li>
         </ul>
       </div>
-      <div className="preview_aside_control">
-        <div
-          className={[
-            "preview_aside_icon",
-            `${index === 0 ? "preview_aside_icon_disabled" : ""}`,
-          ].join(" ")}
-          onClick={handleLeft}
-        >
-          <Left color="#fff" width={30} height={30} />
+      {src.length > 1 && (
+        <div className="preview_aside_control">
+          <div
+            className={[
+              "preview_aside_icon",
+              `${index === 0 ? "preview_aside_icon_disabled" : ""}`,
+            ].join(" ")}
+            onClick={handleLeft}
+          >
+            <Left color="#fff" width={30} height={30} />
+          </div>
+          <div
+            className={[
+              "preview_aside_icon",
+              `${
+                index === src.length - 1 ? "preview_aside_icon_disabled" : ""
+              }`,
+            ].join(" ")}
+            onClick={handleRight}
+          >
+            <Right color="#fff" width={30} height={30} />
+          </div>
         </div>
-        <div
-          className={[
-            "preview_aside_icon",
-            `${index === src.length - 1 ? "preview_aside_icon_disabled" : ""}`,
-          ].join(" ")}
-          onClick={handleRight}
-        >
-          <Right color="#fff" width={30} height={30} />
-        </div>
-      </div>
+      )}
     </div>
   );
 }
