@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-10-31 18:41:01
+ * @LastEditTime: 2021-11-01 08:26:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -14,7 +14,7 @@ import React, {
 } from "react";
 import "./App.css";
 // Components
-import { Button, Input, Radio, Switch } from "./components/index";
+import { Button, Input, Radio, Switch, Image } from "./components/index";
 import { Left, Right, Search } from "./Icons/icon/index";
 
 function App() {
@@ -293,6 +293,15 @@ function App() {
           defaultValue
           checkedChildren={<Left color="#fff" />}
           unCheckedChildren={<Right color="#fff" />}
+        />
+      </div>
+
+      {/* Image */}
+      <div>
+        <Image
+          src="https://xkc-oss-bucket.oss-cn-guangzhou.aliyuncs.com/descriptionPicture/1612895649258_preview.jpg?versionId=CAEQCRiBgICFg6WgvBciIGYzZjM5YTFlYzcxZjRlMDZhMWFjZDIyMGJmNWM4ZDNh"
+          alt="背景图片"
+          width={200}
         />
       </div>
     </div>
