@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-01 13:34:58
+ * @LastEditTime: 2021-11-01 21:51:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -14,7 +14,14 @@ import React, {
 } from "react";
 import "./App.css";
 // Components
-import { Button, Input, Radio, Switch, Image } from "./components/index";
+import {
+  Button,
+  Input,
+  Radio,
+  Switch,
+  Image,
+  Layout,
+} from "./components/index";
 import { Left, Right, Search } from "./Icons/icon/index";
 
 function App() {
@@ -318,6 +325,25 @@ function App() {
             width={200}
           />
         </Image.PreviewGroup>
+      </div>
+
+      {/* Layout */}
+      <div>
+        <h1>Layout</h1>
+        <Layout>
+          <Layout.Header>Header</Layout.Header>
+          <Layout.Content>Content</Layout.Content>
+          <Layout.Footer>Footer</Layout.Footer>
+        </Layout>
+
+        <Layout>
+          <Layout.Header>Header</Layout.Header>
+          <Layout>
+            <Layout.Sider>Sider</Layout.Sider>
+            <Layout.Content>Content</Layout.Content>
+          </Layout>
+          <Layout.Footer>Footer</Layout.Footer>
+        </Layout>
       </div>
     </div>
   );

@@ -1,0 +1,23 @@
+.n_layout {
+  display: flex;
+}
+
+.n_layout_header {
+  // width: 100%;
+  flex: 1;
+  padding: 0 30px;
+}
+
+.n_layout_main {
+  // width: 100%;
+  flex: 1;
+}
+
+.n_layout_aside {
+  width: 200px;
+  // height: 100%;
+}
+
+.n_layout_footer {
+  flex: 1;
+}
