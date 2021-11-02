@@ -29,9 +29,7 @@ function Space(Props: IProps) {
   const [gap, setgap] = useState<string>("8px");
 
   useEffect(() => {
-    // setgap(sizeOption[size]);
     if (size instanceof Array) {
-      // setgap(size + "px");
       setgap(
         size
           .reverse()
