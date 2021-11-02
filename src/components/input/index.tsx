@@ -153,7 +153,7 @@ interface PwdProps {
  * @param pwdProps
  * @returns reactElement
  */
-Input.Password = function Password(pwdProps: PwdProps) {
+function Password(pwdProps: PwdProps) {
   const { placeholder } = pwdProps;
 
   const [eye, seteye] = useState<boolean>(false);
@@ -182,7 +182,9 @@ Input.Password = function Password(pwdProps: PwdProps) {
       )}
     </div>
   );
-};
+}
+
+Input.Password = Password;
 
 // Input.Search
 
@@ -199,7 +201,7 @@ interface searchProps {
   onBlur?: Function;
 }
 
-Input.Search = function Search(searchProps: searchProps) {
+function Search(searchProps: searchProps) {
   const {
     placeholder,
     width,
@@ -372,7 +374,9 @@ Input.Search = function Search(searchProps: searchProps) {
       </span>
     </div>
   );
-};
+}
+
+Input.Search = Search;
 
 // Input.TextArea
 
@@ -387,7 +391,7 @@ interface textAreaProps {
   onPressEnter?: Function;
 }
 
-Input.TextArea = function TextArea(Props: textAreaProps) {
+function TextArea(Props: textAreaProps) {
   const {
     rows,
     cols,
@@ -435,4 +439,6 @@ Input.TextArea = function TextArea(Props: textAreaProps) {
       ></textarea>
     </>
   );
-};
+}
+
+Input.TextArea = TextArea;

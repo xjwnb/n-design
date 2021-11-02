@@ -1,11 +1,4 @@
-/*
- * @Author: your name
- * @Date: 2021-10-31 22:16:28
- * @LastEditTime: 2021-11-01 15:08:01
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \n-design\src\components\image\index.tsx
- */
+
 import {
   useRef,
   useState,
@@ -67,7 +60,6 @@ export default function Image(Props: IProps) {
   const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    // console.log(previewList);
     previewList.length
       ? setsrcList(previewList)
       : setsrcList([
@@ -149,28 +141,8 @@ interface groupProps {
   children: Array<ReactElement>;
 }
 
-Image.PreviewGroup = function PreviewGroup(Props: groupProps) {
+function PreviewGroup(Props: groupProps) {
   const { children } = Props;
-
-  // const [providerValue, setproviderValue] = useState({
-  //   previewList: children.map((item, index) => {
-  //     return {
-  //       id: index,
-  //       src: item.props.src,
-  //     };
-  //   }),
-  // });
-
-  useEffect(() => {
-    // setproviderValue({
-    //   previewList: children.map((item, index) => {
-    //     return {
-    //       id: index,
-    //       src: item.props.src,
-    //     };
-    //   }),
-    // });
-  }, [children]);
 
   return (
     <PreviewList.Provider
@@ -189,3 +161,5 @@ Image.PreviewGroup = function PreviewGroup(Props: groupProps) {
     </PreviewList.Provider>
   );
 };
+
+Image.PreviewGroup = PreviewGroup;

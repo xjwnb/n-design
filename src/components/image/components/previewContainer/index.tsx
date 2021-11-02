@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2021-11-01 10:13:47
- * @LastEditTime: 2021-11-01 15:31:22
- * @LastEditors: Please set LastEditors
- * @Description: 预览容器
- * @FilePath: \n-design\src\components\image\components\previewContainer\index.tsx
- */
 import { useEffect, useState } from "react";
 import {
   RotateLeft,
@@ -86,7 +78,6 @@ export default function PreviewContainer(Props: IProps) {
   };
 
   useEffect(() => {
-    console.log(src);
     document.body.style.overflowY = "hidden";
     document.documentElement.style.overflowY = "hidden";
     return () => {

@@ -16,7 +16,6 @@ export default function Layout(Props: layoutProps) {
     sethasAside(
       children.some((item) => item.type.toString() === Sider.toString())
     );
-    console.log(hasAside)
   }, [children]);
 
   return (
