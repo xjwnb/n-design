@@ -68,6 +68,8 @@ export default function PreviewContainer(Props: IProps) {
    */
   const handleLeft = function () {
     index !== 0 && setindex(index - 1);
+    setscale(1);
+    setrotate(0);
   };
 
   /**
@@ -75,6 +77,8 @@ export default function PreviewContainer(Props: IProps) {
    */
   const handleRight = function () {
     index < src.length - 1 && setindex(index + 1);
+    setscale(1);
+    setrotate(0);
   };
 
   useEffect(() => {

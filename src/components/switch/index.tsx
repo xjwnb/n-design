@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2021-10-31 17:03:08
- * @LastEditTime: 2021-10-31 18:38:27
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \n-design\src\components\switch\index.tsx
- */
 import { useState, BaseSyntheticEvent, ReactElement } from "react";
 import style from "./index.module.scss";
 
@@ -32,7 +24,6 @@ export default function Switch(Props: IProps) {
    * 点击事件
    */
   const handleClick = function (event: BaseSyntheticEvent) {
-    // console.log(event);
     if (disabled) return;
     setvalue(!value);
 
