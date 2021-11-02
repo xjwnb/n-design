@@ -40,3 +40,9 @@
 /* span {
   padding: 0 !important;
 } */
+
+.n_space {
+  height: 100px !important;
+  width: 500px !important;
+  border: 1px solid aqua !important;
+}

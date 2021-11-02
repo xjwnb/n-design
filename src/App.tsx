@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-01 21:51:45
+ * @LastEditTime: 2021-11-02 10:09:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -21,6 +21,7 @@ import {
   Switch,
   Image,
   Layout,
+  Space,
 } from "./components/index";
 import { Left, Right, Search } from "./Icons/icon/index";
 
@@ -344,6 +345,108 @@ function App() {
           </Layout>
           <Layout.Footer>Footer</Layout.Footer>
         </Layout>
+      </div>
+
+      {/* space */}
+      <div>
+        <h1>Space</h1>
+        <Space>
+          <Button>什么东西</Button>
+          <Button>什么东西</Button>
+          <Button>什么东西</Button>
+          <Button>什么东西</Button>
+          <Button>什么东西</Button>
+          <Button>什么东西</Button>
+        </Space>
+        <br />
+        <br />
+        <Space size="middle">
+          <Button>什么东西</Button>
+          <Button>什么东西</Button>
+          <Button>什么东西</Button>
+          <Button>什么东西</Button>
+          <Button>什么东西</Button>
+          <Button>什么东西</Button>
+        </Space>
+        <br />
+        <br />
+        <Space size="large">
+          <Button>什么东西</Button>
+          <Button>什么东西</Button>
+          <Button>什么东西</Button>
+          <Button>什么东西</Button>
+          <Button>什么东西</Button>
+          <Button>什么东西</Button>
+        </Space>
+        <br />
+        <br />
+        <div className="box">
+          <Space align="start">
+            什么东西 什么东西
+            <Button>什么东西</Button>
+            <Button>什么东西</Button>
+            <span>什么东西</span>
+            <span>什么东西</span>
+          </Space>
+        </div>
+        <br />
+        <br />
+        <div className="box">
+          <Space align="end">
+            什么东西 什么东西
+            <Button>什么东西</Button>
+            <Button>什么东西</Button>
+            <span>什么东西</span>
+            <span>什么东西</span>
+          </Space>
+        </div>
+        <br />
+        <br />
+        <div className="box">
+          <Space align="center">
+            什么东西 什么东西
+            <Button>什么东西</Button>
+            <Button>什么东西</Button>
+            <span>什么东西</span>
+            <span>什么东西</span>
+          </Space>
+        </div>
+        <br />
+        <br />
+
+        <div className="box">
+          <Space align="baseline">
+            什么东西 什么东西
+            <Button>什么东西</Button>
+            <Button>什么东西</Button>
+            <span>什么东西</span>
+            <span>什么东西</span>
+          </Space>
+        </div>
+
+        <br />
+        <br />
+
+        <div className="box">
+          <Space wrap size={[8, 16]}>
+            <Button>什么东西</Button>
+            <Button>什么东西</Button>
+            <Button>什么东西</Button>
+            <Button>什么东西</Button>
+            <Button>什么东西</Button>
+            <Button>什么东西</Button>
+            <Button>什么东西</Button>
+            <Button>什么东西</Button>
+            <Button>什么东西</Button>
+            <Button>什么东西</Button>
+            <Button>什么东西</Button>
+            <Button>什么东西</Button>
+            <Button>什么东西</Button>
+            <Button>什么东西</Button>
+            <Button>什么东西</Button>
+            <Button>什么东西</Button>
+          </Space>
+        </div>
       </div>
     </div>
   );
