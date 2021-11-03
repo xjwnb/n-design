@@ -12,7 +12,6 @@ export default function Layout(Props: layoutProps) {
   const [hasAside, sethasAside] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log(children[0].type.toString() === Sider.toString())
     sethasAside(
       children.some((item) => item.type.toString() === Sider.toString())
     );
