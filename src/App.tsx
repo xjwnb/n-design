@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-02 10:09:38
+ * @LastEditTime: 2021-11-02 11:23:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -22,6 +22,7 @@ import {
   Image,
   Layout,
   Space,
+  Select,
 } from "./components/index";
 import { Left, Right, Search } from "./Icons/icon/index";
 
@@ -447,6 +448,15 @@ function App() {
             <Button>什么东西</Button>
           </Space>
         </div>
+      </div>
+
+      {/* select */}
+      <div>
+        <h1>Select</h1>
+        <Select>
+          <Select.Option value="1">什么东西</Select.Option>
+          <Select.Option value="2">什么东西</Select.Option>
+        </Select>
       </div>
     </div>
   );
