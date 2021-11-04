@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-02 11:23:36
+ * @LastEditTime: 2021-11-03 16:32:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -453,10 +453,13 @@ function App() {
       {/* select */}
       <div>
         <h1>Select</h1>
-        <Select>
-          <Select.Option value="1">什么东西</Select.Option>
-          <Select.Option value="2">什么东西</Select.Option>
-        </Select>
+        <div className="select_container">
+          <Select>
+            <Select.Option value="1">什么东西</Select.Option>
+            <Select.Option value="2">什么东西</Select.Option>
+          </Select>
+          <Button>什么玩意儿</Button>
+        </div>
       </div>
     </div>
   );

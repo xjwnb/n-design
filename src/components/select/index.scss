@@ -1,0 +1,64 @@
+@import "../../../assets/css/common.scss";
+
+.n_select {
+  position: relative;
+  // width: 100%;
+  // padding: 4px 0 4px 11px;
+  // border-radius: 2px;
+  // border: 1px solid $border;
+  // box-sizing: border-box;
+  // display: flex;
+  // align-items: center;
+  // transition: all 0.3s;
+  // position: relative;
+  // cursor: pointer;
+
+  .n_select_input_container {
+    width: 100%;
+    padding: 4px 0 4px 11px;
+    border-radius: 2px;
+    border: 1px solid $border;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s;
+    position: relative;
+    cursor: pointer;
+
+    &:hover {
+      border: 1px solid $primary;
+    }
+  }
+
+  .n_select_input {
+    width: 100%;
+
+    input {
+      outline-style: none;
+      // flex: 1;
+      width: 100%;
+      box-sizing: border-box;
+      border: none;
+      cursor: pointer;
+    }
+  }
+
+  .n_select_icon {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+  }
+
+  .n_select_options_container {
+    position: absolute;
+    width: 100%;
+    top: 115%;
+    left: 0;
+    right: 0;
+    z-index: 8;
+    border: 1px solid $border;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+    padding: 6px 0;
+    background-color: #fff;
+  }
+}
