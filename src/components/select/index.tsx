@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-02 10:44:07
- * @LastEditTime: 2021-11-05 08:41:59
+ * @LastEditTime: 2021-11-05 08:45:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\components\select\index.tsx
@@ -14,7 +14,6 @@ import {
   useContext,
   BaseSyntheticEvent,
 } from "react";
-// import Style from "./index.module.scss";
 import "./index.scss";
 import { Bottom, Closefill, Search } from "../../Icons/icon/index";
 
@@ -75,10 +74,8 @@ function Select(Props: IProps) {
   const selectRef = useRef<HTMLDivElement>(null);
   const optionsContainer = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  // const selectIconRef = useRef<HTMLDivElement>(null);
 
   const changeValue = function (value: string, children: string) {
-    // console.log("select", value, children);
     setvalue(value);
     setisShowOptions(false);
     setinputVal(children);
@@ -112,10 +109,6 @@ function Select(Props: IProps) {
     setisShowOptions(!isShowOptions);
   };
 
-  // useCallback(() => {
-  //   isParentEle(clickTarget, selectRef.current);
-  // }, [clickTarget, isParentEle]);
-
   useEffect(() => {
     /**
      * 点击判断元素父元素
@@ -136,7 +129,6 @@ function Select(Props: IProps) {
       return isParentEle((targetEle as HTMLElement)?.parentNode, parentEle);
     };
     document.body.addEventListener("click", (e: MouseEvent) => {
-      // console.log(e);
       setclickTarget(e.target);
       const flag = isParentEle(e.target, selectRef.current);
       // console.log(flag);
@@ -160,22 +152,13 @@ function Select(Props: IProps) {
   useEffect(() => {
     if (isShowOptions && showSearch) {
       setisShowSearch(true);
-      // setcopyInputValue(inputVal);
-      // setplaceholderValue(copyInputValue);
-      // setinputVal("");
-    } /* else if (!isShowOptions && showSearch) {
-      setinputVal(copyInputValue);
-      setplaceholderValue(placeholder);
-    }  */ else {
+    } else {
       setisShowSearch(false);
-      // setplaceholderValue(placeholder);
-      // setinputVal(copyInputValue);
     }
   }, [isShowOptions, showSearch]);
 
   useEffect(() => {
     if (isShowOptions && showSearch) {
-      console.log(inputVal);
       setcopyInputValue(inputVal);
       setplaceholderValue(inputVal);
       setinputVal("");
@@ -186,33 +169,6 @@ function Select(Props: IProps) {
     // eslint-disable-next-line
   }, [isShowOptions]);
 
-  /* useEffect(() => {
-    if (isShowSearch && showSearch) {
-      let inputValue = inputVal;
-      setcopyInputValue(inputValue);
-      setplaceholderValue(inputValue);
-      setinputVal("");
-    } else {
-      setinputVal(copyInputValue);
-      setplaceholderValue(placeholder);
-    }
-  }, [isShowSearch, showSearch]); */
-
-  /*  useEffect(() => {
-    if (showSearch) {
-      if (isShowSearch) {
-        let inputValue = inputVal;
-        console.log(inputVal);
-        setcopyInputValue(inputValue);
-        setplaceholderValue(inputValue);
-        setinputVal("");
-      } else {
-        setinputVal(copyInputValue);
-        setplaceholderValue(placeholder);
-      }
-    }
-  }, [showSearch, isShowSearch, inputVal, copyInputValue, placeholder]);
- */
   /**
    * 点击清空icon
    */
