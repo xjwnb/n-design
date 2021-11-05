@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2021-11-02 10:44:07
- * @LastEditTime: 2021-11-05 08:45:35
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \n-design\src\components\select\index.tsx
- */
 import {
   useState,
   useRef,
@@ -15,10 +7,10 @@ import {
   BaseSyntheticEvent,
 } from "react";
 import "./index.scss";
-import { Bottom, Closefill, Search } from "../../Icons/icon/index";
+import { Bottom, Closefill, Search, True } from "../../Icons/icon/index";
 
 interface optionContextInterface {
-  value?: string;
+  value?: string | string[];
   inputVal: string;
   showSearch: boolean;
   changeValue: Function;
@@ -36,13 +28,14 @@ const defaultOptionsContext: optionContextInterface = {
 const OptionsContext = createContext(defaultOptionsContext);
 
 interface IProps {
-  children: any;
+  children: any[];
   placeholder?: string;
   style?: object;
-  defaultValue?: string;
+  defaultValue?: string | string[];
   disabled?: boolean;
   allowClear?: boolean;
   showSearch?: boolean;
+  mode?: "multiple";
   onChange?: Function;
 }
 
@@ -55,6 +48,7 @@ function Select(Props: IProps) {
     disabled = false,
     allowClear = false,
     showSearch = false,
+    mode = "",
     onChange,
   } = Props;
 
@@ -75,10 +69,23 @@ function Select(Props: IProps) {
   const optionsContainer = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const changeValue = function (value: string, children: string) {
-    setvalue(value);
-    setisShowOptions(false);
-    setinputVal(children);
+  const changeValue = function (val: string, children: string) {
+    // setvalue(value);
+    if (mode === "multiple" && value instanceof Array) {
+      let preVal = value;
+      if (!value.includes(children)) {
+        let nowVal: Array<string> = preVal.concat(children);
+        setvalue(nowVal);
+        setinputVal(nowVal.join(","));
+      } else {
+        setvalue(value.filter((item) => !item.includes(children)));
+        setinputVal(value.filter((item) => !item.includes(children)).join(","));
+      }
+    } else if (!(value instanceof Array)) {
+      setvalue(val);
+    }
+    !mode && setisShowOptions(false);
+    mode !== "multiple" && setinputVal(children);
   };
 
   useEffect(() => {
@@ -118,7 +125,6 @@ function Select(Props: IProps) {
       parentEle: HTMLDivElement | null
     ): any {
       if (!targetEle) return false;
-      // targetEle
       if (targetEle === parentEle) return true;
       if (
         targetEle === document.body ||
@@ -131,23 +137,32 @@ function Select(Props: IProps) {
     document.body.addEventListener("click", (e: MouseEvent) => {
       setclickTarget(e.target);
       const flag = isParentEle(e.target, selectRef.current);
-      // console.log(flag);
       if (!flag) {
         setisShowOptions(false);
         return;
       }
-      // const isClickOptions =
-      // isParentEle(e.target, optionsContainer.current);
-      // console.log("isClickOptions", isClickOptions);
-      // if (isClickOptions) {
-      //   setisShowOptions()
-      // }
     });
   }, [clickTarget]);
 
   useEffect(() => {
-    onChange && onChange(value);
-  }, [onChange, value, inputVal]);
+    onChange && onChange(inputVal);
+  }, [onChange, inputVal]);
+
+  useEffect(() => {
+    // 过滤出 option 的children
+    if (mode !== "multiple") return;
+    const childArr = children.filter((item) => item.type === Option);
+    const propsChildrenArr = childArr.map((child) => child.props.children);
+    const valueArr = [];
+    if (value instanceof Array) {
+      for (let i = 0; i < value.length; i++) {
+        propsChildrenArr.includes(value[i]) && valueArr.push(value[i]);
+      }
+    }
+    setvalue(valueArr);
+    setinputVal(valueArr.join(","));
+    // eslint-disable-next-line
+  }, [children]);
 
   useEffect(() => {
     if (isShowOptions && showSearch) {
@@ -182,8 +197,6 @@ function Select(Props: IProps) {
    * 输入框输入事件
    */
   const handleInputChange = function (e: BaseSyntheticEvent) {
-    console.log(e);
-    // console.log(inputRef.current?.value);
     setinputVal(inputRef.current?.value || "");
   };
 
@@ -210,6 +223,16 @@ function Select(Props: IProps) {
         }}
         ref={inputContainer}
       >
+        {/* 多选的值容器
+        {mode === "multiple" && value instanceof Array
+          ? value.map((item) => {
+              return (
+                <span className="n_select_options_multi_value_container">
+                  {item}
+                </span>
+              );
+            })
+          : ""} */}
         <span className={"n_select_input"}>
           <input
             type="text"
@@ -305,7 +328,11 @@ function Option(Props: optionProps) {
     <div
       className={[
         "n_select_option",
-        `${optionValue === value ? "n_select_option_active" : ""}`,
+        `${
+          optionValue === value || optionValue?.includes(children)
+            ? "n_select_option_active"
+            : ""
+        }`,
         `${disabled ? "n_select_option_disabled" : ""}`,
       ].join(" ")}
       onClick={handleClickOption}
@@ -313,7 +340,15 @@ function Option(Props: optionProps) {
         display: !isHidden ? "none" : "block",
       }}
     >
-      {children}
+      <div className="n_select_option_inner">
+        <span className="n_select_option_children">{children}</span>
+        {/* <span className="n_select_option_icon">{children}</span> */}
+        {optionValue?.includes(children) && (
+          <span className="n_select_option_icon">
+            <True width={14} height={14} />
+          </span>
+        )}
+      </div>
     </div>
   );
 }

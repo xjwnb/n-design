@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-04 16:42:07
+ * @LastEditTime: 2021-11-05 11:18:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -481,14 +481,46 @@ function App() {
             <Select.Option value="1">什么东西</Select.Option>
             <Select.Option value="2">什么东西啊</Select.Option>
           </Select>
-          <Select placeholder="你选什么东西" defaultValue="2" showSearch>
+          <Select
+            style={{ width: 300 }}
+            placeholder="你选什么东西"
+            defaultValue="2"
+            showSearch
+          >
             <Select.Option value="1">什么东西</Select.Option>
             <Select.Option value="2">什么东西啊</Select.Option>
             <Select.Option value="3">A</Select.Option>
             <Select.Option value="4">AB</Select.Option>
             <Select.Option value="5">C</Select.Option>
+            <Select.Option value="6">D</Select.Option>
+            <Select.Option value="7">E</Select.Option>
+            <Select.Option value="8">F</Select.Option>
+            <Select.Option value="9">G</Select.Option>
+            <Select.Option value="10">H</Select.Option>
+            <Select.Option value="11">I</Select.Option>
+            <Select.Option value="12">J</Select.Option>
           </Select>
           <Button>什么玩意儿</Button>
+          <Select
+            mode="multiple"
+            style={{ width: 300 }}
+            placeholder="你选什么东西"
+            defaultValue={["A", "b", "C", "H", "J"]}
+            onChange={handleSelectChange}
+          >
+            <Select.Option value="1">什么东西</Select.Option>
+            <Select.Option value="2">什么东西啊</Select.Option>
+            <Select.Option value="3">A</Select.Option>
+            <Select.Option value="4">AB</Select.Option>
+            <Select.Option value="5">C</Select.Option>
+            <Select.Option value="6">D</Select.Option>
+            <Select.Option value="7">E</Select.Option>
+            <Select.Option value="8">F</Select.Option>
+            <Select.Option value="9">G</Select.Option>
+            <Select.Option value="10">H</Select.Option>
+            <Select.Option value="11">I</Select.Option>
+            <Select.Option value="12">J</Select.Option>
+          </Select>
         </div>
       </div>
     </div>

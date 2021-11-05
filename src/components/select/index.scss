@@ -65,6 +65,8 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
     padding: 6px 0;
     background-color: #fff;
+    max-height: 210px;
+    overflow-y: scroll;
     // transition: all 2s;
   }
 }
@@ -73,8 +75,15 @@
   padding: 6px 10px;
   background-color: #ffffff;
   transition: all 0.3s;
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
+  box-sizing: border-box;
+
+  .n_select_option_inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
   &:hover {
     background-color: #f5f5f5;
@@ -109,8 +118,31 @@
       input {
         background-color: #f5f5f5;
         cursor: not-allowed;
-        color: #B8B8B8;
+        color: #b8b8b8;
       }
     }
   }
+}
+
+::-webkit-scrollbar {
+  width: 6px; /*对垂直流动条有效*/
+  height: 6px; /*对水平流动条有效*/
+}
+
+/*定义滚动条的轨道颜色、内阴影及圆角*/
+::-webkit-scrollbar-track {
+  background-color: rgb(255, 255, 255);
+  border-radius: 3px;
+}
+
+/*定义滑块颜色、内阴影及圆角*/
+::-webkit-scrollbar-thumb {
+  border-radius: 7px;
+  // background-color: #7f7f7f;
+  background-color: $border;
+}
+
+/*定义右下角汇合处的样式*/
+::-webkit-scrollbar-corner {
+  background: transparent;
 }
