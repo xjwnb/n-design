@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-02 10:44:07
- * @LastEditTime: 2021-11-04 17:31:06
+ * @LastEditTime: 2021-11-05 08:41:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\components\select\index.tsx
@@ -78,14 +78,13 @@ function Select(Props: IProps) {
   // const selectIconRef = useRef<HTMLDivElement>(null);
 
   const changeValue = function (value: string, children: string) {
-    console.log("select", value, children);
+    // console.log("select", value, children);
     setvalue(value);
     setisShowOptions(false);
     setinputVal(children);
   };
 
   useEffect(() => {
-    console.log(inputContainer.current);
     inputContainer.current?.addEventListener("mouseover", () => {
       setisShowBorder(true);
     });
@@ -153,10 +152,6 @@ function Select(Props: IProps) {
       // }
     });
   }, [clickTarget]);
-  
-  useEffect(() => {
-    console.log(children);
-  }, [children]);
 
   useEffect(() => {
     onChange && onChange(value);
@@ -177,6 +172,19 @@ function Select(Props: IProps) {
       // setinputVal(copyInputValue);
     }
   }, [isShowOptions, showSearch]);
+
+  useEffect(() => {
+    if (isShowOptions && showSearch) {
+      console.log(inputVal);
+      setcopyInputValue(inputVal);
+      setplaceholderValue(inputVal);
+      setinputVal("");
+    } else if (!isShowOptions && !showSearch && copyInputValue) {
+      setinputVal(copyInputValue);
+      setplaceholderValue(placeholder);
+    }
+    // eslint-disable-next-line
+  }, [isShowOptions]);
 
   /* useEffect(() => {
     if (isShowSearch && showSearch) {
