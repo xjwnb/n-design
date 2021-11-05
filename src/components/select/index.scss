@@ -13,6 +13,11 @@
   // position: relative;
   // cursor: pointer;
 
+  &.n_select_disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+  }
+
   .n_select_input_container {
     width: 100%;
     padding: 4px 0 4px 11px;
@@ -60,5 +65,52 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
     padding: 6px 0;
     background-color: #fff;
+    // transition: all 2s;
+  }
+}
+
+.n_select_option {
+  padding: 6px 10px;
+  background-color: #ffffff;
+  transition: all 0.3s;
+  font-size: 14px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+
+  &.n_select_option_active {
+    background-color: #e6f7ff;
+  }
+
+  &.n_select_option_disabled {
+    background-color: #fff;
+    cursor: not-allowed;
+    color: $border;
+
+    &:hover {
+      background-color: #fff;
+    }
+  }
+}
+
+.n_select_disabled {
+  .n_select_input_container {
+    cursor: not-allowed;
+
+    &:hover {
+      border: 1px solid $border !important;
+    }
+
+    .n_select_input {
+      cursor: not-allowed;
+
+      input {
+        background-color: #f5f5f5;
+        cursor: not-allowed;
+        color: #B8B8B8;
+      }
+    }
   }
 }
