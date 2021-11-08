@@ -1,0 +1,21 @@
+@import "../../../assets/css/common.scss";
+
+.n_pagination {
+  .n_pagination_content {
+    // display: ;
+    display: flex;
+    gap: 8px;
+  }
+}
+
+.n_pagination_button {
+  // display: inline-block;
+  min-width: 20px;
+  height: 20px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid $border;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-05 11:18:03
+ * @LastEditTime: 2021-11-05 15:27:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -23,6 +23,7 @@ import {
   Layout,
   Space,
   Select,
+  Pagination
 } from "./components/index";
 import { Left, Right, Search } from "./Icons/icon/index";
 
@@ -522,6 +523,12 @@ function App() {
             <Select.Option value="12">J</Select.Option>
           </Select>
         </div>
+      </div>
+
+
+      {/* Pagination */}
+      <div>
+        <Pagination total={100} />
       </div>
     </div>
   );
