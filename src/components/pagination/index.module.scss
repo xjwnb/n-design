@@ -18,4 +18,27 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  transition: all .3s;
+
+  &:hover {
+    color: $primary;
+    border: 1px solid $primary;
+  }
+}
+
+.n_pagination_button_active {
+  color: $primary;
+  border: 1px solid $primary;
+  font-weight: 700;
+}
+
+
+.n_pagination_button_disabled {
+  opacity: .9;
+  cursor: not-allowed;
+
+  &:hover {
+    border: 1px solid $border;
+  }
 }
