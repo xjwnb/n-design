@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-05 15:06:14
- * @LastEditTime: 2021-11-09 11:23:30
+ * @LastEditTime: 2021-11-09 11:43:43
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\pagination\index.tsx
@@ -21,6 +21,7 @@ interface IProps {
   pageSizeOptions?: Array<number>;
   showTotal?: showTotalType;
   onChange?: Function;
+  onShowSizeChange?: Function;
 }
 
 type showTotalType = (total: number) => string | React.ReactElement;
@@ -35,6 +36,7 @@ function Pagination(Props: IProps) {
     pageSizeOptions = [10, 20, 50, 100],
     onChange,
     showTotal,
+    onShowSizeChange,
   } = Props;
 
   const [lastPage, setlastPage] = useState<number>(1);
@@ -143,6 +145,8 @@ function Pagination(Props: IProps) {
     let currentOption = selectOptions.find((item) => item.children === value);
     setpageSize(Number(currentOption?.value));
     setselectDefaultValue(Number(currentOption?.value));
+    onShowSizeChange &&
+      onShowSizeChange(Number(currentPage), Number(currentOption?.value));
   };
 
   /**
