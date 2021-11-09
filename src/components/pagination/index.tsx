@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-05 15:06:14
- * @LastEditTime: 2021-11-09 09:22:09
+ * @LastEditTime: 2021-11-09 09:32:07
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\pagination\index.tsx
@@ -26,43 +26,10 @@ function Pagination(Props: IProps) {
   useEffect(() => {}, []);
 
   useEffect(() => {
-    // console.log(defaultPageSize);
     setlastPage(Math.ceil(total / defaultPageSize) || 1);
   }, [defaultPageSize, total]);
 
-  // useEffect(() => {
-  //   let otherPage = [];
-  //   if (lastPage <= 6 && lastPage > 1) {
-  //     console.log(lastPage);
-  //     for (let i = 2; i < lastPage; i++) {
-  //       otherPage.push(i);
-  //     }
-  //   } else {
-  //     otherPage = currentPageAroundArr(currentPage, lastPage);
-  //   }
-  //   // console.log(otherPage);
-  //   setotherPageArr(otherPage);
-  // }, [currentPage, lastPage]);
   useEffect(() => {
-    let otherPage: Array<number | string> = [];
-    // if (currentPage + 2 < lastPage && currentPage - 2 < 1) {
-    //   for (let i = 2; i < currentPage + 6; i++) {
-    //     console.log(i);
-    //     otherPage.push(i);
-    //   }
-    // }
-    /* if (lastPage <= 6) {
-      for (let i = 2; i < lastPage; i++) {
-        otherPage.push(i);
-      }
-    }  */ /* else if (currentPage - 2 > 1 && currentPage + 2 < lastPage - 1) {
-      otherPage.push("pre");
-      for (let i = currentPage - 2; i <= currentPage + 2; i++) {
-        otherPage.push(i);
-      }
-    } else if (currentPage <= 4 &&) {
-
-    } */
     let arr: any[] = [];
     for (let i = currentPage - 2; i <= currentPage + 2; i++) {
       arr.push(i);
@@ -102,45 +69,9 @@ function Pagination(Props: IProps) {
   }, [currentPage, lastPage]);
 
   /**
-   * 判断当前选中页面，为中心，周围5页的数组,总页面数量大于 6 的情况
-   */
-  const currentPageAroundArr = function (
-    currentPage: number,
-    lastPage: number
-  ) {
-    let otherArr: any[] = [];
-    // if (currentPage >= 5 && lastPage <= 8) {
-    //   otherArr = ["pre", 3, 4, 5];
-    //   for (let i = 6; i < lastPage; i++) {
-    //     otherArr.push(i);
-    //   }
-    // } else if (lastPage < 8) {
-    //   for (let i = 2; i < lastPage; i++) {
-    //     otherArr.push(i);
-    //   }
-    // }
-    // console.log(otherArr);
-
-    // // setotherPageArr(otherArr);
-    // if (currentPage - 2 <= 1) return [];
-    if (currentPage < 5) {
-      for (let i = 2; i < 6; i++) {
-        otherArr.push(i);
-      }
-    } else if (currentPage + 2 < lastPage) {
-      for (let i = currentPage - 2; i < currentPage + 3; i++) {
-        otherArr.push(i);
-      }
-    }
-    console.log(otherArr);
-    return otherArr;
-  };
-
-  /**
    * 点击页面
    */
   const handleClickPage = function (page: number) {
-    console.log(page);
     setcurrentPage(page);
   };
 
@@ -177,31 +108,32 @@ function Pagination(Props: IProps) {
           1
         </PaginationButton>
 
-        {otherPageArr.map((item, index) => {
-          if (!isNaN(item)) {
-            return (
-              <PaginationButton
-                onClick={() => handleClickPage(item)}
-                key={item}
-                defaultCurrent={currentPage}
-              >
-                {item}
-              </PaginationButton>
-            );
-          } else if (item === "pre") {
-            return (
-              <PaginationButton key={item} onClick={() => handlePreClick()}>
-                ...
-              </PaginationButton>
-            );
-          } else if (item === "next") {
-            return (
-              <PaginationButton key={item} onClick={() => handleNextClick()}>
-                ...
-              </PaginationButton>
-            );
-          }
-        })}
+        {otherPageArr.length > 0 &&
+          otherPageArr?.map((item, index) => {
+            if (item === "pre") {
+              return (
+                <PaginationButton key={item} onClick={() => handlePreClick()}>
+                  ...
+                </PaginationButton>
+              );
+            } else if (item === "next") {
+              return (
+                <PaginationButton key={item} onClick={() => handleNextClick()}>
+                  ...
+                </PaginationButton>
+              );
+            } else {
+              return (
+                <PaginationButton
+                  onClick={() => handleClickPage(item)}
+                  key={item}
+                  defaultCurrent={currentPage}
+                >
+                  {item}
+                </PaginationButton>
+              );
+            }
+          })}
 
         {lastPage > 1 && (
           <PaginationButton
@@ -233,8 +165,6 @@ interface btnProps {
   lastPage?: number;
 
   onClick?: MouseEventHandler<HTMLDivElement>;
-
-  // onChangeCurrent?: Function;
 }
 
 function PaginationButton(Props: btnProps) {
