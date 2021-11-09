@@ -23,7 +23,7 @@ import {
   Layout,
   Space,
   Select,
-  Pagination
+  Pagination,
 } from "./components/index";
 import { Left, Right, Search } from "./Icons/icon/index";
 
@@ -79,6 +79,16 @@ function App() {
    */
   const handleSelectChange = function (value: string) {
     console.log(value);
+  };
+
+  /**
+   * Pagination 分页 change
+   */
+  const handlePaginationChange = function (
+    current: number,
+    defaultPageSize: number
+  ) {
+    console.log(current, defaultPageSize);
   };
 
   useEffect(() => {
@@ -525,10 +535,9 @@ function App() {
         </div>
       </div>
 
-
       {/* Pagination */}
       <div>
-        <Pagination total={100} />
+        <Pagination total={100} onChange={handlePaginationChange} />
         <Pagination total={100} disabled />
       </div>
     </div>

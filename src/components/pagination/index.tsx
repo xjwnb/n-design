@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-05 15:06:14
- * @LastEditTime: 2021-11-09 09:42:11
+ * @LastEditTime: 2021-11-09 09:51:03
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\pagination\index.tsx
@@ -15,6 +15,8 @@ interface IProps {
   defaultCurrent?: number;
   total: number;
   disabled?: boolean;
+
+  onChange?: Function;
 }
 
 function Pagination(Props: IProps) {
@@ -23,6 +25,7 @@ function Pagination(Props: IProps) {
     total = 0,
     defaultCurrent = 1,
     disabled = false,
+    onChange,
   } = Props;
 
   const [lastPage, setlastPage] = useState<number>(1);
@@ -73,6 +76,11 @@ function Pagination(Props: IProps) {
     }
     setotherPageArr(arr);
   }, [currentPage, lastPage]);
+
+  useEffect(() => {
+    onChange && onChange(currentPage, defaultPageSize);
+    // eslint-disable-next-line
+  }, [currentPage]);
 
   /**
    * 点击页面
