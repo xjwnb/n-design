@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-09 08:44:17
+ * @LastEditTime: 2021-11-09 09:39:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -529,6 +529,7 @@ function App() {
       {/* Pagination */}
       <div>
         <Pagination total={100} />
+        <Pagination total={100} disabled />
       </div>
     </div>
   );

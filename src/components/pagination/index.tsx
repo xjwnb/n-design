@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-05 15:06:14
- * @LastEditTime: 2021-11-09 09:33:31
+ * @LastEditTime: 2021-11-09 09:42:11
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\pagination\index.tsx
@@ -14,10 +14,16 @@ interface IProps {
   defaultPageSize?: number;
   defaultCurrent?: number;
   total: number;
+  disabled?: boolean;
 }
 
 function Pagination(Props: IProps) {
-  const { defaultPageSize = 10, total = 0, defaultCurrent = 1 } = Props;
+  const {
+    defaultPageSize = 10,
+    total = 0,
+    defaultCurrent = 1,
+    disabled = false,
+  } = Props;
 
   const [lastPage, setlastPage] = useState<number>(1);
   const [otherPageArr, setotherPageArr] = useState<Array<any>>([]);
@@ -72,6 +78,7 @@ function Pagination(Props: IProps) {
    * 点击页面
    */
   const handleClickPage = function (page: number) {
+    if (disabled) return;
     setcurrentPage(page);
   };
 
@@ -79,6 +86,7 @@ function Pagination(Props: IProps) {
    * pre ...
    */
   const handlePreClick = function () {
+    if (disabled) return;
     if (currentPage === 1) return;
     setcurrentPage(currentPage - 1);
   };
@@ -87,6 +95,7 @@ function Pagination(Props: IProps) {
    * next ...
    */
   const handleNextClick = function () {
+    if (disabled) return;
     if (currentPage === lastPage) return;
     setcurrentPage(currentPage + 1);
   };
@@ -98,12 +107,14 @@ function Pagination(Props: IProps) {
           lastPage={lastPage}
           defaultCurrent={currentPage}
           onClick={handlePreClick}
+          disabled={disabled}
         >
-          <Left color={currentPage === 1 ? "#CFCFCF" : ""} />
+          <Left color={currentPage === 1 || disabled ? "#CFCFCF" : ""} />
         </PaginationButton>
         <PaginationButton
           onClick={() => handleClickPage(1)}
           defaultCurrent={currentPage}
+          disabled={disabled}
         >
           1
         </PaginationButton>
@@ -112,13 +123,21 @@ function Pagination(Props: IProps) {
           otherPageArr?.map((item, index) => {
             if (item === "pre") {
               return (
-                <PaginationButton key={item} onClick={() => handlePreClick()}>
+                <PaginationButton
+                  disabled={disabled}
+                  key={item}
+                  onClick={() => handlePreClick()}
+                >
                   ...
                 </PaginationButton>
               );
             } else if (item === "next") {
               return (
-                <PaginationButton key={item} onClick={() => handleNextClick()}>
+                <PaginationButton
+                  disabled={disabled}
+                  key={item}
+                  onClick={() => handleNextClick()}
+                >
                   ...
                 </PaginationButton>
               );
@@ -128,6 +147,7 @@ function Pagination(Props: IProps) {
                   onClick={() => handleClickPage(item)}
                   key={item}
                   defaultCurrent={currentPage}
+                  disabled={disabled}
                 >
                   {item}
                 </PaginationButton>
@@ -139,6 +159,7 @@ function Pagination(Props: IProps) {
           <PaginationButton
             onClick={() => handleClickPage(lastPage)}
             defaultCurrent={currentPage}
+            disabled={disabled}
           >
             {lastPage}
           </PaginationButton>
@@ -148,8 +169,11 @@ function Pagination(Props: IProps) {
           lastPage={lastPage}
           defaultCurrent={currentPage}
           onClick={handleNextClick}
+          disabled={disabled}
         >
-          <Right color={currentPage === lastPage ? "#CFCFCF" : ""} />
+          <Right
+            color={currentPage === lastPage || disabled ? "#CFCFCF" : ""}
+          />
         </PaginationButton>
       </div>
     </div>
@@ -163,12 +187,19 @@ interface btnProps {
   children: any;
   defaultCurrent?: number;
   lastPage?: number;
+  disabled?: boolean;
 
   onClick?: MouseEventHandler<HTMLDivElement>;
 }
 
 function PaginationButton(Props: btnProps) {
-  const { children, defaultCurrent, onClick: handleClick, lastPage } = Props;
+  const {
+    children,
+    defaultCurrent,
+    onClick: handleClick,
+    lastPage,
+    disabled = false,
+  } = Props;
 
   return (
     <div
@@ -181,7 +212,8 @@ function PaginationButton(Props: btnProps) {
         }`,
         `${
           (defaultCurrent === 1 && children?.type === Left) ||
-          (defaultCurrent === lastPage && children?.type === Right)
+          (defaultCurrent === lastPage && children?.type === Right) ||
+          disabled
             ? Style.n_pagination_button_disabled
             : ""
         }`,

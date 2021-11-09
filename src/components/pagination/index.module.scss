@@ -37,8 +37,12 @@
 .n_pagination_button_disabled {
   opacity: .9;
   cursor: not-allowed;
-
+  color: #CFCFCF;
+  border: 1px solid #CFCFCF;
+  font-weight: normal;
   &:hover {
     border: 1px solid $border;
+    color: #CFCFCF;
+    font-weight: normal;
   }
 }
