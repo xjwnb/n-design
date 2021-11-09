@@ -1,8 +1,11 @@
 @import "../../../assets/css/common.scss";
 
 .n_pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
   .n_pagination_content {
-    // display: ;
     display: flex;
     gap: 8px;
   }
@@ -40,9 +43,31 @@
   color: #CFCFCF;
   border: 1px solid #CFCFCF;
   font-weight: normal;
+
   &:hover {
     border: 1px solid $border;
     color: #CFCFCF;
     font-weight: normal;
   }
+}
+
+.n_pagination_quickJumper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 0 10px;
+
+  .n_pagination_quickJumper_text {
+    margin: 0 5px;
+    font-size: 13px;
+  }
+
+  .n_pagination_quickJumper_input {
+    width: 50px;
+  }
+}
+
+.n_pagination_total {
+  font-size: 13px;
+  padding: 0 5px;
 }

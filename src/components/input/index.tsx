@@ -71,12 +71,16 @@ export default function Input(props: IProps) {
     });
   }, [inputFocus]);
 
+  useEffect(() => {
+    setinputValue(value);
+  }, [value]);
+
   /**
    * input - change
    */
   const handleChange = function (event: BaseSyntheticEvent) {
     setinputValue(inputRef.current?.value);
-    onChange && onChange(event);
+    onChange && onChange(inputRef.current?.value, event);
   };
 
   /**
