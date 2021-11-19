@@ -51,3 +51,23 @@
 .select_container {
   height: 500px;
 }
+
+.col_container {
+  background-color: #0092FF;
+  color: #fff;
+  text-align: center;
+  height: 60px;
+  line-height: 60px;
+}
+
+.col_container1 {
+  background-color: #40ADFF;
+  color: #fff;
+  text-align: center;
+  height: 60px;
+  line-height: 60px;
+}
+
+.row_container {
+  margin: 10px;
+}

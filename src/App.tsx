@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-09 11:18:06
+ * @LastEditTime: 2021-11-19 15:17:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -24,6 +24,9 @@ import {
   Space,
   Select,
   Pagination,
+  Form,
+  Row,
+  Col,
 } from "./components/index";
 import { Left, Right, Search } from "./Icons/icon/index";
 
@@ -544,6 +547,262 @@ function App() {
           showQuickJumper
         />
         <Pagination total={100} disabled />
+      </div>
+
+      {/* form */}
+      <div>
+        <Form>
+          <Form.Item label="姓名">
+            <Input />
+          </Form.Item>
+        </Form>
+      </div>
+
+      {/* Row - Col */}
+      <div>
+        <div className="row_container">
+          <Row>
+            <Col span={24}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+          </Row>
+        </div>
+
+        <div className="row_container">
+          <Row>
+            <Col span={12}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+            <Col span={12}>
+              <div className="col_container1">什么玩意儿</div>
+            </Col>
+          </Row>
+        </div>
+
+        <div className="row_container">
+          <Row>
+            <Col span={8}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+            <Col span={8}>
+              <div className="col_container1">什么玩意儿</div>
+            </Col>
+            <Col span={8}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+          </Row>
+        </div>
+
+        <div className="row_container">
+          <Row>
+            <Col span={6}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+            <Col span={6}>
+              <div className="col_container1">什么玩意儿</div>
+            </Col>
+            <Col span={6}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+            <Col span={6}>
+              <div className="col_container1">什么玩意儿</div>
+            </Col>
+          </Row>
+        </div>
+
+        <div className="row_container">
+          <Row>
+            <Col span={4}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+            <Col span={4}>
+              <div className="col_container1">什么玩意儿</div>
+            </Col>
+            <Col span={4}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+            <Col span={4}>
+              <div className="col_container1">什么玩意儿</div>
+            </Col>
+            <Col span={4}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+            <Col span={4}>
+              <div className="col_container1">什么玩意儿</div>
+            </Col>
+          </Row>
+        </div>
+
+        <div className="row_container">
+          <Row gutter={16}>
+            <Col span={12}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+            <Col span={12}>
+              <div className="col_container1">什么玩意儿</div>
+            </Col>
+          </Row>
+        </div>
+
+        <div className="row_container">
+          <Row gutter={32}>
+            <Col span={12}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+            <Col span={12}>
+              <div className="col_container1">什么玩意儿</div>
+            </Col>
+          </Row>
+        </div>
+
+        <div className="row_container">
+          <Row gutter={16}>
+            <Col span={6}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+            <Col span={6}>
+              <div className="col_container1">什么玩意儿</div>
+            </Col>
+            <Col span={6}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+            <Col span={6}>
+              <div className="col_container1">什么玩意儿</div>
+            </Col>
+          </Row>
+        </div>
+
+        <div className="row_container">
+          <Row gutter={[16, 24]}>
+            <Col span={6}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+            <Col span={6}>
+              <div className="col_container1">什么玩意儿</div>
+            </Col>
+            <Col span={6}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+            <Col span={6}>
+              <div className="col_container1">什么玩意儿</div>
+            </Col>
+            <Col span={6}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+            <Col span={6}>
+              <div className="col_container1">什么玩意儿</div>
+            </Col>
+            <Col span={6}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+            <Col span={6}>
+              <div className="col_container1">什么玩意儿</div>
+            </Col>
+          </Row>
+        </div>
+
+        <div className="row_container">
+          <Row>
+            <Col span={8}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+            <Col span={8} offset={8}>
+              <div className="col_container1">什么玩意儿</div>
+            </Col>
+          </Row>
+        </div>
+
+        <div className="row_container">
+          <Row>
+            <Col span={18} push={6}>
+              <div className="col_container">右移</div>
+            </Col>
+            <Col span={6} pull={18}>
+              <div className="col_container1">左移</div>
+            </Col>
+          </Row>
+        </div>
+
+        <div className="row_container">
+          <Row>
+            <Col span={8}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+            <Col span={8} offset={8}>
+              <div className="col_container1">什么玩意儿</div>
+            </Col>
+          </Row>
+        </div>
+
+        <div className="row_container">
+          <Row justify="start">
+            <Col span={4}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+            <Col span={4}>
+              <div className="col_container1">什么玩意儿</div>
+            </Col>
+            <Col span={4}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+          </Row>
+        </div>
+
+        <div className="row_container">
+          <Row justify="center">
+            <Col span={4}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+            <Col span={4}>
+              <div className="col_container1">什么玩意儿</div>
+            </Col>
+            <Col span={4}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+          </Row>
+        </div>
+
+        <div className="row_container">
+          <Row justify="end">
+            <Col span={4}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+            <Col span={4}>
+              <div className="col_container1">什么玩意儿</div>
+            </Col>
+            <Col span={4}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+          </Row>
+        </div>
+
+        <div className="row_container">
+          <Row justify="space-between">
+            <Col span={4}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+            <Col span={4}>
+              <div className="col_container1">什么玩意儿</div>
+            </Col>
+            <Col span={4}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+          </Row>
+        </div>
+
+        <div className="row_container">
+          <Row justify="space-around">
+            <Col span={4}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+            <Col span={4}>
+              <div className="col_container1">什么玩意儿</div>
+            </Col>
+            <Col span={4}>
+              <div className="col_container">什么玩意儿</div>
+            </Col>
+          </Row>
+        </div>
       </div>
     </div>
   );
