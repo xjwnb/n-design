@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-18 14:22:05
- * @LastEditTime: 2021-11-19 15:19:34
+ * @LastEditTime: 2021-11-19 16:00:51
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\row\index.tsx
@@ -15,6 +15,7 @@ interface rowProps {
   children: ReactElement | Array<ReactElement>;
   justify?: "start" | "center" | "end" | "space-between" | "space-around" | "";
   align?: "top" | "middle" | "bottom" | "";
+  className?: string;
 }
 
 const justifyConfig = {
@@ -40,7 +41,7 @@ export const RowContext = createContext<rowContext>({
 });
 
 function Row(Props: rowProps) {
-  const { children, gutter = 0, justify = "", align = "" } = Props;
+  const { children, gutter = 0, justify = "", align = "", className } = Props;
 
   const [gutterValue] = useState(gutter);
   const [mgl, setmgl] = useState(0);
@@ -55,7 +56,7 @@ function Row(Props: rowProps) {
 
   return (
     <div
-      className={Style.n_row}
+      className={[Style.n_row, className].join(" ")}
       style={{
         marginLeft: `-${mgl / 2}px`,
         marginRight: `-${mgl / 2}px`,
