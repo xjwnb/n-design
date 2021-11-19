@@ -10,3 +10,23 @@
   font-size: 14px;
   transition: margin-bottom 0.3s 17ms linear;
 }
+
+.n_form_item_key {
+  text-align: right;
+}
+
+.n_form_item_row {
+
+}
+
+.n_form_item_col {
+  vertical-align: middle;
+}
+
+.n_form_item_label {
+  margin-right: 10px;
+}
+
+.n_form_item_label::after {
+  content: ":";
+}
