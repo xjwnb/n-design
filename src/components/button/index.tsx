@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 13:35:33
- * @LastEditTime: 2021-10-29 14:01:35
+ * @LastEditTime: 2021-11-19 16:54:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\components\button\index.tsx
@@ -27,6 +27,7 @@ type IProps = {
 
   style?: object;
   className?: string;
+  htmlType?: "submit" | "button" | "reset";
 
   onClick?: Function;
 };
@@ -45,6 +46,7 @@ function Button(Props: IProps) {
     target,
     className,
     style: styleObj,
+    htmlType = "button",
   } = Props;
 
   const handleClick = function (event: SyntheticEvent) {
@@ -73,6 +75,7 @@ function Button(Props: IProps) {
         ...styleObj,
       }}
       onClick={handleClick}
+      type={htmlType}
     >
       <div className={style.n_btn_content}>
         {/* Icon */}
