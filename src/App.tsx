@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-20 09:20:26
+ * @LastEditTime: 2021-11-20 14:20:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -798,10 +798,20 @@ function App() {
 
       {/* form */}
       <div>
-        <Form initialValues={{ username: "小卡车" }}>
+        <Form
+          initialValues={{ username: "小卡车" }}
+          onFinish={(val: any) => {
+            console.log("表单值：", val);
+          }}
+        >
           <Form.Item label="姓名" name="username">
             <Input />
           </Form.Item>
+
+          <Form.Item label="密码" name="password">
+            <Input.Password placeholder="密码交出来" />
+          </Form.Item>
+
           <Form.Item>
             <Button type="primary" htmlType="submit">
               Submit

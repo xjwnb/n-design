@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-17 13:53:29
- * @LastEditTime: 2021-11-20 09:35:56
+ * @LastEditTime: 2021-11-20 14:22:23
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\form\index.tsx
@@ -25,6 +25,8 @@ const defaultFormContext: formContextParam = {
   labelCol: { span: 8, offset: 0 },
   wrapperCol: { span: 16, offset: 0 },
   initValues: {},
+  setFieldValue: () => {},
+  handleFinish: (value: object) => {},
 };
 
 const FormContext = createContext<formContextParam>(defaultFormContext);
@@ -35,9 +37,28 @@ const Form = function (Props: formProps) {
     labelCol = { span: 8, offset: 0 },
     wrapperCol = { span: 16, offset: 0 },
     initialValues = {},
+    onFinish,
   } = Props;
 
-  // console.log(children);
+  const [initVal, setinitVal] = useState<object>(initialValues);
+
+  /**
+   * 点击表单提交按钮
+   */
+  const handleFinish = function () {
+    onFinish && onFinish(initVal);
+  };
+
+  /**
+   * 表单 form_value onChange 事件
+   */
+  const setFieldValue = function (key: string, value: any) {
+    console.log(key, value);
+    setinitVal({
+      ...initVal,
+      [key]: value,
+    });
+  };
 
   return (
     <div className={[Style.n_form].join(" ")}>
@@ -45,7 +66,9 @@ const Form = function (Props: formProps) {
         value={{
           labelCol,
           wrapperCol,
-          initValues: initialValues,
+          initValues: initVal,
+          setFieldValue: setFieldValue,
+          handleFinish: handleFinish,
         }}
       >
         {children}
@@ -66,48 +89,61 @@ interface itemProps {
 function Item(Props: itemProps) {
   const { children, label, name } = Props;
 
+  console.log(children);
+
   const [newChildren, setnewChildren] = useState<any>(null);
   const [formValue, setformValue] = useState("");
 
   // context
-  const { labelCol, wrapperCol, initValues } = useContext(FormContext);
+  const { labelCol, wrapperCol, initValues, setFieldValue, handleFinish } =
+    useContext(FormContext);
 
-  console.log(initValues);
-
-  const handleSubmit = function () {
-    console.log("提交按钮");
+  const handleSubmit = () => {
+    handleFinish && handleFinish();
   };
 
   useEffect(() => {
-    // setnewChildren(cloneElement(children, { value: "123" }));
-
     if (children.type === Button) {
-      console.log("有按钮....");
       const newChild = cloneElement(children, {
-        onClick: handleSubmit,
+        onClick: () => {
+          handleSubmit();
+        },
       });
       setnewChildren(newChild);
     } else {
     }
     // eslint-disable-next-line
-  }, []);
+  }, [initValues]);
 
   useEffect(() => {
     for (let key in initValues) {
-      console.log(key);
       if (key === name) {
         initValues && key && setformValue(initValues[key] || "");
-        setnewChildren(cloneElement(children, { value: formValue }));
+        setnewChildren(
+          cloneElement(children, {
+            value: formValue,
+            onChange: function (val: any) {
+              setformValue(val);
+              setFieldValue && setFieldValue(name, val);
+            },
+          })
+        );
         break;
+      } else {
+        // setnewChildren(children);
+        setnewChildren(
+          cloneElement(children, {
+            value: formValue,
+            onChange: function (val: any) {
+              setformValue(val);
+              setFieldValue && setFieldValue(name, val);
+            },
+          })
+        );
       }
     }
-    // if (
-    //   name !== undefined &&
-    //   initValues !== undefined &&
-    //   initValues[name] !== undefined
-    // ) {
-    // }
-  }, [initValues, name, formValue, children]);
+    // eslint-disable-next-line
+  }, [formValue]);
 
   return (
     <div className={[Style.n_form_item].join(" ")}>
