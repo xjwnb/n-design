@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-19 15:31:29
+ * @LastEditTime: 2021-11-19 17:18:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -802,10 +802,14 @@ function App() {
           <Form.Item label="姓名">
             <Input />
           </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
         </Form>
       </div>
 
-      
       <div></div>
     </div>
   );

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 13:35:33
- * @LastEditTime: 2021-11-19 16:54:59
+ * @LastEditTime: 2021-11-19 17:25:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\components\button\index.tsx
@@ -28,6 +28,7 @@ type IProps = {
   style?: object;
   className?: string;
   htmlType?: "submit" | "button" | "reset";
+  ref?: any;
 
   onClick?: Function;
 };
@@ -47,6 +48,8 @@ function Button(Props: IProps) {
     className,
     style: styleObj,
     htmlType = "button",
+    ref,
+    onClick,
   } = Props;
 
   const handleClick = function (event: SyntheticEvent) {
@@ -57,9 +60,11 @@ function Button(Props: IProps) {
       document.body.appendChild(aEle);
       aEle.click();
     }
+    onClick && onClick();
   };
   return (
     <button
+      ref={ref}
       disabled={disabled && disabled !== undefined ? true : false}
       className={[
         `${style.n_btn}`,
