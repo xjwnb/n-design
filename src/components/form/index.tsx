@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-17 13:53:29
- * @LastEditTime: 2021-11-20 08:50:49
+ * @LastEditTime: 2021-11-20 09:35:56
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\form\index.tsx
@@ -24,6 +24,7 @@ import { Row, Col, Button } from "../index";
 const defaultFormContext: formContextParam = {
   labelCol: { span: 8, offset: 0 },
   wrapperCol: { span: 16, offset: 0 },
+  initValues: {},
 };
 
 const FormContext = createContext<formContextParam>(defaultFormContext);
@@ -33,9 +34,10 @@ const Form = function (Props: formProps) {
     children,
     labelCol = { span: 8, offset: 0 },
     wrapperCol = { span: 16, offset: 0 },
+    initialValues = {},
   } = Props;
 
-  console.log(children);
+  // console.log(children);
 
   return (
     <div className={[Style.n_form].join(" ")}>
@@ -43,6 +45,7 @@ const Form = function (Props: formProps) {
         value={{
           labelCol,
           wrapperCol,
+          initValues: initialValues,
         }}
       >
         {children}
@@ -61,19 +64,22 @@ interface itemProps {
 }
 
 function Item(Props: itemProps) {
-  const { children, label } = Props;
+  const { children, label, name } = Props;
 
   const [newChildren, setnewChildren] = useState<any>(null);
+  const [formValue, setformValue] = useState("");
 
   // context
-  const { labelCol, wrapperCol } = useContext(FormContext);
+  const { labelCol, wrapperCol, initValues } = useContext(FormContext);
+
+  console.log(initValues);
 
   const handleSubmit = function () {
     console.log("提交按钮");
   };
 
   useEffect(() => {
-    setnewChildren(cloneElement(children, { value: "123" }));
+    // setnewChildren(cloneElement(children, { value: "123" }));
 
     if (children.type === Button) {
       console.log("有按钮....");
@@ -81,9 +87,27 @@ function Item(Props: itemProps) {
         onClick: handleSubmit,
       });
       setnewChildren(newChild);
+    } else {
     }
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    for (let key in initValues) {
+      console.log(key);
+      if (key === name) {
+        initValues && key && setformValue(initValues[key] || "");
+        setnewChildren(cloneElement(children, { value: formValue }));
+        break;
+      }
+    }
+    // if (
+    //   name !== undefined &&
+    //   initValues !== undefined &&
+    //   initValues[name] !== undefined
+    // ) {
+    // }
+  }, [initValues, name, formValue, children]);
 
   return (
     <div className={[Style.n_form_item].join(" ")}>

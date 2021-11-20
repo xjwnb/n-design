@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-19 17:18:22
+ * @LastEditTime: 2021-11-20 09:20:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -798,8 +798,8 @@ function App() {
 
       {/* form */}
       <div>
-        <Form>
-          <Form.Item label="姓名">
+        <Form initialValues={{ username: "小卡车" }}>
+          <Form.Item label="姓名" name="username">
             <Input />
           </Form.Item>
           <Form.Item>
