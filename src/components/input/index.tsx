@@ -80,7 +80,7 @@ export default function Input(props: IProps) {
    */
   const handleChange = function (event: BaseSyntheticEvent) {
     setinputValue(inputRef.current?.value);
-    onChange && onChange(inputRef.current?.value, event);
+    onChange && onChange(event);
   };
 
   /**
@@ -151,6 +151,8 @@ type typeValue = "password" | "text";
 
 interface PwdProps {
   placeholder?: string;
+  value?: string;
+  onChange?: Function;
 }
 
 /**
@@ -159,14 +161,25 @@ interface PwdProps {
  * @returns reactElement
  */
 function Password(pwdProps: PwdProps) {
-  const { placeholder } = pwdProps;
+  const { placeholder, value = "", onChange } = pwdProps;
 
   const [eye, seteye] = useState<boolean>(false);
   const [type, settype] = useState<typeValue>("password");
+  const [pwdVal, setpwdVal] = useState(value);
+
+  const pwdInputRef = useRef<HTMLInputElement>(null);
 
   const handleEyeClick = function () {
     seteye(!eye);
     type === "password" ? settype("text") : settype("password");
+  };
+
+  /**
+   * onChange
+   */
+  const handlePwdChange = function (e: BaseSyntheticEvent) {
+    setpwdVal(pwdInputRef.current?.value || "");
+    onChange && onChange(e);
   };
 
   return (
@@ -175,6 +188,9 @@ function Password(pwdProps: PwdProps) {
         className={[`${style.n_input}`].join(" ")}
         type={type}
         placeholder={placeholder}
+        value={pwdVal}
+        ref={pwdInputRef}
+        onChange={handlePwdChange}
       />
       {eye ? (
         <span className={style.suffix_eye} onClick={handleEyeClick}>
