@@ -153,6 +153,8 @@ interface PwdProps {
   placeholder?: string;
   value?: string;
   onChange?: Function;
+  onBlur?: Function;
+  onFocus?: Function;
 }
 
 /**
@@ -161,7 +163,7 @@ interface PwdProps {
  * @returns reactElement
  */
 function Password(pwdProps: PwdProps) {
-  const { placeholder, value = "", onChange } = pwdProps;
+  const { placeholder, value = "", onChange, onBlur, onFocus } = pwdProps;
 
   const [eye, seteye] = useState<boolean>(false);
   const [type, settype] = useState<typeValue>("password");
@@ -182,6 +184,20 @@ function Password(pwdProps: PwdProps) {
     onChange && onChange(e);
   };
 
+  /**
+   * onBlur
+   */
+  const handlePwdBlur = function (event: BaseSyntheticEvent) {
+    onBlur && onBlur(event);
+  };
+
+  /**
+   * onFocus
+   */
+  const handlePwdFocus = function (event: BaseSyntheticEvent) {
+    onFocus && onFocus(event);
+  };
+
   return (
     <div className={style.n_input_password}>
       <input
@@ -191,6 +207,8 @@ function Password(pwdProps: PwdProps) {
         value={pwdVal}
         ref={pwdInputRef}
         onChange={handlePwdChange}
+        onBlur={handlePwdBlur}
+        onFocus={handlePwdFocus}
       />
       {eye ? (
         <span className={style.suffix_eye} onClick={handleEyeClick}>
@@ -215,6 +233,7 @@ interface searchProps {
   enterButton?: string | boolean;
   allowClear?: boolean;
   loading?: boolean;
+  value?: string;
 
   onSearch?: Function;
   onChange?: Function;
@@ -229,6 +248,7 @@ function Search(searchProps: searchProps) {
     enterButton,
     allowClear,
     loading,
+    value,
     onSearch,
     onChange,
     onFocus,
@@ -236,7 +256,7 @@ function Search(searchProps: searchProps) {
   } = searchProps;
 
   const [showClear, setshowClear] = useState<boolean>(false);
-  const [searchValue, setsearchValue] = useState<string | undefined>("");
+  const [searchValue, setsearchValue] = useState<string | undefined>(value);
   const [showBorder, setshowBorder] = useState<boolean>(false);
   const [showShadow, setshowShadow] = useState<boolean>(false);
   const [inputFocus, setinputFocus] = useState<boolean>(false);
