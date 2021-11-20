@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-17 13:53:29
- * @LastEditTime: 2021-11-20 14:38:09
+ * @LastEditTime: 2021-11-20 17:02:50
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\form\index.tsx
@@ -12,6 +12,7 @@ import {
   useContext,
   useEffect,
   useState,
+  useReducer,
   cloneElement,
 } from "react";
 // interface
@@ -31,6 +32,21 @@ const defaultFormContext: formContextParam = {
 
 const FormContext = createContext<formContextParam>(defaultFormContext);
 
+// reducer
+const initalState = {};
+
+function formReducer(state: any, action: any) {
+  switch (action.type) {
+    case "edit":
+      return {
+        ...state,
+        ...action.payload,
+      };
+    default:
+      return state;
+  }
+}
+
 const Form = function (Props: formProps) {
   const {
     children,
@@ -41,24 +57,61 @@ const Form = function (Props: formProps) {
   } = Props;
 
   const [initVal, setinitVal] = useState<object>(initialValues);
+  // const [formProvider, setformProvider] = useState<formContextParam>({});
+
+  const [state, dispatch] = useReducer(formReducer, initalState);
+
+  // console.log(children);
+  useEffect(() => {
+    let newChild = (children as any)?.filter((item: any) => {
+      if (item.props.name) {
+        return true;
+      }
+      return false;
+    });
+
+    // console.log(newChild);
+    const defaultValue: any = {};
+    newChild.forEach((item: any) => {
+      defaultValue[item.props.name] = "";
+    });
+    setinitVal({ ...defaultValue, ...initVal });
+    dispatch({ type: "edit", payload: { ...defaultValue, ...initVal } });
+    // eslint-disable-next-line
+  }, [children]);
 
   /**
    * 点击表单提交按钮
    */
   const handleFinish = function () {
-    onFinish && onFinish(initVal);
+    onFinish && onFinish(state);
   };
 
   /**
    * 表单 form_value onChange 事件
    */
   const setFieldValue = function (key: string, value: any) {
-    console.log(key, value);
+    // console.log(initVal, key, value);
+    dispatch({ type: "edit", payload: { [key]: value } });
     setinitVal({
       ...initVal,
       [key]: value,
     });
   };
+
+  // console.log("reducter", state);
+
+  // useEffect(() => {
+  //   setformProvider({
+  //     labelCol,
+  //     wrapperCol,
+  //     // initValues: initVal,
+  //     initValues: state,
+  //     setFieldValue: setFieldValue,
+  //     handleFinish: handleFinish,
+  //   });
+  //   // eslint-disable-next-line
+  // }, []);
 
   return (
     <div className={[Style.n_form].join(" ")}>
@@ -67,6 +120,7 @@ const Form = function (Props: formProps) {
           labelCol,
           wrapperCol,
           initValues: initVal,
+          // initValues: state,
           setFieldValue: setFieldValue,
           handleFinish: handleFinish,
         }}
@@ -96,24 +150,34 @@ function Item(Props: itemProps) {
   const { labelCol, wrapperCol, initValues, setFieldValue, handleFinish } =
     useContext(FormContext);
 
+  /**
+   * 点击按钮
+   */
   const handleSubmit = () => {
     handleFinish && handleFinish();
   };
 
-  useEffect(() => {
-    if (children.type === Button) {
+  /**
+   * 给按钮添加 props
+   */
+  const addPropsFromBtn = function () {
+    if (children.type === Button && children.props.htmlType === "submit") {
       const newChild = cloneElement(children, {
         onClick: () => {
           handleSubmit();
         },
       });
       setnewChildren(newChild);
-    } else {
     }
+  };
+
+  useEffect(() => {
+    addPropsFromBtn();
     // eslint-disable-next-line
   }, [initValues]);
 
   useEffect(() => {
+    // console.log("initValues", initValues);
     for (let key in initValues) {
       if (key === name) {
         initValues && key && setformValue(initValues[key] || "");
@@ -129,7 +193,6 @@ function Item(Props: itemProps) {
         );
         break;
       } else {
-        // setnewChildren(children);
         setnewChildren(
           cloneElement(children, {
             value: formValue,
@@ -142,6 +205,12 @@ function Item(Props: itemProps) {
         );
       }
     }
+
+    // eslint-disable-next-line
+  }, [formValue]);
+
+  useEffect(() => {
+    addPropsFromBtn();
     // eslint-disable-next-line
   }, [formValue]);
 
