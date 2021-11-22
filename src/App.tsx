@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-22 15:24:54
+ * @LastEditTime: 2021-11-22 16:23:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -803,7 +803,7 @@ function App() {
           initialValues={{
             username: "小卡车",
             password: "123",
-            remember: true,
+            // remember: true,
           }}
           onFinish={(val: any) => {
             console.log("表单值：", val);

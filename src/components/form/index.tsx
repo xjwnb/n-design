@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-17 13:53:29
- * @LastEditTime: 2021-11-22 15:27:07
+ * @LastEditTime: 2021-11-22 16:22:52
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\form\index.tsx
@@ -156,6 +156,14 @@ function Item(Props: itemProps) {
   const { labelCol, wrapperCol, initValues, setFieldValue, handleFinish } =
     useContext(FormContext);
 
+  // const [initState, setinitState] = useState(initValues);
+
+  // useEffect(() => {
+  //   setinitState(initValues);
+  // }, [initValues]);
+
+  // console.log(initValues);
+
   /**
    * 点击按钮
    */
@@ -189,7 +197,7 @@ function Item(Props: itemProps) {
         if (children.type === Input) {
           setnewChildren(
             cloneElement(children, {
-              value: initValues[key],
+              value: initValues[name],
               onChange: function (event: any) {
                 let val = event.target.value;
                 setformValue(val);
@@ -198,13 +206,10 @@ function Item(Props: itemProps) {
             })
           );
           break;
-        }
-
-        if (children.type === Checkbox) {
-          // console.log(initValues[key] === "" && false);
+        } else if (children.type === Checkbox) {
           setnewChildren(
             cloneElement(children, {
-              defaultChecked: Boolean(initValues[key]),
+              defaultChecked: Boolean(initValues[name]),
               onChange: function (e: BaseSyntheticEvent) {
                 let val = e.target.checked;
                 setformValue(val);
@@ -216,7 +221,7 @@ function Item(Props: itemProps) {
         } else if (children.type === Input.Password) {
           setnewChildren(
             cloneElement(children, {
-              value: initValues[key],
+              value: initValues[name],
               onChange: function (event: any) {
                 let val = event.target.value;
                 setformValue(val);
@@ -224,12 +229,25 @@ function Item(Props: itemProps) {
               },
             })
           );
+          break;
         }
       } else {
-        if (children.type === Checkbox) {
+        if (children.type === Input) {
           setnewChildren(
             cloneElement(children, {
-              defaultChecked: Boolean(initValues[key]),
+              value: name && initValues[name],
+              onChange: function (event: any) {
+                let val = event.target.value;
+                setformValue(val);
+                setFieldValue && setFieldValue(name, val);
+              },
+            })
+          );
+          break;
+        } else if (children.type === Checkbox) {
+          setnewChildren(
+            cloneElement(children, {
+              defaultChecked: name && Boolean(initValues[name]),
               onChange: function (e: BaseSyntheticEvent) {
                 let val = e.target.checked;
                 setformValue(val);
@@ -238,13 +256,10 @@ function Item(Props: itemProps) {
             })
           );
           break;
-        } else if (
-          // children.type === Button ||
-          children.type === Input.Password
-        ) {
+        } else if (children.type === Input.Password) {
           setnewChildren(
             cloneElement(children, {
-              value: initValues[key],
+              value: name && initValues[name],
               onChange: function (event: any) {
                 let val = event.target.value;
                 setformValue(val);
@@ -252,6 +267,7 @@ function Item(Props: itemProps) {
               },
             })
           );
+          break;
         }
       }
     }
