@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-17 13:53:29
- * @LastEditTime: 2021-11-20 17:02:50
+ * @LastEditTime: 2021-11-22 15:27:07
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\form\index.tsx
@@ -14,13 +14,15 @@ import {
   useState,
   useReducer,
   cloneElement,
+  BaseSyntheticEvent,
 } from "react";
 // interface
 import { formProps, formContextParam } from "./interface";
 // style
 import Style from "./index.module.scss";
 // components
-import { Row, Col, Button } from "../index";
+import { Row, Col, Button, Checkbox } from "../index";
+import Input from "../input";
 
 const defaultFormContext: formContextParam = {
   labelCol: { span: 8, offset: 0 },
@@ -73,7 +75,11 @@ const Form = function (Props: formProps) {
     // console.log(newChild);
     const defaultValue: any = {};
     newChild.forEach((item: any) => {
-      defaultValue[item.props.name] = "";
+      if (item.props.children.type !== Checkbox) {
+        defaultValue[item.props.name] = "";
+      } else {
+        defaultValue[item.props.name] = false;
+      }
     });
     setinitVal({ ...defaultValue, ...initVal });
     dispatch({ type: "edit", payload: { ...defaultValue, ...initVal } });
@@ -144,7 +150,7 @@ function Item(Props: itemProps) {
   const { children, label, name } = Props;
 
   const [newChildren, setnewChildren] = useState<any>(null);
-  const [formValue, setformValue] = useState("");
+  const [formValue, setformValue] = useState<any>("");
 
   // context
   const { labelCol, wrapperCol, initValues, setFieldValue, handleFinish } =
@@ -177,37 +183,81 @@ function Item(Props: itemProps) {
   }, [initValues]);
 
   useEffect(() => {
-    // console.log("initValues", initValues);
     for (let key in initValues) {
       if (key === name) {
         initValues && key && setformValue(initValues[key] || "");
-        setnewChildren(
-          cloneElement(children, {
-            value: formValue,
-            onChange: function (event: any) {
-              let val = event.target.value;
-              setformValue(val);
-              setFieldValue && setFieldValue(name, val);
-            },
-          })
-        );
-        break;
+        if (children.type === Input) {
+          setnewChildren(
+            cloneElement(children, {
+              value: initValues[key],
+              onChange: function (event: any) {
+                let val = event.target.value;
+                setformValue(val);
+                setFieldValue && setFieldValue(name, val);
+              },
+            })
+          );
+          break;
+        }
+
+        if (children.type === Checkbox) {
+          // console.log(initValues[key] === "" && false);
+          setnewChildren(
+            cloneElement(children, {
+              defaultChecked: Boolean(initValues[key]),
+              onChange: function (e: BaseSyntheticEvent) {
+                let val = e.target.checked;
+                setformValue(val);
+                setFieldValue && setFieldValue(name, val);
+              },
+            })
+          );
+          break;
+        } else if (children.type === Input.Password) {
+          setnewChildren(
+            cloneElement(children, {
+              value: initValues[key],
+              onChange: function (event: any) {
+                let val = event.target.value;
+                setformValue(val);
+                setFieldValue && setFieldValue(name, val);
+              },
+            })
+          );
+        }
       } else {
-        setnewChildren(
-          cloneElement(children, {
-            value: formValue,
-            onChange: function (event: any) {
-              let val = event.target.value;
-              setformValue(val);
-              setFieldValue && setFieldValue(name, val);
-            },
-          })
-        );
+        if (children.type === Checkbox) {
+          setnewChildren(
+            cloneElement(children, {
+              defaultChecked: Boolean(initValues[key]),
+              onChange: function (e: BaseSyntheticEvent) {
+                let val = e.target.checked;
+                setformValue(val);
+                setFieldValue && setFieldValue(name, val);
+              },
+            })
+          );
+          break;
+        } else if (
+          // children.type === Button ||
+          children.type === Input.Password
+        ) {
+          setnewChildren(
+            cloneElement(children, {
+              value: initValues[key],
+              onChange: function (event: any) {
+                let val = event.target.value;
+                setformValue(val);
+                setFieldValue && setFieldValue(name, val);
+              },
+            })
+          );
+        }
       }
     }
 
     // eslint-disable-next-line
-  }, [formValue]);
+  }, [formValue, children]);
 
   useEffect(() => {
     addPropsFromBtn();

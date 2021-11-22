@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-22 11:36:59
+ * @LastEditTime: 2021-11-22 15:24:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -800,7 +800,11 @@ function App() {
       {/* form */}
       <div>
         <Form
-          initialValues={{ username: "小卡车" }}
+          initialValues={{
+            username: "小卡车",
+            password: "123",
+            remember: true,
+          }}
           onFinish={(val: any) => {
             console.log("表单值：", val);
           }}
@@ -813,6 +817,10 @@ function App() {
             <Input.Password placeholder="密码交出来" />
           </Form.Item>
 
+          <Form.Item label="是否记住" name="remember">
+            <Checkbox>什么玩意儿</Checkbox>
+          </Form.Item>
+
           <Form.Item>
             <Button type="primary" htmlType="submit">
               Submit
@@ -823,7 +831,9 @@ function App() {
 
       {/* checkbox */}
       <div>
-        <Checkbox>什么玩意儿</Checkbox>
+        <Checkbox onChange={(e: any) => console.log(e.target.checked)}>
+          什么玩意儿
+        </Checkbox>
         <Checkbox defaultChecked={true} disabled>
           什么玩意儿
         </Checkbox>
