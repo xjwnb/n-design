@@ -1,12 +1,19 @@
 /*
  * @Author: your name
  * @Date: 2021-11-22 08:56:32
- * @LastEditTime: 2021-11-22 11:36:48
+ * @LastEditTime: 2021-11-22 13:54:48
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\checkbox\index.tsx
  */
-import { useState, useRef, useEffect, BaseSyntheticEvent } from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  createContext,
+  useContext,
+  BaseSyntheticEvent,
+} from "react";
 import Style from "./index.module.scss";
 
 interface checkboxProps {
@@ -18,6 +25,19 @@ interface checkboxProps {
 
   onChange?: Function;
 }
+
+/**
+ * group context
+ */
+interface groupInterface {
+  checkChange: Function;
+}
+
+const defaultGroupContext: groupInterface = {
+  checkChange: () => {},
+};
+
+const GroupContext = createContext(defaultGroupContext);
 
 function Checkbox(Props: checkboxProps) {
   const {
@@ -33,6 +53,8 @@ function Checkbox(Props: checkboxProps) {
   const [disabledVal, setdisabledVal] = useState<boolean>(disabled);
 
   const checkboxInputRef = useRef<HTMLInputElement>(null);
+
+  const { checkChange } = useContext(GroupContext);
 
   useEffect(() => {
     setdisabledVal(disabled);
@@ -54,6 +76,7 @@ function Checkbox(Props: checkboxProps) {
   const handleCheckboxChange = function (e: BaseSyntheticEvent) {
     setcheckedVal(e.target.checked);
     onChange && onChange(e);
+    checkChange(value, e.target.checked);
   };
 
   return (
@@ -98,14 +121,19 @@ interface groupOption {
 interface groupProps {
   options: Array<groupOption>;
   defaultValue?: Array<string>;
+  value?: Array<string>;
   disabled?: boolean;
+
+  onChange?: Function;
 }
 
 function Group(Props: groupProps) {
-  const { options, disabled = false, defaultValue = [] } = Props;
+  const { options, disabled = false, defaultValue = [], onChange } = Props;
 
   const [defaultOptions, setdefaultOptions] =
     useState<Array<groupOption>>(options);
+
+  const [groupVal, setgroupVal] = useState(defaultValue);
 
   useEffect(() => {
     if (disabled) {
@@ -121,20 +149,41 @@ function Group(Props: groupProps) {
     // eslint-disable-next-line
   }, [disabled]);
 
+  useEffect(() => {
+    onChange && onChange(groupVal);
+  }, [groupVal]);
+
   return (
     <div className={[Style.n_checkbox_group].join(" ")}>
-      {defaultOptions.map((item) => {
-        return (
-          <Checkbox
-            key={item.value}
-            value={item.value}
-            disabled={item.disabled}
-            defaultChecked={defaultValue.includes(item.value)}
-          >
-            {item.label}
-          </Checkbox>
-        );
-      })}
+      <GroupContext.Provider
+        value={{
+          checkChange: function (
+            // label: string,
+            value: string,
+            checked: boolean
+          ) {
+            // console.log(label, value, checked);
+            if (checked && !groupVal.includes(value)) {
+              setgroupVal([...groupVal, value]);
+            } else if (!checked && groupVal.includes(value)) {
+              setgroupVal(groupVal.filter((item) => item !== value));
+            }
+          },
+        }}
+      >
+        {defaultOptions.map((item) => {
+          return (
+            <Checkbox
+              key={item.value}
+              value={item.value}
+              disabled={item.disabled}
+              defaultChecked={defaultValue.includes(item.value)}
+            >
+              {item.label}
+            </Checkbox>
+          );
+        })}
+      </GroupContext.Provider>
     </div>
   );
 }
