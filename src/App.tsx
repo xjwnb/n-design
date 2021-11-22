@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-20 17:14:59
+ * @LastEditTime: 2021-11-22 11:36:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -27,6 +27,7 @@ import {
   Form,
   Row,
   Col,
+  Checkbox,
 } from "./components/index";
 import { Left, Right, Search } from "./Icons/icon/index";
 
@@ -820,7 +821,51 @@ function App() {
         </Form>
       </div>
 
-      <div></div>
+      {/* checkbox */}
+      <div>
+        <Checkbox>什么玩意儿</Checkbox>
+        <Checkbox defaultChecked={true} disabled>
+          什么玩意儿
+        </Checkbox>
+
+        <br />
+        <Checkbox.Group
+          options={[
+            {
+              label: "a",
+              value: "a",
+            },
+            {
+              label: "b",
+              value: "b",
+            },
+            {
+              label: "c",
+              value: "c",
+              disabled: true,
+            },
+          ]}
+        />
+
+        <br />
+        <Checkbox.Group
+          options={[
+            {
+              label: "a",
+              value: "a",
+            },
+            {
+              label: "b",
+              value: "b",
+            },
+            {
+              label: "c",
+              value: "c",
+            },
+          ]}
+          defaultValue={["a", "b"]}
+        />
+      </div>
     </div>
   );
 }
