@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-20 14:20:30
+ * @LastEditTime: 2021-11-20 17:14:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -43,7 +43,7 @@ function App() {
    * 输入框 change
    */
   const handleInputChange = function (event: BaseSyntheticEvent) {
-    console.log(event);
+    // console.log(event);
   };
 
   /**
