@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-22 08:56:32
- * @LastEditTime: 2021-11-22 13:54:48
+ * @LastEditTime: 2021-11-22 14:02:20
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\checkbox\index.tsx
@@ -42,6 +42,7 @@ const GroupContext = createContext(defaultGroupContext);
 function Checkbox(Props: checkboxProps) {
   const {
     children,
+    // eslint-disable-next-line
     checked = false,
     disabled = false,
     defaultChecked = false,
@@ -151,7 +152,7 @@ function Group(Props: groupProps) {
 
   useEffect(() => {
     onChange && onChange(groupVal);
-  }, [groupVal]);
+  }, [groupVal, onChange]);
 
   return (
     <div className={[Style.n_checkbox_group].join(" ")}>
