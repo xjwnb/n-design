@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-17 13:53:29
- * @LastEditTime: 2021-11-23 14:16:51
+ * @LastEditTime: 2021-11-23 14:18:39
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\form\index.tsx
@@ -71,7 +71,6 @@ const Form = function (Props: formProps) {
 
   const [state, dispatch] = useReducer(formReducer, initalState);
 
-  // console.log(children);
   useEffect(() => {
     let newChild = (children as any)?.filter((item: any) => {
       if (item.props.name) {
@@ -80,13 +79,11 @@ const Form = function (Props: formProps) {
       return false;
     });
 
-    // console.log(newChild);
     const defaultValue: any = {};
     newChild.forEach((item: any) => {
       if (![Checkbox, Switch].includes(item.props.children.type)) {
         defaultValue[item.props.name] = "";
       } else {
-        console.log(item.props.name);
         defaultValue[item.props.name] = false;
       }
     });
@@ -101,7 +98,6 @@ const Form = function (Props: formProps) {
   const handleFinish = function () {
     let rules = {};
     for (let i = 0; i < children.length; i++) {
-      // console.log(children[i]);
       if (children[i].props.rules) {
         rules = {
           ...rules,
@@ -110,7 +106,6 @@ const Form = function (Props: formProps) {
       }
     }
     let { flag, result } = formDataValidate(state, rules);
-    console.log(flag, result);
     if (flag) {
       onFinish && onFinish(state);
     } else {
@@ -183,7 +178,6 @@ const Form = function (Props: formProps) {
    * 表单 form_value onChange 事件
    */
   const setFieldValue = function (key: string, value: any) {
-    // console.log(initVal, key, value);
     dispatch({ type: "edit", payload: { [key]: value } });
     setinitVal({
       ...initVal,
