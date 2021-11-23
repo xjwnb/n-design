@@ -27,7 +27,7 @@ export default function Switch(Props: IProps) {
     if (disabled) return;
     setvalue(!value);
 
-    onChange && onChange(value, event);
+    onChange && onChange(!value, event);
   };
 
   return (

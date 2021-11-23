@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-23 09:12:01
+ * @LastEditTime: 2021-11-23 09:20:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -863,6 +863,10 @@ function App() {
               <Select.Option value="11">I</Select.Option>
               <Select.Option value="12">J</Select.Option>
             </Select>
+          </Form.Item>
+
+          <Form.Item label="是否打开" name="isOpen">
+            <Switch />
           </Form.Item>
 
           <Form.Item>
