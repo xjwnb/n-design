@@ -1,12 +1,13 @@
 .n_checkbox_wrapper {
-  // display: flex;
-  // align-items: center;
   cursor: pointer;
   font-size: 14px;
   box-sizing: border-box;
   display: inline-flex;
   align-items: baseline;
-  // align-items: center;
+
+  &:hover .n_checkbox_input_inner {
+    border: 1px solid #1890ff;
+  }
 }
 
 .n_checkbox {
@@ -66,18 +67,6 @@
   transition: all 0.3s;
 }
 
-/* .n_checkbox_checked .n_checkbox_input_inner::after {
-  position: absolute;
-  display: table;
-  border: 2px solid #fff;
-  border-top: 0;
-  border-left: 0;
-  transform: rotate(45deg) scale(1) translate(-50%, -50%);
-  opacity: 1;
-  transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
-  content: " ";
-} */
-
 .n_checkbox_input_inner {
   &::after {
     position: absolute;
@@ -123,36 +112,13 @@
       border: 2px solid #fff;
       border-top: 0;
       border-left: 0;
-      transform: rotate(45deg) scale(1) translate(-50%, -50%);
+      transform: rotate(45deg) scale(1) translate(-60%, -60%);
       opacity: 1;
       transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
       content: " ";
     }
   }
 }
-
-/* .n_checkbox_checked::after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 1px solid var(--ant-primary-color);
-  border-radius: 2px;
-  visibility: hidden;
-  -webkit-animation: antCheckboxEffect 0.36s ease-in-out;
-  animation: antCheckboxEffect 0.36s ease-in-out;
-  -webkit-animation-fill-mode: backwards;
-  animation-fill-mode: backwards;
-  content: "";
-} */
-
-// #1890ff
-/* .n_checkbox_checked .n_checkbox_inner {
-  background-color: #1890ff;
-  border-color: #1890ff;
-}
- */
 
 .n_checkbox_wrapper_disabled {
   cursor: not-allowed;
