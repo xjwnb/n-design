@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-17 13:53:29
- * @LastEditTime: 2021-11-23 14:18:39
+ * @LastEditTime: 2021-11-23 14:40:57
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\form\index.tsx
@@ -109,7 +109,11 @@ const Form = function (Props: formProps) {
     if (flag) {
       onFinish && onFinish(state);
     } else {
-      onFinishFailed && onFinishFailed(result);
+      let res: { [key: string]: string[] } = {};
+      for (let key in result) {
+        res[key] = result[key].filter((item) => item !== "");
+      }
+      onFinishFailed && onFinishFailed(res);
     }
   };
 
@@ -120,47 +124,61 @@ const Form = function (Props: formProps) {
     formData: { [key: string]: any },
     rules: any
   ) {
-    let result: { [key: string]: string } = {};
+    let result: { [key: string]: Array<string> } = {};
     Object.keys(rules).forEach((key: string) => {
       let val = formData[key];
       let rule = rules[key];
       for (let i = 0; i < rule.length; i++) {
         for (let ruleKey in rule[i]) {
-          if (result[key]) return;
+          if (!result[key]) result[key] = [];
+          // if (result[key]) return;
           if (ruleKey !== "message") {
             switch (ruleKey) {
               case "required":
                 if (rule[i].required) {
-                  result[key] = String(val).length ? "" : rule[i].message;
+                  result[key].push(String(val).length ? "" : rule[i].message);
                 }
                 break;
               case "len":
                 if (val instanceof Array) {
-                  result[key] = val.length < rule[i].len ? rule[i].message : "";
+                  result[key].push(
+                    val.length < rule[i].len ? rule[i].message : ""
+                  );
                 } else {
-                  result[key] =
-                    String(val).length < rule[i].len ? rule[i].message : "";
+                  result[key].push(
+                    String(val).length < rule[i].len ? rule[i].message : ""
+                  );
                 }
                 break;
               case "max":
                 if (val instanceof Array) {
-                  result[key] = val.length > rule[i].max ? rule[i].message : "";
+                  result[key].push(
+                    val.length > rule[i].max ? rule[i].message : ""
+                  );
                 } else {
-                  result[key] =
-                    String(val).length > rule[i].max ? rule[i].message : "";
+                  result[key].push(
+                    String(val).length > rule[i].max ? rule[i].message : ""
+                  );
                 }
                 break;
               case "min":
                 if (val instanceof Array) {
-                  result[key] = val.length < rule[i].min ? rule[i].message : "";
+                  result[key].push(
+                    val.length < rule[i].min ? rule[i].message : ""
+                  );
                 } else {
-                  result[key] =
-                    String(val).length < rule[i].min ? rule[i].message : "";
+                  result[key].push(
+                    String(val).length < rule[i].min ? rule[i].message : ""
+                  );
                 }
                 break;
               case "pattern":
                 rule[i].pattern.lastIndex = 0;
-                result[key] = rule[i].pattern.test(val) ? "" : rule[i].message;
+                result[key].push(
+                  rule[i].pattern.test(val) ? "" : rule[i].message
+                );
+                break;
+              default:
                 break;
             }
           }
@@ -169,7 +187,7 @@ const Form = function (Props: formProps) {
     });
     setruleResult(result);
     return {
-      flag: Object.values(result).every((item) => item === ""),
+      flag: Object.values(result).every((item) => item.join("") === ""),
       result,
     };
   };

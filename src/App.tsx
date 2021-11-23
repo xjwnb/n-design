@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-23 14:15:16
+ * @LastEditTime: 2021-11-23 14:42:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -814,6 +814,9 @@ function App() {
           }}
           onFinish={(val: any) => {
             console.log("表单值：", val);
+          }}
+          onFinishFailed={(result: any) => {
+            console.log(result);
           }}
           labelCol={{ span: 3, offset: 3 }}
           wrapperCol={{ span: 12 }}
