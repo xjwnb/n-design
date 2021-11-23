@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-19 15:40:49
- * @LastEditTime: 2021-11-23 14:09:20
+ * @LastEditTime: 2021-11-23 15:03:50
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\form\interface.ts
@@ -32,9 +32,14 @@ export interface formContextParam {
   initValues?: {
     [key: string]: any;
   };
-  rulesError?: { [key: string]: string };
+  rulesError?: Array<rulesErrorParam>;
   setFieldValue?: Function;
   handleFinish?: Function;
+}
+
+export type rulesErrorParam = {
+  name?: string;
+  errors?: Array<string>;
 }
 
 

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-17 13:53:29
- * @LastEditTime: 2021-11-23 14:40:57
+ * @LastEditTime: 2021-11-23 15:23:44
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\form\index.tsx
@@ -22,6 +22,7 @@ import {
   formContextParam,
   rulesParam,
   requiredParam,
+  rulesErrorParam,
 } from "./interface";
 // style
 import Style from "./index.module.scss";
@@ -33,7 +34,7 @@ const defaultFormContext: formContextParam = {
   labelCol: { span: 8, offset: 0 },
   wrapperCol: { span: 16, offset: 0 },
   initValues: {},
-  rulesError: {},
+  rulesError: [],
   setFieldValue: () => {},
   handleFinish: (value: object) => {},
 };
@@ -67,7 +68,7 @@ const Form = function (Props: formProps) {
 
   const [initVal, setinitVal] = useState<object>(initialValues);
   // const [formProvider, setformProvider] = useState<formContextParam>({});
-  const [ruleResult, setruleResult] = useState({});
+  const [ruleResult, setruleResult] = useState<Array<rulesErrorParam>>([]);
 
   const [state, dispatch] = useReducer(formReducer, initalState);
 
@@ -109,10 +110,12 @@ const Form = function (Props: formProps) {
     if (flag) {
       onFinish && onFinish(state);
     } else {
-      let res: { [key: string]: string[] } = {};
-      for (let key in result) {
-        res[key] = result[key].filter((item) => item !== "");
-      }
+      let res = result.map((item) => {
+        return {
+          ...item,
+          errors: item.errors?.filter((it) => it !== ""),
+        };
+      });
       onFinishFailed && onFinishFailed(res);
     }
   };
@@ -185,10 +188,18 @@ const Form = function (Props: formProps) {
         }
       }
     });
-    setruleResult(result);
+    let nowResult: Array<rulesErrorParam> = [];
+    for (let key in result) {
+      nowResult.push({
+        name: key,
+        errors: result[key].filter((item) => item !== ""),
+      });
+    }
+    console.log(nowResult);
+    setruleResult(nowResult);
     return {
       flag: Object.values(result).every((item) => item.join("") === ""),
-      result,
+      result: nowResult,
     };
   };
 
@@ -238,7 +249,7 @@ function Item(Props: itemProps) {
   const [newChildren, setnewChildren] = useState<any>(null);
   const [formValue, setformValue] = useState<any>("");
   const [required, setrequired] = useState<boolean>(false);
-  const [errorMsg, seterrorMsg] = useState<string>("");
+  const [errorMsg, seterrorMsg] = useState("");
 
   // context
   const {
@@ -251,11 +262,12 @@ function Item(Props: itemProps) {
   } = useContext(FormContext);
 
   useEffect(() => {
-    for (let key in rulesError) {
-      if (key === name) {
-        seterrorMsg(rulesError[key]);
-      }
+    let rule = rulesError?.filter((item) => item.name === name);
+    let msg = "";
+    if (rule?.length) {
+      msg = (rule[0].errors?.length && rule[0].errors[0]) || "";
     }
+    seterrorMsg(msg);
   }, [rulesError, name]);
 
   useEffect(() => {
