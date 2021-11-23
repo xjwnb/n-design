@@ -13,7 +13,7 @@ import {
   Loading,
 } from "../../Icons/icon/index";
 import { Button } from "../index";
-import style from "./index.module.scss";
+import Style from "./index.module.scss";
 
 type sizeValue = "large" | "middle" | "small";
 
@@ -24,6 +24,7 @@ interface IProps {
   prefix?: ReactElement;
   suffix?: ReactElement;
   maxLength?: number;
+  style?: object;
 
   onChange?: Function;
   onBlur?: Function;
@@ -38,6 +39,7 @@ export default function Input(props: IProps) {
     prefix,
     suffix,
     maxLength,
+    style,
     onChange,
     onBlur,
     onFocus,
@@ -98,14 +100,19 @@ export default function Input(props: IProps) {
   };
 
   return (
-    <div className={style.input_container}>
+    <div
+      className={Style.input_container}
+      style={{
+        ...style,
+      }}
+    >
       {!prefix && (
         <input
           placeholder={placeholder}
           className={[
-            `${style.n_input}`,
-            `${size && size === "large" ? style.n_input_lg : ""}`,
-            `${size && size === "small" ? style.n_input_sm : ""}`,
+            `${Style.n_input}`,
+            `${size && size === "large" ? Style.n_input_lg : ""}`,
+            `${size && size === "small" ? Style.n_input_sm : ""}`,
           ].join(" ")}
           value={inputValue}
           ref={inputRef}
@@ -120,14 +127,14 @@ export default function Input(props: IProps) {
       )}
       {prefix && (
         <div
-          className={style.input_flex_content}
+          className={Style.input_flex_content}
           ref={inputContainerRef}
           style={{
             borderColor: showBorder ? "#1890ff" : "#D9D9D9",
             boxShadow: showShadow ? "0 0 3px #40a9ff" : "none",
           }}
         >
-          {prefix && <span className={style.iconPrefix}>{prefix}</span>}
+          {prefix && <span className={Style.iconPrefix}>{prefix}</span>}
           {prefix && (
             <input
               placeholder={placeholder}
@@ -139,7 +146,7 @@ export default function Input(props: IProps) {
               onBlur={handleBlur}
             />
           )}
-          {suffix && <span className={style.iconSuffix}>{suffix}</span>}
+          {suffix && <span className={Style.iconSuffix}>{suffix}</span>}
         </div>
       )}
     </div>
@@ -152,6 +159,7 @@ type typeValue = "password" | "text";
 interface PwdProps {
   placeholder?: string;
   value?: string;
+  style?: object;
   onChange?: Function;
   onBlur?: Function;
   onFocus?: Function;
@@ -163,7 +171,14 @@ interface PwdProps {
  * @returns reactElement
  */
 function Password(pwdProps: PwdProps) {
-  const { placeholder, value = "", onChange, onBlur, onFocus } = pwdProps;
+  const {
+    placeholder,
+    value = "",
+    style,
+    onChange,
+    onBlur,
+    onFocus,
+  } = pwdProps;
 
   const [eye, seteye] = useState<boolean>(false);
   const [type, settype] = useState<typeValue>("password");
@@ -199,9 +214,14 @@ function Password(pwdProps: PwdProps) {
   };
 
   return (
-    <div className={style.n_input_password}>
+    <div
+      className={Style.n_input_password}
+      style={{
+        ...style,
+      }}
+    >
       <input
-        className={[`${style.n_input}`].join(" ")}
+        className={[`${Style.n_input}`].join(" ")}
         type={type}
         placeholder={placeholder}
         value={pwdVal}
@@ -211,11 +231,11 @@ function Password(pwdProps: PwdProps) {
         onFocus={handlePwdFocus}
       />
       {eye ? (
-        <span className={style.suffix_eye} onClick={handleEyeClick}>
+        <span className={Style.suffix_eye} onClick={handleEyeClick}>
           <EyeOpen />
         </span>
       ) : (
-        <span className={style.suffix_eye} onClick={handleEyeClick}>
+        <span className={Style.suffix_eye} onClick={handleEyeClick}>
           <EyeClose />
         </span>
       )}
@@ -234,6 +254,7 @@ interface searchProps {
   allowClear?: boolean;
   loading?: boolean;
   value?: string;
+  style?: object;
 
   onSearch?: Function;
   onChange?: Function;
@@ -249,6 +270,7 @@ function Search(searchProps: searchProps) {
     allowClear,
     loading,
     value,
+    style,
     onSearch,
     onChange,
     onFocus,
@@ -313,7 +335,7 @@ function Search(searchProps: searchProps) {
         return <SearchIcon />;
       } else {
         return (
-          <span className={style.n_search_icons}>
+          <span className={Style.n_search_icons}>
             <Loading />
           </span>
         );
@@ -361,13 +383,14 @@ function Search(searchProps: searchProps) {
 
   return (
     <div
-      className={style.n_input_search}
+      className={Style.n_input_search}
       style={{
         width: width,
+        ...style,
       }}
     >
       <span
-        className={style.n_search_input_container}
+        className={Style.n_search_input_container}
         ref={inputContainerRef}
         style={{
           paddingRight: allowClear ? 25 : "",
@@ -378,7 +401,7 @@ function Search(searchProps: searchProps) {
         <input
           type="text"
           // className={[`${style.n_input}`].join(" ")}
-          className={[`${style.n_search_input}`].join(" ")}
+          className={[`${Style.n_search_input}`].join(" ")}
           placeholder={placeholder}
           value={searchValue}
           ref={searchInputRef}
@@ -387,13 +410,13 @@ function Search(searchProps: searchProps) {
           onBlur={handleBlur}
         />
         {showClear && (
-          <span className={style.closeFill} onClick={handleClickClose}>
+          <span className={Style.closeFill} onClick={handleClickClose}>
             <Closefill />
           </span>
         )}
       </span>
       <span
-        className={style.n_input_search_container}
+        className={Style.n_input_search_container}
         onClick={handleClickSearch}
       >
         {/* loading */}
@@ -428,8 +451,12 @@ interface textAreaProps {
   maxLength?: number;
   value?: string;
   bordered?: boolean;
+  style?: object;
 
   onPressEnter?: Function;
+  onBlur?: Function;
+  onFocus?: Function;
+  onChange?: Function;
 }
 
 function TextArea(Props: textAreaProps) {
@@ -439,8 +466,12 @@ function TextArea(Props: textAreaProps) {
     maxLength,
     placeholder,
     value,
+    style,
     bordered = true,
     onPressEnter,
+    onBlur,
+    onFocus,
+    onChange,
   } = Props;
 
   const [textareaVal, settextareaVal] = useState(value);
@@ -458,14 +489,29 @@ function TextArea(Props: textAreaProps) {
   /**
    * 输入事件
    */
-  const handleTextareaChange = function () {
+  const handleTextareaChange = function (e: BaseSyntheticEvent) {
     settextareaVal(textareaRef.current?.value);
+    onChange && onChange(e);
+  };
+
+  /**
+   * blur
+   */
+  const handleTextAreaBlur = function (e: BaseSyntheticEvent) {
+    onBlur && onBlur(e);
+  };
+
+  /**
+   * focus
+   */
+  const handleTextAreaFocus = function (e: BaseSyntheticEvent) {
+    onFocus && onFocus(e);
   };
 
   return (
     <>
       <textarea
-        className={[`${style.n_input_textarea}`].join(" ")}
+        className={[`${Style.n_input_textarea}`].join(" ")}
         cols={cols}
         rows={rows}
         placeholder={placeholder}
@@ -476,7 +522,10 @@ function TextArea(Props: textAreaProps) {
         style={{
           border: !bordered ? "none" : "",
           boxShadow: !bordered ? "none" : "",
+          ...style,
         }}
+        onBlur={handleTextAreaBlur}
+        onFocus={handleTextAreaFocus}
       ></textarea>
     </>
   );
