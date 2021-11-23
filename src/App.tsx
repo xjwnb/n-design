@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-23 09:51:28
+ * @LastEditTime: 2021-11-23 11:57:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -818,11 +818,19 @@ function App() {
           labelCol={{ span: 3, offset: 3 }}
           wrapperCol={{ span: 12 }}
         >
-          <Form.Item label="姓名" name="username">
+          <Form.Item
+            label="姓名"
+            name="username"
+            rules={[{ required: true, message: "必填" }]}
+          >
             <Input />
           </Form.Item>
 
-          <Form.Item label="密码" name="password">
+          <Form.Item
+            label="密码"
+            name="password"
+            rules={[{ len: 6, message: "请输入6位密码" }]}
+          >
             <Input.Password placeholder="密码交出来" />
           </Form.Item>
 

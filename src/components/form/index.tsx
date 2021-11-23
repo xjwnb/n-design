@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-17 13:53:29
- * @LastEditTime: 2021-11-23 09:50:03
+ * @LastEditTime: 2021-11-23 11:59:11
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\form\index.tsx
@@ -17,7 +17,12 @@ import {
   BaseSyntheticEvent,
 } from "react";
 // interface
-import { formProps, formContextParam } from "./interface";
+import {
+  formProps,
+  formContextParam,
+  rulesParam,
+  requiredParam,
+} from "./interface";
 // style
 import Style from "./index.module.scss";
 // components
@@ -51,7 +56,7 @@ function formReducer(state: any, action: any) {
 
 const Form = function (Props: formProps) {
   const {
-    children,
+    children = [],
     labelCol = { span: 8, offset: 0 },
     wrapperCol = { span: 16, offset: 0 },
     initialValues = {},
@@ -91,7 +96,54 @@ const Form = function (Props: formProps) {
    * 点击表单提交按钮
    */
   const handleFinish = function () {
+    let rules = {};
+    for (let i = 0; i < children.length; i++) {
+      // console.log(children[i]);
+      if (children[i].props.rules) {
+        rules = {
+          ...rules,
+          [children[i].props.name]: children[i].props.rules,
+        };
+      }
+    }
+    formDataValidate(state, rules);
     onFinish && onFinish(state);
+  };
+
+  /**
+   * 表单规则校验
+   */
+  const formDataValidate = function (
+    formData: { [key: string]: any },
+    rules: any
+  ) {
+    console.log(formData, rules);
+    let result: { [key: string]: string } = {};
+    Object.keys(rules).forEach((key: string) => {
+      console.log(key);
+      let val = formData[key];
+      let rule = rules[key];
+      for (let i = 0; i < rule.length; i++) {
+        for (let ruleKey in rule[i]) {
+          if (result[key]) return;
+          if (ruleKey !== "message") {
+            console.log(ruleKey, val);
+            switch (ruleKey) {
+              case "required":
+                if (rule[i].required) {
+                  result[key] = String(val).length ? "" : rule[i].message;
+                }
+                break;
+              case "len":
+                result[key] =
+                  String(val).length < rule[i].len ? rule[i].message : "";
+                break;
+            }
+          }
+        }
+      }
+    });
+    console.log(result);
   };
 
   /**
@@ -130,14 +182,32 @@ const Form = function (Props: formProps) {
 interface itemProps {
   label?: string;
   name?: string;
+  rules?: Array<rulesParam>;
   children: ReactElement;
 }
 
 function Item(Props: itemProps) {
-  const { children, label, name } = Props;
+  const { children, label, name, rules = [] } = Props;
 
   const [newChildren, setnewChildren] = useState<any>(null);
   const [formValue, setformValue] = useState<any>("");
+  const [required, setrequired] = useState<boolean>(false);
+
+  useEffect(() => {
+    // setrequired(rules?.filter(item => item))
+    let requiredVal = false;
+    for (let i = 0; i < rules?.length; i++) {
+      for (let key in rules[i]) {
+        if (key === "required") {
+          // setrequired(Boolean(rules[i][key]));
+          // setrequired((rules[i] as requiredParam).required);
+          requiredVal = (rules[i] as requiredParam).required;
+        }
+      }
+    }
+
+    setrequired(requiredVal);
+  }, [rules]);
 
   // context
   const { labelCol, wrapperCol, initValues, setFieldValue, handleFinish } =
@@ -329,13 +399,15 @@ function Item(Props: itemProps) {
           offset={labelCol?.offset || 0}
         >
           <div className={Style.n_form_item_key}>
+            {required && <span className={Style.n_form_item_required}>*</span>}
             {label && (
               <label className={Style.n_form_item_label}>{label}</label>
             )}
           </div>
         </Col>
         <Col span={wrapperCol?.span || 16} offset={wrapperCol?.offset || 0}>
-          {newChildren}
+          <div className={Style.n_form_item_content}>{newChildren}</div>
+          <span className={Style.n_form_item_message}></span>
         </Col>
       </Row>
     </div>

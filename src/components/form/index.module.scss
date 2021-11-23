@@ -15,7 +15,6 @@
   text-align: right;
 }
 
-
 .n_form_item_col {
   vertical-align: middle;
 }
@@ -25,5 +24,11 @@
 }
 
 .n_form_item_label::after {
-  content: ":";
+  content: "：";
+}
+
+.n_form_item_required {
+  color: #ff4d4f;
+  font-weight: 700;
+  margin-right: 5px;
 }
