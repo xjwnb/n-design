@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-23 11:57:41
+ * @LastEditTime: 2021-11-23 14:12:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -829,7 +829,13 @@ function App() {
           <Form.Item
             label="密码"
             name="password"
-            rules={[{ len: 6, message: "请输入6位密码" }]}
+            rules={[
+              { required: true, message: "必选写密码" },
+              { len: 6, message: "请输入6位密码" },
+              { max: 11, message: "密码最大为11位" },
+              { min: 8, message: "密码最小为8位" },
+              { pattern: /[a-zA-Z]+/g, message: "正则验证" },
+            ]}
           >
             <Input.Password placeholder="密码交出来" />
           </Form.Item>
@@ -853,7 +859,11 @@ function App() {
             </Select>
           </Form.Item>
 
-          <Form.Item label="多选" name="multiSelect">
+          <Form.Item
+            label="多选"
+            name="multiSelect"
+            rules={[{ min: 6, message: "最少选择3个选项" }]}
+          >
             <Select
               mode="multiple"
               placeholder="你选什么东西"

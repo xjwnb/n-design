@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-17 13:53:29
- * @LastEditTime: 2021-11-23 11:59:11
+ * @LastEditTime: 2021-11-23 14:10:47
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\form\index.tsx
@@ -33,6 +33,7 @@ const defaultFormContext: formContextParam = {
   labelCol: { span: 8, offset: 0 },
   wrapperCol: { span: 16, offset: 0 },
   initValues: {},
+  rulesError: {},
   setFieldValue: () => {},
   handleFinish: (value: object) => {},
 };
@@ -61,10 +62,12 @@ const Form = function (Props: formProps) {
     wrapperCol = { span: 16, offset: 0 },
     initialValues = {},
     onFinish,
+    onFinishFailed,
   } = Props;
 
   const [initVal, setinitVal] = useState<object>(initialValues);
   // const [formProvider, setformProvider] = useState<formContextParam>({});
+  const [ruleResult, setruleResult] = useState({});
 
   const [state, dispatch] = useReducer(formReducer, initalState);
 
@@ -106,8 +109,13 @@ const Form = function (Props: formProps) {
         };
       }
     }
-    formDataValidate(state, rules);
-    onFinish && onFinish(state);
+    let { flag, result } = formDataValidate(state, rules);
+    console.log(flag, result);
+    if (flag) {
+      onFinish && onFinish(state);
+    } else {
+      onFinishFailed && onFinishFailed();
+    }
   };
 
   /**
@@ -117,17 +125,14 @@ const Form = function (Props: formProps) {
     formData: { [key: string]: any },
     rules: any
   ) {
-    console.log(formData, rules);
     let result: { [key: string]: string } = {};
     Object.keys(rules).forEach((key: string) => {
-      console.log(key);
       let val = formData[key];
       let rule = rules[key];
       for (let i = 0; i < rule.length; i++) {
         for (let ruleKey in rule[i]) {
           if (result[key]) return;
           if (ruleKey !== "message") {
-            console.log(ruleKey, val);
             switch (ruleKey) {
               case "required":
                 if (rule[i].required) {
@@ -135,15 +140,43 @@ const Form = function (Props: formProps) {
                 }
                 break;
               case "len":
-                result[key] =
-                  String(val).length < rule[i].len ? rule[i].message : "";
+                if (val instanceof Array) {
+                  result[key] = val.length < rule[i].len ? rule[i].message : "";
+                } else {
+                  result[key] =
+                    String(val).length < rule[i].len ? rule[i].message : "";
+                }
+                break;
+              case "max":
+                if (val instanceof Array) {
+                  result[key] = val.length > rule[i].max ? rule[i].message : "";
+                } else {
+                  result[key] =
+                    String(val).length > rule[i].max ? rule[i].message : "";
+                }
+                break;
+              case "min":
+                if (val instanceof Array) {
+                  result[key] = val.length < rule[i].min ? rule[i].message : "";
+                } else {
+                  result[key] =
+                    String(val).length < rule[i].min ? rule[i].message : "";
+                }
+                break;
+              case "pattern":
+                rule[i].pattern.lastIndex = 0;
+                result[key] = rule[i].pattern.test(val) ? "" : rule[i].message;
                 break;
             }
           }
         }
       }
     });
-    console.log(result);
+    setruleResult(result);
+    return {
+      flag: Object.values(result).every((item) => item === ""),
+      result,
+    };
   };
 
   /**
@@ -166,6 +199,7 @@ const Form = function (Props: formProps) {
           wrapperCol,
           initValues: initVal,
           // initValues: state,
+          rulesError: ruleResult,
           setFieldValue: setFieldValue,
           handleFinish: handleFinish,
         }}
@@ -192,6 +226,25 @@ function Item(Props: itemProps) {
   const [newChildren, setnewChildren] = useState<any>(null);
   const [formValue, setformValue] = useState<any>("");
   const [required, setrequired] = useState<boolean>(false);
+  const [errorMsg, seterrorMsg] = useState<string>("");
+
+  // context
+  const {
+    labelCol,
+    wrapperCol,
+    initValues,
+    rulesError,
+    setFieldValue,
+    handleFinish,
+  } = useContext(FormContext);
+
+  useEffect(() => {
+    for (let key in rulesError) {
+      if (key === name) {
+        seterrorMsg(rulesError[key]);
+      }
+    }
+  }, [rulesError, name]);
 
   useEffect(() => {
     // setrequired(rules?.filter(item => item))
@@ -208,10 +261,6 @@ function Item(Props: itemProps) {
 
     setrequired(requiredVal);
   }, [rules]);
-
-  // context
-  const { labelCol, wrapperCol, initValues, setFieldValue, handleFinish } =
-    useContext(FormContext);
 
   /**
    * 点击按钮
@@ -407,7 +456,7 @@ function Item(Props: itemProps) {
         </Col>
         <Col span={wrapperCol?.span || 16} offset={wrapperCol?.offset || 0}>
           <div className={Style.n_form_item_content}>{newChildren}</div>
-          <span className={Style.n_form_item_message}></span>
+          <span className={Style.n_form_item_message}>{errorMsg}</span>
         </Col>
       </Row>
     </div>
