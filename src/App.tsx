@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-23 14:12:41
+ * @LastEditTime: 2021-11-23 14:15:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -862,7 +862,7 @@ function App() {
           <Form.Item
             label="多选"
             name="multiSelect"
-            rules={[{ min: 6, message: "最少选择3个选项" }]}
+            rules={[{ min: 6, message: "最少选择6个选项" }]}
           >
             <Select
               mode="multiple"
