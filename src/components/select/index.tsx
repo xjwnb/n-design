@@ -145,8 +145,10 @@ function Select(Props: IProps) {
   }, [clickTarget]);
 
   useEffect(() => {
-    onChange && onChange(inputVal);
-  }, [onChange, inputVal]);
+    // onChange && onChange(inputVal);
+    onChange && onChange(value);
+    // }, [onChange, inputVal]);
+  }, [onChange, value]);
 
   useEffect(() => {
     // 过滤出 option 的children

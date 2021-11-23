@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-17 13:53:29
- * @LastEditTime: 2021-11-22 16:24:34
+ * @LastEditTime: 2021-11-23 09:08:07
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\form\index.tsx
@@ -23,6 +23,7 @@ import Style from "./index.module.scss";
 // components
 import { Row, Col, Button, Checkbox } from "../index";
 import Input from "../input";
+import Select from "../select";
 
 const defaultFormContext: formContextParam = {
   labelCol: { span: 8, offset: 0 },
@@ -176,7 +177,7 @@ function Item(Props: itemProps) {
           setnewChildren(
             cloneElement(children, {
               value: initValues[name],
-              onChange: function (event: any) {
+              onChange: function (event: BaseSyntheticEvent) {
                 let val = event.target.value;
                 setformValue(val);
                 setFieldValue && setFieldValue(name, val);
@@ -200,7 +201,7 @@ function Item(Props: itemProps) {
           setnewChildren(
             cloneElement(children, {
               value: initValues[name],
-              onChange: function (event: any) {
+              onChange: function (event: BaseSyntheticEvent) {
                 let val = event.target.value;
                 setformValue(val);
                 setFieldValue && setFieldValue(name, val);
@@ -208,13 +209,23 @@ function Item(Props: itemProps) {
             })
           );
           break;
+        } else if (children.type === Select) {
+          setnewChildren(
+            cloneElement(children, {
+              defaultValue: name && initValues[name],
+              onChange: function (val: string) {
+                setformValue(val);
+                setFieldValue && setFieldValue(name, val);
+              },
+            })
+          );
         }
       } else {
         if (children.type === Input) {
           setnewChildren(
             cloneElement(children, {
               value: name && initValues[name],
-              onChange: function (event: any) {
+              onChange: function (event: BaseSyntheticEvent) {
                 let val = event.target.value;
                 setformValue(val);
                 setFieldValue && setFieldValue(name, val);
@@ -238,7 +249,7 @@ function Item(Props: itemProps) {
           setnewChildren(
             cloneElement(children, {
               value: name && initValues[name],
-              onChange: function (event: any) {
+              onChange: function (event: BaseSyntheticEvent) {
                 let val = event.target.value;
                 setformValue(val);
                 setFieldValue && setFieldValue(name, val);
@@ -246,6 +257,16 @@ function Item(Props: itemProps) {
             })
           );
           break;
+        } else if (children.type === Select) {
+          setnewChildren(
+            cloneElement(children, {
+              defaultValue: name && initValues[name],
+              onChange: function (val: string) {
+                setformValue(val);
+                setFieldValue && setFieldValue(name, val);
+              },
+            })
+          );
         }
       }
     }

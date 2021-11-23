@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-22 16:23:25
+ * @LastEditTime: 2021-11-23 09:12:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -541,6 +541,7 @@ function App() {
 
       {/* Pagination */}
       <div>
+        <h1>Pagination</h1>
         <Pagination
           total={100}
           onChange={handlePaginationChange}
@@ -552,6 +553,7 @@ function App() {
 
       {/* Row - Col */}
       <div>
+        <h1>Row Col</h1>
         <div className="row_container">
           <Row>
             <Col span={24}>
@@ -799,15 +801,20 @@ function App() {
 
       {/* form */}
       <div>
+        <h1>Form</h1>
         <Form
           initialValues={{
             username: "小卡车",
             password: "123",
             // remember: true,
+            select: "2",
+            multiSelect: ["A", "b", "C", "H", "J"],
           }}
           onFinish={(val: any) => {
             console.log("表单值：", val);
           }}
+          labelCol={{ span: 3, offset: 3 }}
+          wrapperCol={{ span: 12 }}
         >
           <Form.Item label="姓名" name="username">
             <Input />
@@ -821,6 +828,43 @@ function App() {
             <Checkbox>什么玩意儿</Checkbox>
           </Form.Item>
 
+          <Form.Item label="选择" name="select">
+            <Select
+              placeholder="你选什么东西儿"
+              // defaultValue="2"
+              // onChange={handleSelectChange}
+            >
+              <Select.Option value="1">什么东西</Select.Option>
+              <Select.Option value="2">什么东西啊</Select.Option>
+              <Select.Option value="3" disabled>
+                什么东西...
+              </Select.Option>
+              <Select.Option value="4">什么东西，秀儿</Select.Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item label="多选" name="multiSelect">
+            <Select
+              mode="multiple"
+              placeholder="你选什么东西"
+              // defaultValue={["A", "b", "C", "H", "J"]}
+              // onChange={handleSelectChange}
+            >
+              <Select.Option value="1">什么东西</Select.Option>
+              <Select.Option value="2">什么东西啊</Select.Option>
+              <Select.Option value="3">A</Select.Option>
+              <Select.Option value="4">AB</Select.Option>
+              <Select.Option value="5">C</Select.Option>
+              <Select.Option value="6">D</Select.Option>
+              <Select.Option value="7">E</Select.Option>
+              <Select.Option value="8">F</Select.Option>
+              <Select.Option value="9">G</Select.Option>
+              <Select.Option value="10">H</Select.Option>
+              <Select.Option value="11">I</Select.Option>
+              <Select.Option value="12">J</Select.Option>
+            </Select>
+          </Form.Item>
+
           <Form.Item>
             <Button type="primary" htmlType="submit">
               Submit
@@ -831,13 +875,13 @@ function App() {
 
       {/* checkbox */}
       <div>
+        <h1>Checkbox</h1>
         <Checkbox onChange={(e: any) => console.log(e.target.checked)}>
           什么玩意儿
         </Checkbox>
         <Checkbox defaultChecked={true} disabled>
           什么玩意儿
         </Checkbox>
-
         <br />
         <Checkbox.Group
           options={[
@@ -856,7 +900,6 @@ function App() {
             },
           ]}
         />
-
         <br />
         <Checkbox.Group
           options={[
@@ -876,6 +919,8 @@ function App() {
           defaultValue={["a", "b"]}
         />
       </div>
+
+      <div></div>
     </div>
   );
 }
