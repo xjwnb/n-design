@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-17 13:53:29
- * @LastEditTime: 2021-11-23 09:35:04
+ * @LastEditTime: 2021-11-23 09:50:03
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\form\index.tsx
@@ -22,6 +22,7 @@ import { formProps, formContextParam } from "./interface";
 import Style from "./index.module.scss";
 // components
 import { Row, Col, Button, Checkbox, Input, Select, Switch } from "../index";
+import Radio from "../radio";
 
 const defaultFormContext: formContextParam = {
   labelCol: { span: 8, offset: 0 },
@@ -228,6 +229,16 @@ function Item(Props: itemProps) {
               },
             })
           );
+        } else if (children.type === Radio.Group) {
+          setnewChildren(
+            cloneElement(children, {
+              value: name && initValues[name],
+              onChange: function (val: string | number) {
+                setformValue(val);
+                setFieldValue && setFieldValue(name, val);
+              },
+            })
+          );
         }
       } else {
         if (children.type === Input) {
@@ -281,6 +292,16 @@ function Item(Props: itemProps) {
             cloneElement(children, {
               defaultValue: name && Boolean(initValues[name]),
               onChange: function (val: boolean) {
+                setformValue(val);
+                setFieldValue && setFieldValue(name, val);
+              },
+            })
+          );
+        } else if (children.type === Radio.Group) {
+          setnewChildren(
+            cloneElement(children, {
+              value: name && initValues[name],
+              onChange: function (val: string | number) {
                 setformValue(val);
                 setFieldValue && setFieldValue(name, val);
               },

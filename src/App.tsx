@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-23 09:20:00
+ * @LastEditTime: 2021-11-23 09:51:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -809,6 +809,8 @@ function App() {
             // remember: true,
             select: "2",
             multiSelect: ["A", "b", "C", "H", "J"],
+            isOpen: true,
+            radio: 1,
           }}
           onFinish={(val: any) => {
             console.log("表单值：", val);
@@ -867,6 +869,16 @@ function App() {
 
           <Form.Item label="是否打开" name="isOpen">
             <Switch />
+          </Form.Item>
+
+          <Form.Item label="单选" name="radio">
+            <Radio.Group>
+              <Radio value={1}>A</Radio>
+              <Radio value={2}>B</Radio>
+              <Radio value={3} disabled>
+                C
+              </Radio>
+            </Radio.Group>
           </Form.Item>
 
           <Form.Item>

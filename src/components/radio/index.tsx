@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-29 16:12:00
- * @LastEditTime: 2021-10-31 15:31:25
+ * @LastEditTime: 2021-11-23 09:49:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\components\radio\index.tsx
@@ -160,7 +160,7 @@ Radio.Group = function Group(Props: groupProps) {
           buttonStyle,
           radioChange: (newVal: string | number, event: BaseSyntheticEvent) => {
             setgroupVal(newVal);
-            onChange && onChange(event);
+            onChange && onChange(newVal);
           },
         }}
       >
