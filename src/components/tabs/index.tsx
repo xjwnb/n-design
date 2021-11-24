@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-23 15:37:44
- * @LastEditTime: 2021-11-24 15:18:00
+ * @LastEditTime: 2021-11-24 15:34:22
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\tabs\index.tsx
@@ -24,6 +24,7 @@ interface tabsProps {
   // children: Array<ReactElement> | ReactElement;
   children: any;
   defaultActiveKey?: string;
+  centered?: boolean;
 }
 
 // context
@@ -32,7 +33,7 @@ const TabsContext = createContext<tabsContextParam>({
 });
 
 function Tabs(Props: tabsProps) {
-  const { children, defaultActiveKey = "2" } = Props;
+  const { children, defaultActiveKey = "2", centered = false } = Props;
 
   const [tabList, settabList] = useState<Array<tabParam>>([]);
   const [currentKey, setcurrentKey] = useState(defaultActiveKey);
@@ -84,6 +85,7 @@ function Tabs(Props: tabsProps) {
         (item) => item.id === id && item.disabled
       );
       if (currentTab?.length) return;
+      console.log(id);
       setcurrentKey(id);
     },
     [tabList]
@@ -91,7 +93,7 @@ function Tabs(Props: tabsProps) {
 
   useEffect(() => {
     for (let i = 0; i < children.length; i++) {
-      if (children[i].props.disabled) return;
+      if (children[i].props.disabled) continue;
       let child: any = tabBtnRef.current?.children[i];
       let currentid = child?.dataset.currentid;
       if (currentid === currentKey) {
@@ -106,7 +108,13 @@ function Tabs(Props: tabsProps) {
   return (
     <div className={Style.n_tabs}>
       {/* 标签 */}
-      <div className={Style.n_tabs_container} ref={tabBtnRef}>
+      <div
+        className={Style.n_tabs_container}
+        ref={tabBtnRef}
+        style={{
+          justifyContent: centered ? "center" : "flex-start",
+        }}
+      >
         {tabList.map((item: tabParam) => (
           <div
             className={Style.n_tabs_tab}
@@ -153,7 +161,7 @@ function Tabs(Props: tabsProps) {
  */
 interface tabPaneProps {
   children?: any;
-  tab: string;
+  tab: any;
   id: string;
   disabled?: boolean;
   // id?: string;
