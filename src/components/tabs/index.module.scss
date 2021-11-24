@@ -12,6 +12,10 @@
     .n_tabs_tab_btn {
       cursor: pointer;
     }
+
+    &:first-child {
+      margin-left: 0;
+    }
   }
 }
 
@@ -27,4 +31,8 @@
   top: 99%;
   z-index: 99;
   background-color: #1890ff;
+}
+
+.n_tabs_tabPane_content {
+  padding: 10px 0;
 }
