@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-24 16:19:58
+ * @LastEditTime: 2021-11-24 17:19:31
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -29,6 +29,7 @@ import {
   Col,
   Checkbox,
   Tabs,
+  Divider,
 } from "./components/index";
 import { Left, Right, Search, Loading } from "./Icons/icon/index";
 
@@ -1060,6 +1061,14 @@ function App() {
             什么玩意儿4
           </Tabs.TabPane>
         </Tabs>
+      </div>
+
+      {/* Divider */}
+      <div>
+        <h1>Divider</h1>
+        <Divider />
+        <br />
+        <Divider dashed />
       </div>
 
       <div></div>
