@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-23 15:37:44
- * @LastEditTime: 2021-11-24 15:34:22
+ * @LastEditTime: 2021-11-24 16:29:48
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\tabs\index.tsx
@@ -25,6 +25,7 @@ interface tabsProps {
   children: any;
   defaultActiveKey?: string;
   centered?: boolean;
+  tabPosition?: "top" | "bottom" | "left" | "right";
 }
 
 // context
@@ -33,12 +34,19 @@ const TabsContext = createContext<tabsContextParam>({
 });
 
 function Tabs(Props: tabsProps) {
-  const { children, defaultActiveKey = "2", centered = false } = Props;
+  const {
+    children,
+    defaultActiveKey = "2",
+    centered = false,
+    tabPosition = "top",
+  } = Props;
 
   const [tabList, settabList] = useState<Array<tabParam>>([]);
   const [currentKey, setcurrentKey] = useState(defaultActiveKey);
   const [left, setleft] = useState(0);
   const [width, setwidth] = useState(0);
+  const [top, settop] = useState(0);
+  const [height, setheight] = useState(0);
 
   const tabBtnRef = useRef<any>(null);
 
@@ -61,17 +69,31 @@ function Tabs(Props: tabsProps) {
 
   useEffect(() => {
     setTimeout(() => {
+      // if (["top", "bottom"].includes(tabPosition)) {
       for (let i = 0; i < children.length; i++) {
         let child: any = tabBtnRef.current?.children[i];
         if (!child) return;
         let currentid = child?.dataset.currentid;
         if (currentid === currentKey) {
-          let left = child.offsetLeft;
-          let width = child.offsetWidth;
-          setleft(left);
-          setwidth(width);
+          /* let left = child.offsetLeft;
+            let width = child.offsetWidth;
+            setleft(left);
+            setwidth(width); */
+          if (["top", "bottom"].includes(tabPosition)) {
+            let left = child.offsetLeft;
+            let width = child.offsetWidth;
+            setleft(left);
+            setwidth(width);
+          } else {
+            let height = child.offsetHeight;
+            let top = child.offsetTop;
+            // setwidth(width);
+            settop(top);
+            setheight(height);
+          }
         }
       }
+      // }
     }, 500);
     // eslint-disable-next-line
   }, [children]);
@@ -85,34 +107,45 @@ function Tabs(Props: tabsProps) {
         (item) => item.id === id && item.disabled
       );
       if (currentTab?.length) return;
-      console.log(id);
       setcurrentKey(id);
     },
     [tabList]
   );
 
   useEffect(() => {
+    // if (["top", "bottom"].includes(tabPosition)) {
     for (let i = 0; i < children.length; i++) {
       if (children[i].props.disabled) continue;
       let child: any = tabBtnRef.current?.children[i];
       let currentid = child?.dataset.currentid;
       if (currentid === currentKey) {
-        let left = child.offsetLeft;
-        let width = child.offsetWidth;
-        setleft(left);
-        setwidth(width);
+        console.dir(child);
+        if (["top", "bottom"].includes(tabPosition)) {
+          let left = child.offsetLeft;
+          let width = child.offsetWidth;
+          setleft(left);
+          setwidth(width);
+        } else {
+          let height = child.offsetHeight;
+          let top = child.offsetTop;
+          // setwidth(width);
+          settop(top);
+          setheight(height);
+        }
       }
     }
+    // }
   }, [currentKey, children]);
 
   return (
-    <div className={Style.n_tabs}>
+    <div className={[Style.n_tabs, Style[`n_tabs_${tabPosition}`]].join(" ")}>
       {/* 标签 */}
       <div
         className={Style.n_tabs_container}
         ref={tabBtnRef}
         style={{
           justifyContent: centered ? "center" : "flex-start",
+          // order: ["bottom"].includes(tabPosition) ? 1 : 0,
         }}
       >
         {tabList.map((item: tabParam) => (
@@ -137,12 +170,29 @@ function Tabs(Props: tabsProps) {
         <div
           className={Style.n_tabs_active_bar}
           style={{
-            left: left,
-            width: width,
+            left: ["top", "bottom"].includes(tabPosition)
+              ? left
+              : ["left"].includes(tabPosition)
+              ? "99%"
+              : 0,
+            width: ["top", "bottom"].includes(tabPosition) ? width : 0,
+            height: ["left", "right"].includes(tabPosition) ? height : 2,
+            top: ["left", "right"].includes(tabPosition)
+              ? top
+              : ["top"].includes(tabPosition)
+              ? "99%"
+              : 0,
           }}
         ></div>
       </div>
-      <div className={Style.n_tabs_content}>
+      <div
+        className={Style.n_tabs_content}
+        style={
+          {
+            // order: ["bottom"].includes(tabPosition) ? 0 : 1,
+          }
+        }
+      >
         <TabsContext.Provider
           value={{
             activeKey: currentKey,

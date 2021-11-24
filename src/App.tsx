@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-24 15:32:51
+ * @LastEditTime: 2021-11-24 16:19:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -974,6 +974,72 @@ function App() {
         </Tabs>
         <br />
         <Tabs centered>
+          <Tabs.TabPane tab="什么玩意儿1" id="1">
+            什么玩意儿1
+          </Tabs.TabPane>
+          <Tabs.TabPane tab="什么玩意儿2" id="2">
+            什么玩意儿2
+          </Tabs.TabPane>
+          <Tabs.TabPane tab="什么玩意儿3" disabled id="3">
+            什么玩意儿3
+          </Tabs.TabPane>
+          <Tabs.TabPane
+            tab={
+              <span>
+                <Loading /> 什么玩意儿4
+              </span>
+            }
+            id="4"
+          >
+            什么玩意儿4
+          </Tabs.TabPane>
+        </Tabs>
+        <br />
+        <Tabs tabPosition="bottom">
+          <Tabs.TabPane tab="什么玩意儿1" id="1">
+            什么玩意儿1
+          </Tabs.TabPane>
+          <Tabs.TabPane tab="什么玩意儿2" id="2">
+            什么玩意儿2
+          </Tabs.TabPane>
+          <Tabs.TabPane tab="什么玩意儿3" disabled id="3">
+            什么玩意儿3
+          </Tabs.TabPane>
+          <Tabs.TabPane
+            tab={
+              <span>
+                <Loading /> 什么玩意儿4
+              </span>
+            }
+            id="4"
+          >
+            什么玩意儿4
+          </Tabs.TabPane>
+        </Tabs>
+        <br />
+        <Tabs tabPosition="left">
+          <Tabs.TabPane tab="什么玩意儿1" id="1">
+            什么玩意儿1
+          </Tabs.TabPane>
+          <Tabs.TabPane tab="什么玩意儿2" id="2">
+            什么玩意儿2
+          </Tabs.TabPane>
+          <Tabs.TabPane tab="什么玩意儿3" disabled id="3">
+            什么玩意儿3
+          </Tabs.TabPane>
+          <Tabs.TabPane
+            tab={
+              <span>
+                <Loading /> 什么玩意儿4
+              </span>
+            }
+            id="4"
+          >
+            什么玩意儿4
+          </Tabs.TabPane>
+        </Tabs>
+        <br />
+        <Tabs tabPosition="right">
           <Tabs.TabPane tab="什么玩意儿1" id="1">
             什么玩意儿1
           </Tabs.TabPane>
