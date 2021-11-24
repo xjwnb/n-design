@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-23 17:05:03
+ * @LastEditTime: 2021-11-24 15:02:46
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -967,6 +967,9 @@ function App() {
           </Tabs.TabPane>
           <Tabs.TabPane tab="什么玩意儿2" id="2">
             什么玩意儿2
+          </Tabs.TabPane>
+          <Tabs.TabPane tab="什么玩意儿3" disabled id="3">
+            什么玩意儿3
           </Tabs.TabPane>
         </Tabs>
       </div>

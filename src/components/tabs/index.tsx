@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-23 15:37:44
- * @LastEditTime: 2021-11-24 14:48:44
+ * @LastEditTime: 2021-11-24 15:18:00
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\tabs\index.tsx
@@ -52,6 +52,7 @@ function Tabs(Props: tabsProps) {
         return {
           id: item.props.id,
           text: item.props.tab,
+          disabled: item.props.disabled || false,
         };
       })
     );
@@ -77,12 +78,20 @@ function Tabs(Props: tabsProps) {
   /**
    * 修改标签页
    */
-  const handleTabsChange = useCallback((id: string) => {
-    setcurrentKey(id);
-  }, []);
+  const handleTabsChange = useCallback(
+    (id: string) => {
+      let currentTab = tabList.filter(
+        (item) => item.id === id && item.disabled
+      );
+      if (currentTab?.length) return;
+      setcurrentKey(id);
+    },
+    [tabList]
+  );
 
   useEffect(() => {
     for (let i = 0; i < children.length; i++) {
+      if (children[i].props.disabled) return;
       let child: any = tabBtnRef.current?.children[i];
       let currentid = child?.dataset.currentid;
       if (currentid === currentKey) {
@@ -109,6 +118,7 @@ function Tabs(Props: tabsProps) {
               className={[
                 Style.n_tabs_tab_btn,
                 item.id === currentKey ? Style.n_tabs_tab_btn_active : "",
+                item.disabled ? Style.n_tabs_tab_btn_disabled : "",
               ].join(" ")}
             >
               {item.text}
@@ -145,6 +155,7 @@ interface tabPaneProps {
   children?: any;
   tab: string;
   id: string;
+  disabled?: boolean;
   // id?: string;
 }
 

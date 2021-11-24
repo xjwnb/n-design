@@ -1,16 +1,21 @@
 .n_tabs_container {
   display: flex;
   border-bottom: 1px solid #f0f0f0;
-  transform: all .3s;
+  transform: all 0.3s;
   position: relative;
 
   .n_tabs_tab {
-    // padding: 12px;
-    margin: 12px;
+    margin: 0 12px;
     font-size: 14px;
 
     .n_tabs_tab_btn {
       cursor: pointer;
+      transition: all 0.3s;
+      padding: 12px 0;
+
+      &:hover {
+        color: #49aeff;
+      }
     }
 
     &:first-child {
@@ -23,10 +28,9 @@
   color: #1890ff;
 }
 
-
 .n_tabs_active_bar {
   height: 2px;
-  transition: all .5s cubic-bezier(.71,.07,.14,1.3);
+  transition: all 0.5s cubic-bezier(0.71, 0.07, 0.14, 1.3);
   position: absolute;
   top: 99%;
   z-index: 99;
@@ -35,4 +39,15 @@
 
 .n_tabs_tabPane_content {
   padding: 10px 0;
+}
+
+
+.n_tabs_tab_btn_disabled {
+  cursor: not-allowed !important;
+  color: #BFBFBF !important;
+
+  &:hover {
+    // color: #000 !important;
+    color: #BFBFBF !important;
+  }
 }
