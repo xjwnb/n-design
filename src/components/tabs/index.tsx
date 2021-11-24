@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-23 15:37:44
- * @LastEditTime: 2021-11-24 16:29:48
+ * @LastEditTime: 2021-11-24 16:32:37
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\tabs\index.tsx
@@ -69,16 +69,11 @@ function Tabs(Props: tabsProps) {
 
   useEffect(() => {
     setTimeout(() => {
-      // if (["top", "bottom"].includes(tabPosition)) {
       for (let i = 0; i < children.length; i++) {
         let child: any = tabBtnRef.current?.children[i];
         if (!child) return;
         let currentid = child?.dataset.currentid;
         if (currentid === currentKey) {
-          /* let left = child.offsetLeft;
-            let width = child.offsetWidth;
-            setleft(left);
-            setwidth(width); */
           if (["top", "bottom"].includes(tabPosition)) {
             let left = child.offsetLeft;
             let width = child.offsetWidth;
@@ -93,7 +88,6 @@ function Tabs(Props: tabsProps) {
           }
         }
       }
-      // }
     }, 500);
     // eslint-disable-next-line
   }, [children]);
@@ -113,13 +107,11 @@ function Tabs(Props: tabsProps) {
   );
 
   useEffect(() => {
-    // if (["top", "bottom"].includes(tabPosition)) {
     for (let i = 0; i < children.length; i++) {
       if (children[i].props.disabled) continue;
       let child: any = tabBtnRef.current?.children[i];
       let currentid = child?.dataset.currentid;
       if (currentid === currentKey) {
-        console.dir(child);
         if (["top", "bottom"].includes(tabPosition)) {
           let left = child.offsetLeft;
           let width = child.offsetWidth;
@@ -128,14 +120,12 @@ function Tabs(Props: tabsProps) {
         } else {
           let height = child.offsetHeight;
           let top = child.offsetTop;
-          // setwidth(width);
           settop(top);
           setheight(height);
         }
       }
     }
-    // }
-  }, [currentKey, children]);
+  }, [currentKey, children, tabPosition]);
 
   return (
     <div className={[Style.n_tabs, Style[`n_tabs_${tabPosition}`]].join(" ")}>
@@ -145,7 +135,6 @@ function Tabs(Props: tabsProps) {
         ref={tabBtnRef}
         style={{
           justifyContent: centered ? "center" : "flex-start",
-          // order: ["bottom"].includes(tabPosition) ? 1 : 0,
         }}
       >
         {tabList.map((item: tabParam) => (
@@ -187,11 +176,6 @@ function Tabs(Props: tabsProps) {
       </div>
       <div
         className={Style.n_tabs_content}
-        style={
-          {
-            // order: ["bottom"].includes(tabPosition) ? 0 : 1,
-          }
-        }
       >
         <TabsContext.Provider
           value={{
@@ -199,7 +183,6 @@ function Tabs(Props: tabsProps) {
           }}
         >
           {children}
-          {/* {newChildren} */}
         </TabsContext.Provider>
       </div>
     </div>
@@ -214,7 +197,6 @@ interface tabPaneProps {
   tab: any;
   id: string;
   disabled?: boolean;
-  // id?: string;
 }
 
 function TabPane(Props: tabPaneProps) {
