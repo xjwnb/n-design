@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-23 14:42:04
+ * @LastEditTime: 2021-11-23 17:05:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -28,6 +28,7 @@ import {
   Row,
   Col,
   Checkbox,
+  Tabs,
 } from "./components/index";
 import { Left, Right, Search } from "./Icons/icon/index";
 
@@ -955,6 +956,19 @@ function App() {
           ]}
           defaultValue={["a", "b"]}
         />
+      </div>
+
+      {/* Tabs */}
+      <div>
+        <h1>Tabs</h1>
+        <Tabs>
+          <Tabs.TabPane tab="什么玩意儿1" id="1">
+            什么玩意儿1
+          </Tabs.TabPane>
+          <Tabs.TabPane tab="什么玩意儿2" id="2">
+            什么玩意儿2
+          </Tabs.TabPane>
+        </Tabs>
       </div>
 
       <div></div>

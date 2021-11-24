@@ -1,0 +1,30 @@
+.n_tabs_container {
+  display: flex;
+  border-bottom: 1px solid #f0f0f0;
+  transform: all .3s;
+  position: relative;
+
+  .n_tabs_tab {
+    // padding: 12px;
+    margin: 12px;
+    font-size: 14px;
+
+    .n_tabs_tab_btn {
+      cursor: pointer;
+    }
+  }
+}
+
+.n_tabs_tab_btn_active {
+  color: #1890ff;
+}
+
+
+.n_tabs_active_bar {
+  height: 2px;
+  transition: all .5s cubic-bezier(.71,.07,.14,1.3);
+  position: absolute;
+  top: 99%;
+  z-index: 99;
+  background-color: #1890ff;
+}
