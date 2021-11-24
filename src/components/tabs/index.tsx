@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-23 15:37:44
- * @LastEditTime: 2021-11-24 16:32:37
+ * @LastEditTime: 2021-11-24 16:45:16
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\tabs\index.tsx
@@ -43,9 +43,9 @@ function Tabs(Props: tabsProps) {
 
   const [tabList, settabList] = useState<Array<tabParam>>([]);
   const [currentKey, setcurrentKey] = useState(defaultActiveKey);
-  const [left, setleft] = useState(0);
+  const [left, setleft] = useState<number | string>(0);
   const [width, setwidth] = useState(0);
-  const [top, settop] = useState(0);
+  const [top, settop] = useState<number | string>(0);
   const [height, setheight] = useState(0);
 
   const tabBtnRef = useRef<any>(null);
@@ -174,9 +174,7 @@ function Tabs(Props: tabsProps) {
           }}
         ></div>
       </div>
-      <div
-        className={Style.n_tabs_content}
-      >
+      <div className={Style.n_tabs_content}>
         <TabsContext.Provider
           value={{
             activeKey: currentKey,
