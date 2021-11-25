@@ -17,7 +17,6 @@
   width: 100%;
   min-width: 100%;
   margin: 24px 0;
-  // height: 1px;
 }
 
 .n_divider_dashed {
@@ -30,19 +29,6 @@
   padding: 0 1em;
   display: inline-block;
 }
-
-/* .n_divider_horizontal,.n_divider_width_text::before,
-.n_divider_horizontal,.n_divider_width_text::after {
-  position: relative;
-  top: 50%;
-  width: 50%;
-  border-top: 1px solid transparent;
-  border-top-color: inherit;
-  border-bottom: 0;
-  transform: translateY(50%);
-  content: "";
-}
- */
 
 .n_divider_with_text {
   &::before {
