@@ -61,3 +61,29 @@
     padding: 12px;
   }
 }
+
+.n_card_bordered .n_card_cover {
+  margin-top: -1px;
+  margin-right: -1px;
+  margin-left: -1px;
+}
+
+.n_card_cover img {
+  border-radius: 2px 2px 0 0;
+  vertical-align: middle;
+  border-style: none;
+}
+
+.n_card_cover > * {
+  display: block;
+  width: 100%;
+}
+
+.n_card_hoverable {
+  cursor: pointer;
+  transition: box-shadow 0.3s, border-color 0.3s;
+
+  &:hover {
+    box-shadow: 0 5px 8px rgba(#cecece, 0.8);
+  }
+}

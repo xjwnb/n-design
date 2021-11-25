@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-25 10:21:12
+ * @LastEditTime: 2021-11-25 10:34:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1130,6 +1130,23 @@ function App() {
 
         <div className="row_container">
           <Card style={{ width: 300 }}>
+            <p>Card 什么玩意儿</p>
+            <p>Card 什么玩意儿</p>
+            <p>Card 什么玩意儿</p>
+          </Card>
+        </div>
+
+        <div className="row_container">
+          <Card
+            hoverable
+            style={{ width: 240 }}
+            cover={
+              <img
+                alt="example"
+                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+              />
+            }
+          >
             <p>Card 什么玩意儿</p>
             <p>Card 什么玩意儿</p>
             <p>Card 什么玩意儿</p>
