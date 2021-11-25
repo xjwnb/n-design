@@ -81,8 +81,8 @@
     border: 1px solid $danger;
 
     &:active {
-      background-color: #D9363E;
-      border: 1px solid #D9363E;
+      background-color: #d9363e;
+      border: 1px solid #d9363e;
     }
   }
 }
@@ -109,8 +109,8 @@
     border: 1px dashed $danger;
 
     &:active {
-      border: 1px dashed #D9363E;
-      color: #D9363E;
+      border: 1px dashed #d9363e;
+      color: #d9363e;
     }
   }
 }
@@ -140,7 +140,7 @@
     border: none;
 
     &:active {
-      color: #D9363E;
+      color: #d9363e;
     }
   }
 }
@@ -150,6 +150,11 @@
   background-color: transparent;
   color: $primary;
   border: none;
+  padding: 0 !important;
+
+  .btn_icon {
+    margin: 0 !important;
+  }
 
   &:hover {
     border: none;
@@ -161,13 +166,12 @@
     border: none;
   }
 
-  
   &.n_btn_dangerous {
     color: $danger;
     border: none;
 
     &:active {
-      color: #D9363E;
+      color: #d9363e;
     }
   }
 }
@@ -197,7 +201,6 @@
   display: flex;
   align-items: center;
 }
-
 
 .n_btn_content {
   padding: 0 !important;
