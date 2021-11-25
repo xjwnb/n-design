@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-23 15:37:44
- * @LastEditTime: 2021-11-24 16:45:16
+ * @LastEditTime: 2021-11-25 08:40:52
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\tabs\index.tsx
@@ -14,6 +14,7 @@ import {
   useContext,
   useCallback,
   useRef,
+  BaseSyntheticEvent,
 } from "react";
 // interface
 import { tabParam, tabsContextParam } from "./interface";
@@ -26,6 +27,8 @@ interface tabsProps {
   defaultActiveKey?: string;
   centered?: boolean;
   tabPosition?: "top" | "bottom" | "left" | "right";
+  onChange?: Function;
+  onTabClick?: Function;
 }
 
 // context
@@ -39,6 +42,8 @@ function Tabs(Props: tabsProps) {
     defaultActiveKey = "2",
     centered = false,
     tabPosition = "top",
+    onChange,
+    onTabClick,
   } = Props;
 
   const [tabList, settabList] = useState<Array<tabParam>>([]);
@@ -96,14 +101,16 @@ function Tabs(Props: tabsProps) {
    * 修改标签页
    */
   const handleTabsChange = useCallback(
-    (id: string) => {
+    (id: string, e: BaseSyntheticEvent) => {
+      onTabClick && onTabClick(id, e);
       let currentTab = tabList.filter(
         (item) => item.id === id && item.disabled
       );
       if (currentTab?.length) return;
+      onChange && onChange(id);
       setcurrentKey(id);
     },
-    [tabList]
+    [tabList, onChange, onTabClick]
   );
 
   useEffect(() => {
@@ -141,7 +148,7 @@ function Tabs(Props: tabsProps) {
           <div
             className={Style.n_tabs_tab}
             key={item.id}
-            onClick={() => handleTabsChange(item.id)}
+            onClick={(e) => handleTabsChange(item.id, e)}
             data-currentid={item.id}
           >
             <div

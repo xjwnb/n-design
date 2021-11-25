@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-24 17:19:31
+ * @LastEditTime: 2021-11-25 08:40:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -962,7 +962,14 @@ function App() {
       {/* Tabs */}
       <div>
         <h1>Tabs</h1>
-        <Tabs>
+        <Tabs
+          onChange={(key: string) => {
+            console.log(key);
+          }}
+          onTabClick={(key: string, event: BaseSyntheticEvent) => {
+            console.log(key, event);
+          }}
+        >
           <Tabs.TabPane tab="什么玩意儿1" id="1">
             什么玩意儿1
           </Tabs.TabPane>
