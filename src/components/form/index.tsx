@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-17 13:53:29
- * @LastEditTime: 2021-11-23 16:11:31
+ * @LastEditTime: 2021-11-25 09:24:06
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\form\index.tsx
@@ -67,7 +67,6 @@ const Form = function (Props: formProps) {
   } = Props;
 
   const [initVal, setinitVal] = useState<object>(initialValues);
-  // const [formProvider, setformProvider] = useState<formContextParam>({});
   const [ruleResult, setruleResult] = useState<Array<rulesErrorParam>>([]);
 
   const [state, dispatch] = useReducer(formReducer, initalState);
@@ -134,7 +133,6 @@ const Form = function (Props: formProps) {
       for (let i = 0; i < rule.length; i++) {
         for (let ruleKey in rule[i]) {
           if (!result[key]) result[key] = [];
-          // if (result[key]) return;
           if (ruleKey !== "message") {
             switch (ruleKey) {
               case "required":
@@ -220,7 +218,6 @@ const Form = function (Props: formProps) {
           labelCol,
           wrapperCol,
           initValues: initVal,
-          // initValues: state,
           rulesError: ruleResult,
           setFieldValue: setFieldValue,
           handleFinish: handleFinish,
@@ -270,13 +267,10 @@ function Item(Props: itemProps) {
   }, [rulesError, name]);
 
   useEffect(() => {
-    // setrequired(rules?.filter(item => item))
     let requiredVal = false;
     for (let i = 0; i < rules?.length; i++) {
       for (let key in rules[i]) {
         if (key === "required") {
-          // setrequired(Boolean(rules[i][key]));
-          // setrequired((rules[i] as requiredParam).required);
           requiredVal = (rules[i] as requiredParam).required;
         }
       }

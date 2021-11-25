@@ -70,7 +70,6 @@ function Select(Props: IProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const changeValue = function (val: string, children: string) {
-    // setvalue(value);
     if (mode === "multiple" && value instanceof Array) {
       let preVal = value;
       if (!value.includes(children)) {
@@ -145,9 +144,7 @@ function Select(Props: IProps) {
   }, [clickTarget]);
 
   useEffect(() => {
-    // onChange && onChange(inputVal);
     onChange && onChange(value);
-    // }, [onChange, inputVal]);
   }, [onChange, value]);
 
   useEffect(() => {
@@ -212,7 +209,6 @@ function Select(Props: IProps) {
       }}
       ref={selectRef}
     >
-      {/* <div> */}
       <div
         className={"n_select_input_container"}
         onClick={handleClickSelect}
@@ -225,16 +221,6 @@ function Select(Props: IProps) {
         }}
         ref={inputContainer}
       >
-        {/* 多选的值容器
-        {mode === "multiple" && value instanceof Array
-          ? value.map((item) => {
-              return (
-                <span className="n_select_options_multi_value_container">
-                  {item}
-                </span>
-              );
-            })
-          : ""} */}
         <span className={"n_select_input"}>
           <input
             type="text"
@@ -257,7 +243,6 @@ function Select(Props: IProps) {
       </div>
 
       {/* options */}
-      {/* {isShowOptions && ( */}
       <OptionsContext.Provider
         value={{
           value,
@@ -276,8 +261,6 @@ function Select(Props: IProps) {
           {children}
         </div>
       </OptionsContext.Provider>
-      {/* )} */}
-      {/* </div> */}
     </div>
   );
 }

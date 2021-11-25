@@ -1,17 +1,9 @@
-/*
- * @Author: your name
- * @Date: 2021-11-01 10:20:02
- * @LastEditTime: 2021-11-01 15:25:30
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \n-design\src\components\image\components\previewContainer\index.scss
- */
+
 body {
   position: relative;
 
   .preview_container {
     position: fixed;
-    // position: absolute;
     z-index: 1;
     top: 0;
     left: 0;

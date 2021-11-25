@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-29 16:12:00
- * @LastEditTime: 2021-11-23 09:49:07
+ * @LastEditTime: 2021-11-25 09:26:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\components\radio\index.tsx
@@ -49,7 +49,6 @@ export default function Radio(Props: radioProps) {
     useContext(GroupContext);
 
   const [radioValue, setradioValue] = useState(groupValue);
-  // const [radioValueType] = useState<string>(typeof radioValue);
 
   useEffect(() => {
     setradioValue(groupValue);
@@ -76,7 +75,6 @@ export default function Radio(Props: radioProps) {
             ? style.n_radio_button_solid_checked
             : ""
         }`,
-        // `${buttonStyle === "solid" ? style.n_radio_button_solid : ""}`,
       ].join(" ")}
     >
       <span className={[`${style.n_button_radio}`].join(" ")}>

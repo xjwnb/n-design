@@ -76,7 +76,6 @@
   .n_radio_checked {
     .n_radio_inner {
       border: 1px solid $primary;
-      // border-radius: 50%;
       box-shadow: 0px 0px 2px $primary;
       &::after {
         transform: scale(1);

@@ -1,6 +1,5 @@
 .n_tabs_container {
   display: flex;
-  // border-bottom: 1px solid #f0f0f0;
   transform: all 0.3s;
   position: relative;
 
@@ -46,7 +45,6 @@
   color: #bfbfbf !important;
 
   &:hover {
-    // color: #000 !important;
     color: #bfbfbf !important;
   }
 }

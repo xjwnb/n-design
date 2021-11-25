@@ -117,9 +117,6 @@ export default function Input(props: IProps) {
           value={inputValue}
           ref={inputRef}
           maxLength={maxLength}
-          // style={{
-          //   paddingLeft: prefix ? "30px" : "11px",
-          // }}
           onChange={handleChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
@@ -330,7 +327,6 @@ function Search(searchProps: searchProps) {
    */
   const iconBtn = function () {
     if (!enterButton) {
-      // return <SearchIcon />;
       if (!loading) {
         return <SearchIcon />;
       } else {
@@ -400,7 +396,6 @@ function Search(searchProps: searchProps) {
       >
         <input
           type="text"
-          // className={[`${style.n_input}`].join(" ")}
           className={[`${Style.n_search_input}`].join(" ")}
           placeholder={placeholder}
           value={searchValue}
@@ -419,9 +414,6 @@ function Search(searchProps: searchProps) {
         className={Style.n_input_search_container}
         onClick={handleClickSearch}
       >
-        {/* loading */}
-        {/* <span className={style.search_loading}>{loading && <Loading />}</span> */}
-        {/* {loading && !enterButton && <Button icon={<Loading />}></Button>} */}
         {/* 搜索按钮*/}
         {!enterButton ? (
           <Button icon={iconBtn()}></Button>

@@ -1,13 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 13:35:33
- * @LastEditTime: 2021-11-20 14:54:31
+ * @LastEditTime: 2021-11-25 09:21:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\components\button\index.tsx
  */
 import style from "./style.module.scss";
-// import { FC, ClassicComponent } from "react";
 import { ReactElement, SyntheticEvent } from "react";
 
 type typeValue = "primary" | "dashed" | "text" | "link" | "";

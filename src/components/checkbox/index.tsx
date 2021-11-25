@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-22 08:56:32
- * @LastEditTime: 2021-11-22 14:02:20
+ * @LastEditTime: 2021-11-25 09:22:22
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\checkbox\index.tsx
@@ -62,16 +62,6 @@ function Checkbox(Props: checkboxProps) {
   }, [disabled]);
 
   /**
-   * 点击 checkbox
-   */
-  /* const handleCheckboxClick = function () {
-    console.log("什么玩意儿");
-    // setcheckedVal(!checkedVal);
-    // console.log(checkboxInputRef);
-    // onChange && onChange();
-  }; */
-
-  /**
    * checkbox onChange
    */
   const handleCheckboxChange = function (e: BaseSyntheticEvent) {
@@ -85,7 +75,7 @@ function Checkbox(Props: checkboxProps) {
       className={[
         Style.n_checkbox_wrapper,
         disabledVal ? Style.n_checkbox_wrapper_disabled : "",
-      ].join(" ")} /*  onClick={handleCheckboxClick} */
+      ].join(" ")}
     >
       <span
         className={[
@@ -158,12 +148,7 @@ function Group(Props: groupProps) {
     <div className={[Style.n_checkbox_group].join(" ")}>
       <GroupContext.Provider
         value={{
-          checkChange: function (
-            // label: string,
-            value: string,
-            checked: boolean
-          ) {
-            // console.log(label, value, checked);
+          checkChange: function (value: string, checked: boolean) {
             if (checked && !groupVal.includes(value)) {
               setgroupVal([...groupVal, value]);
             } else if (!checked && groupVal.includes(value)) {
