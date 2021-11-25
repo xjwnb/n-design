@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-25 08:40:39
+ * @LastEditTime: 2021-11-25 09:13:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1076,6 +1076,17 @@ function App() {
         <Divider />
         <br />
         <Divider dashed />
+        <br />
+        <Divider>Text</Divider>
+        <br />
+        <Divider orientation="left">Text</Divider>
+        <br />
+        <Divider orientation="right">Text</Divider>
+        <br />
+        <div>
+          Text1 <Divider type="vertical" /> Text2 <Divider type="vertical" />
+          Text3
+        </div>
       </div>
 
       <div></div>
