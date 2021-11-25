@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-25 09:13:48
+ * @LastEditTime: 2021-11-25 10:21:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -30,6 +30,7 @@ import {
   Checkbox,
   Tabs,
   Divider,
+  Card,
 } from "./components/index";
 import { Left, Right, Search, Loading } from "./Icons/icon/index";
 
@@ -1086,6 +1087,53 @@ function App() {
         <div>
           Text1 <Divider type="vertical" /> Text2 <Divider type="vertical" />
           Text3
+        </div>
+      </div>
+
+      {/* Card */}
+      <div>
+        <h1>Card</h1>
+        <div className="row_container">
+          <Card
+            title="Default size card"
+            extra={<a href="http://xiaokache.top/xkcBlog/">More</a>}
+          >
+            什么玩意儿
+          </Card>
+        </div>
+
+        <div className="row_container">
+          <Card
+            size="small"
+            title="Default size card"
+            extra={<a href="http://xiaokache.top/xkcBlog/">More</a>}
+          >
+            什么玩意儿
+          </Card>
+        </div>
+
+        <div
+          className="row_container"
+          style={{
+            background: "#ECECEC",
+            padding: 20,
+          }}
+        >
+          <Card
+            size="small"
+            title="Default size card"
+            extra={<a href="http://xiaokache.top/xkcBlog/">More</a>}
+          >
+            什么玩意儿
+          </Card>
+        </div>
+
+        <div className="row_container">
+          <Card style={{ width: 300 }}>
+            <p>Card 什么玩意儿</p>
+            <p>Card 什么玩意儿</p>
+            <p>Card 什么玩意儿</p>
+          </Card>
         </div>
       </div>
 
