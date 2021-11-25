@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-25 10:34:24
+ * @LastEditTime: 2021-11-25 15:19:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -550,6 +550,12 @@ function App() {
           onChange={handlePaginationChange}
           showTotal={(total) => `共${total}条数据`}
           showQuickJumper
+        />
+        <Pagination
+          total={100}
+          onChange={handlePaginationChange}
+          showTotal={(total) => `共${total}条数据`}
+          // showQuickJumper
         />
         <Pagination total={100} disabled />
       </div>

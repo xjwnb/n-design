@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-05 15:06:14
- * @LastEditTime: 2021-11-22 08:46:10
+ * @LastEditTime: 2021-11-25 15:23:56
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\pagination\index.tsx
@@ -11,6 +11,7 @@ import React, {
   useState,
   useCallback,
   MouseEventHandler,
+  BaseSyntheticEvent,
 } from "react";
 import Style from "./index.module.scss";
 import { Left, Right } from "../../Icons/icon/index";
@@ -148,7 +149,7 @@ function Pagination(Props: IProps) {
    */
   const handlePaginationSelectChange = useCallback(
     function (value: string) {
-      let currentOption = selectOptions.find((item) => item.children === value);
+      let currentOption = selectOptions.find((item) => item.value === value);
       setpageSize(Number(currentOption?.value));
       setselectDefaultValue(Number(currentOption?.value));
       onShowSizeChange &&
@@ -173,8 +174,8 @@ function Pagination(Props: IProps) {
   /**
    * 输入框 change
    */
-  const handleInputChange = function (value: string) {
-    setinputValue(value);
+  const handleInputChange = function (e: BaseSyntheticEvent) {
+    setinputValue(e.target.value);
   };
 
   return (
