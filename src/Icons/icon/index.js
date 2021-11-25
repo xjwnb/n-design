@@ -1,12 +1,5 @@
-/*
- * @Author: your name
- * @Date: 2021-10-28 10:58:54
- * @LastEditTime: 2021-11-05 10:49:36
- * @LastEditors: your name
- * @Description: In User Settings Edit
- * @FilePath: \n-design\src\Icons\icon\index.js
- */
 export { default as Bottom } from './Bottom'
+export { default as BoxEmpty } from './BoxEmpty'
 export { default as Close } from './Close'
 export { default as Closefill } from './Closefill'
 export { default as Enlarge } from './Enlarge'

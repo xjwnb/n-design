@@ -1,4 +1,5 @@
 export { default as Bottom } from './Bottom'
+export { default as BoxEmpty } from './BoxEmpty'
 export { default as Close } from './Close'
 export { default as Closefill } from './Closefill'
 export { default as Enlarge } from './Enlarge'

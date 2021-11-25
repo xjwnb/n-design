@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-25 15:19:15
+ * @LastEditTime: 2021-11-25 17:02:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -31,6 +31,7 @@ import {
   Tabs,
   Divider,
   Card,
+  Table,
 } from "./components/index";
 import { Left, Right, Search, Loading } from "./Icons/icon/index";
 
@@ -1158,6 +1159,61 @@ function App() {
             <p>Card 什么玩意儿</p>
           </Card>
         </div>
+      </div>
+
+      {/* Table */}
+      <div>
+        <h1>Table</h1>
+        <Table
+          columns={[
+            {
+              key: "name",
+              title: "Name",
+              dataIndex: "name",
+            },
+            {
+              key: "age",
+              title: "Age",
+              dataIndex: "age",
+              render: (text) => {
+                return <span>{text}岁</span>;
+              },
+            },
+            {
+              key: "sex",
+              title: "Sex",
+              dataIndex: "sex",
+            },
+            {
+              key: "action",
+              title: "Action",
+              dataIndex: "action",
+              render: (_, record) => (
+                <Button
+                  onClick={() => {
+                    console.log(record);
+                  }}
+                  type="link"
+                  danger
+                >
+                  Delete
+                </Button>
+              ),
+            },
+          ]}
+          dataSource={[
+            {
+              name: "小卡车",
+              age: 21,
+              sex: "男",
+            },
+            {
+              name: "蜘蛛侠",
+              age: 25,
+              sex: "男",
+            },
+          ]}
+        />
       </div>
 
       <div></div>
