@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-25 17:02:56
+ * @LastEditTime: 2021-11-26 11:50:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -37,6 +37,35 @@ import { Left, Right, Search, Loading } from "./Icons/icon/index";
 
 function App() {
   const [inputValue] = useState("");
+  const [dataSourceList, setdataSourceList] = useState<
+    Array<{
+      key: string | number;
+      name: string;
+      age: number;
+      sex: string;
+    }>
+  >([]);
+
+  useEffect(() => {
+    let data = [];
+    for (let i = 0; i < 100; i++) {
+      /* setdataSourceList(
+        dataSourceList.concat({
+          name: "小卡车" + i,
+          age: 21,
+          sex: "男",
+        })
+      ); */
+      data.push({
+        key: i,
+        name: "小卡车" + i,
+        age: 21,
+        sex: "男",
+      });
+    }
+    setdataSourceList(data);
+  }, []);
+
   /**
    * 按钮点击事件
    */
@@ -1165,6 +1194,9 @@ function App() {
       <div>
         <h1>Table</h1>
         <Table
+          rowSelection={{
+            type: "checkbox",
+          }}
           columns={[
             {
               key: "name",
@@ -1201,18 +1233,7 @@ function App() {
               ),
             },
           ]}
-          dataSource={[
-            {
-              name: "小卡车",
-              age: 21,
-              sex: "男",
-            },
-            {
-              name: "蜘蛛侠",
-              age: 25,
-              sex: "男",
-            },
-          ]}
+          dataSource={dataSourceList}
         />
       </div>
 

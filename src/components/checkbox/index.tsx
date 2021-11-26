@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-22 08:56:32
- * @LastEditTime: 2021-11-25 09:22:22
+ * @LastEditTime: 2021-11-26 13:55:47
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\checkbox\index.tsx
@@ -17,11 +17,12 @@ import {
 import Style from "./index.module.scss";
 
 interface checkboxProps {
-  children: string;
+  children?: string;
   checked?: boolean;
   disabled?: boolean;
   defaultChecked?: boolean;
   value?: string;
+  indeterminate?: boolean;
 
   onChange?: Function;
 }
@@ -47,15 +48,28 @@ function Checkbox(Props: checkboxProps) {
     disabled = false,
     defaultChecked = false,
     value,
+    indeterminate = false,
     onChange,
   } = Props;
 
   const [checkedVal, setcheckedVal] = useState<boolean>(defaultChecked);
   const [disabledVal, setdisabledVal] = useState<boolean>(disabled);
+  const [indeterminateVal, setindeterminateVal] = useState(indeterminate);
 
   const checkboxInputRef = useRef<HTMLInputElement>(null);
 
   const { checkChange } = useContext(GroupContext);
+
+  useEffect(() => {
+    setcheckedVal(defaultChecked);
+  }, [defaultChecked]);
+
+  useEffect(() => {
+    setindeterminateVal(indeterminate);
+    if (indeterminate) {
+      setcheckedVal(false);
+    }
+  }, [indeterminate]);
 
   useEffect(() => {
     setdisabledVal(disabled);
@@ -82,6 +96,7 @@ function Checkbox(Props: checkboxProps) {
           Style.n_checkbox,
           checkedVal ? Style.n_checkbox_checked : "",
           disabledVal ? Style.n_checkbox_disabled : "",
+          indeterminateVal ? Style.n_checkbox_indeterminate : "",
         ].join(" ")}
       >
         <input

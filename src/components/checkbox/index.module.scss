@@ -143,3 +143,19 @@
 .n_checkbox_disabled .n_checkbox_input {
   cursor: not-allowed;
 }
+
+.n_checkbox_indeterminate {
+  .n_checkbox_input_inner {
+    &::after {
+      top: 50%;
+      left: 50%;
+      width: 8px;
+      height: 8px;
+      background-color: #1890ff;
+      border: 0;
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      content: " ";
+    }
+  }
+}
