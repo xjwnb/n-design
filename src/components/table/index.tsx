@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-25 15:35:50
- * @LastEditTime: 2021-11-26 14:47:44
+ * @LastEditTime: 2021-11-27 22:19:07
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\table\index.tsx
@@ -27,6 +27,12 @@ function Table(Props: IProps) {
   const [currentData, setcurrentData] = useState<
     Array<{
       key: string | number;
+      [key: string]: any;
+    }>
+  >([]);
+  const [selectRows, setselectRows] = useState<
+    Array<{
+      key: number | string;
       [key: string]: any;
     }>
   >([]);
@@ -72,6 +78,19 @@ function Table(Props: IProps) {
       setkeyList(
         Array.from(new Set(keyList.concat(currentDataKey as never[])))
       );
+
+      const nowSelectRows: any = selectRows.concat(currentData as any);
+      const resultSelectRows: any[] = [];
+      let obj: {
+        [key: string]: boolean;
+      } = {};
+      for (let i = 0; i < nowSelectRows.length; i++) {
+        if (!obj[nowSelectRows[i].key]) {
+          resultSelectRows.push(nowSelectRows[i]);
+          obj[nowSelectRows[i].key] = true;
+        }
+      }
+      setselectRows(resultSelectRows);
     }
   };
 
@@ -79,12 +98,17 @@ function Table(Props: IProps) {
    * onChange row chekcbox 传入选中行数据
    */
   const handleClickRowCheckboxSecond = function (item: any) {
-    console.log(item);
-    // setkeyList()
     if (keyList.every((it) => it !== item.key)) {
       setkeyList(Array.from(new Set(keyList.concat(item.key))));
+      setselectRows(selectRows.concat(item));
     } else {
       setkeyList(Array.from(new Set(keyList.filter((it) => it !== item.key))));
+      setselectRows(
+        selectRows.filter(
+          (it: { key: string | number; [key: string]: any }) =>
+            it.key !== item.key
+        )
+      );
     }
   };
 
@@ -102,14 +126,14 @@ function Table(Props: IProps) {
     if (!currentData.length) return;
     const currentDataKey = currentData.map((item) => item.key);
     let currenDataSelectKey: Array<string | number> = [];
-    let flag = currentDataKey.every((item) => {
+    currentDataKey.forEach((item) => {
       if (keyList.includes(item as never)) {
         currenDataSelectKey.push(item);
       }
-      return keyList.includes(item as never);
+      // return keyList.includes(item as never);
     });
-    console.log(flag, currentDataKey, currenDataSelectKey, keyList);
-    if (flag && currenDataSelectKey.length === currentData.length) {
+    console.log(currenDataSelectKey, currentDataKey, keyList);
+    if (currenDataSelectKey.length === currentData.length) {
       setindeterminate(false);
       setDefaultCheckbox(true);
       return;
@@ -121,11 +145,16 @@ function Table(Props: IProps) {
     }
 
     if (!currenDataSelectKey.length) {
+      console.log("....");
       setindeterminate(false);
       setDefaultCheckbox(false);
       return;
     }
   }, [keyList, currentData, defaultCheckbox, indeterminate]);
+
+  useEffect(() => {
+    rowSelection.onChange && rowSelection.onChange(keyList, selectRows);
+  }, [selectRows, keyList, rowSelection]);
 
   return (
     <div className={Style.n_table_wrapper}>
@@ -150,7 +179,7 @@ function Table(Props: IProps) {
                   />
                 </th>
               ) : (
-                ""
+                <th></th>
               )}
               {columns.map((item) => (
                 <th key={item.key}>{item.title}</th>
@@ -158,6 +187,7 @@ function Table(Props: IProps) {
             </tr>
           </thead>
           {/* tbody */}
+          {/* {currentData.length && ( */}
           <tbody className={Style.n_table_tbody}>
             {currentData.length &&
               currentData?.map(
@@ -186,7 +216,7 @@ function Table(Props: IProps) {
                             />
                           </td>
                         ) : (
-                          ""
+                          <td></td>
                         )
                       }
                       {columns.map((col) => {
@@ -215,6 +245,7 @@ function Table(Props: IProps) {
                 }
               )}
           </tbody>
+          {/* )} */}
         </table>
         {/* empty */}
         {dataSource.length === 0 && (

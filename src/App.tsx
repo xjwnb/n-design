@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-26 11:50:43
+ * @LastEditTime: 2021-11-26 15:05:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -49,13 +49,6 @@ function App() {
   useEffect(() => {
     let data = [];
     for (let i = 0; i < 100; i++) {
-      /* setdataSourceList(
-        dataSourceList.concat({
-          name: "小卡车" + i,
-          age: 21,
-          sex: "男",
-        })
-      ); */
       data.push({
         key: i,
         name: "小卡车" + i,
@@ -1196,6 +1189,9 @@ function App() {
         <Table
           rowSelection={{
             type: "checkbox",
+            onChange: (keyList: any, selectRows: any) => {
+              console.log(keyList, selectRows);
+            },
           }}
           columns={[
             {
