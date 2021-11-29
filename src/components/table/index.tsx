@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-25 15:35:50
- * @LastEditTime: 2021-11-29 09:59:46
+ * @LastEditTime: 2021-11-29 10:08:14
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\table\index.tsx
@@ -248,7 +248,9 @@ function Table(Props: IProps) {
         )}
       </div>
 
-      <Pagination total={totalData} onChange={handlePaginationChange} />
+      <div className={Style.n_table_pagination_container}>
+        <Pagination total={totalData} onChange={handlePaginationChange} />
+      </div>
     </div>
   );
 }
