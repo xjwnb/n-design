@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-29 08:30:28
+ * @LastEditTime: 2021-11-29 09:03:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -32,6 +32,7 @@ import {
   Divider,
   Card,
   Table,
+  Tooltip,
 } from "./components/index";
 import { Left, Right, Search, Loading } from "./Icons/icon/index";
 
@@ -1272,6 +1273,14 @@ function App() {
           ]}
           dataSource={dataSourceList}
         />
+      </div>
+
+      {/* Tooltip */}
+      <div>
+        <h1>ToolTip</h1>
+        <Tooltip title="什么玩意">
+          <span>什么玩意儿</span>
+        </Tooltip>
       </div>
 
       <div></div>
