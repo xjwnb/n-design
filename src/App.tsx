@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-26 15:05:51
+ * @LastEditTime: 2021-11-29 08:30:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1193,6 +1193,47 @@ function App() {
               console.log(keyList, selectRows);
             },
           }}
+          columns={[
+            {
+              key: "name",
+              title: "Name",
+              dataIndex: "name",
+            },
+            {
+              key: "age",
+              title: "Age",
+              dataIndex: "age",
+              render: (text) => {
+                return <span>{text}岁</span>;
+              },
+            },
+            {
+              key: "sex",
+              title: "Sex",
+              dataIndex: "sex",
+            },
+            {
+              key: "action",
+              title: "Action",
+              dataIndex: "action",
+              render: (_, record) => (
+                <Button
+                  onClick={() => {
+                    console.log(record);
+                  }}
+                  type="link"
+                  danger
+                >
+                  Delete
+                </Button>
+              ),
+            },
+          ]}
+          dataSource={dataSourceList}
+        />
+
+        <br />
+        <Table
           columns={[
             {
               key: "name",

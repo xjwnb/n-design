@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-25 15:35:50
- * @LastEditTime: 2021-11-27 22:19:07
+ * @LastEditTime: 2021-11-29 08:32:11
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\table\index.tsx
@@ -179,7 +179,7 @@ function Table(Props: IProps) {
                   />
                 </th>
               ) : (
-                <th></th>
+                ""
               )}
               {columns.map((item) => (
                 <th key={item.key}>{item.title}</th>
@@ -216,7 +216,7 @@ function Table(Props: IProps) {
                             />
                           </td>
                         ) : (
-                          <td></td>
+                          ""
                         )
                       }
                       {columns.map((col) => {
