@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-29 09:03:24
+ * @LastEditTime: 2021-11-29 09:49:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1278,9 +1278,27 @@ function App() {
       {/* Tooltip */}
       <div>
         <h1>ToolTip</h1>
-        <Tooltip title="什么玩意">
-          <span>什么玩意儿</span>
-        </Tooltip>
+        <div
+          style={{
+            margin: 50,
+            display: "inline-block",
+          }}
+        >
+          <Tooltip title="什么玩意">
+            <span>什么玩意儿</span>
+          </Tooltip>
+        </div>
+        <div
+          style={{
+            margin: 50,
+            display: "inline-block",
+          }}
+        >
+          <Tooltip title="什么玩意">
+            {/* <span>什么玩意儿</span> */}
+            <Button>什么玩意儿</Button>
+          </Tooltip>
+        </div>
       </div>
 
       <div></div>
