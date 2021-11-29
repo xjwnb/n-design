@@ -169,6 +169,7 @@
 
 .n_tooltip_title_bottomLeft {
   top: 130% !important;
+  transform: translateX(0) !important;
 
   &::after {
     border-top: none !important;
@@ -183,6 +184,7 @@
 
 .n_tooltip_title_bottomRight {
   top: 130% !important;
+  transform: translateX(-50%) !important;
 
   &::after {
     border-top: none !important;
