@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-25 15:35:50
- * @LastEditTime: 2021-11-29 10:08:14
+ * @LastEditTime: 2021-11-29 11:18:33
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\table\index.tsx
@@ -168,9 +168,7 @@ function Table(Props: IProps) {
                     onChange={handleClickAllCheckbox}
                   />
                 </th>
-              ) : (
-                ""
-              )}
+              ) : null}
               {columns.map((item) => (
                 <th key={item.key}>{item.title}</th>
               ))}
@@ -178,63 +176,64 @@ function Table(Props: IProps) {
           </thead>
           {/* tbody */}
           {/* {currentData.length && ( */}
-          <tbody className={Style.n_table_tbody}>
-            {currentData.length &&
-              currentData?.map(
-                (
-                  item: {
-                    key: string | number;
-                    [key: string]: any;
-                  },
-                  index: number
-                ) => {
-                  return (
-                    <tr key={index}>
-                      {
-                        // rowSelection &&
-                        Object.keys(rowSelection).includes("type") &&
-                        rowSelection["type"] === "checkbox" ? (
-                          <td>
-                            <Checkbox
-                              defaultChecked={keyList.includes(
-                                item.key as never
-                              )}
-                              onChange={(e: BaseSyntheticEvent) => {
-                                handleClickRowCheckbox(e);
-                                handleClickRowCheckboxSecond(item);
-                              }}
-                            />
-                          </td>
-                        ) : (
-                          ""
-                        )
-                      }
-                      {columns.map((col) => {
-                        if (col.render) {
-                          return (
-                            <td
-                              // key={`${col.key}${Math.random() * (10000 - 1) + 1}`}
-                              key={Math.random() * (10000 - 1) + 1}
-                            >
-                              {col.render(item[col.dataIndex], item, index)}
+          {currentData.length ? (
+            <tbody className={Style.n_table_tbody}>
+              {currentData.length &&
+                currentData?.map(
+                  (
+                    item: {
+                      key: string | number;
+                      [key: string]: any;
+                    },
+                    index: number
+                  ) => {
+                    return (
+                      <tr key={index}>
+                        {
+                          // rowSelection &&
+                          Object.keys(rowSelection).includes("type") &&
+                          rowSelection["type"] === "checkbox" ? (
+                            <td>
+                              <Checkbox
+                                defaultChecked={keyList.includes(
+                                  item.key as never
+                                )}
+                                onChange={(e: BaseSyntheticEvent) => {
+                                  handleClickRowCheckbox(e);
+                                  handleClickRowCheckboxSecond(item);
+                                }}
+                              />
                             </td>
-                          );
-                        } else {
-                          return (
-                            <td
-                              // key={`${col.key}${Math.random() * (10000 - 1) + 1}`}
-                              key={Math.random() * (10000 - 1) + 1}
-                            >
-                              {item[col.dataIndex]}
-                            </td>
-                          );
+                          ) : null
                         }
-                      })}
-                    </tr>
-                  );
-                }
-              )}
-          </tbody>
+                        {columns.map((col) => {
+                          if (col.render) {
+                            return (
+                              <td
+                                // key={`${col.key}${Math.random() * (10000 - 1) + 1}`}
+                                key={Math.random() * (10000 - 1) + 1}
+                              >
+                                {col.render(item[col.dataIndex], item, index)}
+                              </td>
+                            );
+                          } else {
+                            return (
+                              <td
+                                // key={`${col.key}${Math.random() * (10000 - 1) + 1}`}
+                                key={Math.random() * (10000 - 1) + 1}
+                              >
+                                {item[col.dataIndex]}
+                              </td>
+                            );
+                          }
+                        })}
+                      </tr>
+                    );
+                  }
+                )}
+            </tbody>
+          ) : null}
+
           {/* )} */}
         </table>
         {/* empty */}
