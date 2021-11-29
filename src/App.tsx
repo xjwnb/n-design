@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-29 11:13:44
+ * @LastEditTime: 2021-11-29 11:23:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1285,7 +1285,7 @@ function App() {
           }}
         >
           <Tooltip title="什么玩意">
-            <div>什么玩意儿</div>
+            什么玩意儿
           </Tooltip>
         </div>
         <div
@@ -1296,6 +1296,17 @@ function App() {
         >
           <Tooltip title="什么玩意">
             <Button>什么玩意儿</Button>
+          </Tooltip>
+        </div>
+
+        <div
+          style={{
+            margin: 50,
+            display: "inline-block",
+          }}
+        >
+          <Tooltip title="什么玩意">
+            <Search />
           </Tooltip>
         </div>
       </div>
