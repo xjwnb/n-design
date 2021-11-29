@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-29 11:23:12
+ * @LastEditTime: 2021-11-29 14:31:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1284,9 +1284,7 @@ function App() {
             display: "inline-block",
           }}
         >
-          <Tooltip title="什么玩意">
-            什么玩意儿
-          </Tooltip>
+          <Tooltip title="什么玩意">什么玩意儿</Tooltip>
         </div>
         <div
           style={{
@@ -1307,6 +1305,136 @@ function App() {
         >
           <Tooltip title="什么玩意">
             <Search />
+          </Tooltip>
+        </div>
+
+        <div
+          style={{
+            margin: 50,
+            display: "inline-block",
+          }}
+        >
+          <Tooltip title="什么玩意... ...">top</Tooltip>
+        </div>
+
+        <div
+          style={{
+            margin: 50,
+            display: "inline-block",
+          }}
+        >
+          <Tooltip title="什么玩意... ..." placement="topLeft">
+            topLeft
+          </Tooltip>
+        </div>
+
+        <div
+          style={{
+            margin: 50,
+            display: "inline-block",
+          }}
+        >
+          <Tooltip title="什么玩意... ..." placement="topRight">
+            topRight
+          </Tooltip>
+        </div>
+
+        <div
+          style={{
+            margin: 50,
+            display: "inline-block",
+          }}
+        >
+          <Tooltip title="什么玩意... ..." placement="left">
+            left
+          </Tooltip>
+        </div>
+
+        <div
+          style={{
+            margin: 50,
+            display: "inline-block",
+          }}
+        >
+          <Tooltip title="什么玩意... ..." placement="right">
+            right
+          </Tooltip>
+        </div>
+
+        <div
+          style={{
+            margin: 50,
+            display: "inline-block",
+          }}
+        >
+          <Tooltip title="什么玩意... ..." placement="bottom">
+            bottom
+          </Tooltip>
+        </div>
+
+        <div
+          style={{
+            margin: 50,
+            display: "inline-block",
+          }}
+        >
+          <Tooltip title="什么玩意... ..." placement="leftTop">
+            leftTop
+          </Tooltip>
+        </div>
+
+        <div
+          style={{
+            margin: 50,
+            display: "inline-block",
+          }}
+        >
+          <Tooltip title="什么玩意... ..." placement="leftBottom">
+            leftBottom
+          </Tooltip>
+        </div>
+
+        <div
+          style={{
+            margin: 50,
+            display: "inline-block",
+          }}
+        >
+          <Tooltip title="什么玩意... ..." placement="rightTop">
+            rightTop
+          </Tooltip>
+        </div>
+
+        <div
+          style={{
+            margin: 50,
+            display: "inline-block",
+          }}
+        >
+          <Tooltip title="什么玩意... ..." placement="rightBottom">
+            rightBottom
+          </Tooltip>
+        </div>
+
+        <div
+          style={{
+            margin: 50,
+            display: "inline-block",
+          }}
+        >
+          <Tooltip title="什么玩意... ..." placement="bottomLeft">
+            bottomLeft
+          </Tooltip>
+        </div>
+
+        <div
+          style={{
+            margin: 50,
+            display: "inline-block",
+          }}
+        >
+          <Tooltip title="什么玩意... ..." placement="bottomRight">
+            bottomRight
           </Tooltip>
         </div>
       </div>
