@@ -63,7 +63,8 @@
 }
 
 .n_tooltip_title_left {
-  left: -210% !important;
+  // left: -210% !important;
+  left: none !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
 
@@ -80,7 +81,8 @@
 
 .n_tooltip_title_leftTop {
   top: 0 !important;
-  left: -110% !important;
+  left: none !important;
+  // left: -110% !important;
 
   &::after {
     border-top: 5px solid transparent !important;
@@ -94,8 +96,9 @@
 
 .n_tooltip_title_leftBottom {
   top: 0 !important;
-  left: -210% !important;
-  transform: translateY(-50%) !important;
+  left: none !important;
+  // left: -210% !important;
+  // transform: translateY(-50%) !important;
 
   &::after {
     border-top: 5px solid transparent !important;
@@ -123,7 +126,7 @@
 }
 
 .n_tooltip_title_rightTop {
-  left: 210% !important;
+  left: 220% !important;
   top: 0 !important;
 
   &::after {
@@ -137,7 +140,7 @@
 }
 
 .n_tooltip_title_rightBottom {
-  left: 120% !important;
+  left: 110% !important;
   top: 0 !important;
   transform: translateY(-50%) !important;
 

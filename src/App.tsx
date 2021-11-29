@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-29 14:31:37
+ * @LastEditTime: 2021-11-29 14:46:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1346,7 +1346,7 @@ function App() {
           }}
         >
           <Tooltip title="什么玩意... ..." placement="left">
-            left
+            left.....................
           </Tooltip>
         </div>
 
@@ -1357,7 +1357,7 @@ function App() {
           }}
         >
           <Tooltip title="什么玩意... ..." placement="right">
-            right
+            right............
           </Tooltip>
         </div>
 
@@ -1379,7 +1379,7 @@ function App() {
           }}
         >
           <Tooltip title="什么玩意... ..." placement="leftTop">
-            leftTop
+            leftTop...........
           </Tooltip>
         </div>
 
@@ -1390,7 +1390,7 @@ function App() {
           }}
         >
           <Tooltip title="什么玩意... ..." placement="leftBottom">
-            leftBottom
+            leftBottom..................
           </Tooltip>
         </div>
 
@@ -1401,7 +1401,7 @@ function App() {
           }}
         >
           <Tooltip title="什么玩意... ..." placement="rightTop">
-            rightTop
+            rightTop.............
           </Tooltip>
         </div>
 
@@ -1412,7 +1412,7 @@ function App() {
           }}
         >
           <Tooltip title="什么玩意... ..." placement="rightBottom">
-            rightBottom
+            rightBottom...........
           </Tooltip>
         </div>
 
