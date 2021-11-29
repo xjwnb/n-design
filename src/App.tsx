@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-29 09:49:37
+ * @LastEditTime: 2021-11-29 11:13:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1285,7 +1285,7 @@ function App() {
           }}
         >
           <Tooltip title="什么玩意">
-            <span>什么玩意儿</span>
+            <div>什么玩意儿</div>
           </Tooltip>
         </div>
         <div
@@ -1295,7 +1295,6 @@ function App() {
           }}
         >
           <Tooltip title="什么玩意">
-            {/* <span>什么玩意儿</span> */}
             <Button>什么玩意儿</Button>
           </Tooltip>
         </div>

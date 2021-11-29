@@ -2,7 +2,7 @@
   position: relative;
 }
 
-.n_tooltip_children {
+.n_tooltip_content {
   position: relative;
   display: inline-flex;
 
@@ -16,7 +16,7 @@
     padding: 10px 15px;
     background-color: #000;
     color: #fff;
-    top: -230%;
+    top: -130%;
     left: 50%;
     transform: translateX(-50%);
     border-radius: 5px;
@@ -38,4 +38,8 @@
       top: 100%;
     }
   }
+}
+
+.n_tooltip_children {
+  display: inline-block;
 }
