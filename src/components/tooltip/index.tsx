@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-29 08:53:10
- * @LastEditTime: 2021-11-30 11:10:29
+ * @LastEditTime: 2021-11-30 15:41:45
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\tooltip\index.tsx
@@ -39,18 +39,6 @@ function Tooltip(Props: IProps) {
   const childRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    // console.log(titleRef);
-    if (titleRef.current) {
-      // console.log(window.getComputedStyle(titleRef.current, ":after").color);
-    }
-    if (color) {
-      // titleRef.current?.classList.add();
-      // titleRef.current?.style.color = color || "";
-      // console.log(titleRef.current?.style.color);
-      console.dir(titleRef.current);
-    }
-  }, [titleRef]);
 
   useEffect(() => {
     childRef.current?.addEventListener("mousemove", () => {
@@ -130,6 +118,32 @@ function Tooltip(Props: IProps) {
           ref={titleRef}
         >
           {title}
+          <div
+            style={{
+              // borderBottomColor: color,
+              borderTopColor: ["top", "topLeft", "topRight"].includes(placement)
+                ? color
+                : "",
+              borderBottomColor: [
+                "bottom",
+                "bottomLeft",
+                "bottomRight",
+              ].includes(placement)
+                ? color
+                : "",
+              borderLeftColor: ["left", "leftTop", "leftBottom"].includes(
+                placement
+              )
+                ? color
+                : "",
+              borderRightColor: ["right", "rightTop", "rightBottom"].includes(
+                placement
+              )
+                ? color
+                : "",
+            }}
+            className={[Style.n_tooltip_title_tip].join(" ")}
+          ></div>
         </span>
       </div>
     </span>

@@ -18,8 +18,9 @@
     z-index: 6;
     visibility: hidden;
 
-    &::after {
-      content: "";
+    .n_tooltip_title_tip {
+      // &::after {
+      //   content: "";
       width: 0;
       height: 0;
       border-left: 5px solid transparent;
@@ -38,19 +39,22 @@
 }
 
 .n_tooltip_title_topLeft {
-  &::after {
+  // &::after {
+  .n_tooltip_title_tip {
     left: 20% !important;
   }
 }
 
 .n_tooltip_title_topRight {
-  &::after {
+  // &::after {
+  .n_tooltip_title_tip {
     left: 80% !important;
   }
 }
 
 .n_tooltip_title_left {
-  &::after {
+  // &::after {
+  .n_tooltip_title_tip {
     border-top: 5px solid transparent !important;
     border-bottom: 5px solid transparent !important;
     border-left: 5px solid #000 !important;
@@ -62,7 +66,8 @@
 }
 
 .n_tooltip_title_leftTop {
-  &::after {
+  // &::after {
+  .n_tooltip_title_tip {
     border-top: 5px solid transparent !important;
     border-bottom: 5px solid transparent !important;
     border-left: 5px solid #000 !important;
@@ -73,7 +78,8 @@
 }
 
 .n_tooltip_title_leftBottom {
-  &::after {
+  // &::after {
+  .n_tooltip_title_tip {
     border-top: 5px solid transparent !important;
     border-bottom: 5px solid transparent !important;
     border-left: 5px solid #000 !important;
@@ -84,7 +90,8 @@
 }
 
 .n_tooltip_title_right {
-  &::after {
+  // &::after {
+  .n_tooltip_title_tip {
     border-top: 5px solid transparent !important;
     border-bottom: 5px solid transparent !important;
     border-right: 5px solid #000 !important;
@@ -95,7 +102,8 @@
 }
 
 .n_tooltip_title_rightTop {
-  &::after {
+  // &::after {
+  .n_tooltip_title_tip {
     border-top: 5px solid transparent !important;
     border-bottom: 5px solid transparent !important;
     border-right: 5px solid #000 !important;
@@ -106,7 +114,8 @@
 }
 
 .n_tooltip_title_rightBottom {
-  &::after {
+  // &::after {
+  .n_tooltip_title_tip {
     border-top: 5px solid transparent !important;
     border-bottom: 5px solid transparent !important;
     border-right: 5px solid #000 !important;
@@ -117,7 +126,8 @@
 }
 
 .n_tooltip_title_bottom {
-  &::after {
+  // &::after {
+  .n_tooltip_title_tip {
     border-top: none !important;
     border-left: 5px solid transparent !important;
     border-right: 5px solid transparent !important;
@@ -128,7 +138,8 @@
 }
 
 .n_tooltip_title_bottomLeft {
-  &::after {
+  // &::after {
+  .n_tooltip_title_tip {
     border-top: none !important;
     border-left: 5px solid transparent !important;
     border-right: 5px solid transparent !important;
@@ -140,7 +151,8 @@
 }
 
 .n_tooltip_title_bottomRight {
-  &::after {
+  // &::after {
+  .n_tooltip_title_tip {
     border-top: none !important;
     border-left: 5px solid transparent !important;
     border-right: 5px solid transparent !important;
