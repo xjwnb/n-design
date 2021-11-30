@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-30 09:16:28
+ * @LastEditTime: 2021-11-30 09:30:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1361,7 +1361,7 @@ function App() {
               style={{
                 width: 100,
                 height: 100,
-                background: "red",
+                background: "#eee",
               }}
             >
               right............................
