@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-29 08:53:10
- * @LastEditTime: 2021-11-30 09:26:46
+ * @LastEditTime: 2021-11-30 11:10:29
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\tooltip\index.tsx
@@ -26,17 +26,31 @@ interface IProps {
     | "leftBottom"
     | "rightTop"
     | "rightBottom";
+  color?: string;
 }
 
 function Tooltip(Props: IProps) {
-  const { children, title, placement = "top" } = Props;
+  const { children, title, placement = "top", color = "#000" } = Props;
 
   const [top, settop] = useState<number | string>(0);
   const [left, setleft] = useState<number | string>(0);
   const [showTip, setshowTip] = useState(false);
 
-  const childRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null);
+  const childRef = useRef<HTMLElement>(null);
+  const titleRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    // console.log(titleRef);
+    if (titleRef.current) {
+      // console.log(window.getComputedStyle(titleRef.current, ":after").color);
+    }
+    if (color) {
+      // titleRef.current?.classList.add();
+      // titleRef.current?.style.color = color || "";
+      // console.log(titleRef.current?.style.color);
+      console.dir(titleRef.current);
+    }
+  }, [titleRef]);
 
   useEffect(() => {
     childRef.current?.addEventListener("mousemove", () => {
@@ -97,7 +111,7 @@ function Tooltip(Props: IProps) {
   }, [title, placement]);
 
   return (
-    <div className={Style.n_tooltip}>
+    <span className={Style.n_tooltip}>
       <div className={Style.n_tooltip_content}>
         <span className={Style.n_tooltip_children} ref={childRef}>
           {children}
@@ -111,13 +125,14 @@ function Tooltip(Props: IProps) {
             visibility: showTip ? "visible" : "hidden",
             left: left,
             top: top,
+            background: color,
           }}
           ref={titleRef}
         >
           {title}
         </span>
       </div>
-    </div>
+    </span>
   );
 }
 

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-30 09:30:15
+ * @LastEditTime: 2021-11-30 10:15:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -125,6 +125,22 @@ function App() {
   useEffect(() => {
     // console.log(inputValue);
   }, [inputValue]);
+
+  const colors = [
+    "pink",
+    "red",
+    "yellow",
+    "orange",
+    "cyan",
+    "green",
+    "blue",
+    "purple",
+    "geekblue",
+    "magenta",
+    "volcano",
+    "gold",
+    "lime",
+  ];
 
   return (
     <div className="App">
@@ -1445,6 +1461,13 @@ function App() {
             bottomRight................
           </Tooltip>
         </div>
+        <br />
+        <br />
+        {colors.map((item) => (
+          <Tooltip key={item} title={item} color={item}>
+            <Button>{item}</Button>
+          </Tooltip>
+        ))}
       </div>
 
       <div></div>
