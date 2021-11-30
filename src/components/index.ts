@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 13:34:55
- * @LastEditTime: 2021-11-29 09:01:46
+ * @LastEditTime: 2021-11-30 09:56:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\components\index.ts
@@ -24,3 +24,4 @@ export { default as Divider } from "./divider/index";
 export { default as Card } from "./card/index";
 export { default as Table } from "./table/index";
 export { default as Tooltip } from "./tooltip/index";
+export { default as Carousel } from "./carousel/index";
