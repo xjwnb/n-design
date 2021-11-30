@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-30 09:06:12
+ * @LastEditTime: 2021-11-30 09:16:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1357,7 +1357,15 @@ function App() {
           }}
         >
           <Tooltip title="什么玩意... ............." placement="right">
-            right............................
+            <div
+              style={{
+                width: 100,
+                height: 100,
+                background: "red",
+              }}
+            >
+              right............................
+            </div>
           </Tooltip>
         </div>
 

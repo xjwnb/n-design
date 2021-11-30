@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-29 08:53:10
- * @LastEditTime: 2021-11-30 09:09:50
+ * @LastEditTime: 2021-11-30 09:26:46
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\tooltip\index.tsx
@@ -49,7 +49,11 @@ function Tooltip(Props: IProps) {
     if (["leftTop"].includes(placement)) {
       settop(0);
     } else if (["left", "right"].includes(placement)) {
-      settop("-50%");
+      settop(
+        ((childRef.current?.offsetHeight || 0) -
+          (titleRef.current?.offsetHeight || 0)) /
+          2
+      );
     } else if (["top"].includes(placement)) {
       setleft(
         ((childRef.current?.offsetWidth || 0) -
