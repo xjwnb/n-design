@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-29 16:20:32
+ * @LastEditTime: 2021-11-30 09:06:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1314,7 +1314,7 @@ function App() {
             display: "inline-block",
           }}
         >
-          <Tooltip title="什么玩意... ...">top</Tooltip>
+          <Tooltip title="什么玩意... ...">top.........</Tooltip>
         </div>
 
         <div
@@ -1323,8 +1323,8 @@ function App() {
             display: "inline-block",
           }}
         >
-          <Tooltip title="什么玩意... ..." placement="topLeft">
-            topLeft
+          <Tooltip title="什么玩意... ............" placement="topLeft">
+            topLeft....................
           </Tooltip>
         </div>
 
@@ -1334,8 +1334,8 @@ function App() {
             display: "inline-block",
           }}
         >
-          <Tooltip title="什么玩意... ..." placement="topRight">
-            topRight..........
+          <Tooltip title="什么玩意... ............" placement="topRight">
+            topRight.............................
           </Tooltip>
         </div>
 
@@ -1356,8 +1356,8 @@ function App() {
             display: "inline-block",
           }}
         >
-          <Tooltip title="什么玩意... ..." placement="right">
-            right............
+          <Tooltip title="什么玩意... ............." placement="right">
+            right............................
           </Tooltip>
         </div>
 
@@ -1367,8 +1367,8 @@ function App() {
             display: "inline-block",
           }}
         >
-          <Tooltip title="什么玩意... ..." placement="bottom">
-            bottom
+          <Tooltip title="什么玩意... ..............." placement="bottom">
+            bottom...................
           </Tooltip>
         </div>
 
@@ -1378,8 +1378,8 @@ function App() {
             display: "inline-block",
           }}
         >
-          <Tooltip title="什么玩意... ..." placement="leftTop">
-            leftTop...........
+          <Tooltip title="什么玩意... ................" placement="leftTop">
+            leftTop..............................
           </Tooltip>
         </div>
 
@@ -1389,8 +1389,8 @@ function App() {
             display: "inline-block",
           }}
         >
-          <Tooltip title="什么玩意... ..." placement="leftBottom">
-            leftBottom..................
+          <Tooltip title="什么玩意... ..............." placement="leftBottom">
+            leftBottom.............................
           </Tooltip>
         </div>
 
@@ -1400,8 +1400,8 @@ function App() {
             display: "inline-block",
           }}
         >
-          <Tooltip title="什么玩意... ..." placement="rightTop">
-            rightTop.............
+          <Tooltip title="什么玩意... ................" placement="rightTop">
+            rightTop.........................
           </Tooltip>
         </div>
 
@@ -1411,8 +1411,8 @@ function App() {
             display: "inline-block",
           }}
         >
-          <Tooltip title="什么玩意... ..." placement="rightBottom">
-            rightBottom...........
+          <Tooltip title="什么玩意... ............." placement="rightBottom">
+            rightBottom.........................
           </Tooltip>
         </div>
 
@@ -1422,8 +1422,8 @@ function App() {
             display: "inline-block",
           }}
         >
-          <Tooltip title="什么玩意... ..." placement="bottomLeft">
-            bottomLeft
+          <Tooltip title="什么玩意... ..........." placement="bottomLeft">
+            bottomLeft.................
           </Tooltip>
         </div>
 
@@ -1433,8 +1433,8 @@ function App() {
             display: "inline-block",
           }}
         >
-          <Tooltip title="什么玩意... ..." placement="bottomRight">
-            bottomRight
+          <Tooltip title="什么玩意... ..........." placement="bottomRight">
+            bottomRight................
           </Tooltip>
         </div>
       </div>

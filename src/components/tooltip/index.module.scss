@@ -12,11 +12,13 @@
     padding: 10px 15px;
     background-color: #000;
     color: #fff;
-    opacity: 0;
+    // opacity: 0;
     border-radius: 5px;
     transition: all 0.3s;
     box-sizing: border-box;
     z-index: 6;
+    // display: none;
+    visibility: hidden;
     // top: -230%;
     // left: 50%;
     // transform: translateX(-50%);
