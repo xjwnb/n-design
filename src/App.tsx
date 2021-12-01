@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-11-30 10:15:04
+ * @LastEditTime: 2021-12-01 13:42:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -33,6 +33,7 @@ import {
   Card,
   Table,
   Tooltip,
+  Carousel,
 } from "./components/index";
 import { Left, Right, Search, Loading } from "./Icons/icon/index";
 
@@ -1468,6 +1469,119 @@ function App() {
             <Button>{item}</Button>
           </Tooltip>
         ))}
+      </div>
+
+      {/* Carousel */}
+      <div>
+        <h1>Carousel</h1>
+        <Carousel>
+          <div
+            style={{
+              width: "100%",
+              height: 300,
+              textAlign: "center",
+              background: "orange",
+              lineHeight: "300px",
+            }}
+          >
+            <h1
+              style={{
+                margin: 0,
+              }}
+            >
+              1
+            </h1>
+          </div>
+          <div
+            style={{
+              width: "100%",
+              height: 300,
+              textAlign: "center",
+              background: "orange",
+              lineHeight: "300px",
+            }}
+          >
+            <h1
+              style={{
+                margin: 0,
+              }}
+            >
+              2
+            </h1>
+          </div>
+          <div
+            style={{
+              width: "100%",
+              height: 300,
+              textAlign: "center",
+              background: "orange",
+              lineHeight: "300px",
+            }}
+          >
+            <h1
+              style={{
+                margin: 0,
+              }}
+            >
+              3
+            </h1>
+          </div>
+        </Carousel>
+        <br />
+        <br />
+        <Carousel autoplay>
+          <div
+            style={{
+              width: "100%",
+              height: 300,
+              textAlign: "center",
+              background: "orange",
+              lineHeight: "300px",
+            }}
+          >
+            <h1
+              style={{
+                margin: 0,
+              }}
+            >
+              1
+            </h1>
+          </div>
+          <div
+            style={{
+              width: "100%",
+              height: 300,
+              textAlign: "center",
+              background: "orange",
+              lineHeight: "300px",
+            }}
+          >
+            <h1
+              style={{
+                margin: 0,
+              }}
+            >
+              2
+            </h1>
+          </div>
+          <div
+            style={{
+              width: "100%",
+              height: 300,
+              textAlign: "center",
+              background: "orange",
+              lineHeight: "300px",
+            }}
+          >
+            <h1
+              style={{
+                margin: 0,
+              }}
+            >
+              3
+            </h1>
+          </div>
+        </Carousel>
       </div>
 
       <div></div>
