@@ -14,13 +14,12 @@
     color: #fff;
     border-radius: 5px;
     transition: all 0.3s;
+    transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
     box-sizing: border-box;
     z-index: 6;
     visibility: hidden;
 
     .n_tooltip_title_tip {
-      // &::after {
-      //   content: "";
       width: 0;
       height: 0;
       border-left: 5px solid transparent;
@@ -53,7 +52,6 @@
 }
 
 .n_tooltip_title_left {
-  // &::after {
   .n_tooltip_title_tip {
     border-top: 5px solid transparent !important;
     border-bottom: 5px solid transparent !important;
@@ -66,7 +64,6 @@
 }
 
 .n_tooltip_title_leftTop {
-  // &::after {
   .n_tooltip_title_tip {
     border-top: 5px solid transparent !important;
     border-bottom: 5px solid transparent !important;
@@ -78,7 +75,6 @@
 }
 
 .n_tooltip_title_leftBottom {
-  // &::after {
   .n_tooltip_title_tip {
     border-top: 5px solid transparent !important;
     border-bottom: 5px solid transparent !important;
@@ -90,7 +86,6 @@
 }
 
 .n_tooltip_title_right {
-  // &::after {
   .n_tooltip_title_tip {
     border-top: 5px solid transparent !important;
     border-bottom: 5px solid transparent !important;
@@ -102,7 +97,6 @@
 }
 
 .n_tooltip_title_rightTop {
-  // &::after {
   .n_tooltip_title_tip {
     border-top: 5px solid transparent !important;
     border-bottom: 5px solid transparent !important;
@@ -114,7 +108,6 @@
 }
 
 .n_tooltip_title_rightBottom {
-  // &::after {
   .n_tooltip_title_tip {
     border-top: 5px solid transparent !important;
     border-bottom: 5px solid transparent !important;
@@ -126,7 +119,6 @@
 }
 
 .n_tooltip_title_bottom {
-  // &::after {
   .n_tooltip_title_tip {
     border-top: none !important;
     border-left: 5px solid transparent !important;
@@ -138,7 +130,6 @@
 }
 
 .n_tooltip_title_bottomLeft {
-  // &::after {
   .n_tooltip_title_tip {
     border-top: none !important;
     border-left: 5px solid transparent !important;
@@ -151,7 +142,6 @@
 }
 
 .n_tooltip_title_bottomRight {
-  // &::after {
   .n_tooltip_title_tip {
     border-top: none !important;
     border-left: 5px solid transparent !important;
