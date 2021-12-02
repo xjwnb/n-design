@@ -12,13 +12,12 @@
   .n_submenu {
     position: relative;
     display: inline-block;
-    // padding: 10px;
     margin-bottom: 5px;
     width: 100%;
 
     .n_submenu_content {
       cursor: pointer;
-      padding: 10px;
+      padding: 10px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
