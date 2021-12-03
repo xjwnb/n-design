@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-02 15:51:54
+ * @LastEditTime: 2021-12-03 16:08:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -35,6 +35,7 @@ import {
   Tooltip,
   Carousel,
   Menu,
+  DatePicker,
 } from "./components/index";
 import { Left, Right, Search, Loading } from "./Icons/icon/index";
 
@@ -241,6 +242,14 @@ function App() {
           value={inputValue}
           onChange={handleInputChange}
           prefix={<Search />}
+          suffix={<Left />}
+        />
+
+        <Input
+          placeholder="开始操作......"
+          value={inputValue}
+          onChange={handleInputChange}
+          // prefix={<Search />}
           suffix={<Left />}
         />
         <br />
@@ -1664,6 +1673,11 @@ function App() {
           <li>49</li>
           <li>50</li>
         </ul>
+      </div>
+
+      <div>
+        <h1>DatePicker</h1>
+        <DatePicker />
       </div>
 
       <div></div>

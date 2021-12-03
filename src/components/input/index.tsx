@@ -106,7 +106,7 @@ export default function Input(props: IProps) {
         ...style,
       }}
     >
-      {!prefix && (
+      {!prefix && !suffix && (
         <input
           placeholder={placeholder}
           className={[
@@ -133,6 +133,29 @@ export default function Input(props: IProps) {
         >
           {prefix && <span className={Style.iconPrefix}>{prefix}</span>}
           {prefix && (
+            <input
+              placeholder={placeholder}
+              value={inputValue}
+              ref={inputRef}
+              maxLength={maxLength}
+              onChange={handleChange}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+            />
+          )}
+        </div>
+      )}
+
+      {suffix && (
+        <div
+          className={Style.input_flex_content}
+          ref={inputContainerRef}
+          style={{
+            borderColor: showBorder ? "#1890ff" : "#D9D9D9",
+            boxShadow: showShadow ? "0 0 3px #40a9ff" : "none",
+          }}
+        >
+          {suffix && (
             <input
               placeholder={placeholder}
               value={inputValue}
