@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-02 08:31:24
- * @LastEditTime: 2021-12-02 17:09:23
+ * @LastEditTime: 2021-12-03 14:55:38
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\menu\index.tsx
@@ -39,7 +39,7 @@ function Menu(Props: IProps) {
   /**
    * 递归获取 id 数组
    */
-  const getIds = function (
+  /* const getIds = function (
     child: any,
     arr: string[] = [],
     id: string
@@ -58,7 +58,115 @@ function Menu(Props: IProps) {
       }
     }
     return [];
+  }; */
+
+  const getIds = function (
+    child: any,
+    id: string,
+    result: string[] = []
+  ): string[] {
+    for (let i = 0; i < child.length; i++) {
+      child[i].props?.id && result.push(child[i].props?.id);
+      if (child[i].props?.id === id) {
+        break;
+        // return result;
+      } else {
+        if (child[i].props?.children && child[i].props?.children.length > 0) {
+          // result.push(...getIds(child[i].props.children, id, result));
+          // console.log(getIds(child[i].props.children, id, result));
+          result = getIds(child[i].props.children, id, result);
+          if (result[result.length - 1] === id) {
+            break;
+          }
+        } else {
+          // child[i].props?.id && result.push(child[i].props?.id);
+          // console.log(result);
+          /* if (result[result.length - 1] !== id) {
+            result = [];
+          } */
+          /* console.log(result);
+          if (result[result.length - 1] !== id) {
+            result.pop();
+          } */
+        }
+      }
+    }
+    /* for (let i = 0; i < child.length; i++) {
+      const currentChild = child[i];
+      if (
+        currentChild.props?.children &&
+        currentChild.props?.children.length > 0
+      ) {
+        // result.push(currentChild.props?.id);
+        result.push(getIds(currentChild.props?.children, id));
+      } else {
+        if (currentChild.props?.id === id) {
+          result.push(currentChild.props?.id);
+          break;
+        }
+        result.push(currentChild.props?.id);
+      }
+    } */
+    return result;
   };
+
+  // function getCidList(val: any, id: string) {
+  //   let cid_list: string[] = [];
+  //   val.forEach((item: any, index: number) => {
+  //     if (item.props?.id === id) {
+  //       cid_list = [item.props?.id];
+  //       return false;
+  //     } else {
+  //       if (item.props?.children) {
+  //         let newCid_list = [item.props?.id];
+  //         let list: any[] = [];
+  //         // if (item.props?.children instanceof Array) {
+  //         list = nodefun(item.props?.children, id, newCid_list);
+  //         // }
+  //         if (list) {
+  //           cid_list = list;
+  //         }
+  //       }
+  //     }
+  //   });
+  //   // 递归函数
+  //   function nodefun(
+  //     newVal: any,
+  //     newId: string,
+  //     newCid_list: string[]
+  //   ): string[] {
+  //     let flag = false;
+  //     // console.log(newVal);
+  //     if (!(newVal instanceof Array)) return newCid_list;
+  //     newVal?.forEach((j: any) => {
+  //       // console.log(j)
+  //       if (j.props?.id === newId) {
+  //         newCid_list.push(j.props?.id);
+  //         flag = true;
+  //       } else {
+  //         if (j.props?.children) {
+  //           let cid_list = JSON.parse(JSON.stringify(newCid_list));
+  //           cid_list.push(j.props?.id);
+  //           let list = nodefun(j.props?.children, newId, cid_list);
+  //           /* let list: any[] = [];
+  //           if (j.props?.children instanceof Array) {
+  //             list = nodefun(j.props?.children, newId, cid_list);
+  //           } */
+  //           if (list) {
+  //             newCid_list = list;
+  //             flag = true;
+  //           }
+  //         }
+  //       }
+  //     });
+  //     if (flag) {
+  //       return newCid_list;
+  //     } else {
+  //       return [];
+  //     }
+  //   }
+  //   return cid_list;
+  // }
 
   return (
     <div
@@ -72,7 +180,10 @@ function Menu(Props: IProps) {
         value={{
           onClick: (key: string) => {
             console.log(key, children);
-            let keyArr: string[] = [];
+            // let result = [];
+            console.log(getIds(children, key));
+            // console.log(getCidList(children, key));
+            /* let keyArr: string[] = [];
             for (let i = 0; i < children.length; i++) {
               keyArr = getIds(children.slice(i), keyArr, key);
               if (keyArr.length) {
@@ -80,7 +191,7 @@ function Menu(Props: IProps) {
               }
               continue;
             }
-            console.log(keyArr);
+            console.log(keyArr); */
           },
         }}
       >
