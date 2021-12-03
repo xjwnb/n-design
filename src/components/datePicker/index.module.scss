@@ -1,5 +1,19 @@
-
-
 .n_datePicker {
-  
+  position: relative;
+}
+
+.n_datePicker_panel_container {
+  position: absolute;
+  // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+  top: calc(100% + 5px);
+  background: #fff;
+  border-radius: 2px;
+  box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014,
+    0 9px 28px 8px #0000000d;
+}
+
+.n_picker_panel {
+  .n_picker_panel_header {
+    padding: 0 8px;
+  }
 }
