@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-04 08:56:07
+ * @LastEditTime: 2021-12-04 09:02:13
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -43,9 +43,7 @@ function DatePicker(Props: IProps) {
      * 点击触发事件
      */
     const handleBodyClick = function (e: any) {
-      console.log(e);
       let flag = handleClickEle(e.target, datePickerRef.current);
-      console.log(flag);
       if (!flag) {
         setshowPanel(false);
       } else {
@@ -63,7 +61,6 @@ function DatePicker(Props: IProps) {
    * 点击的元素是否为当前组件中
    */
   const handleClickEle = function (currentEle: any, target: any) {
-    // console.log(currentEle, target);
     if (currentEle === target) {
       return true;
     }
