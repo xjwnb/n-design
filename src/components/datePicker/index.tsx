@@ -1,12 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-03 17:06:26
+ * @LastEditTime: 2021-12-04 08:56:07
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
  */
-import { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 // component
 import { Input } from "../index";
 // Style
@@ -31,22 +31,79 @@ function DatePicker(Props: IProps) {
 
   const [showPanel, setshowPanel] = useState(false);
 
+  const datePickerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // console.log(datePickerRef);
+    /* datePickerRef.current?.addEventListener("click", () => {
+      console.log("ref:", "...");
+    }); */
+
+    /**
+     * 点击触发事件
+     */
+    const handleBodyClick = function (e: any) {
+      console.log(e);
+      let flag = handleClickEle(e.target, datePickerRef.current);
+      console.log(flag);
+      if (!flag) {
+        setshowPanel(false);
+      } else {
+        setshowPanel(true);
+      }
+    };
+    document.body.addEventListener("click", handleBodyClick);
+
+    return () => {
+      document.body.removeEventListener("click", handleBodyClick);
+    };
+  }, []);
+
+  /**
+   * 点击的元素是否为当前组件中
+   */
+  const handleClickEle = function (currentEle: any, target: any) {
+    // console.log(currentEle, target);
+    if (currentEle === target) {
+      return true;
+    }
+
+    let parent = currentEle.parentElement;
+
+    while (true) {
+      if (parent === target) {
+        return true;
+      }
+      if (parent === document.body) {
+        return false;
+      }
+      parent = parent.parentElement;
+    }
+  };
+
   /**
    * 输入框获得焦点
    */
   const handleFocusInput = function () {
-    setshowPanel(true);
+    // setshowPanel(true);
   };
 
   /**
    * 输入框失去焦点
    */
   const handleBlurInput = function () {
-    setshowPanel(false);
+    // setshowPanel(false);
   };
 
+  /**
+   * 获取 picker 容器
+   */
+  // const handleClickPickerContainer = function () {
+  //   setshowPanel(true);
+  // };
+
   return (
-    <div className={[Style.n_datePicker].join(" ")}>
+    <div className={[Style.n_datePicker].join(" ")} ref={datePickerRef}>
       <Input
         suffix={<Calendar />}
         onFocus={handleFocusInput}
@@ -58,6 +115,7 @@ function DatePicker(Props: IProps) {
         style={{
           display: showPanel ? "block" : "none",
         }}
+        // onClick={handleClickPickerContainer}
       >
         <PickerPanel />
       </div>
