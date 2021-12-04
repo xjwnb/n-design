@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-04 09:02:13
+ * @LastEditTime: 2021-12-04 09:05:52
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -34,11 +34,6 @@ function DatePicker(Props: IProps) {
   const datePickerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // console.log(datePickerRef);
-    /* datePickerRef.current?.addEventListener("click", () => {
-      console.log("ref:", "...");
-    }); */
-
     /**
      * 点击触发事件
      */
@@ -92,13 +87,6 @@ function DatePicker(Props: IProps) {
     // setshowPanel(false);
   };
 
-  /**
-   * 获取 picker 容器
-   */
-  // const handleClickPickerContainer = function () {
-  //   setshowPanel(true);
-  // };
-
   return (
     <div className={[Style.n_datePicker].join(" ")} ref={datePickerRef}>
       <Input
@@ -112,7 +100,6 @@ function DatePicker(Props: IProps) {
         style={{
           display: showPanel ? "block" : "none",
         }}
-        // onClick={handleClickPickerContainer}
       >
         <PickerPanel />
       </div>
