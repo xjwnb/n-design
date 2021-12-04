@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-04 09:05:52
+ * @LastEditTime: 2021-12-04 09:50:24
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -20,6 +20,8 @@ import {
   DoubleRight,
 } from "../../Icons/icon/index";
 
+const weekList = ["一", "二", "三", "四", "五", "六", "日"];
+
 interface IProps {
   picker?: "date" | "week" | "month" | "year" | "quarter";
 
@@ -27,11 +29,32 @@ interface IProps {
 }
 
 function DatePicker(Props: IProps) {
+  // eslint-disable-next-line
   const { picker = "date" } = Props;
 
   const [showPanel, setshowPanel] = useState(false);
+  const [currentTime, setcurrentTime] = useState<{
+    year: string | number;
+    month: string | number;
+    date: string | number;
+  }>({
+    year: "",
+    month: "",
+    date: "",
+  });
 
   const datePickerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const date = new Date();
+    setcurrentTime({
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      date: date.getDate(),
+    });
+
+    FullMonthDateList();
+  }, []);
 
   useEffect(() => {
     /**
@@ -87,6 +110,26 @@ function DatePicker(Props: IProps) {
     // setshowPanel(false);
   };
 
+  /**
+   * 根据年月获取月某一天星期几
+   */
+  const getDateDay = function (
+    year: number | string,
+    month: number | string,
+    day: number = 1
+  ) {
+    return new Date(Number(year), Number(month) - 1, day).getDay();
+  };
+
+  /**
+   * 获取 42 个日期数组
+   */
+  const FullMonthDateList = function () {
+    const dayList: number[] = [];
+    let firstDay = getDateDay(currentTime.year, currentTime.month, 1);
+    console.log(firstDay);
+  };
+
   return (
     <div className={[Style.n_datePicker].join(" ")} ref={datePickerRef}>
       <Input
@@ -118,6 +161,7 @@ function PickerPanel() {
         width: 280,
       }}
     >
+      {/* header */}
       <div className={[Style.n_picker_header].join(" ")}>
         <div className={[Style.n_picker_header_left].join(" ")}>
           <span className={[Style.n_picker_header_icon].join(" ")}>
@@ -136,6 +180,19 @@ function PickerPanel() {
             <DoubleRight />
           </span>
         </div>
+      </div>
+
+      {/* body */}
+      <div className={[Style.n_picker_body].join(" ")}>
+        <table className={[Style.n_picker_content].join(" ")}>
+          <thead>
+            <tr>
+              {weekList.map((item) => (
+                <th key={item}>{item}</th>
+              ))}
+            </tr>
+          </thead>
+        </table>
       </div>
     </div>
   );

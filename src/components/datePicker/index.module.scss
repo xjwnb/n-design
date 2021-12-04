@@ -19,6 +19,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 8px;
+    border-bottom: 1px solid #f0f0f0;
 
     .n_picker_header_text {
       font-size: 14px;
@@ -32,5 +33,14 @@
 
   .n_picker_panel_header {
     padding: 0 8px;
+  }
+
+  .n_picker_body {
+    padding: 8px;
+    font-size: 14px;
+
+    .n_picker_content {
+      width: 100%;
+    }
   }
 }
