@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-04 14:13:20
+ * @LastEditTime: 2021-12-04 14:20:36
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -82,7 +82,7 @@ function DatePicker(Props: IProps) {
     FullMonthDateList({
       year: date.getFullYear(),
       month: date.getMonth() + 1,
-      date: date.getDate(),
+      // date: date.getDate(),
     });
   }, []);
 
@@ -95,7 +95,7 @@ function DatePicker(Props: IProps) {
       if (!flag) {
         setshowPanel(false);
       } else {
-        setshowPanel(true);
+        // setshowPanel(true);
       }
     };
     document.body.addEventListener("click", handleBodyClick);
@@ -130,7 +130,7 @@ function DatePicker(Props: IProps) {
    * 输入框获得焦点
    */
   const handleFocusInput = function () {
-    // setshowPanel(true);
+    setshowPanel(true);
   };
 
   /**
@@ -164,7 +164,7 @@ function DatePicker(Props: IProps) {
   const FullMonthDateList = function (current: {
     year: number;
     month: number;
-    date: number;
+    // date: number;
   }) {
     const dayList: number[] = [];
 
@@ -408,7 +408,7 @@ function PickerPanel(Props: PanelProps) {
                                 }`,
                                 `${
                                   item * 7 + it > firstIndex &&
-                                  item * 7 + it < lastIndex &&
+                                  item * 7 + it <= lastIndex &&
                                   currentTime.year ===
                                     Number(selectDateArr[0]) &&
                                   currentTime.month ===
