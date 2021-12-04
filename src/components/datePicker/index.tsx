@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-04 14:20:36
+ * @LastEditTime: 2021-12-04 14:51:10
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -79,12 +79,23 @@ function DatePicker(Props: IProps) {
       date: date.getDate(),
     });
 
-    FullMonthDateList({
+    /* FullMonthDateList({
       year: date.getFullYear(),
       month: date.getMonth() + 1,
       // date: date.getDate(),
-    });
+    }); */
+    // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    if (currentTime.year) {
+      FullMonthDateList({
+        year: Number(currentTime.year),
+        month: Number(currentTime.month),
+      });
+    }
+    // eslint-disable-next-line
+  }, [currentTime]);
 
   useEffect(() => {
     /**
@@ -213,6 +224,66 @@ function DatePicker(Props: IProps) {
     setshowPanel(false);
   };
 
+  /**
+   * 前一个月
+   */
+  const handleLeft = function () {
+    let preMonth = Number(currentTime.month) - 1;
+    preMonth = preMonth === 0 ? 12 : preMonth;
+    let preYear =
+      currentTime.month > 1 ? currentTime.year : Number(currentTime.year) - 1;
+    console.log(preYear, preMonth);
+    setcurrentTime({
+      year: preYear,
+      month: preMonth,
+      date: currentTime.date,
+    });
+  };
+
+  /**
+   * 后一个月
+   */
+  const handleRight = function () {
+    let lastMonth = Number(currentTime.month) + 1;
+    lastMonth = lastMonth > 12 ? 1 : lastMonth;
+    let lastYear =
+      currentTime.month === 12
+        ? Number(currentTime.year) + 1
+        : currentTime.year;
+    console.log(lastYear, lastMonth);
+    setcurrentTime({
+      year: lastYear,
+      month: lastMonth,
+      date: currentTime.date,
+    });
+  };
+
+  /**
+   * 上一年
+   */
+  const handleDoubleLeft = function () {
+    if (currentTime.year) {
+      setcurrentTime({
+        year: Number(currentTime.year) - 1,
+        month: currentTime.month,
+        date: currentTime.date,
+      });
+    }
+  };
+
+  /**
+   * 下一年
+   */
+  const handleDoubleRight = function () {
+    if (currentTime.year) {
+      setcurrentTime({
+        year: Number(currentTime.year) + 1,
+        month: currentTime.month,
+        date: currentTime.date,
+      });
+    }
+  };
+
   return (
     <div className={[Style.n_datePicker].join(" ")} ref={datePickerRef}>
       <Input
@@ -237,6 +308,12 @@ function DatePicker(Props: IProps) {
           nowTime={nowTime}
           onSelectDate={handleSelectDate}
           selectTime={dateValue}
+          onControl={{
+            onLeft: handleLeft,
+            onRight: handleRight,
+            onDoubleLeft: handleDoubleLeft,
+            onDoubleRight: handleDoubleRight,
+          }}
         />
       </div>
     </div>
@@ -263,6 +340,12 @@ interface PanelProps {
   selectTime: string;
 
   onSelectDate: Function;
+  onControl?: {
+    onLeft?: Function;
+    onRight?: Function;
+    onDoubleLeft?: Function;
+    onDoubleRight?: Function;
+  };
 }
 
 function PickerPanel(Props: PanelProps) {
@@ -274,6 +357,7 @@ function PickerPanel(Props: PanelProps) {
     nowTime,
     onSelectDate,
     selectTime,
+    onControl,
   } = Props;
 
   const [preTime, setpreTime] = useState<{
@@ -293,15 +377,13 @@ function PickerPanel(Props: PanelProps) {
   // 选中的日期
   const [selectDateArr, setselectDateArr] = useState<Array<string>>([]);
 
-  console.log(selectTime);
-
   useEffect(() => {
     setselectDateArr(selectTime.split("-"));
   }, [selectTime]);
 
   useEffect(() => {
     let preMonth = Number(currentTime.month) - 1;
-    preMonth = preMonth === -1 ? 12 : preMonth;
+    preMonth = preMonth === 0 ? 12 : preMonth;
     let preYear =
       currentTime.month > 1 ? currentTime.year : Number(currentTime.year) - 1;
     setpreTime({
@@ -331,6 +413,34 @@ function PickerPanel(Props: PanelProps) {
     }
   };
 
+  /**
+   * left icon click
+   */
+  const handleLeft = function () {
+    onControl?.onLeft && onControl.onLeft();
+  };
+
+  /**
+   * right icon click
+   */
+  const handleRight = function () {
+    onControl?.onRight && onControl.onRight();
+  };
+
+  /**
+   * doubleLeft icon click
+   */
+  const handleDoubleLeft = function () {
+    onControl?.onDoubleLeft && onControl.onDoubleLeft();
+  };
+
+  /**
+   * doubleRight icon click
+   */
+  const handleDoubleRight = function () {
+    onControl?.onDoubleRight && onControl.onDoubleRight();
+  };
+
   return (
     <div
       className={[Style.n_picker_panel].join(" ")}
@@ -341,10 +451,16 @@ function PickerPanel(Props: PanelProps) {
       {/* header */}
       <div className={[Style.n_picker_header].join(" ")}>
         <div className={[Style.n_picker_header_left].join(" ")}>
-          <span className={[Style.n_picker_header_icon].join(" ")}>
+          <span
+            className={[Style.n_picker_header_icon].join(" ")}
+            onClick={handleDoubleLeft}
+          >
             <DoubleLeft />
           </span>
-          <span className={[Style.n_picker_header_icon].join(" ")}>
+          <span
+            className={[Style.n_picker_header_icon].join(" ")}
+            onClick={handleLeft}
+          >
             <Left />
           </span>
         </div>
@@ -354,10 +470,16 @@ function PickerPanel(Props: PanelProps) {
           </span>
         </div>
         <div className={[Style.n_picker_header_right].join(" ")}>
-          <span className={[Style.n_picker_header_icon].join(" ")}>
+          <span
+            className={[Style.n_picker_header_icon].join(" ")}
+            onClick={handleRight}
+          >
             <Right />
           </span>
-          <span className={[Style.n_picker_header_icon].join(" ")}>
+          <span
+            className={[Style.n_picker_header_icon].join(" ")}
+            onClick={handleDoubleRight}
+          >
             <DoubleRight />
           </span>
         </div>
