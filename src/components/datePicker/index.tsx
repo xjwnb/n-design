@@ -1,12 +1,18 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-04 13:31:17
+ * @LastEditTime: 2021-12-04 14:13:20
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
  */
-import React, { useState, useEffect, useRef, memo } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  memo,
+  BaseSyntheticEvent,
+} from "react";
 // component
 import { Input } from "../index";
 // Style
@@ -56,6 +62,7 @@ function DatePicker(Props: IProps) {
   const [dayArr, setdayArr] = useState<number[]>([]);
   const [firstIndex, setfirstIndex] = useState(0);
   const [lastIndex, setlastIndex] = useState(0);
+  const [dateValue, setdateValue] = useState("");
 
   const datePickerRef = useRef<HTMLDivElement>(null);
 
@@ -134,6 +141,13 @@ function DatePicker(Props: IProps) {
   };
 
   /**
+   * 输入框 onChange
+   */
+  const handleInputChange = function (e: any) {
+    setdateValue("");
+  };
+
+  /**
    * 根据年月获取月某一天星期几
    */
   const getDateDay = function (
@@ -191,12 +205,22 @@ function DatePicker(Props: IProps) {
     setdayArr(dayList);
   };
 
+  /**
+   * 点击选中当前日期
+   */
+  const handleSelectDate = function (value: string) {
+    setdateValue(value);
+    setshowPanel(false);
+  };
+
   return (
     <div className={[Style.n_datePicker].join(" ")} ref={datePickerRef}>
       <Input
         suffix={<Calendar />}
         onFocus={handleFocusInput}
         onBlur={handleBlurInput}
+        value={dateValue}
+        onChange={handleInputChange}
       />
 
       <div
@@ -211,6 +235,8 @@ function DatePicker(Props: IProps) {
           lastIndex={lastIndex}
           currentTime={currentTime}
           nowTime={nowTime}
+          onSelectDate={handleSelectDate}
+          selectTime={dateValue}
         />
       </div>
     </div>
@@ -234,10 +260,21 @@ interface PanelProps {
     month: number | string;
     date: number | string;
   };
+  selectTime: string;
+
+  onSelectDate: Function;
 }
 
 function PickerPanel(Props: PanelProps) {
-  const { day, firstIndex, lastIndex, currentTime, nowTime } = Props;
+  const {
+    day,
+    firstIndex,
+    lastIndex,
+    currentTime,
+    nowTime,
+    onSelectDate,
+    selectTime,
+  } = Props;
 
   const [preTime, setpreTime] = useState<{
     year: string | number;
@@ -253,6 +290,14 @@ function PickerPanel(Props: PanelProps) {
     year: "",
     month: "",
   });
+  // 选中的日期
+  const [selectDateArr, setselectDateArr] = useState<Array<string>>([]);
+
+  console.log(selectTime);
+
+  useEffect(() => {
+    setselectDateArr(selectTime.split("-"));
+  }, [selectTime]);
 
   useEffect(() => {
     let preMonth = Number(currentTime.month) - 1;
@@ -276,6 +321,15 @@ function PickerPanel(Props: PanelProps) {
       month: lastMonth,
     });
   }, [currentTime]);
+
+  /**
+   * 点击事件 tbody
+   */
+  const handleClickTbody = function (e: BaseSyntheticEvent) {
+    if (e.target.title) {
+      onSelectDate(e.target.title);
+    }
+  };
 
   return (
     <div
@@ -320,8 +374,9 @@ function PickerPanel(Props: PanelProps) {
                 ))}
               </tr>
             </thead>
+            {/* tbody */}
             {day.length && (
-              <tbody>
+              <tbody onClick={handleClickTbody}>
                 {day.length &&
                   [0, 1, 2, 3, 4, 5].map((item) => (
                     <tr key={item}>
@@ -349,6 +404,18 @@ function PickerPanel(Props: PanelProps) {
                                   item * 7 + it > firstIndex &&
                                   item * 7 + it < lastIndex
                                     ? Style.n_picker_cell_in_today
+                                    : ""
+                                }`,
+                                `${
+                                  item * 7 + it > firstIndex &&
+                                  item * 7 + it < lastIndex &&
+                                  currentTime.year ===
+                                    Number(selectDateArr[0]) &&
+                                  currentTime.month ===
+                                    Number(selectDateArr[1]) &&
+                                  Number(selectDateArr[2]) ===
+                                    day[item * 7 + it]
+                                    ? Style.n_picker_cell_active
                                     : ""
                                 }`,
                               ].join(" ")}

@@ -82,6 +82,16 @@
       .n_picker_cell_in_today {
         border: 1px solid #1890ff;
       }
+
+      .n_picker_cell_active {
+        background: #1890ff;
+        color: #fff;
+
+        &:hover {
+          background: #1890ff !important;
+          color: #fff;
+        }
+      }
     }
   }
 }
