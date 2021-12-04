@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-04 11:10:23
+ * @LastEditTime: 2021-12-04 11:55:03
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -44,6 +44,15 @@ function DatePicker(Props: IProps) {
     month: "",
     date: "",
   });
+  const [nowTime, setnowTime] = useState<{
+    year: string | number;
+    month: string | number;
+    date: string | number;
+  }>({
+    year: "",
+    month: "",
+    date: "",
+  });
   const [dayArr, setdayArr] = useState<number[]>([]);
   const [firstIndex, setfirstIndex] = useState(0);
   const [lastIndex, setlastIndex] = useState(0);
@@ -53,6 +62,11 @@ function DatePicker(Props: IProps) {
   useEffect(() => {
     const date = new Date();
     setcurrentTime({
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      date: date.getDate(),
+    });
+    setnowTime({
       year: date.getFullYear(),
       month: date.getMonth() + 1,
       date: date.getDate(),
@@ -192,7 +206,13 @@ function DatePicker(Props: IProps) {
         }}
       >
         {/* <PickerPanel day={dayArr} /> */}
-        <Panel day={dayArr} firstIndex={firstIndex} lastIndex={lastIndex} />
+        <Panel
+          day={dayArr}
+          firstIndex={firstIndex}
+          lastIndex={lastIndex}
+          currentTime={currentTime}
+          nowTime={nowTime}
+        />
       </div>
     </div>
   );
@@ -205,12 +225,70 @@ interface PanelProps {
   day: number[];
   firstIndex: number;
   lastIndex: number;
+  currentTime: {
+    year: number | string;
+    month: number | string;
+    date: number | string;
+  };
+  nowTime: {
+    year: number | string;
+    month: number | string;
+    date: number | string;
+  };
 }
 
 function PickerPanel(Props: PanelProps) {
-  const { day, firstIndex, lastIndex } = Props;
+  const { day, firstIndex, lastIndex, currentTime, nowTime } = Props;
 
-  console.log(day, firstIndex, lastIndex);
+  // console.log(day, firstIndex, lastIndex);
+  console.log(currentTime, nowTime);
+
+  const [preTime, setpreTime] = useState<{
+    year: string | number;
+    month: string | number;
+  }>({
+    year: "",
+    month: "",
+  });
+  const [lastTime, setlastTime] = useState<{
+    year: string | number;
+    month: string | number;
+  }>({
+    year: "",
+    month: "",
+  });
+
+  useEffect(() => {
+    let preMonth = Number(currentTime.month) - 1;
+    preMonth = preMonth === -1 ? 12 : preMonth;
+    let preYear =
+      currentTime.month > 1 ? currentTime.year : Number(currentTime.year) - 1;
+    setpreTime({
+      year: preYear,
+      month: preMonth,
+    });
+    console.log({
+      year: preYear,
+      month: preMonth,
+    });
+
+    let lastMonth = Number(currentTime.month) + 1;
+    lastMonth = lastMonth > 12 ? 1 : lastMonth;
+    let lastYear =
+      currentTime.month === 12
+        ? Number(currentTime.year) + 1
+        : currentTime.year;
+
+    setlastTime({
+      year: lastYear,
+      month: lastMonth,
+    });
+    console.log({
+      year: lastYear,
+      month: lastMonth,
+    });
+  }, [currentTime]);
+
   return (
     <div
       className={[Style.n_picker_panel].join(" ")}
@@ -228,7 +306,11 @@ function PickerPanel(Props: PanelProps) {
             <Left />
           </span>
         </div>
-        <div className={[Style.n_picker_header_text].join(" ")}>什么玩意</div>
+        <div className={[Style.n_picker_header_text].join(" ")}>
+          <span>
+            {currentTime.year}年 {currentTime.month}月
+          </span>
+        </div>
         <div className={[Style.n_picker_header_right].join(" ")}>
           <span className={[Style.n_picker_header_icon].join(" ")}>
             <Right />
@@ -262,7 +344,7 @@ function PickerPanel(Props: PanelProps) {
                               Style.n_picker_cell,
                               `${
                                 item * 7 + it > firstIndex &&
-                                item * 7 + it < lastIndex
+                                item * 7 + it <= lastIndex
                                   ? Style.n_picker_cell_in_view
                                   : ""
                               }`,
@@ -270,7 +352,60 @@ function PickerPanel(Props: PanelProps) {
                             key={day[item * 7 + it]}
                           >
                             <div
-                              className={[Style.n_picker_cell_inner].join(" ")}
+                              className={[
+                                Style.n_picker_cell_inner,
+                                `${
+                                  currentTime.year === nowTime.year &&
+                                  currentTime.month === nowTime.month &&
+                                  day[item * 7 + it] === nowTime.date &&
+                                  item * 7 + it > firstIndex &&
+                                  item * 7 + it < lastIndex
+                                    ? Style.n_picker_cell_in_today
+                                    : ""
+                                }`,
+                              ].join(" ")}
+                              title={
+                                `${
+                                  item * 7 + it <= firstIndex
+                                    ? `${preTime.year}-${
+                                        preTime.month > 9
+                                          ? preTime.month
+                                          : "0" + preTime.month
+                                      }-${
+                                        day[item * 7 + it] > 9
+                                          ? day[item * 7 + it]
+                                          : "0" + day[item * 7 + it]
+                                      }`
+                                    : ""
+                                }` +
+                                `${
+                                  item * 7 + it > firstIndex &&
+                                  item * 7 + it <= lastIndex
+                                    ? `${currentTime.year}-${
+                                        currentTime.month > 9
+                                          ? currentTime.month
+                                          : "0" + currentTime.month
+                                      }-${
+                                        day[item * 7 + it] > 9
+                                          ? day[item * 7 + it]
+                                          : "0" + day[item * 7 + it]
+                                      }`
+                                    : ""
+                                }` +
+                                `${
+                                  item * 7 + it > lastIndex
+                                    ? `${lastTime.year}-${
+                                        lastTime.month > 9
+                                          ? lastTime.month
+                                          : "0" + lastTime.month
+                                      }-${
+                                        day[item * 7 + it] > 9
+                                          ? day[item * 7 + it]
+                                          : "0" + day[item * 7 + it]
+                                      }`
+                                    : ""
+                                }`
+                              }
                             >
                               {day[item * 7 + it]}
                             </div>

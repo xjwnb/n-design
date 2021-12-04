@@ -59,10 +59,6 @@
         // color: #000000d9;
         cursor: pointer;
 
-        &:hover {
-          background-color: #f5f5f5;
-        }
-
         .n_picker_cell_inner {
           position: relative;
           z-index: 2;
@@ -72,11 +68,19 @@
           line-height: 24px;
           border-radius: 2px;
           transition: background 0.3s, border 0.3s;
+
+          &:hover {
+            background-color: #f5f5f5;
+          }
         }
       }
 
       .n_picker_cell_in_view {
         color: #000000d9;
+      }
+
+      .n_picker_cell_in_today {
+        border: 1px solid #1890ff;
       }
     }
   }
