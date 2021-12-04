@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-04 16:30:08
+ * @LastEditTime: 2021-12-04 17:18:06
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -379,6 +379,17 @@ function PickerPanel(Props: PanelProps) {
   const [selectDateArr, setselectDateArr] = useState<Array<string>>([]);
   // week 数组
   const [weekNum, setweekNum] = useState<number[]>([]);
+  const [weekIndex, setweekIndex] = useState(-1);
+  // 选中 week 时候的年月
+  const [weekTime, setweekTime] = useState<{
+    year: string | number;
+    month: string | number;
+  }>({
+    year: "",
+    month: "",
+  });
+
+  const tobdyRef = useRef<any>(null);
 
   useEffect(() => {
     setselectDateArr(selectTime.split("-"));
@@ -436,8 +447,44 @@ function PickerPanel(Props: PanelProps) {
    * 点击事件 tbody
    */
   const handleClickTbody = function (e: BaseSyntheticEvent) {
-    if (e.target.title) {
+    if (e.target.title && picker === "date") {
       onSelectDate(e.target.title);
+    } else if (picker === "week") {
+      let parent = e.target.parentElement;
+      let flag = false;
+      while (true) {
+        if (parent.localName === "tr") {
+          flag = true;
+          break;
+        }
+        if (parent === document.body) {
+          break;
+        }
+        parent = parent.parentElement;
+      }
+      if (flag) {
+        // console.dir(tobdyRef.current)
+        const toboyEle = tobdyRef.current;
+        const child = toboyEle.children;
+        /* let currentSelectIndex = child.filter(
+          (item: any) => item === parent
+        );
+        console.log(currentSelectIndex) */
+        let currentSelectIndex = 0;
+        for (let i = 0; i < child.length; i++) {
+          if (child[i] === parent) {
+            currentSelectIndex = i;
+            break;
+          }
+        }
+        setweekIndex(currentSelectIndex);
+        setweekTime({
+          year: currentTime.year,
+          month: currentTime.month,
+        });
+
+        onSelectDate(`${currentTime.year}-${weekNum[currentSelectIndex]}周`);
+      }
     }
   };
 
@@ -532,7 +579,7 @@ function PickerPanel(Props: PanelProps) {
           <table className={[Style.n_picker_content].join(" ")}>
             <thead>
               <tr>
-                {picker === "week" ? <th key={"week"}>''</th> : null}
+                {picker === "week" ? <th key={"week"}></th> : null}
                 {weekList.map((item) => (
                   <th key={item}>{item}</th>
                 ))}
@@ -540,10 +587,22 @@ function PickerPanel(Props: PanelProps) {
             </thead>
             {/* tbody */}
             {day.length && (
-              <tbody onClick={handleClickTbody}>
+              <tbody onClick={handleClickTbody} ref={tobdyRef}>
                 {day.length &&
                   [0, 1, 2, 3, 4, 5].map((item) => (
-                    <tr key={item}>
+                    <tr
+                      key={item}
+                      className={[
+                        picker === "week" ? Style.n_picker_tr_week : "",
+                        picker === "week" &&
+                        weekIndex === item &&
+                        currentTime.year === weekTime.year &&
+                        currentTime.month === weekTime.month
+                          ? Style.n_picker_tr_active
+                          : "",
+                      ].join(" ")}
+                      date-week={weekNum[item]}
+                    >
                       {picker === "week" && weekNum.length ? (
                         <td
                           key={`week${weekNum[item]}`}
