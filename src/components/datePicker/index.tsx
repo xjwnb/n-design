@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-04 17:18:06
+ * @LastEditTime: 2021-12-04 17:21:35
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -37,7 +37,6 @@ interface IProps {
 }
 
 function DatePicker(Props: IProps) {
-  // eslint-disable-next-line
   const { picker = "date" } = Props;
 
   const [showPanel, setshowPanel] = useState(false);
@@ -78,12 +77,6 @@ function DatePicker(Props: IProps) {
       month: date.getMonth() + 1,
       date: date.getDate(),
     });
-
-    /* FullMonthDateList({
-      year: date.getFullYear(),
-      month: date.getMonth() + 1,
-      // date: date.getDate(),
-    }); */
     // eslint-disable-next-line
   }, []);
 
@@ -105,8 +98,6 @@ function DatePicker(Props: IProps) {
       let flag = handleClickEle(e.target, datePickerRef.current);
       if (!flag) {
         setshowPanel(false);
-      } else {
-        // setshowPanel(true);
       }
     };
     document.body.addEventListener("click", handleBodyClick);
@@ -175,7 +166,6 @@ function DatePicker(Props: IProps) {
   const FullMonthDateList = function (current: {
     year: number;
     month: number;
-    // date: number;
   }) {
     const dayList: number[] = [];
 
@@ -463,13 +453,8 @@ function PickerPanel(Props: PanelProps) {
         parent = parent.parentElement;
       }
       if (flag) {
-        // console.dir(tobdyRef.current)
         const toboyEle = tobdyRef.current;
         const child = toboyEle.children;
-        /* let currentSelectIndex = child.filter(
-          (item: any) => item === parent
-        );
-        console.log(currentSelectIndex) */
         let currentSelectIndex = 0;
         for (let i = 0; i < child.length; i++) {
           if (child[i] === parent) {
