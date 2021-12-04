@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-04 17:21:35
+ * @LastEditTime: 2021-12-04 17:29:43
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -275,7 +275,7 @@ function DatePicker(Props: IProps) {
   return (
     <div className={[Style.n_datePicker].join(" ")} ref={datePickerRef}>
       <Input
-        suffix={<Calendar />}
+        suffix={<Calendar color="#BFBFBF" />}
         onFocus={handleFocusInput}
         onBlur={handleBlurInput}
         value={dateValue}
@@ -462,7 +462,7 @@ function PickerPanel(Props: PanelProps) {
             break;
           }
         }
-        setweekIndex(currentSelectIndex);
+        setweekIndex(weekNum[currentSelectIndex]);
         setweekTime({
           year: currentTime.year,
           month: currentTime.month,
@@ -580,7 +580,7 @@ function PickerPanel(Props: PanelProps) {
                       className={[
                         picker === "week" ? Style.n_picker_tr_week : "",
                         picker === "week" &&
-                        weekIndex === item &&
+                        weekIndex === weekNum[item] &&
                         currentTime.year === weekTime.year &&
                         currentTime.month === weekTime.month
                           ? Style.n_picker_tr_active
