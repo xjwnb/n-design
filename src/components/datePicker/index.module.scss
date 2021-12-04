@@ -13,6 +13,23 @@
 }
 
 .n_picker_panel {
+  .n_picker_header {
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8px;
+
+    .n_picker_header_text {
+      font-size: 14px;
+    }
+
+    .n_picker_header_icon {
+      padding: 7px 3px;
+      cursor: pointer;
+    }
+  }
+
   .n_picker_panel_header {
     padding: 0 8px;
   }
