@@ -13,6 +13,8 @@
 }
 
 .n_picker_panel {
+  color: #000000d9;
+
   .n_picker_header {
     height: 40px;
     display: flex;
@@ -36,11 +38,46 @@
   }
 
   .n_picker_body {
-    padding: 8px;
+    padding: 8px 12px;
     font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
 
     .n_picker_content {
       width: 100%;
+
+      td {
+        position: relative;
+        min-width: 24px;
+        font-weight: 400;
+        line-height: 24px;
+        text-align: center;
+      }
+
+      .n_picker_cell {
+        padding: 3px 0;
+        color: #00000040;
+        // color: #000000d9;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #f5f5f5;
+        }
+
+        .n_picker_cell_inner {
+          position: relative;
+          z-index: 2;
+          display: inline-block;
+          min-width: 24px;
+          height: 24px;
+          line-height: 24px;
+          border-radius: 2px;
+          transition: background 0.3s, border 0.3s;
+        }
+      }
+
+      .n_picker_cell_in_view {
+        color: #000000d9;
+      }
     }
   }
 }
