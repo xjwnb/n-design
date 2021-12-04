@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-04 14:55:24
+ * @LastEditTime: 2021-12-04 16:30:08
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -312,6 +312,7 @@ function DatePicker(Props: IProps) {
             onDoubleLeft: handleDoubleLeft,
             onDoubleRight: handleDoubleRight,
           }}
+          picker={picker}
         />
       </div>
     </div>
@@ -336,6 +337,7 @@ interface PanelProps {
     date: number | string;
   };
   selectTime: string;
+  picker?: "date" | "week" | "month" | "year" | "quarter";
 
   onSelectDate: Function;
   onControl?: {
@@ -348,6 +350,7 @@ interface PanelProps {
 
 function PickerPanel(Props: PanelProps) {
   const {
+    picker = "date",
     day,
     firstIndex,
     lastIndex,
@@ -374,10 +377,37 @@ function PickerPanel(Props: PanelProps) {
   });
   // 选中的日期
   const [selectDateArr, setselectDateArr] = useState<Array<string>>([]);
+  // week 数组
+  const [weekNum, setweekNum] = useState<number[]>([]);
 
   useEffect(() => {
     setselectDateArr(selectTime.split("-"));
   }, [selectTime]);
+
+  useEffect(() => {
+    if (picker === "week" && day.length > 0) {
+      let indexArr: number[] = [];
+      [0, 1, 2, 3, 4, 5].forEach((num) => {
+        indexArr.push(num * 7);
+      });
+
+      let firstDayArr = indexArr.map((item) => {
+        if (item < firstIndex) {
+          return `${preTime.year}-${preTime.month}-${day[item]}`;
+        } else if (item > lastIndex) {
+          return `${lastTime.year}-${lastTime.month}-${day[item]}`;
+        } else {
+          return `${currentTime.year}-${currentTime.month}-${day[item]}`;
+        }
+      });
+      let weeks = firstDayArr.map((item) => {
+        let date = item.split("-");
+        let numberDate = date.map((num) => Number(num));
+        return getYearWeek(numberDate[0], numberDate[1], numberDate[2]) - 1;
+      });
+      setweekNum(weeks);
+    }
+  }, [picker, day, currentTime, firstIndex, lastIndex, lastTime, preTime]);
 
   useEffect(() => {
     let preMonth = Number(currentTime.month) - 1;
@@ -439,11 +469,24 @@ function PickerPanel(Props: PanelProps) {
     onControl?.onDoubleRight && onControl.onDoubleRight();
   };
 
+  // picker = "week"
+  /**
+   * 传入年月日返回改天在本年的第几周
+   */
+  const getYearWeek = function (year: number, month: number, date: number) {
+    let dateNow = new Date(year, Number(month) - 1, date);
+    let dateFirst = new Date(year, 0, 1);
+    let dataNumber = Math.round(
+      (dateNow.valueOf() - dateFirst.valueOf()) / 86400000
+    );
+    return Math.ceil((dataNumber + (dateFirst.getDay() + 1 - 1)) / 7);
+  };
+
   return (
     <div
       className={[Style.n_picker_panel].join(" ")}
       style={{
-        width: 280,
+        minWidth: 280,
       }}
     >
       {/* header */}
@@ -489,6 +532,7 @@ function PickerPanel(Props: PanelProps) {
           <table className={[Style.n_picker_content].join(" ")}>
             <thead>
               <tr>
+                {picker === "week" ? <th key={"week"}>''</th> : null}
                 {weekList.map((item) => (
                   <th key={item}>{item}</th>
                 ))}
@@ -500,92 +544,102 @@ function PickerPanel(Props: PanelProps) {
                 {day.length &&
                   [0, 1, 2, 3, 4, 5].map((item) => (
                     <tr key={item}>
+                      {picker === "week" && weekNum.length ? (
+                        <td
+                          key={`week${weekNum[item]}`}
+                          className={[Style.n_picker_cell].join(" ")}
+                        >
+                          {weekNum[item] || ""}
+                        </td>
+                      ) : null}
                       {day.length &&
-                        [0, 1, 2, 3, 4, 5, 6].map((it) => (
-                          <td
-                            className={[
-                              Style.n_picker_cell,
-                              `${
-                                item * 7 + it > firstIndex &&
-                                item * 7 + it <= lastIndex
-                                  ? Style.n_picker_cell_in_view
-                                  : ""
-                              }`,
-                            ].join(" ")}
-                            key={day[item * 7 + it]}
-                          >
-                            <div
+                        [0, 1, 2, 3, 4, 5, 6].map((it) => {
+                          return (
+                            <td
                               className={[
-                                Style.n_picker_cell_inner,
-                                `${
-                                  currentTime.year === nowTime.year &&
-                                  currentTime.month === nowTime.month &&
-                                  day[item * 7 + it] === nowTime.date &&
-                                  item * 7 + it > firstIndex &&
-                                  item * 7 + it < lastIndex
-                                    ? Style.n_picker_cell_in_today
-                                    : ""
-                                }`,
-                                `${
-                                  item * 7 + it > firstIndex &&
-                                  item * 7 + it <= lastIndex &&
-                                  currentTime.year ===
-                                    Number(selectDateArr[0]) &&
-                                  currentTime.month ===
-                                    Number(selectDateArr[1]) &&
-                                  Number(selectDateArr[2]) ===
-                                    day[item * 7 + it]
-                                    ? Style.n_picker_cell_active
-                                    : ""
-                                }`,
-                              ].join(" ")}
-                              title={
-                                `${
-                                  item * 7 + it <= firstIndex
-                                    ? `${preTime.year}-${
-                                        preTime.month > 9
-                                          ? preTime.month
-                                          : "0" + preTime.month
-                                      }-${
-                                        day[item * 7 + it] > 9
-                                          ? day[item * 7 + it]
-                                          : "0" + day[item * 7 + it]
-                                      }`
-                                    : ""
-                                }` +
+                                Style.n_picker_cell,
                                 `${
                                   item * 7 + it > firstIndex &&
                                   item * 7 + it <= lastIndex
-                                    ? `${currentTime.year}-${
-                                        currentTime.month > 9
-                                          ? currentTime.month
-                                          : "0" + currentTime.month
-                                      }-${
-                                        day[item * 7 + it] > 9
-                                          ? day[item * 7 + it]
-                                          : "0" + day[item * 7 + it]
-                                      }`
+                                    ? Style.n_picker_cell_in_view
                                     : ""
-                                }` +
-                                `${
-                                  item * 7 + it > lastIndex
-                                    ? `${lastTime.year}-${
-                                        lastTime.month > 9
-                                          ? lastTime.month
-                                          : "0" + lastTime.month
-                                      }-${
-                                        day[item * 7 + it] > 9
-                                          ? day[item * 7 + it]
-                                          : "0" + day[item * 7 + it]
-                                      }`
-                                    : ""
-                                }`
-                              }
+                                }`,
+                              ].join(" ")}
+                              key={day[item * 7 + it]}
                             >
-                              {day[item * 7 + it]}
-                            </div>
-                          </td>
-                        ))}
+                              <div
+                                className={[
+                                  Style.n_picker_cell_inner,
+                                  `${
+                                    currentTime.year === nowTime.year &&
+                                    currentTime.month === nowTime.month &&
+                                    day[item * 7 + it] === nowTime.date &&
+                                    item * 7 + it > firstIndex &&
+                                    item * 7 + it < lastIndex
+                                      ? Style.n_picker_cell_in_today
+                                      : ""
+                                  }`,
+                                  `${
+                                    item * 7 + it > firstIndex &&
+                                    item * 7 + it <= lastIndex &&
+                                    currentTime.year ===
+                                      Number(selectDateArr[0]) &&
+                                    currentTime.month ===
+                                      Number(selectDateArr[1]) &&
+                                    Number(selectDateArr[2]) ===
+                                      day[item * 7 + it]
+                                      ? Style.n_picker_cell_active
+                                      : ""
+                                  }`,
+                                ].join(" ")}
+                                title={
+                                  `${
+                                    item * 7 + it <= firstIndex
+                                      ? `${preTime.year}-${
+                                          preTime.month > 9
+                                            ? preTime.month
+                                            : "0" + preTime.month
+                                        }-${
+                                          day[item * 7 + it] > 9
+                                            ? day[item * 7 + it]
+                                            : "0" + day[item * 7 + it]
+                                        }`
+                                      : ""
+                                  }` +
+                                  `${
+                                    item * 7 + it > firstIndex &&
+                                    item * 7 + it <= lastIndex
+                                      ? `${currentTime.year}-${
+                                          currentTime.month > 9
+                                            ? currentTime.month
+                                            : "0" + currentTime.month
+                                        }-${
+                                          day[item * 7 + it] > 9
+                                            ? day[item * 7 + it]
+                                            : "0" + day[item * 7 + it]
+                                        }`
+                                      : ""
+                                  }` +
+                                  `${
+                                    item * 7 + it > lastIndex
+                                      ? `${lastTime.year}-${
+                                          lastTime.month > 9
+                                            ? lastTime.month
+                                            : "0" + lastTime.month
+                                        }-${
+                                          day[item * 7 + it] > 9
+                                            ? day[item * 7 + it]
+                                            : "0" + day[item * 7 + it]
+                                        }`
+                                      : ""
+                                  }`
+                                }
+                              >
+                                {day[item * 7 + it]}
+                              </div>
+                            </td>
+                          );
+                        })}
                     </tr>
                   ))}
               </tbody>
