@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-04 14:51:10
+ * @LastEditTime: 2021-12-04 14:55:24
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -232,7 +232,6 @@ function DatePicker(Props: IProps) {
     preMonth = preMonth === 0 ? 12 : preMonth;
     let preYear =
       currentTime.month > 1 ? currentTime.year : Number(currentTime.year) - 1;
-    console.log(preYear, preMonth);
     setcurrentTime({
       year: preYear,
       month: preMonth,
@@ -250,7 +249,6 @@ function DatePicker(Props: IProps) {
       currentTime.month === 12
         ? Number(currentTime.year) + 1
         : currentTime.year;
-    console.log(lastYear, lastMonth);
     setcurrentTime({
       year: lastYear,
       month: lastMonth,
