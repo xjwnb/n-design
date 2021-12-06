@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-04 17:29:43
+ * @LastEditTime: 2021-12-06 10:06:35
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -124,7 +124,11 @@ function DatePicker(Props: IProps) {
       if (parent === document.body) {
         return false;
       }
-      parent = parent.parentElement;
+      if (parent.parentElement) {
+        parent = parent.parentElement;
+      } else {
+        return false;
+      }
     }
   };
 
@@ -209,9 +213,22 @@ function DatePicker(Props: IProps) {
   /**
    * 点击选中当前日期
    */
-  const handleSelectDate = function (value: string) {
+  const handleSelectDate = function (
+    value: string,
+    type: "pre" | "current" | "next" = "current"
+  ) {
     setdateValue(value);
     setshowPanel(false);
+    switch (type) {
+      case "pre":
+        handleLeft();
+        break;
+      case "next":
+        handleRight();
+        break;
+      default:
+        break;
+    }
   };
 
   /**
@@ -438,7 +455,14 @@ function PickerPanel(Props: PanelProps) {
    */
   const handleClickTbody = function (e: BaseSyntheticEvent) {
     if (e.target.title && picker === "date") {
-      onSelectDate(e.target.title);
+      let currentIndex = e.target.getAttribute("data-index");
+      if (currentIndex <= firstIndex) {
+        onSelectDate(e.target.title, "pre");
+      } else if (currentIndex >= lastIndex) {
+        onSelectDate(e.target.title, "next");
+      } else {
+        onSelectDate(e.target.title);
+      }
     } else if (picker === "week") {
       let parent = e.target.parentElement;
       let flag = false;
@@ -636,6 +660,7 @@ function PickerPanel(Props: PanelProps) {
                                       : ""
                                   }`,
                                 ].join(" ")}
+                                data-index={item * 7 + it}
                                 title={
                                   `${
                                     item * 7 + it <= firstIndex
