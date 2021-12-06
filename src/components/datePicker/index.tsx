@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-06 16:10:09
+ * @LastEditTime: 2021-12-06 16:51:46
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -340,6 +340,18 @@ function DatePicker(Props: IProps) {
     callback && callback();
   };
 
+  /**
+   * 修改 currentTime.month 值
+   */
+  const handleChangeCurrentMonth = function (month: number) {
+    setcurrentTime({
+      year: currentTime.year,
+      month,
+      date: currentTime.date,
+    });
+    handleChangePicker("date");
+  };
+
   return (
     <div className={[Style.n_datePicker].join(" ")} ref={datePickerRef}>
       <Input
@@ -372,6 +384,7 @@ function DatePicker(Props: IProps) {
             onDoubleRight: handleDoubleRight,
             onChangePicker: handleChangePicker,
             onChangeCurrentYear: handleChangeCurrentYear,
+            onChangeCurrentMonth: handleChangeCurrentMonth,
           }}
           picker={pickerValue}
         />
@@ -408,6 +421,7 @@ interface PanelProps {
     onDoubleRight?: Function;
     onChangePicker?: Function;
     onChangeCurrentYear?: Function;
+    onChangeCurrentMonth?: Function;
   };
 }
 
@@ -638,12 +652,21 @@ function PickerPanel(Props: PanelProps) {
    * 点击选中月份
    */
   const handleSelectMonth = function (month: string) {
-    let nowMonth = Number(month);
-    let value = [currentTime.year, nowMonth];
-    onSelectDate(
-      `${currentTime.year}-${nowMonth > 9 ? nowMonth : "0" + nowMonth}`
-    );
-    setmonthValue(value);
+    if (["month", "year"].includes(initPicker)) {
+      let nowMonth = Number(month);
+      let value = [currentTime.year, nowMonth];
+      onSelectDate(
+        `${currentTime.year}-${nowMonth > 9 ? nowMonth : "0" + nowMonth}`
+      );
+      setmonthValue(value);
+    } else if (["week"].includes(initPicker)) {
+      onControl?.onChangeCurrentMonth &&
+        onControl.onChangeCurrentMonth(Number(month));
+      onControl?.onChangePicker && onControl.onChangePicker("week");
+    } else {
+      onControl?.onChangeCurrentMonth &&
+        onControl.onChangeCurrentMonth(Number(month));
+    }
   };
 
   /**
@@ -655,11 +678,18 @@ function PickerPanel(Props: PanelProps) {
   };
 
   /**
+   * 点击当前月份
+   */
+  const handleClickCurrentMonth = function () {
+    onControl?.onChangePicker && onControl.onChangePicker("month");
+  };
+
+  /**
    * 点击选中年份
    */
   const handleSelectYear = function (yearVal: number) {
     const callback = function () {
-      if (initPicker === "month") {
+      if (["month", "date", "week"].includes(initPicker)) {
         onControl?.onChangePicker && onControl.onChangePicker("month");
       } else if (initPicker === "year") {
         onSelectDate(`${yearVal}`);
@@ -698,7 +728,18 @@ function PickerPanel(Props: PanelProps) {
           {/* picker === "date" | "week" */}
           {["date", "week"].includes(picker) && (
             <span>
-              {currentTime.year}年 {currentTime.month}月
+              <span
+                className={[Style.n_picker_month_text].join(" ")}
+                onClick={handleClickCurrentYear}
+              >
+                {currentTime.year}年
+              </span>{" "}
+              <span
+                className={[Style.n_picker_month_text].join(" ")}
+                onClick={handleClickCurrentMonth}
+              >
+                {currentTime.month}月
+              </span>
             </span>
           )}
           {picker === "month" && (
