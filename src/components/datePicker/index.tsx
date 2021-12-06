@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-06 14:30:25
+ * @LastEditTime: 2021-12-06 15:39:02
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -85,6 +85,7 @@ function DatePicker(Props: IProps) {
   const [firstIndex, setfirstIndex] = useState(0);
   const [lastIndex, setlastIndex] = useState(0);
   const [dateValue, setdateValue] = useState("");
+  const [pickerValue, setpickerValue] = useState(picker);
 
   const datePickerRef = useRef<HTMLDivElement>(null);
 
@@ -147,7 +148,7 @@ function DatePicker(Props: IProps) {
       if (parent === document.body) {
         return false;
       }
-      if (parent.parentElement) {
+      if (parent && parent.parentElement) {
         parent = parent.parentElement;
       } else {
         return false;
@@ -312,6 +313,28 @@ function DatePicker(Props: IProps) {
     }
   };
 
+  /**
+   * 修改 picker 值
+   */
+  const handleChangePicker = function (
+    pickerVal: "date" | "week" | "month" | "year" | "quarter"
+  ) {
+    setpickerValue(pickerVal);
+    setshowPanel(true);
+  };
+
+  /**
+   * 修改 currentTime.year 值
+   */
+  const handleChangeCurrentYear = function (newYear: number) {
+    setcurrentTime({
+      year: newYear,
+      month: currentTime.month,
+      date: currentTime.date,
+    });
+    setpickerValue("month");
+  };
+
   return (
     <div className={[Style.n_datePicker].join(" ")} ref={datePickerRef}>
       <Input
@@ -342,8 +365,10 @@ function DatePicker(Props: IProps) {
             onRight: handleRight,
             onDoubleLeft: handleDoubleLeft,
             onDoubleRight: handleDoubleRight,
+            onChangePicker: handleChangePicker,
+            onChangeCurrentYear: handleChangeCurrentYear,
           }}
-          picker={picker}
+          picker={pickerValue}
         />
       </div>
     </div>
@@ -376,6 +401,8 @@ interface PanelProps {
     onRight?: Function;
     onDoubleLeft?: Function;
     onDoubleRight?: Function;
+    onChangePicker?: Function;
+    onChangeCurrentYear?: Function;
   };
 }
 
@@ -421,6 +448,8 @@ function PickerPanel(Props: PanelProps) {
   });
   // month value
   const [monthValue, setmonthValue] = useState<Array<string | number>>([]);
+  // year 数组
+  const [yearList, setyearList] = useState<Array<number>>([]);
 
   const tobdyRef = useRef<any>(null);
 
@@ -475,6 +504,24 @@ function PickerPanel(Props: PanelProps) {
       month: lastMonth,
     });
   }, [currentTime]);
+
+  useEffect(() => {
+    initYearList();
+  }, [currentTime]);
+
+  /**
+   * 初始化 year list
+   */
+  const initYearList = function () {
+    if (typeof currentTime.year === "number") {
+      let firstYear = Math.floor(currentTime.year / 10) * 10 - 1;
+      let yearArr = [];
+      for (let i = 0; i <= 11; i++) {
+        yearArr.push(firstYear + i);
+      }
+      setyearList(yearArr);
+    }
+  };
 
   /**
    * 点击事件 tbody
@@ -579,6 +626,22 @@ function PickerPanel(Props: PanelProps) {
     setmonthValue(value);
   };
 
+  /**
+   * 点击当前年份
+   */
+  const handleClickCurrentYear = function () {
+    initYearList();
+    onControl?.onChangePicker && onControl.onChangePicker("year");
+  };
+
+  /**
+   * 点击选中年份
+   */
+  const handleSelectYear = function (yearVal: number) {
+    console.log(yearVal);
+    onControl?.onChangeCurrentYear && onControl.onChangeCurrentYear(yearVal);
+  };
+
   return (
     <div
       className={[Style.n_picker_panel].join(" ")}
@@ -611,7 +674,19 @@ function PickerPanel(Props: PanelProps) {
               {currentTime.year}年 {currentTime.month}月
             </span>
           )}
-          {picker === "month" && <span>{currentTime.year}年</span>}
+          {picker === "month" && (
+            <span
+              className={[Style.n_picker_month_text].join(" ")}
+              onClick={handleClickCurrentYear}
+            >
+              {currentTime.year}年
+            </span>
+          )}
+          {picker === "year" && (
+            <span>
+              {yearList[0]} ~ {yearList[11]}
+            </span>
+          )}
         </div>
         <div className={[Style.n_picker_header_right].join(" ")}>
           {["date", "week"].includes(picker) && (
@@ -782,6 +857,26 @@ function PickerPanel(Props: PanelProps) {
                   ].join(" ")}
                 >
                   {item}月
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {picker === "year" && (
+          <div className={[Style.n_picker_year].join(" ")}>
+            {yearList.map((item) => (
+              <div key={item} className={[Style.n_picker_year_item].join(" ")}>
+                <div
+                  className={[
+                    Style.n_picker_year_inner,
+                    currentTime.year === item
+                      ? Style.n_picker_year_inner_active
+                      : "",
+                  ].join(" ")}
+                  onClick={() => handleSelectYear(item)}
+                >
+                  {item}
                 </div>
               </div>
             ))}

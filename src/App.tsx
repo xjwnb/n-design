@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-06 13:34:50
+ * @LastEditTime: 2021-12-06 15:00:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1686,6 +1686,8 @@ function App() {
         <DatePicker picker="week" />
         <br />
         <DatePicker picker="month" />
+        <br />
+        <DatePicker picker="year" />
       </div>
 
       <div></div>
