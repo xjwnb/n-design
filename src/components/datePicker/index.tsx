@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-06 13:57:20
+ * @LastEditTime: 2021-12-06 14:30:25
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -37,18 +37,18 @@ const placeholderText = {
 };
 
 const monthList = [
-  "1月",
-  "2月",
-  "3月",
-  "4月",
-  "5月",
-  "6月",
-  "7月",
-  "8月",
-  "9月",
-  "10月",
-  "11月",
-  "12月",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+  "11",
+  "12",
 ];
 
 const Panel = memo(PickerPanel);
@@ -419,6 +419,8 @@ function PickerPanel(Props: PanelProps) {
     year: "",
     month: "",
   });
+  // month value
+  const [monthValue, setmonthValue] = useState<Array<string | number>>([]);
 
   const tobdyRef = useRef<any>(null);
 
@@ -562,6 +564,21 @@ function PickerPanel(Props: PanelProps) {
     return Math.ceil((dataNumber + (dateFirst.getDay() + 1 - 1)) / 7);
   };
 
+  /**
+   * 点击选中月份
+   */
+  const handleSelectMonth = function (month: string) {
+    // console.log(month);
+    let nowMonth = Number(month);
+    let value = [currentTime.year, nowMonth];
+    // onSelectDate(value);
+    // setmonthValue(value);
+    onSelectDate(
+      `${currentTime.year}-${nowMonth > 9 ? nowMonth : "0" + nowMonth}`
+    );
+    setmonthValue(value);
+  };
+
   return (
     <div
       className={[Style.n_picker_panel].join(" ")}
@@ -578,25 +595,33 @@ function PickerPanel(Props: PanelProps) {
           >
             <DoubleLeft />
           </span>
-          <span
-            className={[Style.n_picker_header_icon].join(" ")}
-            onClick={handleLeft}
-          >
-            <Left />
-          </span>
+          {["date", "week"].includes(picker) && (
+            <span
+              className={[Style.n_picker_header_icon].join(" ")}
+              onClick={handleLeft}
+            >
+              <Left />
+            </span>
+          )}
         </div>
         <div className={[Style.n_picker_header_text].join(" ")}>
-          <span>
-            {currentTime.year}年 {currentTime.month}月
-          </span>
+          {/* picker === "date" | "week" */}
+          {["date", "week"].includes(picker) && (
+            <span>
+              {currentTime.year}年 {currentTime.month}月
+            </span>
+          )}
+          {picker === "month" && <span>{currentTime.year}年</span>}
         </div>
         <div className={[Style.n_picker_header_right].join(" ")}>
-          <span
-            className={[Style.n_picker_header_icon].join(" ")}
-            onClick={handleRight}
-          >
-            <Right />
-          </span>
+          {["date", "week"].includes(picker) && (
+            <span
+              className={[Style.n_picker_header_icon].join(" ")}
+              onClick={handleRight}
+            >
+              <Right />
+            </span>
+          )}
           <span
             className={[Style.n_picker_header_icon].join(" ")}
             onClick={handleDoubleRight}
@@ -746,8 +771,17 @@ function PickerPanel(Props: PanelProps) {
           <div className={[Style.n_picker_month].join(" ")}>
             {monthList.map((item) => (
               <div key={item} className={[Style.n_picker_month_item].join(" ")}>
-                <div className={[Style.n_picker_month_inner].join(" ")}>
-                  {item}
+                <div
+                  onClick={() => handleSelectMonth(item)}
+                  className={[
+                    Style.n_picker_month_inner,
+                    currentTime.year === monthValue[0] &&
+                    item === String(monthValue[1])
+                      ? Style.n_picker_month_inner_active
+                      : "",
+                  ].join(" ")}
+                >
+                  {item}月
                 </div>
               </div>
             ))}
