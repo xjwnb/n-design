@@ -25,6 +25,7 @@ interface IProps {
   suffix?: ReactElement;
   maxLength?: number;
   style?: object;
+  allowClear?: boolean;
 
   onChange?: Function;
   onBlur?: Function;
@@ -40,6 +41,8 @@ export default function Input(props: IProps) {
     suffix,
     maxLength,
     style,
+    allowClear = false,
+
     onChange,
     onBlur,
     onFocus,
@@ -49,6 +52,7 @@ export default function Input(props: IProps) {
   const [showBorder, setshowBorder] = useState<boolean>(false);
   const [showShadow, setshowShadow] = useState<boolean>(false);
   const [inputFocus, setinputFocus] = useState<boolean>(false);
+  const [showClear, setshowClear] = useState(false);
 
   const inputContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -77,6 +81,15 @@ export default function Input(props: IProps) {
     setinputValue(value);
   }, [value]);
 
+  useEffect(() => {
+    if (inputValue && allowClear) {
+      console.log(inputValue, "allowClear");
+      setshowClear(true);
+    } else if ((inputValue === "" || inputValue === undefined) && allowClear) {
+      setshowClear(false);
+    }
+  }, [inputValue, allowClear]);
+
   /**
    * input - change
    */
@@ -99,6 +112,13 @@ export default function Input(props: IProps) {
     onBlur && onBlur(event);
   };
 
+  /**
+   * 删除 value
+   */
+  const handleClearValue = function () {
+    setinputValue("");
+  };
+
   return (
     <div
       className={Style.input_container}
@@ -106,7 +126,7 @@ export default function Input(props: IProps) {
         ...style,
       }}
     >
-      {!prefix && !suffix && (
+      {/* {!prefix && !suffix && (
         <input
           placeholder={placeholder}
           className={[
@@ -121,32 +141,43 @@ export default function Input(props: IProps) {
           onFocus={handleFocus}
           onBlur={handleBlur}
         ></input>
-      )}
-      {prefix && (
-        <div
-          className={Style.input_flex_content}
-          ref={inputContainerRef}
-          style={{
-            borderColor: showBorder ? "#1890ff" : "#D9D9D9",
-            boxShadow: showShadow ? "0 0 3px #40a9ff" : "none",
-          }}
-        >
-          {prefix && <span className={Style.iconPrefix}>{prefix}</span>}
-          {prefix && (
-            <input
-              placeholder={placeholder}
-              value={inputValue}
-              ref={inputRef}
-              maxLength={maxLength}
-              onChange={handleChange}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-            />
-          )}
-        </div>
-      )}
+      )} */}
+      {/* {prefix && ( */}
+      <div
+        className={[
+          Style.input_flex_content,
+          `${Style.n_input}`,
+          `${size && size === "large" ? Style.n_input_lg : ""}`,
+          `${size && size === "small" ? Style.n_input_sm : ""}`,
+        ].join(" ")}
+        ref={inputContainerRef}
+        style={{
+          borderColor: showBorder ? "#1890ff" : "#D9D9D9",
+          boxShadow: showShadow ? "0 0 3px #40a9ff" : "none",
+        }}
+      >
+        {prefix && <span className={Style.iconPrefix}>{prefix}</span>}
+        {/* {prefix && ( */}
+        <input
+          placeholder={placeholder}
+          value={inputValue}
+          ref={inputRef}
+          maxLength={maxLength}
+          onChange={handleChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+        />
+        {suffix && <span className={Style.iconSuffix}>{suffix}</span>}
+        {allowClear && showClear && (
+          <span className={Style.iconSuffix} onClick={handleClearValue}>
+            <Closefill />
+          </span>
+        )}
+        {/* )} */}
+      </div>
+      {/* )} */}
 
-      {suffix && (
+      {/* {suffix && (
         <div
           className={Style.input_flex_content}
           ref={inputContainerRef}
@@ -168,7 +199,7 @@ export default function Input(props: IProps) {
           )}
           {suffix && <span className={Style.iconSuffix}>{suffix}</span>}
         </div>
-      )}
+      )} */}
     </div>
   );
 }

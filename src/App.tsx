@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-06 16:11:47
+ * @LastEditTime: 2021-12-06 17:05:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -284,6 +284,9 @@ function App() {
         {/* textarea */}
         <Input.TextArea onPressEnter={handlePressEnter} />
         <Input.TextArea bordered={false} />
+
+        <br />
+        <Input allowClear />
       </div>
 
       {/* 单选 radio */}
