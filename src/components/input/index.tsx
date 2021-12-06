@@ -83,7 +83,6 @@ export default function Input(props: IProps) {
 
   useEffect(() => {
     if (inputValue && allowClear) {
-      console.log(inputValue, "allowClear");
       setshowClear(true);
     } else if ((inputValue === "" || inputValue === undefined) && allowClear) {
       setshowClear(false);
