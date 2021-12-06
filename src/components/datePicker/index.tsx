@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-06 15:39:02
+ * @LastEditTime: 2021-12-06 16:04:56
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -326,13 +326,17 @@ function DatePicker(Props: IProps) {
   /**
    * 修改 currentTime.year 值
    */
-  const handleChangeCurrentYear = function (newYear: number) {
+  const handleChangeCurrentYear = function (
+    newYear: number,
+    callback?: Function
+  ) {
     setcurrentTime({
       year: newYear,
       month: currentTime.month,
       date: currentTime.date,
     });
-    setpickerValue("month");
+    // setpickerValue("month");
+    callback && callback();
   };
 
   return (
@@ -450,8 +454,16 @@ function PickerPanel(Props: PanelProps) {
   const [monthValue, setmonthValue] = useState<Array<string | number>>([]);
   // year 数组
   const [yearList, setyearList] = useState<Array<number>>([]);
+  const [initPicker, setinitPicker] = useState("");
 
   const tobdyRef = useRef<any>(null);
+
+  // let initPicker = "";
+
+  useEffect(() => {
+    setinitPicker(picker);
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     setselectDateArr(selectTime.split("-"));
@@ -507,18 +519,20 @@ function PickerPanel(Props: PanelProps) {
 
   useEffect(() => {
     initYearList();
+    // eslint-disable-next-line
   }, [currentTime]);
 
   /**
    * 初始化 year list
    */
-  const initYearList = function () {
+  const initYearList = function (year: number | string = currentTime.year) {
     if (typeof currentTime.year === "number") {
-      let firstYear = Math.floor(currentTime.year / 10) * 10 - 1;
+      let firstYear = Math.floor(Number(year) / 10) * 10;
       let yearArr = [];
-      for (let i = 0; i <= 11; i++) {
+      for (let i = 0; i <= 10; i++) {
         yearArr.push(firstYear + i);
       }
+      yearArr.unshift(firstYear - 1);
       setyearList(yearArr);
     }
   };
@@ -588,14 +602,22 @@ function PickerPanel(Props: PanelProps) {
    * doubleLeft icon click
    */
   const handleDoubleLeft = function () {
-    onControl?.onDoubleLeft && onControl.onDoubleLeft();
+    if (picker !== "year") {
+      onControl?.onDoubleLeft && onControl.onDoubleLeft();
+    } else {
+      initYearList(Number(yearList[1]) - 10);
+    }
   };
 
   /**
    * doubleRight icon click
    */
   const handleDoubleRight = function () {
-    onControl?.onDoubleRight && onControl.onDoubleRight();
+    if (picker !== "year") {
+      onControl?.onDoubleRight && onControl.onDoubleRight();
+    } else {
+      initYearList(Number(yearList[1]) + 10);
+    }
   };
 
   // picker = "week"
@@ -615,11 +637,8 @@ function PickerPanel(Props: PanelProps) {
    * 点击选中月份
    */
   const handleSelectMonth = function (month: string) {
-    // console.log(month);
     let nowMonth = Number(month);
     let value = [currentTime.year, nowMonth];
-    // onSelectDate(value);
-    // setmonthValue(value);
     onSelectDate(
       `${currentTime.year}-${nowMonth > 9 ? nowMonth : "0" + nowMonth}`
     );
@@ -638,8 +657,15 @@ function PickerPanel(Props: PanelProps) {
    * 点击选中年份
    */
   const handleSelectYear = function (yearVal: number) {
-    console.log(yearVal);
-    onControl?.onChangeCurrentYear && onControl.onChangeCurrentYear(yearVal);
+    const callback = function () {
+      if (initPicker === "month") {
+        onControl?.onChangePicker && onControl.onChangePicker("month");
+      } else if (initPicker === "year") {
+        onSelectDate(`${yearVal}`);
+      }
+    };
+    onControl?.onChangeCurrentYear &&
+      onControl.onChangeCurrentYear(yearVal, callback);
   };
 
   return (
@@ -684,7 +710,7 @@ function PickerPanel(Props: PanelProps) {
           )}
           {picker === "year" && (
             <span>
-              {yearList[0]} ~ {yearList[11]}
+              {yearList[1]} ~ {yearList[10]}
             </span>
           )}
         </div>
