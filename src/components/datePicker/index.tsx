@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-06 10:06:35
+ * @LastEditTime: 2021-12-06 13:57:20
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -27,6 +27,29 @@ import {
 } from "../../Icons/icon/index";
 
 const weekList = ["一", "二", "三", "四", "五", "六", "日"];
+
+const placeholderText = {
+  date: "请选择日期",
+  week: "请选择周",
+  month: "请选择月份",
+  year: "请选择年份",
+  quarter: "请选择季度",
+};
+
+const monthList = [
+  "1月",
+  "2月",
+  "3月",
+  "4月",
+  "5月",
+  "6月",
+  "7月",
+  "8月",
+  "9月",
+  "10月",
+  "11月",
+  "12月",
+];
 
 const Panel = memo(PickerPanel);
 
@@ -297,6 +320,7 @@ function DatePicker(Props: IProps) {
         onBlur={handleBlurInput}
         value={dateValue}
         onChange={handleInputChange}
+        placeholder={placeholderText[picker]}
       />
 
       <div
@@ -584,7 +608,7 @@ function PickerPanel(Props: PanelProps) {
 
       {/* body */}
       <div className={[Style.n_picker_body].join(" ")}>
-        {day.length && (
+        {day.length && ["date", "week"].includes(picker) && (
           <table className={[Style.n_picker_content].join(" ")}>
             <thead>
               <tr>
@@ -595,6 +619,7 @@ function PickerPanel(Props: PanelProps) {
               </tr>
             </thead>
             {/* tbody */}
+            {/* picker === "date" | "week" */}
             {day.length && (
               <tbody onClick={handleClickTbody} ref={tobdyRef}>
                 {day.length &&
@@ -714,6 +739,19 @@ function PickerPanel(Props: PanelProps) {
               </tbody>
             )}
           </table>
+        )}
+
+        {/* picker === "month" */}
+        {picker === "month" && (
+          <div className={[Style.n_picker_month].join(" ")}>
+            {monthList.map((item) => (
+              <div key={item} className={[Style.n_picker_month_item].join(" ")}>
+                <div className={[Style.n_picker_month_inner].join(" ")}>
+                  {item}
+                </div>
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </div>

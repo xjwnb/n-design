@@ -63,7 +63,6 @@
       .n_picker_cell {
         padding: 3px 0;
         color: #00000040;
-        // color: #000000d9;
         cursor: pointer;
 
         .n_picker_cell_inner {
@@ -116,6 +115,43 @@
           &:hover {
             background: #1890ff;
           }
+        }
+      }
+    }
+
+    // picker === "month"
+    .n_picker_month {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      font-size: 400;
+      width: 300px;
+      background: #fff;
+
+      .n_picker_month_item {
+        min-height: 60px;
+        box-sizing: border-box;
+        padding: 6px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #fff;
+        width: 80px;
+
+        .n_picker_month_inner {
+          min-width: 24px;
+          width: 60px;
+          text-align: center;
+          box-sizing: border-box;
+
+          &:hover {
+            background: #f5f5f5;
+          }
+        }
+
+        .n_picker_month_inner_active {
+          background: #1890ff;
         }
       }
     }
