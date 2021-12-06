@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-06 16:04:56
+ * @LastEditTime: 2021-12-06 16:10:09
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -56,11 +56,11 @@ const Panel = memo(PickerPanel);
 interface IProps {
   picker?: "date" | "week" | "month" | "year" | "quarter";
 
-  onChange?: Function;
+  onChange?: (val: string) => void;
 }
 
 function DatePicker(Props: IProps) {
-  const { picker = "date" } = Props;
+  const { picker = "date", onChange } = Props;
 
   const [showPanel, setshowPanel] = useState(false);
   const [currentTime, setcurrentTime] = useState<{
@@ -242,6 +242,7 @@ function DatePicker(Props: IProps) {
     type: "pre" | "current" | "next" = "current"
   ) {
     setdateValue(value);
+    onChange && onChange(value);
     setshowPanel(false);
     switch (type) {
       case "pre":

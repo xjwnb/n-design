@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-06 15:00:59
+ * @LastEditTime: 2021-12-06 16:11:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1681,13 +1681,32 @@ function App() {
         }}
       >
         <h1>DatePicker</h1>
-        <DatePicker />
+        <DatePicker
+          onChange={(val) => {
+            console.log(val);
+          }}
+        />
         <br />
-        <DatePicker picker="week" />
+        <DatePicker
+          picker="week"
+          onChange={(val) => {
+            console.log(val);
+          }}
+        />
         <br />
-        <DatePicker picker="month" />
+        <DatePicker
+          picker="month"
+          onChange={(val) => {
+            console.log(val);
+          }}
+        />
         <br />
-        <DatePicker picker="year" />
+        <DatePicker
+          picker="year"
+          onChange={(val) => {
+            console.log(val);
+          }}
+        />
       </div>
 
       <div></div>
