@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-07 08:53:50
+ * @LastEditTime: 2021-12-07 09:11:13
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -1025,11 +1025,14 @@ interface RangeProps {
 function RangePicker(Props: RangeProps) {
   // const {} = Props;
 
-  return <div className={[Style.n_rangepicker].join(" ")}>
-    <div className={[Style.n_rangepicker_container].join(" ")}>
-      
+  return (
+    <div className={[Style.n_rangepicker].join(" ")}>
+      <div className={[Style.n_rangepicker_container].join(" ")}>
+        {/* Input */}
+        <div className={[Style.n_rangepicker_input].join(" ")}></div>
+      </div>
     </div>
-  </div>;
+  );
 }
 
 DatePicker.RangePicker = RangePicker;

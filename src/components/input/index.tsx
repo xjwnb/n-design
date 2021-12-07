@@ -169,7 +169,7 @@ export default function Input(props: IProps) {
         {suffix && <span className={Style.iconSuffix}>{suffix}</span>}
         {allowClear && showClear && (
           <span className={Style.iconSuffix} onClick={handleClearValue}>
-            <Closefill />
+            <Closefill color="#BFBFBF" />
           </span>
         )}
         {/* )} */}
