@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-07 10:25:02
+ * @LastEditTime: 2021-12-07 10:31:46
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -1049,11 +1049,9 @@ function RangePicker(Props: RangeProps) {
     const inputContainer = inputContainerRef.current;
     inputContainer?.addEventListener("mouseenter", () => {
       setshowBorder(true);
-      console.log("......");
     });
     inputContainer?.addEventListener("mouseleave", () => {
       inputFocus ? setshowBorder(true) : setshowBorder(false);
-      console.log(".......1111111111111");
     });
     startInputRef.current?.addEventListener("focus", () => {
       setinputFocus(true);
@@ -1094,6 +1092,20 @@ function RangePicker(Props: RangeProps) {
     setshowBar(true);
   };
 
+  /**
+   * 开始输入框 - blur
+   */
+  const handleStartInputBlur = function () {
+
+  };
+
+  /**
+   * 结束输入框 - blur
+   */
+  const handleEndInputBlur = function () {
+
+  };
+
   return (
     <div className={[Style.n_rangepicker].join(" ")}>
       <div className={[Style.n_rangepicker_container].join(" ")}>
@@ -1111,6 +1123,7 @@ function RangePicker(Props: RangeProps) {
             placeholder="开始日期"
             ref={startInputRef}
             onFocus={handleStartInputFocus}
+            onBlur={handleStartInputBlur}
           />
           {/* middle icon */}
           <span className={[Style.n_rangepicker_icon].join(" ")}>
@@ -1121,6 +1134,7 @@ function RangePicker(Props: RangeProps) {
             placeholder="结束日期"
             ref={endInputRef}
             onFocus={handleEndInputFocus}
+            onBlur={handleEndInputBlur}
           />
           {/* icon */}
           <span className={[Style.n_rangepicker_icon].join(" ")}>
