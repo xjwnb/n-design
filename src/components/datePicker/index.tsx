@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-06 16:51:46
+ * @LastEditTime: 2021-12-07 08:27:19
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -588,13 +588,31 @@ function PickerPanel(Props: PanelProps) {
             break;
           }
         }
-        setweekIndex(weekNum[currentSelectIndex]);
+        let selectDayIndex = currentSelectIndex * 7;
+        let selectYear = Number(currentTime.year);
+        if (selectDayIndex <= firstIndex && currentTime.month === 1) {
+          selectYear = Number(currentTime.year) - 1;
+          /* onControl?.onChangeCurrentYear &&
+            onControl.onChangeCurrentYear(Number(currentTime.year) - 1);
+          onControl?.onChangeCurrentMonth && onControl.onChangeCurrentMonth(12);
+          onControl?.onChangePicker && onControl.onChangePicker("month"); */
+        } else if (selectDayIndex > lastIndex && currentTime.month === 12) {
+          selectYear = Number(currentTime.year) + 1;
+          /* onControl?.onChangeCurrentYear &&
+            onControl.onChangeCurrentYear(Number(currentTime.year) + 1);
+          onControl?.onChangeCurrentMonth && onControl.onChangeCurrentMonth(1);
+          onControl?.onChangePicker && onControl.onChangePicker("month"); */
+        } else {
+          selectYear = Number(currentTime.year);
+        }
+
         setweekTime({
-          year: currentTime.year,
+          year: selectYear,
           month: currentTime.month,
         });
+        setweekIndex(weekNum[currentSelectIndex]);
 
-        onSelectDate(`${currentTime.year}-${weekNum[currentSelectIndex]}周`);
+        onSelectDate(`${selectYear}-${weekNum[currentSelectIndex]}周`);
       }
     }
   };
