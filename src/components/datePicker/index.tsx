@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-07 08:44:36
+ * @LastEditTime: 2021-12-07 08:46:03
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -718,7 +718,7 @@ function PickerPanel(Props: PanelProps) {
   /**
    * 返回 title 值
    */
-  const getTitleVal = function (item: number, it: number) {
+  /* const getTitleVal = function (item: number, it: number) {
     let result =
       `${
         item * 7 + it <= firstIndex
@@ -756,7 +756,7 @@ function PickerPanel(Props: PanelProps) {
           : ""
       }`;
     return result;
-  };
+  }; */
 
   return (
     <div
@@ -914,47 +914,47 @@ function PickerPanel(Props: PanelProps) {
                                 ].join(" ")}
                                 data-index={item * 7 + it}
                                 title={
-                                  getTitleVal(item, it)
-                                  // `${
-                                  //   item * 7 + it <= firstIndex
-                                  //     ? `${preTime.year}-${
-                                  //         preTime.month > 9
-                                  //           ? preTime.month
-                                  //           : "0" + preTime.month
-                                  //       }-${
-                                  //         day[item * 7 + it] > 9
-                                  //           ? day[item * 7 + it]
-                                  //           : "0" + day[item * 7 + it]
-                                  //       }`
-                                  //     : ""
-                                  // }` +
-                                  // `${
-                                  //   item * 7 + it > firstIndex &&
-                                  //   item * 7 + it <= lastIndex
-                                  //     ? `${currentTime.year}-${
-                                  //         currentTime.month > 9
-                                  //           ? currentTime.month
-                                  //           : "0" + currentTime.month
-                                  //       }-${
-                                  //         day[item * 7 + it] > 9
-                                  //           ? day[item * 7 + it]
-                                  //           : "0" + day[item * 7 + it]
-                                  //       }`
-                                  //     : ""
-                                  // }` +
-                                  // `${
-                                  //   item * 7 + it > lastIndex
-                                  //     ? `${lastTime.year}-${
-                                  //         lastTime.month > 9
-                                  //           ? lastTime.month
-                                  //           : "0" + lastTime.month
-                                  //       }-${
-                                  //         day[item * 7 + it] > 9
-                                  //           ? day[item * 7 + it]
-                                  //           : "0" + day[item * 7 + it]
-                                  //       }`
-                                  //     : ""
-                                  // }`
+                                  // getTitleVal(item, it)
+                                  `${
+                                    item * 7 + it <= firstIndex
+                                      ? `${preTime.year}-${
+                                          preTime.month > 9
+                                            ? preTime.month
+                                            : "0" + preTime.month
+                                        }-${
+                                          day[item * 7 + it] > 9
+                                            ? day[item * 7 + it]
+                                            : "0" + day[item * 7 + it]
+                                        }`
+                                      : ""
+                                  }` +
+                                  `${
+                                    item * 7 + it > firstIndex &&
+                                    item * 7 + it <= lastIndex
+                                      ? `${currentTime.year}-${
+                                          currentTime.month > 9
+                                            ? currentTime.month
+                                            : "0" + currentTime.month
+                                        }-${
+                                          day[item * 7 + it] > 9
+                                            ? day[item * 7 + it]
+                                            : "0" + day[item * 7 + it]
+                                        }`
+                                      : ""
+                                  }` +
+                                  `${
+                                    item * 7 + it > lastIndex
+                                      ? `${lastTime.year}-${
+                                          lastTime.month > 9
+                                            ? lastTime.month
+                                            : "0" + lastTime.month
+                                        }-${
+                                          day[item * 7 + it] > 9
+                                            ? day[item * 7 + it]
+                                            : "0" + day[item * 7 + it]
+                                        }`
+                                      : ""
+                                  }`
                                 }
                               >
                                 {day[item * 7 + it]}
@@ -1023,7 +1023,7 @@ interface RangeProps {
 }
 
 function RangePicker(Props: RangeProps) {
-  const {} = Props;
+  // const {} = Props;
 
   return <div></div>;
 }
