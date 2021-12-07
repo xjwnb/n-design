@@ -211,13 +211,42 @@
   cursor: pointer;
 }
 
-
 // RangePicker
 .n_rangepicker {
-
-
   .n_rangepicker_container {
-    
-  }
+    .n_rangepicker_input {
+      display: flex;
+      align-items: center;
+      border: 1px solid #d9d9d9;
+      border-radius: 2px;
+      padding: 4px;
+      // display: flex;
+      // align-items: center;
+      box-sizing: border-box;
+      // padding: ;
+      position: relative;
 
+      input {
+        border: none;
+        outline-style: none;
+        width: 100%;
+        line-height: 1.4rem;
+      }
+
+      .n_rangepicker_icon {
+        margin: 0 8px;
+      }
+
+      .n_rangepicker_bar {
+        bottom: -1px;
+        height: 2px;
+        margin-left: 11px;
+        background: #1890ff;
+        opacity: 0;
+        transition: all 0.3s ease-out;
+        pointer-events: none;
+        position: absolute;
+      }
+    }
+  }
 }

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-07 09:11:13
+ * @LastEditTime: 2021-12-07 10:25:02
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -24,6 +24,7 @@ import {
   Left,
   Right,
   DoubleRight,
+  SwapRight,
 } from "../../Icons/icon/index";
 
 const weekList = ["一", "二", "三", "四", "五", "六", "日"];
@@ -1025,11 +1026,117 @@ interface RangeProps {
 function RangePicker(Props: RangeProps) {
   // const {} = Props;
 
+  const [barWidth, setbarWidth] = useState<number>(0);
+
+  const [showBar, setshowBar] = useState(false);
+  const [barIndex, setbarIndex] = useState(0);
+  const [showBorder, setshowBorder] = useState<boolean>(false);
+  const [showShadow, setshowShadow] = useState<boolean>(false);
+  const [inputFocus, setinputFocus] = useState<boolean>(false);
+
+  // ref
+  const startInputRef = useRef<HTMLInputElement>(null);
+  const endInputRef = useRef<HTMLInputElement>(null);
+  const inputContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (startInputRef.current !== null) {
+      setbarWidth(startInputRef.current?.offsetWidth);
+    }
+  }, [showBar, barIndex]);
+
+  useEffect(() => {
+    const inputContainer = inputContainerRef.current;
+    inputContainer?.addEventListener("mouseenter", () => {
+      setshowBorder(true);
+      console.log("......");
+    });
+    inputContainer?.addEventListener("mouseleave", () => {
+      inputFocus ? setshowBorder(true) : setshowBorder(false);
+      console.log(".......1111111111111");
+    });
+    startInputRef.current?.addEventListener("focus", () => {
+      setinputFocus(true);
+      setshowBorder(true);
+      setshowShadow(true);
+    });
+    startInputRef.current?.addEventListener("blur", () => {
+      setinputFocus(false);
+      setshowBorder(false);
+      setshowShadow(false);
+    });
+
+    endInputRef.current?.addEventListener("focus", () => {
+      setinputFocus(true);
+      setshowBorder(true);
+      setshowShadow(true);
+    });
+    endInputRef.current?.addEventListener("blur", () => {
+      setinputFocus(false);
+      setshowBorder(false);
+      setshowShadow(false);
+    });
+  }, [inputFocus]);
+
+  /**
+   * 开始输入框 - focus
+   */
+  const handleStartInputFocus = function () {
+    setbarIndex(0);
+    setshowBar(true);
+  };
+
+  /**
+   * 结束输入框 - focus
+   */
+  const handleEndInputFocus = function () {
+    setbarIndex(1);
+    setshowBar(true);
+  };
+
   return (
     <div className={[Style.n_rangepicker].join(" ")}>
       <div className={[Style.n_rangepicker_container].join(" ")}>
         {/* Input */}
-        <div className={[Style.n_rangepicker_input].join(" ")}></div>
+        <div
+          className={[Style.n_rangepicker_input].join(" ")}
+          ref={inputContainerRef}
+          style={{
+            borderColor: showBorder ? "#1890ff" : "#D9D9D9",
+            boxShadow: showShadow ? "0 0 3px #40a9ff" : "none",
+          }}
+        >
+          {/* startTime */}
+          <input
+            placeholder="开始日期"
+            ref={startInputRef}
+            onFocus={handleStartInputFocus}
+          />
+          {/* middle icon */}
+          <span className={[Style.n_rangepicker_icon].join(" ")}>
+            <SwapRight color="#BFBFBF" />
+          </span>
+          {/* endTime */}
+          <input
+            placeholder="结束日期"
+            ref={endInputRef}
+            onFocus={handleEndInputFocus}
+          />
+          {/* icon */}
+          <span className={[Style.n_rangepicker_icon].join(" ")}>
+            <Calendar color="#BFBFBF" />
+          </span>
+
+          {/* active_bar */}
+          <div
+            className={[Style.n_rangepicker_bar].join(" ")}
+            style={{
+              width: barWidth,
+              opacity: showBar ? 1 : 0,
+              left: barIndex === 1 ? barWidth + 25 : -8,
+            }}
+          ></div>
+        </div>
       </div>
     </div>
   );
