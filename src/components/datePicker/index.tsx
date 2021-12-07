@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-07 08:27:19
+ * @LastEditTime: 2021-12-07 08:38:42
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -717,6 +717,49 @@ function PickerPanel(Props: PanelProps) {
       onControl.onChangeCurrentYear(yearVal, callback);
   };
 
+  /**
+   * 返回 title 值
+   */
+  const getTitleVal = function (item: number, it: number) {
+    let result =
+      `${
+        item * 7 + it <= firstIndex
+          ? `${preTime.year}-${
+              preTime.month > 9 ? preTime.month : "0" + preTime.month
+            }-${
+              day[item * 7 + it] > 9
+                ? day[item * 7 + it]
+                : "0" + day[item * 7 + it]
+            }`
+          : ""
+      }` +
+      `${
+        item * 7 + it > firstIndex && item * 7 + it <= lastIndex
+          ? `${currentTime.year}-${
+              currentTime.month > 9
+                ? currentTime.month
+                : "0" + currentTime.month
+            }-${
+              day[item * 7 + it] > 9
+                ? day[item * 7 + it]
+                : "0" + day[item * 7 + it]
+            }`
+          : ""
+      }` +
+      `${
+        item * 7 + it > lastIndex
+          ? `${lastTime.year}-${
+              lastTime.month > 9 ? lastTime.month : "0" + lastTime.month
+            }-${
+              day[item * 7 + it] > 9
+                ? day[item * 7 + it]
+                : "0" + day[item * 7 + it]
+            }`
+          : ""
+      }`;
+    return result;
+  };
+
   return (
     <div
       className={[Style.n_picker_panel].join(" ")}
@@ -873,46 +916,47 @@ function PickerPanel(Props: PanelProps) {
                                 ].join(" ")}
                                 data-index={item * 7 + it}
                                 title={
-                                  `${
-                                    item * 7 + it <= firstIndex
-                                      ? `${preTime.year}-${
-                                          preTime.month > 9
-                                            ? preTime.month
-                                            : "0" + preTime.month
-                                        }-${
-                                          day[item * 7 + it] > 9
-                                            ? day[item * 7 + it]
-                                            : "0" + day[item * 7 + it]
-                                        }`
-                                      : ""
-                                  }` +
-                                  `${
-                                    item * 7 + it > firstIndex &&
-                                    item * 7 + it <= lastIndex
-                                      ? `${currentTime.year}-${
-                                          currentTime.month > 9
-                                            ? currentTime.month
-                                            : "0" + currentTime.month
-                                        }-${
-                                          day[item * 7 + it] > 9
-                                            ? day[item * 7 + it]
-                                            : "0" + day[item * 7 + it]
-                                        }`
-                                      : ""
-                                  }` +
-                                  `${
-                                    item * 7 + it > lastIndex
-                                      ? `${lastTime.year}-${
-                                          lastTime.month > 9
-                                            ? lastTime.month
-                                            : "0" + lastTime.month
-                                        }-${
-                                          day[item * 7 + it] > 9
-                                            ? day[item * 7 + it]
-                                            : "0" + day[item * 7 + it]
-                                        }`
-                                      : ""
-                                  }`
+                                  getTitleVal(item, it)
+                                  // `${
+                                  //   item * 7 + it <= firstIndex
+                                  //     ? `${preTime.year}-${
+                                  //         preTime.month > 9
+                                  //           ? preTime.month
+                                  //           : "0" + preTime.month
+                                  //       }-${
+                                  //         day[item * 7 + it] > 9
+                                  //           ? day[item * 7 + it]
+                                  //           : "0" + day[item * 7 + it]
+                                  //       }`
+                                  //     : ""
+                                  // }` +
+                                  // `${
+                                  //   item * 7 + it > firstIndex &&
+                                  //   item * 7 + it <= lastIndex
+                                  //     ? `${currentTime.year}-${
+                                  //         currentTime.month > 9
+                                  //           ? currentTime.month
+                                  //           : "0" + currentTime.month
+                                  //       }-${
+                                  //         day[item * 7 + it] > 9
+                                  //           ? day[item * 7 + it]
+                                  //           : "0" + day[item * 7 + it]
+                                  //       }`
+                                  //     : ""
+                                  // }` +
+                                  // `${
+                                  //   item * 7 + it > lastIndex
+                                  //     ? `${lastTime.year}-${
+                                  //         lastTime.month > 9
+                                  //           ? lastTime.month
+                                  //           : "0" + lastTime.month
+                                  //       }-${
+                                  //         day[item * 7 + it] > 9
+                                  //           ? day[item * 7 + it]
+                                  //           : "0" + day[item * 7 + it]
+                                  //       }`
+                                  //     : ""
+                                  // }`
                                 }
                               >
                                 {day[item * 7 + it]}
