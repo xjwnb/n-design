@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-09 15:59:37
+ * @LastEditTime: 2021-12-09 16:02:59
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -1667,16 +1667,6 @@ function RangePicker(Props: RangeProps) {
             onLeft: handleLeft,
             onDoubleLeft: handleDoubleLeft,
           }}
-          /* onControl={{
-            onLeft: handleLeft,
-            onRight: handleRight,
-            onDoubleLeft: handleDoubleLeft,
-            onDoubleRight: handleDoubleRight,
-            onChangePicker: handleChangePicker,
-            onChangeCurrentYear: handleChangeCurrentYear,
-            onChangeCurrentMonth: handleChangeCurrentMonth,
-          }}
-          picker={pickerValue} */
         />
         {/* Two Panel */}
         <Panel
@@ -1698,16 +1688,6 @@ function RangePicker(Props: RangeProps) {
             onRight: handleRight,
             onDoubleRight: handleDoubleRight,
           }}
-          /* onControl={{
-            onLeft: handleLeft,
-            onRight: handleRight,
-            onDoubleLeft: handleDoubleLeft,
-            onDoubleRight: handleDoubleRight,
-            onChangePicker: handleChangePicker,
-            onChangeCurrentYear: handleChangeCurrentYear,
-            onChangeCurrentMonth: handleChangeCurrentMonth,
-          }}
-          picker={pickerValue} */
         />
       </div>
     </div>
