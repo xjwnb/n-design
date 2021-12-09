@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-09 08:41:29
+ * @LastEditTime: 2021-12-09 15:28:57
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -413,6 +413,9 @@ interface PanelProps {
   };
   selectTime: string;
   picker?: "date" | "week" | "month" | "year" | "quarter";
+  rangeTime?: string[];
+  range?: boolean;
+  rangeIndex?: number; // 0 | 1;
 
   onSelectDate: Function;
   onControl?: {
@@ -423,6 +426,8 @@ interface PanelProps {
     onChangePicker?: Function;
     onChangeCurrentYear?: Function;
     onChangeCurrentMonth?: Function;
+    onSetStartTime?: Function;
+    onSetEndTime?: Function;
   };
 }
 
@@ -437,6 +442,9 @@ function PickerPanel(Props: PanelProps) {
     onSelectDate,
     selectTime,
     onControl,
+    rangeTime,
+    range = false,
+    rangeIndex = 0,
   } = Props;
 
   const [preTime, setpreTime] = useState<{
@@ -471,6 +479,9 @@ function PickerPanel(Props: PanelProps) {
   // year 数组
   const [yearList, setyearList] = useState<Array<number>>([]);
   const [initPicker, setinitPicker] = useState("");
+  // title 数组
+  const [titleArr, settitleArr] = useState<Array<string>>([]);
+  const [dayType, setdayType] = useState<string[]>([]);
 
   const tobdyRef = useRef<any>(null);
 
@@ -509,6 +520,7 @@ function PickerPanel(Props: PanelProps) {
   }, [picker, day, currentTime, firstIndex, lastIndex, lastTime, preTime]);
 
   useEffect(() => {
+    if (!currentTime.year) return;
     let preMonth = Number(currentTime.month) - 1;
     preMonth = preMonth === 0 ? 12 : preMonth;
     let preYear =
@@ -529,12 +541,124 @@ function PickerPanel(Props: PanelProps) {
       year: lastYear,
       month: lastMonth,
     });
-  }, [currentTime]);
+  }, [currentTime, day]);
 
   useEffect(() => {
     initYearList();
     // eslint-disable-next-line
   }, [currentTime]);
+
+  useEffect(() => {
+    getTitleList();
+  }, [day, currentTime]);
+
+  useEffect(() => {
+    if (titleArr.length && range) {
+      if (rangeIndex === 0) {
+        let typeArr = titleArr.map((item, index) => {
+          if (rangeTime && rangeTime[1]) {
+            if (
+              new Date(item).getTime() - new Date(rangeTime[0]).getTime() > 0 &&
+              new Date(item).getTime() - new Date(rangeTime[1]).getTime() < 0
+            ) {
+              return "range";
+            } else if (
+              new Date(item).getTime() - new Date(rangeTime[1]).getTime() <
+              0
+            ) {
+              return "none";
+            } else if (
+              new Date(item).getTime() - new Date(rangeTime[1]).getTime() >
+              0
+            ) {
+              return "disable";
+            } else {
+              return "active";
+            }
+          } else {
+            return "none";
+          }
+        });
+        console.log(typeArr);
+        setdayType(typeArr);
+      } else {
+        let typeArr = titleArr.map((item, index) => {
+          if (rangeTime && rangeTime[0]) {
+            if (
+              new Date(item).getTime() - new Date(rangeTime[0]).getTime() <
+              0
+            ) {
+              return "disable";
+            } else if (
+              new Date(item).getTime() - new Date(rangeTime[0]).getTime() > 0 &&
+              new Date(item).getTime() - new Date(rangeTime[1]).getTime() < 0
+            ) {
+              return "range";
+            } else {
+              return "none";
+            }
+          } else {
+            return "none";
+          }
+        });
+        setdayType(typeArr);
+      }
+    }
+    // eslint-disable-next-line
+  }, [rangeIndex]);
+
+  useEffect(() => {
+    console.log(rangeIndex);
+  }, [rangeIndex]);
+
+  /**
+   * 获取 title list
+   */
+  const getTitleList = function () {
+    if (day.length) {
+      let titleList = day.map((item, index) => {
+        if (index <= firstIndex) {
+          console.log(preTime, lastTime);
+          if (preTime.year) {
+            return `${`${preTime.year}-${
+              preTime.month > 9 ? preTime.month : "0" + preTime.month
+            }-${day[index] > 9 ? day[index] : "0" + day[index]}`}`;
+          } else {
+            let preMonth = Number(currentTime.month) - 1;
+            preMonth = preMonth === 0 ? 12 : preMonth;
+            let preYear =
+              currentTime.month > 1
+                ? currentTime.year
+                : Number(currentTime.year) - 1;
+            return `${preYear}-${preMonth > 9 ? preMonth : "0" + preMonth}-${
+              day[index] > 9 ? day[index] : "0" + day[index]
+            }`;
+          }
+        } else if (index > lastIndex) {
+          if (lastTime.year) {
+            return `${`${lastTime.year}-${
+              lastTime.month > 9 ? lastTime.month : "0" + lastTime.month
+            }-${day[index] > 9 ? day[index] : "0" + day[index]}`}`;
+          } else {
+            let lastMonth = Number(currentTime.month) + 1;
+            lastMonth = lastMonth > 12 ? 1 : lastMonth;
+            let lastYear =
+              currentTime.month === 12
+                ? Number(currentTime.year) + 1
+                : currentTime.year;
+            return `${lastYear}-${
+              lastMonth > 9 ? lastMonth : "0" + lastMonth
+            }-${day[index] > 9 ? day[index] : "0" + day[index]}`;
+          }
+        } else {
+          return `${`${currentTime.year}-${
+            currentTime.month > 9 ? currentTime.month : "0" + currentTime.month
+          }-${day[index] > 9 ? day[index] : "0" + day[index]}`}`;
+        }
+      });
+      settitleArr(titleList);
+    }
+  };
 
   /**
    * 初始化 year list
@@ -555,6 +679,20 @@ function PickerPanel(Props: PanelProps) {
    * 点击事件 tbody
    */
   const handleClickTbody = function (e: BaseSyntheticEvent) {
+    console.log("点击了");
+    if (range && e.target.title) {
+      if (rangeIndex === 0) {
+        onControl?.onSetStartTime && onControl.onSetStartTime(e.target.title);
+        return;
+      }
+      if (rangeTime && !rangeTime[0]) {
+        onControl?.onSetStartTime && onControl.onSetStartTime(e.target.title);
+      } else {
+        onControl?.onSetEndTime && onControl.onSetEndTime(e.target.title);
+      }
+
+      return;
+    }
     if (e.target.title && picker === "date") {
       let currentIndex = e.target.getAttribute("data-index");
       if (currentIndex <= firstIndex) {
@@ -716,49 +854,6 @@ function PickerPanel(Props: PanelProps) {
       onControl.onChangeCurrentYear(yearVal, callback);
   };
 
-  /**
-   * 返回 title 值
-   */
-  /* const getTitleVal = function (item: number, it: number) {
-    let result =
-      `${
-        item * 7 + it <= firstIndex
-          ? `${preTime.year}-${
-              preTime.month > 9 ? preTime.month : "0" + preTime.month
-            }-${
-              day[item * 7 + it] > 9
-                ? day[item * 7 + it]
-                : "0" + day[item * 7 + it]
-            }`
-          : ""
-      }` +
-      `${
-        item * 7 + it > firstIndex && item * 7 + it <= lastIndex
-          ? `${currentTime.year}-${
-              currentTime.month > 9
-                ? currentTime.month
-                : "0" + currentTime.month
-            }-${
-              day[item * 7 + it] > 9
-                ? day[item * 7 + it]
-                : "0" + day[item * 7 + it]
-            }`
-          : ""
-      }` +
-      `${
-        item * 7 + it > lastIndex
-          ? `${lastTime.year}-${
-              lastTime.month > 9 ? lastTime.month : "0" + lastTime.month
-            }-${
-              day[item * 7 + it] > 9
-                ? day[item * 7 + it]
-                : "0" + day[item * 7 + it]
-            }`
-          : ""
-      }`;
-    return result;
-  }; */
-
   return (
     <div
       className={[Style.n_picker_panel].join(" ")}
@@ -885,6 +980,16 @@ function PickerPanel(Props: PanelProps) {
                                     ? Style.n_picker_cell_in_view
                                     : ""
                                 }`,
+                                `${
+                                  range && dayType[item * 7 + it] === "disable"
+                                    ? Style.n_picker_cell_in_disable
+                                    : ""
+                                }`,
+                                `${
+                                  range && dayType[item * 7 + it] === "range"
+                                    ? Style.n_picker_cell_in_range
+                                    : ""
+                                }`,
                               ].join(" ")}
                               key={day[item * 7 + it]}
                             >
@@ -901,6 +1006,7 @@ function PickerPanel(Props: PanelProps) {
                                       : ""
                                   }`,
                                   `${
+                                    !range &&
                                     item * 7 + it > firstIndex &&
                                     item * 7 + it <= lastIndex &&
                                     currentTime.year ===
@@ -912,51 +1018,37 @@ function PickerPanel(Props: PanelProps) {
                                       ? Style.n_picker_cell_active
                                       : ""
                                   }`,
+                                  `${
+                                    range &&
+                                    rangeTime &&
+                                    item * 7 + it > firstIndex &&
+                                    item * 7 + it <= lastIndex &&
+                                    currentTime.year ===
+                                      Number(rangeTime[0].split("-")[0]) &&
+                                    currentTime.month ===
+                                      Number(rangeTime[0].split("-")[1]) &&
+                                    Number(rangeTime[0].split("-")[2]) ===
+                                      day[item * 7 + it]
+                                      ? Style.n_picker_cell_active
+                                      : ""
+                                  }`,
+                                  `${
+                                    range &&
+                                    rangeTime &&
+                                    item * 7 + it > firstIndex &&
+                                    item * 7 + it <= lastIndex &&
+                                    currentTime.year ===
+                                      Number(rangeTime[1].split("-")[0]) &&
+                                    currentTime.month ===
+                                      Number(rangeTime[1].split("-")[1]) &&
+                                    Number(rangeTime[1].split("-")[2]) ===
+                                      day[item * 7 + it]
+                                      ? Style.n_picker_cell_active
+                                      : ""
+                                  }`,
                                 ].join(" ")}
                                 data-index={item * 7 + it}
-                                title={
-                                  // getTitleVal(item, it)
-                                  `${
-                                    item * 7 + it <= firstIndex
-                                      ? `${preTime.year}-${
-                                          preTime.month > 9
-                                            ? preTime.month
-                                            : "0" + preTime.month
-                                        }-${
-                                          day[item * 7 + it] > 9
-                                            ? day[item * 7 + it]
-                                            : "0" + day[item * 7 + it]
-                                        }`
-                                      : ""
-                                  }` +
-                                  `${
-                                    item * 7 + it > firstIndex &&
-                                    item * 7 + it <= lastIndex
-                                      ? `${currentTime.year}-${
-                                          currentTime.month > 9
-                                            ? currentTime.month
-                                            : "0" + currentTime.month
-                                        }-${
-                                          day[item * 7 + it] > 9
-                                            ? day[item * 7 + it]
-                                            : "0" + day[item * 7 + it]
-                                        }`
-                                      : ""
-                                  }` +
-                                  `${
-                                    item * 7 + it > lastIndex
-                                      ? `${lastTime.year}-${
-                                          lastTime.month > 9
-                                            ? lastTime.month
-                                            : "0" + lastTime.month
-                                        }-${
-                                          day[item * 7 + it] > 9
-                                            ? day[item * 7 + it]
-                                            : "0" + day[item * 7 + it]
-                                        }`
-                                      : ""
-                                  }`
-                                }
+                                title={titleArr[item * 7 + it]}
                               >
                                 {day[item * 7 + it]}
                               </div>
@@ -1033,8 +1125,48 @@ function RangePicker(Props: RangeProps) {
   const [showBorder, setshowBorder] = useState<boolean>(false);
   const [showShadow, setshowShadow] = useState<boolean>(false);
   const [inputFocus, setinputFocus] = useState<boolean>(false);
+  // currentTime
+  const [currentTime, setcurrentTime] = useState<{
+    year: string | number;
+    month: string | number;
+    date: string | number;
+  }>({
+    year: "",
+    month: "",
+    date: "",
+  });
+  // nextTime
+  const [nextTime, setnextTime] = useState<{
+    year: string | number;
+    month: string | number;
+    date: string | number;
+  }>({
+    year: "",
+    month: "",
+    date: "",
+  });
+  // nowTime
+  const [nowTime, setnowTime] = useState<{
+    year: string | number;
+    month: string | number;
+    date: string | number;
+  }>({
+    year: "",
+    month: "",
+    date: "",
+  });
   // picker - container
   const [showRangePanel, setshowRangePanel] = useState(false);
+  // one picker
+  const [oneDateValue, setoneDateValue] = useState("");
+  const [oneFirstIndex, setoneFirstIndex] = useState(0);
+  const [oneLastIndex, setoneLastIndex] = useState(0);
+  const [oneDayList, setoneDayList] = useState<Array<number>>([]);
+  // two picker
+  const [twoDateValue, settwoDateValue] = useState("");
+  const [twoFirstIndex, settwoFirstIndex] = useState(0);
+  const [twoLastIndex, settwoLastIndex] = useState(0);
+  const [twoDayList, settwoDayList] = useState<Array<number>>([]);
 
   // ref
   const startInputRef = useRef<HTMLInputElement>(null);
@@ -1042,10 +1174,57 @@ function RangePicker(Props: RangeProps) {
   const inputContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const date = new Date();
+    setcurrentTime({
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      date: date.getDate(),
+    });
+    setnowTime({
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      date: date.getDate(),
+    });
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    if (currentTime.year) {
+      let nextObj = getTimeObj(1);
+      setnextTime({
+        year: nextObj.year,
+        month: nextObj.month,
+        date: new Date().getDate(),
+      });
+    }
+    // eslint-disable-next-line
+  }, [currentTime]);
+
+  useEffect(() => {
     if (startInputRef.current !== null) {
       setbarWidth(startInputRef.current?.offsetWidth);
     }
   }, [showBar, barIndex]);
+
+  useEffect(() => {
+    if (currentTime.year) {
+      FullMonthDateList(
+        {
+          year: Number(currentTime.year),
+          month: Number(currentTime.month),
+        },
+        "one"
+      );
+      FullMonthDateList(
+        {
+          year: Number(currentTime.year),
+          month: Number(currentTime.month),
+        },
+        "two"
+      );
+    }
+    // eslint-disable-next-line
+  }, [currentTime]);
 
   useEffect(() => {
     const inputContainer = inputContainerRef.current;
@@ -1055,34 +1234,48 @@ function RangePicker(Props: RangeProps) {
     inputContainer?.addEventListener("mouseleave", () => {
       inputFocus ? setshowBorder(true) : setshowBorder(false);
     });
-    startInputRef.current?.addEventListener("focus", () => {
-      setinputFocus(true);
-      setshowBorder(true);
-      setshowShadow(true);
-      setshowRangePanel(true);
-    });
-    startInputRef.current?.addEventListener("blur", () => {
-      setinputFocus(false);
-      setshowBorder(false);
-      setshowShadow(false);
-      setshowBar(false);
-      setshowRangePanel(false);
-    });
+    // startInputRef.current?.addEventListener("focus", () => {
+    //   setinputFocus(true);
+    //   setshowBorder(true);
+    //   setshowShadow(true);
+    //   setshowRangePanel(true);
+    // });
+    // startInputRef.current?.addEventListener("blur", () => {
+    //   setinputFocus(false);
+    //   setshowBorder(false);
+    //   setshowShadow(false);
+    //   setshowBar(false);
+    //   // setshowRangePanel(false);
+    // });
 
-    endInputRef.current?.addEventListener("focus", () => {
+    // endInputRef.current?.addEventListener("focus", () => {
+    //   setinputFocus(true);
+    //   setshowBorder(true);
+    //   setshowShadow(true);
+    //   setshowRangePanel(true);
+    // });
+    // endInputRef.current?.addEventListener("blur", () => {
+    //   setinputFocus(false);
+    //   setshowBorder(false);
+    //   setshowShadow(false);
+    //   setshowBar(false);
+    //   // setshowRangePanel(false);
+    // });
+  }, [inputFocus]);
+
+  useEffect(() => {
+    showRangePanel && setshowBorder(true);
+    showRangePanel && inputFocus ? setshowBorder(true) : setshowBorder(false);
+    if (showRangePanel) {
       setinputFocus(true);
       setshowBorder(true);
       setshowShadow(true);
-      setshowRangePanel(true);
-    });
-    endInputRef.current?.addEventListener("blur", () => {
+    } else {
       setinputFocus(false);
       setshowBorder(false);
       setshowShadow(false);
-      setshowBar(false);
-      setshowRangePanel(false);
-    });
-  }, [inputFocus]);
+    }
+  }, [showRangePanel]);
 
   /**
    * 开始输入框 - focus
@@ -1090,6 +1283,7 @@ function RangePicker(Props: RangeProps) {
   const handleStartInputFocus = function () {
     setbarIndex(0);
     setshowBar(true);
+    setshowRangePanel(true);
   };
 
   /**
@@ -1098,6 +1292,7 @@ function RangePicker(Props: RangeProps) {
   const handleEndInputFocus = function () {
     setbarIndex(1);
     setshowBar(true);
+    setshowRangePanel(true);
   };
 
   /**
@@ -1109,6 +1304,187 @@ function RangePicker(Props: RangeProps) {
    * 结束输入框 - blur
    */
   const handleEndInputBlur = function () {};
+
+  /**
+   * 获取前一个月后一个月 => { year: "", month: "" }
+   */
+  const getTimeObj = function (type: 1 | -1) {
+    const result: { year: string | number; month: string | number } = {
+      year: "",
+      month: "",
+    };
+    console.log(currentTime);
+    switch (type) {
+      case -1:
+        let preMonth = Number(currentTime.month) - 1;
+        result.month = preMonth = preMonth === 0 ? 12 : preMonth;
+        result.year =
+          currentTime.month > 1
+            ? currentTime.year
+            : Number(currentTime.year) - 1;
+        break;
+      case 1:
+        let lastMonth = Number(currentTime.month) + 1;
+        result.month = lastMonth > 12 ? 1 : lastMonth;
+        result.year =
+          currentTime.month === 12
+            ? Number(currentTime.year) + 1
+            : currentTime.year;
+        break;
+    }
+    return result;
+  };
+
+  /**
+   * 根据年月获取月某一天星期几
+   */
+  const getDateDay = function (
+    year: number | string,
+    month: number | string,
+    day: number = 1
+  ) {
+    return new Date(Number(year), Number(month) - 1, day).getDay();
+  };
+
+  /**
+   * 获取 42 个日期数组
+   */
+  const FullMonthDateList = function (
+    current: {
+      year: number;
+      month: number;
+    },
+    type?: "one" | "two"
+  ) {
+    const dayList: number[] = [];
+
+    // 本月一号星期几
+    if (type === "one") {
+      let firstDay = getDateDay(current.year, current.month, 1);
+      setoneFirstIndex(firstDay - 2);
+
+      // 本月最后一天是几号
+      let lastDate = new Date(current.year, current.month, 0).getDate();
+
+      /**
+       * 上一个月最后一天是几号
+       */
+      let lastMonthLastDate = new Date(
+        current.year,
+        current.month - 1,
+        0
+      ).getDate();
+
+      for (let i = 1; i <= lastDate; i++) {
+        dayList.push(i);
+      }
+
+      if (firstDay) {
+        for (let i = 0; i < firstDay - 1; i++) {
+          dayList.unshift(lastMonthLastDate - i);
+        }
+      }
+
+      let otherDay = 42 - dayList.length;
+      setoneLastIndex(dayList.length - 1);
+
+      if (otherDay) {
+        for (let i = 1; i <= otherDay; i++) {
+          dayList.push(i);
+        }
+      }
+      setoneDayList(dayList);
+    } else {
+      let twoTime = getTimeObj(1);
+      let firstDay = getDateDay(twoTime.year, twoTime.month, 1);
+      settwoFirstIndex(firstDay - 2);
+
+      // 本月最后一天是几号
+      let lastDate = new Date(
+        Number(twoTime.year),
+        Number(twoTime.month),
+        0
+      ).getDate();
+
+      /**
+       * 上一个月最后一天是几号
+       */
+      let lastMonthLastDate = new Date(
+        Number(twoTime.year),
+        Number(twoTime.month) - 1,
+        0
+      ).getDate();
+
+      for (let i = 1; i <= lastDate; i++) {
+        dayList.push(i);
+      }
+
+      if (firstDay) {
+        for (let i = 0; i < firstDay - 1; i++) {
+          dayList.unshift(lastMonthLastDate - i);
+        }
+      }
+
+      let otherDay = 42 - dayList.length;
+      settwoLastIndex(dayList.length - 1);
+
+      if (otherDay) {
+        for (let i = 1; i <= otherDay; i++) {
+          dayList.push(i);
+        }
+      }
+      settwoDayList(dayList);
+    }
+  };
+
+  /**
+   * 点击选中当前日期 - 开始日历
+   */
+  const handleOneSelectDate = function (value: string) {
+    console.log("one value");
+    console.log(value);
+    // setoneDateValue(value);
+  };
+
+  /**
+   * 点击选中当前日期 - 结束日历
+   */
+  const handleTwoSelectDate = function (value: string) {
+    console.log("two value");
+    console.log(value);
+    // settwoDateValue(value);
+  };
+
+  /**
+   * 开始输入框 - change
+   */
+  const handleStartInputChange = function () {
+    setoneDateValue("");
+  };
+
+  /**
+   * 结束输入框 - change
+   */
+  const handleEndInputChange = function () {
+    settwoDateValue("");
+  };
+
+  /**
+   * 设置开始日期
+   */
+  const handleSetStartTime = function (value: string) {
+    setbarIndex(1);
+    setoneDateValue(value);
+  };
+
+  /**
+   * 设置结束日期
+   */
+  const handleSetEndTime = function (value: string) {
+    setbarIndex(1);
+    settwoDateValue(value);
+    setshowRangePanel(false);
+  };
 
   return (
     <div className={[Style.n_rangepicker].join(" ")}>
@@ -1128,6 +1504,8 @@ function RangePicker(Props: RangeProps) {
             ref={startInputRef}
             onFocus={handleStartInputFocus}
             onBlur={handleStartInputBlur}
+            onChange={handleStartInputChange}
+            value={oneDateValue}
           />
           {/* middle icon */}
           <span className={[Style.n_rangepicker_icon].join(" ")}>
@@ -1139,6 +1517,8 @@ function RangePicker(Props: RangeProps) {
             ref={endInputRef}
             onFocus={handleEndInputFocus}
             onBlur={handleEndInputBlur}
+            onChange={handleEndInputChange}
+            value={twoDateValue}
           />
           {/* icon */}
           <span className={[Style.n_rangepicker_icon].join(" ")}>
@@ -1164,7 +1544,62 @@ function RangePicker(Props: RangeProps) {
           display: showRangePanel ? "block" : "none",
         }}
       >
-        巴拉巴拉
+        {/* One Panel */}
+        <Panel
+          day={oneDayList}
+          firstIndex={oneFirstIndex}
+          lastIndex={oneLastIndex}
+          currentTime={currentTime}
+          nowTime={nowTime}
+          onSelectDate={handleOneSelectDate}
+          selectTime={oneDateValue}
+          picker="date"
+          rangeTime={[oneDateValue, twoDateValue]}
+          range={true}
+          rangeIndex={barIndex}
+          onControl={{
+            onSetStartTime: handleSetStartTime,
+            onSetEndTime: handleSetEndTime,
+          }}
+          /* onControl={{
+            onLeft: handleLeft,
+            onRight: handleRight,
+            onDoubleLeft: handleDoubleLeft,
+            onDoubleRight: handleDoubleRight,
+            onChangePicker: handleChangePicker,
+            onChangeCurrentYear: handleChangeCurrentYear,
+            onChangeCurrentMonth: handleChangeCurrentMonth,
+          }}
+          picker={pickerValue} */
+        />
+        {/* Two Panel */}
+        <Panel
+          day={twoDayList}
+          firstIndex={twoFirstIndex}
+          lastIndex={twoLastIndex}
+          currentTime={nextTime}
+          nowTime={nowTime}
+          onSelectDate={handleTwoSelectDate}
+          selectTime={twoDateValue}
+          picker="date"
+          rangeTime={[oneDateValue, twoDateValue]}
+          range={true}
+          rangeIndex={barIndex}
+          onControl={{
+            onSetStartTime: handleSetStartTime,
+            onSetEndTime: handleSetEndTime,
+          }}
+          /* onControl={{
+            onLeft: handleLeft,
+            onRight: handleRight,
+            onDoubleLeft: handleDoubleLeft,
+            onDoubleRight: handleDoubleRight,
+            onChangePicker: handleChangePicker,
+            onChangeCurrentYear: handleChangeCurrentYear,
+            onChangeCurrentMonth: handleChangeCurrentMonth,
+          }}
+          picker={pickerValue} */
+        />
       </div>
     </div>
   );

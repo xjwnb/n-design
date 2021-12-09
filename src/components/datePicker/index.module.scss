@@ -10,10 +10,12 @@
   box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014,
     0 9px 28px 8px #0000000d;
   z-index: 100;
+  display: flex;
 }
 
 .n_picker_panel {
   color: #000000d9;
+  display: inline-block;
 
   .n_picker_header {
     height: 40px;
@@ -252,4 +254,14 @@
       }
     }
   }
+}
+
+
+.n_picker_cell_in_disable {
+  background: #f5f5f5;
+  pointer-events: none;
+}
+
+.n_picker_cell_in_range {
+  background: #E6F7FF;
 }
