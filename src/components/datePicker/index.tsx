@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-09 15:28:57
+ * @LastEditTime: 2021-12-09 15:54:10
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -416,6 +416,8 @@ interface PanelProps {
   rangeTime?: string[];
   range?: boolean;
   rangeIndex?: number; // 0 | 1;
+  hiddenLeftControl?: boolean;
+  hiddenRightControl?: boolean;
 
   onSelectDate: Function;
   onControl?: {
@@ -445,6 +447,8 @@ function PickerPanel(Props: PanelProps) {
     rangeTime,
     range = false,
     rangeIndex = 0,
+    hiddenLeftControl = false,
+    hiddenRightControl = false,
   } = Props;
 
   const [preTime, setpreTime] = useState<{
@@ -550,6 +554,7 @@ function PickerPanel(Props: PanelProps) {
 
   useEffect(() => {
     getTitleList();
+    // eslint-disable-next-line
   }, [day, currentTime]);
 
   useEffect(() => {
@@ -579,7 +584,6 @@ function PickerPanel(Props: PanelProps) {
             return "none";
           }
         });
-        console.log(typeArr);
         setdayType(typeArr);
       } else {
         let typeArr = titleArr.map((item, index) => {
@@ -607,10 +611,6 @@ function PickerPanel(Props: PanelProps) {
     // eslint-disable-next-line
   }, [rangeIndex]);
 
-  useEffect(() => {
-    console.log(rangeIndex);
-  }, [rangeIndex]);
-
   /**
    * 获取 title list
    */
@@ -618,7 +618,6 @@ function PickerPanel(Props: PanelProps) {
     if (day.length) {
       let titleList = day.map((item, index) => {
         if (index <= firstIndex) {
-          console.log(preTime, lastTime);
           if (preTime.year) {
             return `${`${preTime.year}-${
               preTime.month > 9 ? preTime.month : "0" + preTime.month
@@ -679,7 +678,6 @@ function PickerPanel(Props: PanelProps) {
    * 点击事件 tbody
    */
   const handleClickTbody = function (e: BaseSyntheticEvent) {
-    console.log("点击了");
     if (range && e.target.title) {
       if (rangeIndex === 0) {
         onControl?.onSetStartTime && onControl.onSetStartTime(e.target.title);
@@ -864,13 +862,15 @@ function PickerPanel(Props: PanelProps) {
       {/* header */}
       <div className={[Style.n_picker_header].join(" ")}>
         <div className={[Style.n_picker_header_left].join(" ")}>
-          <span
-            className={[Style.n_picker_header_icon].join(" ")}
-            onClick={handleDoubleLeft}
-          >
-            <DoubleLeft />
-          </span>
-          {["date", "week"].includes(picker) && (
+          {!hiddenLeftControl && (
+            <span
+              className={[Style.n_picker_header_icon].join(" ")}
+              onClick={handleDoubleLeft}
+            >
+              <DoubleLeft />
+            </span>
+          )}
+          {["date", "week"].includes(picker) && !hiddenLeftControl && (
             <span
               className={[Style.n_picker_header_icon].join(" ")}
               onClick={handleLeft}
@@ -912,7 +912,7 @@ function PickerPanel(Props: PanelProps) {
           )}
         </div>
         <div className={[Style.n_picker_header_right].join(" ")}>
-          {["date", "week"].includes(picker) && (
+          {["date", "week"].includes(picker) && !hiddenRightControl && (
             <span
               className={[Style.n_picker_header_icon].join(" ")}
               onClick={handleRight}
@@ -920,12 +920,14 @@ function PickerPanel(Props: PanelProps) {
               <Right />
             </span>
           )}
-          <span
-            className={[Style.n_picker_header_icon].join(" ")}
-            onClick={handleDoubleRight}
-          >
-            <DoubleRight />
-          </span>
+          {!hiddenRightControl && (
+            <span
+              className={[Style.n_picker_header_icon].join(" ")}
+              onClick={handleDoubleRight}
+            >
+              <DoubleRight />
+            </span>
+          )}
         </div>
       </div>
 
@@ -1172,6 +1174,25 @@ function RangePicker(Props: RangeProps) {
   const startInputRef = useRef<HTMLInputElement>(null);
   const endInputRef = useRef<HTMLInputElement>(null);
   const inputContainerRef = useRef<HTMLDivElement>(null);
+  const rangePickerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    /**
+     * 点击触发事件
+     */
+    const handleBodyClick = function (e: any) {
+      let flag = handleClickEle(e.target, rangePickerRef.current);
+      if (!flag) {
+        setshowRangePanel(false);
+        setshowBar(false);
+      }
+    };
+    document.body.addEventListener("click", handleBodyClick);
+
+    return () => {
+      document.body.removeEventListener("click", handleBodyClick);
+    };
+  }, []);
 
   useEffect(() => {
     const date = new Date();
@@ -1275,7 +1296,33 @@ function RangePicker(Props: RangeProps) {
       setshowBorder(false);
       setshowShadow(false);
     }
+    // eslint-disable-next-line
   }, [showRangePanel]);
+
+  /**
+   * 点击的元素是否为当前组件中
+   */
+  const handleClickEle = function (currentEle: any, target: any) {
+    if (currentEle === target) {
+      return true;
+    }
+
+    let parent = currentEle.parentElement;
+
+    while (true) {
+      if (parent === target) {
+        return true;
+      }
+      if (parent === document.body) {
+        return false;
+      }
+      if (parent && parent.parentElement) {
+        parent = parent.parentElement;
+      } else {
+        return false;
+      }
+    }
+  };
 
   /**
    * 开始输入框 - focus
@@ -1313,7 +1360,6 @@ function RangePicker(Props: RangeProps) {
       year: "",
       month: "",
     };
-    console.log(currentTime);
     switch (type) {
       case -1:
         let preMonth = Number(currentTime.month) - 1;
@@ -1441,8 +1487,8 @@ function RangePicker(Props: RangeProps) {
    * 点击选中当前日期 - 开始日历
    */
   const handleOneSelectDate = function (value: string) {
-    console.log("one value");
-    console.log(value);
+    // console.log("one value");
+    // console.log(value);
     // setoneDateValue(value);
   };
 
@@ -1450,8 +1496,8 @@ function RangePicker(Props: RangeProps) {
    * 点击选中当前日期 - 结束日历
    */
   const handleTwoSelectDate = function (value: string) {
-    console.log("two value");
-    console.log(value);
+    // console.log("two value");
+    // console.log(value);
     // settwoDateValue(value);
   };
 
@@ -1484,10 +1530,68 @@ function RangePicker(Props: RangeProps) {
     setbarIndex(1);
     settwoDateValue(value);
     setshowRangePanel(false);
+    setshowBar(false);
   };
 
+  /**
+   * 前一个月
+   */
+  const handleLeft = function () {
+    let preMonth = Number(currentTime.month) - 1;
+    preMonth = preMonth === 0 ? 12 : preMonth;
+    let preYear =
+      currentTime.month > 1 ? currentTime.year : Number(currentTime.year) - 1;
+    setcurrentTime({
+      year: preYear,
+      month: preMonth,
+      date: currentTime.date,
+    });
+  };
+
+  /**
+   * 后一个月
+   */
+  const handleRight = function () {
+    let lastMonth = Number(currentTime.month) + 1;
+    lastMonth = lastMonth > 12 ? 1 : lastMonth;
+    let lastYear =
+      currentTime.month === 12
+        ? Number(currentTime.year) + 1
+        : currentTime.year;
+    setcurrentTime({
+      year: lastYear,
+      month: lastMonth,
+      date: currentTime.date,
+    });
+  };
+
+  /**
+   * 上一年
+   */
+  const handleDoubleLeft = function () {
+    if (currentTime.year) {
+      setcurrentTime({
+        year: Number(currentTime.year) - 1,
+        month: currentTime.month,
+        date: currentTime.date,
+      });
+    }
+  };
+
+  /**
+   * 下一年
+   */
+  const handleDoubleRight = function () {
+    if (currentTime.year) {
+      setcurrentTime({
+        year: Number(currentTime.year) + 1,
+        month: currentTime.month,
+        date: currentTime.date,
+      });
+    }
+  };
   return (
-    <div className={[Style.n_rangepicker].join(" ")}>
+    <div className={[Style.n_rangepicker].join(" ")} ref={rangePickerRef}>
       <div className={[Style.n_rangepicker_container].join(" ")}>
         {/* Input */}
         <div
@@ -1557,9 +1661,12 @@ function RangePicker(Props: RangeProps) {
           rangeTime={[oneDateValue, twoDateValue]}
           range={true}
           rangeIndex={barIndex}
+          hiddenRightControl={true}
           onControl={{
             onSetStartTime: handleSetStartTime,
             onSetEndTime: handleSetEndTime,
+            onLeft: handleLeft,
+            onDoubleLeft: handleDoubleLeft,
           }}
           /* onControl={{
             onLeft: handleLeft,
@@ -1585,9 +1692,12 @@ function RangePicker(Props: RangeProps) {
           rangeTime={[oneDateValue, twoDateValue]}
           range={true}
           rangeIndex={barIndex}
+          hiddenLeftControl={true}
           onControl={{
             onSetStartTime: handleSetStartTime,
             onSetEndTime: handleSetEndTime,
+            onRight: handleRight,
+            onDoubleRight: handleDoubleRight,
           }}
           /* onControl={{
             onLeft: handleLeft,
