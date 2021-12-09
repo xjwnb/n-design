@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-09 08:34:20
+ * @LastEditTime: 2021-12-09 08:41:29
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -1033,6 +1033,8 @@ function RangePicker(Props: RangeProps) {
   const [showBorder, setshowBorder] = useState<boolean>(false);
   const [showShadow, setshowShadow] = useState<boolean>(false);
   const [inputFocus, setinputFocus] = useState<boolean>(false);
+  // picker - container
+  const [showRangePanel, setshowRangePanel] = useState(false);
 
   // ref
   const startInputRef = useRef<HTMLInputElement>(null);
@@ -1057,24 +1059,28 @@ function RangePicker(Props: RangeProps) {
       setinputFocus(true);
       setshowBorder(true);
       setshowShadow(true);
+      setshowRangePanel(true);
     });
     startInputRef.current?.addEventListener("blur", () => {
       setinputFocus(false);
       setshowBorder(false);
       setshowShadow(false);
       setshowBar(false);
+      setshowRangePanel(false);
     });
 
     endInputRef.current?.addEventListener("focus", () => {
       setinputFocus(true);
       setshowBorder(true);
       setshowShadow(true);
+      setshowRangePanel(true);
     });
     endInputRef.current?.addEventListener("blur", () => {
       setinputFocus(false);
       setshowBorder(false);
       setshowShadow(false);
       setshowBar(false);
+      setshowRangePanel(false);
     });
   }, [inputFocus]);
 
@@ -1149,6 +1155,16 @@ function RangePicker(Props: RangeProps) {
             }}
           ></div>
         </div>
+      </div>
+
+      {/* picker container */}
+      <div
+        className={[Style.n_datePicker_panel_container].join(" ")}
+        style={{
+          display: showRangePanel ? "block" : "none",
+        }}
+      >
+        巴拉巴拉
       </div>
     </div>
   );

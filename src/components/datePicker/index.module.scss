@@ -213,6 +213,9 @@
 
 // RangePicker
 .n_rangepicker {
+  position: relative;
+  transition: all 0.3s;
+
   .n_rangepicker_container {
     .n_rangepicker_input {
       display: flex;
