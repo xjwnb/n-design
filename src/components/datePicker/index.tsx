@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-07 10:31:46
+ * @LastEditTime: 2021-12-09 08:34:20
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -1062,6 +1062,7 @@ function RangePicker(Props: RangeProps) {
       setinputFocus(false);
       setshowBorder(false);
       setshowShadow(false);
+      setshowBar(false);
     });
 
     endInputRef.current?.addEventListener("focus", () => {
@@ -1073,6 +1074,7 @@ function RangePicker(Props: RangeProps) {
       setinputFocus(false);
       setshowBorder(false);
       setshowShadow(false);
+      setshowBar(false);
     });
   }, [inputFocus]);
 
@@ -1095,16 +1097,12 @@ function RangePicker(Props: RangeProps) {
   /**
    * 开始输入框 - blur
    */
-  const handleStartInputBlur = function () {
-
-  };
+  const handleStartInputBlur = function () {};
 
   /**
    * 结束输入框 - blur
    */
-  const handleEndInputBlur = function () {
-
-  };
+  const handleEndInputBlur = function () {};
 
   return (
     <div className={[Style.n_rangepicker].join(" ")}>
