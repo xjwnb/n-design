@@ -1,0 +1,22 @@
+.n_modal_root {
+  .n_modal_mask {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    height: 100%;
+    background-color: #00000073;
+  }
+
+  .n_modal_wrap {
+    .n_modal {
+      position: relative;
+      top: 100px;
+      color: #000000d9;
+      box-sizing: border-box;
+      font-size: 14px;
+      margin: 0 auto;
+      padding: 0 0 24px;
+      max-width: calc(100vw - 32px);
+    }
+  }
+}
