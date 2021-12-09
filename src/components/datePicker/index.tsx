@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-09 15:54:10
+ * @LastEditTime: 2021-12-09 15:59:37
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -608,8 +608,7 @@ function PickerPanel(Props: PanelProps) {
         setdayType(typeArr);
       }
     }
-    // eslint-disable-next-line
-  }, [rangeIndex]);
+  }, [rangeIndex, currentTime, range, rangeTime, titleArr]);
 
   /**
    * 获取 title list
