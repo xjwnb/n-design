@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-07 08:54:47
+ * @LastEditTime: 2021-12-09 16:32:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1714,7 +1714,11 @@ function App() {
         />
         <br />
 
-        <DatePicker.RangePicker />
+        <DatePicker.RangePicker
+          onChange={(dateTime: Date[], dateStr: string[]) => {
+            console.log(dateTime, dateStr);
+          }}
+        />
       </div>
 
       <div></div>
