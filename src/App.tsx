@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-10 09:54:15
+ * @LastEditTime: 2021-12-10 10:28:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1733,6 +1733,9 @@ function App() {
           onOk={() => {
             console.log("确定");
           }}
+          okText={"确认按钮..."}
+          cancelText={"取消按钮..."}
+          mask={false}
         >
           12312
         </Modal>

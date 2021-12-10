@@ -1,12 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2021-12-09 16:36:41
- * @LastEditTime: 2021-12-10 10:09:43
+ * @LastEditTime: 2021-12-10 10:26:18
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\Modal\index.tsx
  */
-import { useRef, useState, useEffect } from "react";
+import { useRef, useEffect, CSSProperties } from "react";
 import Style from "./index.module.scss";
 // icon
 import { Close } from "../../Icons/icon";
@@ -17,6 +17,15 @@ interface IProps {
   title: string;
   children: any;
   width?: number | string;
+  okText?: string;
+  cancelText?: string;
+  footer?: React.ReactNode;
+  closable?: boolean;
+  closeIcon?: React.ReactNode;
+  mask?: boolean;
+  maskClosable?: boolean;
+  maskStyle?: CSSProperties;
+  zIndex?: number;
 
   onCancel?: Function;
   onOk?: Function;
@@ -28,6 +37,15 @@ function Modal(Props: IProps) {
     children,
     width = 520,
     title,
+    okText = "确定",
+    cancelText = "取消",
+    footer,
+    closable = true,
+    closeIcon = <Close />,
+    mask = true,
+    maskClosable = true,
+    maskStyle = {},
+    zIndex = 1000,
     onCancel,
     onOk,
   } = Props;
@@ -50,6 +68,8 @@ function Modal(Props: IProps) {
     const handleBodyClick = function (e: any) {
       let flag = handleClickEle(e.target, modalRef.current);
       if (!flag) {
+        if (!mask) return;
+        if (!maskClosable) return;
         onCancel?.();
       }
     };
@@ -59,10 +79,7 @@ function Modal(Props: IProps) {
     }
 
     wrapRef.current?.addEventListener("click", handleBodyClick);
-
-    return () => {
-      wrapRef.current?.removeEventListener("click", handleBodyClick);
-    };
+    // eslint-disable-next-line
   }, []);
 
   /**
@@ -111,37 +128,54 @@ function Modal(Props: IProps) {
         display: visible ? "block" : "none",
       }}
     >
-      <div className={Style.n_modal_mask}></div>
+      {mask && (
+        <div
+          className={Style.n_modal_mask}
+          style={{
+            ...maskStyle,
+          }}
+        ></div>
+      )}
       <div className={Style.n_modal_wrap} ref={wrapRef}>
         <div
           className={Style.n_modal}
           style={{
             width: width,
+            zIndex,
           }}
           ref={modalRef}
         >
           <div className={[Style.n_modal_content].join(" ")}>
-            <div
-              className={[Style.n_modal_close].join(" ")}
-              onClick={handleClose}
-            >
-              <Close />
-            </div>
+            {closable && (
+              <div
+                className={[Style.n_modal_close].join(" ")}
+                onClick={handleClose}
+              >
+                {/* <Close /> */}
+                {closeIcon}
+              </div>
+            )}
             <div className={[Style.n_modal_header].join(" ")}>
               <div className={[Style.n_modal_title].join(" ")}>{title}</div>
             </div>
             <div className={[Style.n_modal_body].join(" ")}>{children}</div>
             <div className={[Style.n_modal_footer].join(" ")}>
-              <Button onClick={handleClose}>取消</Button>
-              <Button
-                type="primary"
-                style={{
-                  marginLeft: 8,
-                }}
-                onClick={handleOk}
-              >
-                确定
-              </Button>
+              {footer ? (
+                footer
+              ) : (
+                <>
+                  <Button onClick={handleClose}>{cancelText}</Button>
+                  <Button
+                    type="primary"
+                    style={{
+                      marginLeft: 8,
+                    }}
+                    onClick={handleOk}
+                  >
+                    {okText}
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>
