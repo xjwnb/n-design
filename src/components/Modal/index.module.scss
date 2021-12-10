@@ -1,13 +1,25 @@
 .n_modal_root {
+  transition: all 1s;
+
   .n_modal_mask {
     position: fixed;
     inset: 0;
-    z-index: 1000;
+    z-index: 100;
     height: 100vh;
     background-color: #00000073;
+    transition: all 1s;
+    overflow-y: hidden;
   }
 
   .n_modal_wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    z-index: 101;
+
     .n_modal {
       position: relative;
       top: 100px;
@@ -17,6 +29,62 @@
       margin: 0 auto;
       padding: 0 0 24px;
       max-width: calc(100vw - 32px);
+      z-index: 1;
+
+      .n_modal_content {
+        position: relative;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 0;
+        border-radius: 2px;
+        box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014,
+          0 9px 28px 8px #0000000d;
+        pointer-events: auto;
+        z-index: 1;
+
+        .n_modal_close {
+          width: 56px;
+          height: 56px;
+          display: inline-block;
+          text-align: center;
+          line-height: 56px;
+          cursor: pointer;
+          right: 0;
+          top: 0;
+          position: absolute;
+        }
+
+        .n_modal_header {
+          box-sizing: border-box;
+          padding: 16px 24px;
+          height: 56px;
+          border-bottom: 1px solid #f0f0f0;
+
+          .n_modal_title {
+            margin: 0;
+            color: #000000d9;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 22px;
+            word-wrap: break-word;
+          }
+        }
+
+        .n_modal_body {
+          padding: 24px;
+          font-size: 14px;
+          line-height: 1.5715;
+          word-wrap: break-word;
+        }
+
+        .n_modal_footer {
+          padding: 10px 16px;
+          text-align: right;
+          background: 0 0;
+          border-top: 1px solid #f0f0f0;
+          border-radius: 0 0 2px 2px;
+        }
+      }
     }
   }
 }
