@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-09 16:36:41
- * @LastEditTime: 2021-12-10 14:24:29
+ * @LastEditTime: 2021-12-10 14:28:11
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\Modal\index.tsx
@@ -196,6 +196,8 @@ interface ConfirmProps {
   zIndex?: number;
   icon?: React.ReactNode;
   maskStyle?: object;
+
+  onOk?: Function;
 }
 function Confirm(Props: ConfirmProps) {
   const {
@@ -206,6 +208,7 @@ function Confirm(Props: ConfirmProps) {
     zIndex = 1000,
     icon,
     maskStyle = {},
+    onOk,
   } = Props;
   console.log("title", Props);
 
@@ -244,9 +247,12 @@ function Confirm(Props: ConfirmProps) {
    * 点击确定
    */
   const handleClickOK = function () {
+    // 删除卸载组件
     ReactDOM.unmountComponentAtNode(
       document.getElementById(idName)?.parentElement as Element
     );
+    // 触发回调
+    onOk?.();
   };
 
   return (
