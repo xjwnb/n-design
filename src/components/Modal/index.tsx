@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-09 16:36:41
- * @LastEditTime: 2021-12-10 14:10:09
+ * @LastEditTime: 2021-12-10 14:24:29
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\Modal\index.tsx
@@ -191,10 +191,22 @@ function Modal(Props: IProps) {
 interface ConfirmProps {
   type?: "info" | "success" | "error" | "warning";
   title?: string;
-  content?: string;
+  content?: string | React.ReactNode;
+  width?: number | string;
+  zIndex?: number;
+  icon?: React.ReactNode;
+  maskStyle?: object;
 }
 function Confirm(Props: ConfirmProps) {
-  const { title, type, content } = Props;
+  const {
+    title,
+    type,
+    content,
+    width = 416,
+    zIndex = 1000,
+    icon,
+    maskStyle = {},
+  } = Props;
   console.log("title", Props);
 
   const [idName] = useState(
@@ -239,12 +251,13 @@ function Confirm(Props: ConfirmProps) {
 
   return (
     <div id={idName} className={[Style.n_modal_root].join(" ")}>
-      <div className={Style.n_modal_mask} style={{}}></div>
+      <div className={Style.n_modal_mask} style={{ ...maskStyle }}></div>
       <div className={Style.n_modal_wrap}>
         <div
           className={Style.n_modal}
           style={{
-            width: 416,
+            width,
+            zIndex,
           }}
         >
           <div className={[Style.n_modal_content].join(" ")}>
@@ -252,7 +265,7 @@ function Confirm(Props: ConfirmProps) {
               <div className={[Style.n_modal_confirm_wrapper].join(" ")}>
                 {/* {title} */}
                 <div className={[Style.n_modal_confirm_body].join(" ")}>
-                  <span>{iconNode}</span>
+                  {icon ? <span>{icon}</span> : <span>{iconNode}</span>}
                   <div className={[Style.n_modal_confirm_info].join(" ")}>
                     {title && (
                       <div className={[Style.n_modal_confirm_title].join(" ")}>
