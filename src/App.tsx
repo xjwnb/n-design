@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-09 16:32:33
+ * @LastEditTime: 2021-12-09 17:08:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -36,11 +36,13 @@ import {
   Carousel,
   Menu,
   DatePicker,
+  Modal,
 } from "./components/index";
 import { Left, Right, Search, Loading } from "./Icons/icon/index";
 
 function App() {
   const [inputValue] = useState("");
+  const [isShowModal, setisShowModal] = useState(false);
   const [dataSourceList, setdataSourceList] = useState<
     Array<{
       key: string | number;
@@ -1719,6 +1721,14 @@ function App() {
             console.log(dateTime, dateStr);
           }}
         />
+      </div>
+
+      <div>
+        <h1>Modal</h1>
+        <Button onClick={() => setisShowModal(true)}>Modal</Button>
+        <Modal visible={isShowModal}>
+          12312
+        </Modal>
       </div>
 
       <div></div>

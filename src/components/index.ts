@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 13:34:55
- * @LastEditTime: 2021-12-03 15:21:58
+ * @LastEditTime: 2021-12-09 16:57:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\components\index.ts
@@ -27,3 +27,4 @@ export { default as Tooltip } from "./tooltip/index";
 export { default as Carousel } from "./carousel/index";
 export { default as Menu } from "./menu/index";
 export { default as DatePicker } from "./datePicker/index";
+export { default as Modal } from "./Modal/index";
