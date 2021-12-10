@@ -1,4 +1,28 @@
-
 .n_message_wrapper {
-  
+  display: flex;
+  align-items: center;
+  padding: 8px 15px;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014,
+    0 9px 28px 8px #0000000d;
+  margin-top: 30px;
+  // position: absolute;
+
+  .n_message_content {
+    // padding: 24px;
+    font-size: 14px;
+    line-height: 1.5715;
+    word-wrap: break-word;
+    width: 300px;
+  }
 }
+
+/* .n_message {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+} */

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-10 14:45:17
+ * @LastEditTime: 2021-12-10 15:24:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -37,6 +37,7 @@ import {
   Menu,
   DatePicker,
   Modal,
+  message,
 } from "./components/index";
 import { Left, Right, Search, Loading } from "./Icons/icon/index";
 
@@ -1785,7 +1786,7 @@ function App() {
       <div>
         <h1>Message</h1>
         <Button onClick={() => {
-          
+          message.info("info 内容");
         }}>Info</Button>
       </div>
 
