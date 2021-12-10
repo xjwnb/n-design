@@ -1,15 +1,16 @@
 /*
  * @Author: your name
  * @Date: 2021-12-09 16:36:41
- * @LastEditTime: 2021-12-10 10:26:18
+ * @LastEditTime: 2021-12-10 14:10:09
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\Modal\index.tsx
  */
-import { useRef, useEffect, CSSProperties } from "react";
+import { useRef, useEffect, useState, CSSProperties } from "react";
+import ReactDOM from "react-dom";
 import Style from "./index.module.scss";
 // icon
-import { Close } from "../../Icons/icon";
+import { Close, Info, Success, Error, WarningCircle } from "../../Icons/icon";
 import Button from "../button";
 
 interface IProps {
@@ -183,5 +184,120 @@ function Modal(Props: IProps) {
     </div>
   );
 }
+
+/**
+ * Modal.method()
+ */
+interface ConfirmProps {
+  type?: "info" | "success" | "error" | "warning";
+  title?: string;
+  content?: string;
+}
+function Confirm(Props: ConfirmProps) {
+  const { title, type, content } = Props;
+  console.log("title", Props);
+
+  const [idName] = useState(
+    `n_modal_confirm${(Math.random() * (1000000 - 1) + 1).toFixed(0)}`
+  );
+  const [iconNode, seticonNode] = useState(
+    <Info width={22} height={22} color="#52ACFF" />
+  );
+
+  useEffect(() => {
+    switch (type) {
+      case "info":
+        seticonNode(<Info width={22} height={22} color="#52ACFF" />);
+        break;
+      case "success":
+        seticonNode(<Success width={22} height={22} color="#6CCD3C" />);
+        break;
+      case "error":
+        seticonNode(<Error width={22} height={22} color="#FF6869" />);
+        break;
+      case "warning":
+        seticonNode(<WarningCircle width={22} height={22} color="#FAAD14" />);
+        break;
+    }
+  }, [type]);
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
+  /**
+   * 点击确定
+   */
+  const handleClickOK = function () {
+    ReactDOM.unmountComponentAtNode(
+      document.getElementById(idName)?.parentElement as Element
+    );
+  };
+
+  return (
+    <div id={idName} className={[Style.n_modal_root].join(" ")}>
+      <div className={Style.n_modal_mask} style={{}}></div>
+      <div className={Style.n_modal_wrap}>
+        <div
+          className={Style.n_modal}
+          style={{
+            width: 416,
+          }}
+        >
+          <div className={[Style.n_modal_content].join(" ")}>
+            <div className={[Style.n_modal_body].join(" ")}>
+              <div className={[Style.n_modal_confirm_wrapper].join(" ")}>
+                {/* {title} */}
+                <div className={[Style.n_modal_confirm_body].join(" ")}>
+                  <span>{iconNode}</span>
+                  <div className={[Style.n_modal_confirm_info].join(" ")}>
+                    {title && (
+                      <div className={[Style.n_modal_confirm_title].join(" ")}>
+                        {title}
+                      </div>
+                    )}
+                    {content && (
+                      <div
+                        className={[Style.n_modal_confirm_content].join(" ")}
+                      >
+                        {content}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className={[Style.n_modal_confirm_btns].join(" ")}>
+                  <Button type="primary" onClick={handleClickOK}>
+                    知道了
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ *
+ */
+function ConfirmControl(Props: ConfirmProps) {
+  const el = document.createElement("div");
+  document.getElementById("root")?.appendChild(el);
+  ReactDOM.render(<Confirm {...Props} />, el);
+}
+
+Modal.info = (config: ConfirmProps) =>
+  ConfirmControl({ ...config, type: "info" });
+Modal.success = (config: ConfirmProps) =>
+  ConfirmControl({ ...config, type: "success" });
+Modal.error = (config: ConfirmProps) =>
+  ConfirmControl({ ...config, type: "error" });
+Modal.warning = (config: ConfirmProps) =>
+  ConfirmControl({ ...config, type: "warning" });
 
 export default Modal;

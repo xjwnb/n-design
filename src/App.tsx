@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-10 10:28:05
+ * @LastEditTime: 2021-12-10 14:12:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1735,10 +1735,51 @@ function App() {
           }}
           okText={"确认按钮..."}
           cancelText={"取消按钮..."}
-          mask={false}
+          // mask={false}
         >
           12312
         </Modal>
+        <br />
+        <Button
+          onClick={() => {
+            Modal.info({
+              title: "Info",
+              content: "什么玩意儿",
+            });
+          }}
+        >
+          Info
+        </Button>
+        <Button
+          onClick={() => {
+            Modal.success({
+              title: "Success",
+              content: "什么玩意儿",
+            });
+          }}
+        >
+          Success
+        </Button>
+        <Button
+          onClick={() => {
+            Modal.error({
+              title: "Error",
+              content: "什么玩意儿",
+            });
+          }}
+        >
+          Error
+        </Button>
+        <Button
+          onClick={() => {
+            Modal.warning({
+              title: "Warning",
+              content: "什么玩意儿",
+            });
+          }}
+        >
+          Warning
+        </Button>
       </div>
 
       <div></div>

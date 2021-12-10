@@ -88,3 +88,33 @@
     }
   }
 }
+
+.n_modal_confirm_wrapper {
+  .n_modal_confirm_btns {
+    text-align: right;
+    margin-top: 20px;
+  }
+}
+
+.n_modal_confirm_body {
+  display: flex;
+
+  .n_modal_confirm_info {
+    margin-left: 16px;
+  }
+
+  .n_modal_confirm_title {
+    display: block;
+    overflow: hidden;
+    color: #000000d9;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .n_modal_confirm_content {
+    margin-top: 8px;
+    color: #000000d9;
+    font-size: 14px;
+  }
+}
