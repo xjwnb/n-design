@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-10 14:12:53
+ * @LastEditTime: 2021-12-10 14:45:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1780,6 +1780,13 @@ function App() {
         >
           Warning
         </Button>
+      </div>
+
+      <div>
+        <h1>Message</h1>
+        <Button onClick={() => {
+          
+        }}>Info</Button>
       </div>
 
       <div></div>
