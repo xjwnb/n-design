@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-10 18:44:46
+ * @LastEditTime: 2021-12-13 10:21:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1789,7 +1789,7 @@ function App() {
           message.info("info 内容");
         }}>Info</Button>
         <Button onClick={() => {
-          message.success("success 内容");
+          message.success("success 内容", 0);
         }}>Success</Button>
         <Button onClick={() => {
           message.error("error 内容");

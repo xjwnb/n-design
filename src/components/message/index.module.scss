@@ -12,16 +12,17 @@
   transition: all 2s;
 
   .n_message_icon {
+    display: inline-block;
     margin-right: 10px;
-    display: flex;
-    align-items: center;
+    // display: flex;
+    // align-items: center;
   }
 
   .n_message_content {
+    display: inline-block;
     font-size: 14px;
     line-height: 1.5715;
     word-wrap: break-word;
-    width: 300px;
     color: #262626;
   }
 }
