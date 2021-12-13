@@ -9,20 +9,19 @@
   box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014,
     0 9px 28px 8px #0000000d;
   margin-top: 30px;
-  // position: absolute;
+  transition: all 2s;
+
+  .n_message_icon {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+  }
 
   .n_message_content {
-    // padding: 24px;
     font-size: 14px;
     line-height: 1.5715;
     word-wrap: break-word;
     width: 300px;
+    color: #262626;
   }
 }
-
-/* .n_message {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-} */

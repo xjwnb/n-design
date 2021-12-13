@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2021-10-29 11:38:46
- * @LastEditTime: 2021-10-29 12:01:12
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \n-design\src\Icons\icon\Loading.js
- */
 import * as React from "react";
 import "./loading.scss";
 

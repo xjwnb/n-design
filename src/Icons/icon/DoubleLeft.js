@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2021-12-03 16:49:05
- * @LastEditTime: 2021-12-04 17:26:42
- * @LastEditors: your name
- * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: \n-design\src\Icons\icon\DoubleLeft.js
- */
 import * as React from "react";
 
 function SvgDoubleLeft(props) {
