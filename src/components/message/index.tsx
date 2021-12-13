@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-10 14:43:26
- * @LastEditTime: 2021-12-10 16:43:40
+ * @LastEditTime: 2021-12-10 18:49:27
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\message\index.tsx
@@ -82,15 +82,8 @@ function MessageControl(
       messageEle
     );
   } else {
-    // ReactDom.render(<Message id={uid} type={type} content={content} />, flag);
     console.log("有");
-    /* ReactDom.render(
-      ReactDom.createPortal(
-        <Message id={uid} type={type} content={content} />,
-        flag
-      ),
-      flag
-    ); */
+    // 这个是直接新的直接覆盖之前的，只剩下一个，这里要的操作是flag里面addChild新的组件
     ReactDom.hydrate(
       ReactDom.createPortal(
         <Message id={uid} type={type} content={content} />,
@@ -98,14 +91,6 @@ function MessageControl(
       ),
       flag
     );
-
-    // console.log(flag.children);
-    // flag.appendChild()
-
-    /* ReactDom.render(
-      <Message id={uid} type={type} content={content} />,
-      flag
-    ); */
   }
 
   setTimeout(() => {
@@ -115,7 +100,15 @@ function MessageControl(
   }, (duration || 3) * 1000);
 }
 
+type messageParam = (content: string, duration?: number, onClose?: Function) => any;
+
 Message.info = (content: string, duration?: number, onClose?: Function) =>
   MessageControl("info", content, duration, onClose);
+Message.success = (content: string, duration?: number, onClose?: Function) =>
+  MessageControl("success", content, duration, onClose);
+Message.error = (content: string, duration?: number, onClose?: Function) =>
+  MessageControl("error", content, duration, onClose);
+Message.warning = (content: string, duration?: number, onClose?: Function) =>
+  MessageControl("warning", content, duration, onClose);
 
 export default Message;

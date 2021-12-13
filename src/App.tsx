@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-10 15:24:17
+ * @LastEditTime: 2021-12-10 18:44:46
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1788,6 +1788,15 @@ function App() {
         <Button onClick={() => {
           message.info("info 内容");
         }}>Info</Button>
+        <Button onClick={() => {
+          message.success("success 内容");
+        }}>Success</Button>
+        <Button onClick={() => {
+          message.error("error 内容");
+        }}>Error</Button>
+        <Button onClick={() => {
+          message.warning("warning 内容");
+        }}>Warning</Button>
       </div>
 
       <div></div>
