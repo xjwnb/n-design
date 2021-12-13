@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-13 10:21:00
+ * @LastEditTime: 2021-12-13 10:40:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1785,18 +1785,44 @@ function App() {
 
       <div>
         <h1>Message</h1>
-        <Button onClick={() => {
-          message.info("info 内容");
-        }}>Info</Button>
-        <Button onClick={() => {
-          message.success("success 内容", 0);
-        }}>Success</Button>
-        <Button onClick={() => {
-          message.error("error 内容");
-        }}>Error</Button>
-        <Button onClick={() => {
-          message.warning("warning 内容");
-        }}>Warning</Button>
+        <Button
+          onClick={() => {
+            message.info("info 内容");
+          }}
+        >
+          Info
+        </Button>
+        <Button
+          onClick={() => {
+            message.success("success 内容", 0);
+          }}
+        >
+          Success
+        </Button>
+        <Button
+          onClick={() => {
+            message.error("error 内容");
+          }}
+        >
+          Error
+        </Button>
+        <Button
+          onClick={() => {
+            message.warning("warning 内容");
+          }}
+        >
+          Warning
+        </Button>
+        <Button
+          onClick={() => {
+            message.warning({
+              content: "config 是对象",
+              onClick: () => console.log("点击了什么玩意儿"),
+            });
+          }}
+        >
+          Warning config = Object
+        </Button>
       </div>
 
       <div></div>

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-10 14:43:26
- * @LastEditTime: 2021-12-13 10:18:14
+ * @LastEditTime: 2021-12-13 10:44:30
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\message\index.tsx
@@ -18,18 +18,23 @@ import Style from "./index.module.scss";
 
 interface IProps {
   content: string;
-  type: "info" | "success" | "error" | "warning";
-  id: number;
+  type?: "info" | "success" | "error" | "warning";
+  id?: number;
+  icon?: React.ReactNode;
+  className?: string;
+
+  onClick?: Function;
 }
 
 function Message(Props: IProps) {
-  const { type = "info", content, id } = Props;
+  const { type = "info", content, id, icon, className, onClick } = Props;
 
   const [iconNode, seticonNode] = useState(
     <Infofill width={15} height={15} color="#1890FF" />
   );
 
   useEffect(() => {
+    if (icon) return;
     switch (type) {
       case "info":
         seticonNode(<Infofill width={15} height={15} color="#52ACFF" />);
@@ -44,16 +49,25 @@ function Message(Props: IProps) {
         seticonNode(<WarningFill width={15} height={15} color="#FAAD14" />);
         break;
     }
-  }, [type]);
+  }, [type, icon]);
+
+  /**
+   * 点击事件
+   */
+  const handleClickMessage = function () {
+    onClick?.();
+  };
 
   return (
-    <div id={`n_message_${id}`} className={[Style.n_message_wrapper].join(" ")}>
+    <div
+      id={`n_message_${id}`}
+      className={[Style.n_message_wrapper, className].join(" ")}
+      onClick={handleClickMessage}
+    >
       <div className={[Style.n_message_icon].join(" ")}>
-        <span>{iconNode}</span>
+        {icon ? <span>{icon}</span> : <span>{iconNode}</span>}
       </div>
-      <div className={[Style.n_message_content].join(" ")}>
-        {content}
-      </div>
+      <div className={[Style.n_message_content].join(" ")}>{content}</div>
     </div>
   );
 }
@@ -61,10 +75,12 @@ let uid = 0;
 
 function MessageControl(
   type: "info" | "success" | "error" | "warning",
-  content: string,
+  content: string | IProps,
   duration?: number,
   onClose?: Function
 ) {
+  let innerText = typeof content === "string" ? content : content.content;
+  const props = typeof content === "string" ? {} : content;
   uid++;
   let flag = document.getElementById("n_message");
   let targetEle: Node | null = null;
@@ -79,7 +95,7 @@ function MessageControl(
     el.appendChild(messageEle);
     document.getElementsByClassName("App")[0]?.appendChild(el);
     ReactDom.render(
-      <Message id={uid} type={type} content={content} />,
+      <Message id={uid} type={type} content={innerText} {...props} />,
       messageEle,
       () => {
         if (duration === 0) return;
@@ -92,7 +108,7 @@ function MessageControl(
   } else {
     const container = document.createElement("div");
     ReactDom.render(
-      <Message id={uid} type={type} content={content} />,
+      <Message id={uid} type={type} content={innerText} {...props} />,
       container,
       () => {
         setTimeout(() => {
@@ -110,13 +126,25 @@ function MessageControl(
   }, (duration || 3) * 1000);
 }
 
-Message.info = (content: string, duration?: number, onClose?: Function) =>
-  MessageControl("info", content, duration, onClose);
-Message.success = (content: string, duration?: number, onClose?: Function) =>
-  MessageControl("success", content, duration, onClose);
-Message.error = (content: string, duration?: number, onClose?: Function) =>
-  MessageControl("error", content, duration, onClose);
-Message.warning = (content: string, duration?: number, onClose?: Function) =>
-  MessageControl("warning", content, duration, onClose);
+Message.info = (
+  content: string | IProps,
+  duration?: number,
+  onClose?: Function
+) => MessageControl("info", content, duration, onClose);
+Message.success = (
+  content: string | IProps,
+  duration?: number,
+  onClose?: Function
+) => MessageControl("success", content, duration, onClose);
+Message.error = (
+  content: string | IProps,
+  duration?: number,
+  onClose?: Function
+) => MessageControl("error", content, duration, onClose);
+Message.warning = (
+  content: string | IProps,
+  duration?: number,
+  onClose?: Function
+) => MessageControl("warning", content, duration, onClose);
 
 export default Message;
