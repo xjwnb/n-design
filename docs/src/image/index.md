@@ -54,3 +54,16 @@ export default () => {
   )
 }
 ```
+
+## API
+
+| 属性     | 说明                        | 类型                   | 默认值 |
+| -------- | --------------------------- | ---------------------- | ------ |
+| alt      | 图像描述                    | string                 | -      |
+| width    | 图像宽度                    | string \| number       | -      |
+| height   | 图像高度                    | string \| number       | -      |
+| src      | 图片地址                    | string                 | -      |
+| preview  | 预览参数，为 `false` 时禁用 | boolean                | true   |
+| fallback | 加载失败容错地址            | string                 | -      |
+| onError  | 加载错误回调                | (event: Event) => void | -      |
+

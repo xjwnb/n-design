@@ -65,3 +65,16 @@ export default () => {
   )
 }
 ```
+
+## API
+
+| 属性     | 说明                                        | 类型                | 默认值 |
+| -------- | ------------------------------------------- | ------------------- | ------ |
+| content  | 提示内容                                    | ReactNode \| config | -      |
+| duration | 自动关闭的延时，单位秒。设为 0 时不自动关闭 | number              | 3      |
+| onClose  | 关闭时触发的回调函数                        | function            | -      |
+
+- `message.success(config)`
+- `message.error(config)`
+- `message.info(config)`
+- `message.warning(config)`

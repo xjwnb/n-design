@@ -118,3 +118,18 @@ export default () => {
   )
 };
 ```
+
+## API
+
+| 属性       | 说明                                               | 类型                         | 默认值 |
+| ---------- | -------------------------------------------------- | ---------------------------- | ------ |
+| value      | 输入框内容                                         | string                       | -      |
+| size       | 控件大小。注：标准表单内的输入框大小限制为 `large` | `large` | `middle` | `small` | -      |
+| prefix     | 带有前缀图标的 input                               | ReactNode                    | -      |
+| suffix     | 带有后缀图标的 input                               | ReactNode                    | -      |
+| maxLength  | 最大长度                                           | number                       | -      |
+| allowClear | 可以点击清除图标删除内容                           | boolean                      | -      |
+| onChange   | 输入框内容变化时的回调                             | function(e)                  | -      |
+| onBlur     | 输入框失去焦点的回调                               | function(e)                  | -      |
+| onFocus    | 输入框获得焦点的回调                               | function(e)                  | -      |
+

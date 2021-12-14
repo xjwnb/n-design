@@ -126,3 +126,14 @@ export default () => {
   )
 }
 ```
+
+## API
+
+| 属性      | 说明                 | 类型      | 默认值 |
+| --------- | -------------------- | --------- | ------ |
+| title     | 卡片标题             | ReactNode | -      |
+| extra     | 卡片右上角的操作区域 | ReactNode | -      |
+| bordered  | 是否有边框           | boolean   | true   |
+| cover     | 卡片封面             | ReactNode | -      |
+| hoverable | 鼠标移过时可浮起     | boolean   | false  |
+
