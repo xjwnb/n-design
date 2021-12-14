@@ -10,3 +10,5 @@ export { default as Layout } from "./layout";
 export { default as Space } from "./space";
 export { default as Select } from "./select";
 export { default as Pagination } from "./pagination";
+export { default as Row } from "./row";
+export { default as Col } from "./col";
