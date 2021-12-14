@@ -1,0 +1,20 @@
+.n_layout {
+  display: flex;
+}
+
+.n_layout_header {
+  flex: 1;
+  padding: 0 30px;
+}
+
+.n_layout_main {
+  flex: 1;
+}
+
+.n_layout_aside {
+  width: 200px;
+}
+
+.n_layout_footer {
+  flex: 1;
+}
