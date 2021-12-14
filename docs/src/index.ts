@@ -8,3 +8,4 @@ export { default as Switch } from "./switch";
 export { default as Image } from "./image";
 export { default as Layout } from "./layout";
 export { default as Space } from "./space";
+export { default as Select } from "./select";
