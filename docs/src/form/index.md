@@ -4,7 +4,7 @@
 
 ```tsx
 import React from "react";
-import { Form } from "docs";
+import { Form, Select, Input, Radio, Button, Switch, Checkbox } from "docs";
 
 export default () => {
   return (
