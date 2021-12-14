@@ -1,0 +1,72 @@
+@import "../assets/css/common.scss";
+
+.n_pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  .n_pagination_content {
+    display: flex;
+    gap: 8px;
+  }
+}
+
+.n_pagination_button {
+  min-width: 20px;
+  height: 20px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid $border;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all .3s;
+
+  &:hover {
+    color: $primary;
+    border: 1px solid $primary;
+  }
+}
+
+.n_pagination_button_active {
+  color: $primary;
+  border: 1px solid $primary;
+  font-weight: 700;
+}
+
+
+.n_pagination_button_disabled {
+  opacity: .9;
+  cursor: not-allowed;
+  color: #CFCFCF;
+  border: 1px solid #CFCFCF;
+  font-weight: normal;
+
+  &:hover {
+    border: 1px solid $border;
+    color: #CFCFCF;
+    font-weight: normal;
+  }
+}
+
+.n_pagination_quickJumper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 0 10px;
+
+  .n_pagination_quickJumper_text {
+    margin: 0 5px;
+    font-size: 13px;
+  }
+
+  .n_pagination_quickJumper_input {
+    width: 50px;
+  }
+}
+
+.n_pagination_total {
+  font-size: 13px;
+  padding: 0 5px;
+}
