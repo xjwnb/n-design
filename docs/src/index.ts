@@ -14,3 +14,4 @@ export { default as Row } from "./row";
 export { default as Col } from "./col";
 export { default as Form } from "./form";
 export { default as Checkbox } from "./checkbox";
+export { default as Tabs } from "./tabs";
