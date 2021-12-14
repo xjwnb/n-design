@@ -15,3 +15,6 @@ export { default as Col } from "./col";
 export { default as Form } from "./form";
 export { default as Checkbox } from "./checkbox";
 export { default as Tabs } from "./tabs";
+export { default as Card } from "./card";
+export { default as Table } from "./table";
+export { default as Tooltip } from "./tooltip";
