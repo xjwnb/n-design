@@ -18,3 +18,6 @@ export { default as Tabs } from "./tabs";
 export { default as Card } from "./card";
 export { default as Table } from "./table";
 export { default as Tooltip } from "./tooltip";
+export { default as DatePicker } from "./datePicker";
+export { default as Modal } from "./Modal";
+export { default as message } from "./message";
