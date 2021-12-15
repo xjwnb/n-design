@@ -1,12 +1,13 @@
 /*
  * @Author: your name
  * @Date: 2021-12-15 15:06:34
- * @LastEditTime: 2021-12-15 16:42:42
+ * @LastEditTime: 2021-12-15 16:58:33
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\drawer\index.tsx
  */
 import React, { useState, useEffect } from "react";
+import { Close } from "../../Icons/icon/index";
 import "./index.scss";
 
 interface IProps {
@@ -15,6 +16,7 @@ interface IProps {
   width?: number | string;
   height?: number | string;
   visible: boolean;
+  title?: React.ReactNode;
 
   onClose?: Function;
 }
@@ -26,6 +28,7 @@ function Drawer(Props: IProps) {
     width = 378,
     height = 256,
     visible = false,
+    title,
     onClose,
   } = Props;
 
@@ -55,6 +58,13 @@ function Drawer(Props: IProps) {
     // eslint-disable-next-line
   }, [placement, width, height, visible]);
 
+  /**
+   * 点击 close 图标
+   */
+  const handleClose = function () {
+    onClose?.();
+  };
+
   return (
     <div
       className={["n_drawer", `n_drawer_placement_${placement}`].join(" ")}
@@ -76,10 +86,16 @@ function Drawer(Props: IProps) {
         style={{
           ...wrapperStyle,
         }}
-        onClick={() => {
-          onClose?.();
-        }}
       >
+        <div className={["n_drawer_header"].join(" ")}>
+          <div className={["n_drawer_header_title"].join(" ")}>{title}</div>
+          <div
+            className={["n_drawer_header_close"].join(" ")}
+            onClick={handleClose}
+          >
+            <Close />
+          </div>
+        </div>
         <div className={["n_drawer_content"].join(" ")}>{children}</div>
       </div>
     </div>

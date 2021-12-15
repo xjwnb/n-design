@@ -72,3 +72,20 @@
     }
   }
 }
+
+
+.n_drawer_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid #eee;
+
+  .n_drawer_header_title {
+    font-weight: 700;
+  }
+
+  .n_drawer_header_close {
+    cursor: pointer;
+  }
+}
