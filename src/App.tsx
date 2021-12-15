@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-14 14:26:03
+ * @LastEditTime: 2021-12-15 15:35:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -38,6 +38,7 @@ import {
   DatePicker,
   Modal,
   message,
+  Drawer,
 } from "./components/index";
 import { Left, Right, Search, Loading } from "./Icons/icon/index";
 
@@ -52,6 +53,7 @@ function App() {
       sex: string;
     }>
   >([]);
+  const [showDrawer, setshowDrawer] = useState(false);
 
   useEffect(() => {
     let data = [];
@@ -1823,6 +1825,14 @@ function App() {
         >
           Warning config = Object
         </Button>
+      </div>
+
+      <div>
+        <h1>Drawer 抽屉</h1>
+        <Button onClick={() => setshowDrawer(true)}>Drawer</Button>
+        <Drawer visible={showDrawer}>
+          123
+        </Drawer>
       </div>
 
       <div></div>
