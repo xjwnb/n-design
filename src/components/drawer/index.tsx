@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-15 15:06:34
- * @LastEditTime: 2021-12-15 16:30:42
+ * @LastEditTime: 2021-12-15 16:42:42
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\drawer\index.tsx
@@ -30,7 +30,7 @@ function Drawer(Props: IProps) {
   } = Props;
 
   const [wrapperStyle, setwrapperStyle] = useState({});
-  const [drawerStyle, setdrawerStyle] = useState({});
+  // const [drawerStyle, setdrawerStyle] = useState({});
 
   useEffect(() => {
     if (visible) {
@@ -41,39 +41,19 @@ function Drawer(Props: IProps) {
   }, [visible]);
 
   useEffect(() => {
-    let style = {};
     if (["right", "left"].includes(placement)) {
-      /* setwrapperStyle({
+      setwrapperStyle({
         ...wrapperStyle,
         width,
-      }); */
-      style = {
-        ...wrapperStyle,
-        width,
-      };
-      if (!visible) {
-        style = {
-          ...style,
-          trasnform: `translateX(0px)`,
-        };
-      }
-      setwrapperStyle(style);
+      });
     } else {
       setwrapperStyle({
         ...wrapperStyle,
         height,
       });
     }
+    // eslint-disable-next-line
   }, [placement, width, height, visible]);
-
-  /* useEffect(() => {
-    if (!visible) {
-      console.log("....", wrapperStyle);
-      setwrapperStyle({
-        trasnform: `translateX(-200px)`,
-      });
-    }
-  }, [visible]); */
 
   return (
     <div
