@@ -124,3 +124,12 @@ export default () => {
   )
 }
 ```
+
+## API
+
+| 属性      | 说明                                                         | 类型   | 默认值 |
+| --------- | ------------------------------------------------------------ | ------ | ------ |
+| title     | 内容                                                         | string | -      |
+| placement | 气泡框位置，可选 `top` `left` `right` `bottom` `topLeft` `topRight` `bottomLeft` `bottomRight` `leftTop` `leftBottom` `rightTop` `rightBottom` | string | `top`  |
+| color     | 背景颜色                                                     | string | -      |
+

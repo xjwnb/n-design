@@ -60,3 +60,14 @@ export default () => {
   )
 }
 ```
+
+## API
+
+| 属性              | 说明           | 类型                                     | 默认值 |
+| ----------------- | -------------- | ---------------------------------------- | ------ |
+| defaultValue      | 初始是否选中   | boolean                                  | false  |
+| checkedChildren   | 选中时的内容   | ReactNode                                | -      |
+| unCheckedChildren | 非选中时的内容 | ReactNode                                | -      |
+| disabled          | 是否禁用       | boolean                                  | false  |
+| onChange          | 变化时回调函数 | function(checked: boolean, event: Event) | -      |
+

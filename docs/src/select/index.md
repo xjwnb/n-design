@@ -114,3 +114,16 @@ export default () => {
   )
 }
 ```
+
+## API
+
+| 属性         | 说明                                              | 类型                | 默认值 |
+| ------------ | ------------------------------------------------- | ------------------- | ------ |
+| placeholder  | 选择框默认文本                                    | string              | -      |
+| defaultValue | 指定默认选中的条目                                | string \| string[]  | -      |
+| disabled     | 是否禁用                                          | boolean             | false  |
+| allowClear   | 支持清除                                          | boolean             | false  |
+| showSearch   | 使单选模式可搜索                                  | boolean             | false  |
+| mode         | 设置 Select 的模式为多选或标签                    | `multiple` | `tags` | -      |
+| onChange     | 选中 option，或 input 的 value 变化时，调用此函数 | function(value)     | -      |
+

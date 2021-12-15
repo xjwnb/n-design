@@ -139,3 +139,28 @@ export default () => {
   )
 }
 ```
+
+## API
+
+| 属性         | 说明                           | 类型           | 默认值 |
+| ------------ | ------------------------------ | -------------- | ------ |
+| columns      | 表格列的配置描述，具体项见下表 | ColumnsType [] | -      |
+| dataSource   | 数据数组                       | object[]       | -      |
+| rowSelection | 表格行是否可选择，配置项       | object         | -      |
+
+```typescript
+interface ColumnsType {
+  title: string;
+  dataIndex: string;
+  key: string;
+  render?: (text: any, record: object, index: number) => React.ReactNode;
+}
+```
+
+```typescript
+interface RowSelectionType {
+  type?: "checkbox" | "radio";
+  onChange?: (selectedRowKeys: React.Key[], selectedRows: Array<{ [key: string]: any }>) => void;
+}
+```
+

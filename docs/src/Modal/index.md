@@ -94,7 +94,7 @@ export default () => {
 | cancelText   | 取消按钮文字                                               | ReactNode        | `取消`         |
 | footer       | 底部内容，当不需要默认底部按钮时，可以设为 `footer={null}` | ReactNode        | (确定取消按钮) |
 | closable     | 是否显示右上角的关闭按钮                                   | boolean          | true           |
-| closeIcon    | 自定义关闭图标                                             | ReactNode        | <Close />      |
+| closeIcon    | 自定义关闭图标                                             | ReactNode        | "<"Close />"      |
 | mask         | 是否展示遮罩                                               | boolean          | true           |
 | maskClosable | 点击蒙层是否允许关闭                                       | boolean          | true           |
 | maskStyle    | 遮罩样式                                                   | CSSProperties    |                |
