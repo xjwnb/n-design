@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-15 15:06:34
- * @LastEditTime: 2021-12-15 16:58:33
+ * @LastEditTime: 2021-12-15 17:12:27
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\drawer\index.tsx
@@ -72,14 +72,7 @@ function Drawer(Props: IProps) {
         display: visible ? "block" : "none",
       }}
     >
-      <div
-        className={["n_drawer_mask"].join(" ")}
-        style={
-          {
-            // display: visible ? "block" : "none",
-          }
-        }
-      ></div>
+      <div className={["n_drawer_mask"].join(" ")}></div>
       {/* content */}
       <div
         className={["n_drawer_wrapper"].join(" ")}
