@@ -125,8 +125,8 @@ export default () => {
 
 | 属性           | 说明                                                         | 类型                                                         | 默认值 |
 | -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------ |
-| labelCol       | label 标签布局，同 `<Col>` 组件，设置 `span` `offset` 值，如 `{span: 3, offset: 12}` 或 `sm: {span: 3, offset: 12}` | [object](https://ant-design.gitee.io/components/grid-cn/#Col) | -      |
-| wrapperCol     | 需要为输入控件设置布局样式时，使用该属性，用法同 labelCol    | [object](https://ant-design.gitee.io/components/grid-cn/#Col) | -      |
+| labelCol       | label 标签布局，同 `<Col>` 组件，设置 `span` `offset` 值，如 `{span: 3, offset: 12}` 或 `sm: {span: 3, offset: 12}` | object | -      |
+| wrapperCol     | 需要为输入控件设置布局样式时，使用该属性，用法同 labelCol    | object | -      |
 | initialValues  | 表单默认值，只有初始化以及重置时生效                         | object                                                       | -      |
 | onFinish       | 提交表单且数据验证成功后回调事件                             | function(values)                                             | -      |
 | onFinishFailed | 提交表单且数据验证失败后回调事件                             | function                                                     | -      |

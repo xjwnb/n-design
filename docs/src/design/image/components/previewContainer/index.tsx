@@ -7,7 +7,7 @@ import {
   Close,
   Left,
   Right,
-} from "docs/src/Icons/icon/index";
+} from "docs/src/design/Icons/icon/index";
 import "./index.scss";
 
 interface IProps {

@@ -12,7 +12,7 @@ import {
   Closefill,
   Loading,
 } from "../Icons/icon/index";
-import { Button } from "../index";
+import { Button } from "../../index";
 import Style from "./index.module.scss";
 
 type sizeValue = "large" | "middle" | "small";
