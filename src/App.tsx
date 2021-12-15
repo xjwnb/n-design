@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-15 16:37:00
+ * @LastEditTime: 2021-12-15 17:10:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1830,8 +1830,8 @@ function App() {
       <div>
         <h1>Drawer 抽屉</h1>
         <Button onClick={() => setshowDrawer(true)}>Drawer</Button>
-        <Drawer visible={showDrawer} placement="bottom" onClose={() => setshowDrawer(false)}>
-          123
+        <Drawer title="什么玩意啊" visible={showDrawer} placement="right" onClose={() => setshowDrawer(false)}>
+          123... 什么玩意啊
         </Drawer>
       </div>
 
