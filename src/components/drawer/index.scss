@@ -1,13 +1,76 @@
-
 .n_drawer {
-  
   .n_drawer_mask {
     position: fixed;
     inset: 0;
     z-index: 100;
     height: 100vh;
     background-color: #00000073;
-    transition: all 1s;
     overflow-y: hidden;
+  }
+
+  .n_drawer_wrapper {
+    background: #fff;
+    z-index: 200;
+    transition: all 2s;
+    overflow: auto;
+    // transform: translateX();
+  }
+}
+
+.n_drawer_placement_right {
+  .n_drawer_wrapper {
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    .n_drawer_content {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.n_drawer_placement_left {
+  .n_drawer_wrapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    .n_drawer_content {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+
+.n_drawer_placement_top {
+  .n_drawer_wrapper {
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+
+    .n_drawer_content {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+
+.n_drawer_placement_bottom {
+  .n_drawer_wrapper {
+    position: fixed;
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+    .n_drawer_content {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
