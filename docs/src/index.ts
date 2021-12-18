@@ -22,3 +22,4 @@ export { default as DatePicker } from "./design/datePicker";
 export { default as Modal } from "./design/Modal";
 export { default as message } from "./design/message";
 export { default as Drawer } from "./design/drawer";
+export { default as Cascader } from "./design/cascader";

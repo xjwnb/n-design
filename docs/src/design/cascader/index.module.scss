@@ -1,0 +1,87 @@
+@import "../assets/css/common.scss";
+
+.n_cascader {
+  position: relative;
+
+  .n_cascader_input_wrapper {
+    .n_cascader_input_container {
+      width: 100%;
+      padding: 4px 0 4px 11px;
+      border-radius: 2px;
+      border: 1px solid $border;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s;
+      position: relative;
+      cursor: pointer;
+
+      &:hover {
+        border: 1px solid $primary;
+      }
+
+      .n_cascader_input {
+        // width: 100%;
+        flex: 1;
+
+        input {
+          outline-style: none;
+          width: 100%;
+          box-sizing: border-box;
+          border: none;
+          cursor: pointer;
+        }
+      }
+
+      .n_cascader_input_suffix_icon {
+        // flex: 50px;
+        width: 20px;
+      }
+    }
+  }
+
+  .n_cascader_content_wrapper {
+    position: absolute;
+    left: 0;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    box-sizing: border-box;
+
+    .n_cascader_content_container {
+      display: flex;
+    }
+
+    .n_cascader_content {
+      width: 150px;
+      height: 200px;
+      background: #fff;
+      box-sizing: border-box;
+
+      .n_cascader_option_label {
+        padding: 8px 10px;
+        cursor: pointer;
+        color: #858585;
+        font-size: 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #fff;
+        transition: all 0.3s;
+        box-sizing: border-box;
+
+        &:hover {
+          background: #f5f5f5;
+        }
+      }
+
+      .n_cascader_option_label_active {
+        font-weight: 700;
+        background: #e6f7ff;
+
+        &:hover {
+          background: #e6f7ff;
+        }
+      }
+    }
+  }
+}

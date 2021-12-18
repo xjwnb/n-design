@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-18 16:18:09
+ * @LastEditTime: 2021-12-18 17:24:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -179,40 +179,6 @@ function App() {
             {
               value: "zhonghuamen",
               label: "Zhong Hua Men",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      value: "356",
-      label: "34573",
-      children: [
-        {
-          value: "3744",
-          label: "367",
-          children: [
-            {
-              value: "746",
-              label: "263",
-            },
-            {
-              value: "2456",
-              label: "7363476",
-            },
-          ],
-        },
-        {
-          value: "364746",
-          label: "7534",
-          children: [
-            {
-              value: "746223",
-              label: "87546",
-            },
-            {
-              value: "8435483",
-              label: "546374",
             },
           ],
         },
