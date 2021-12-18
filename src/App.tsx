@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-18 10:04:57
+ * @LastEditTime: 2021-12-18 13:45:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -149,6 +149,41 @@ function App() {
     "volcano",
     "gold",
     "lime",
+  ];
+
+  const options = [
+    {
+      value: "zhejiang",
+      label: "Zhejiang",
+      children: [
+        {
+          value: "hangzhou",
+          label: "Hangzhou",
+          children: [
+            {
+              value: "xihu",
+              label: "West Lake",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      value: "jiangsu",
+      label: "Jiangsu",
+      children: [
+        {
+          value: "nanjing",
+          label: "Nanjing",
+          children: [
+            {
+              value: "zhonghuamen",
+              label: "Zhong Hua Men",
+            },
+          ],
+        },
+      ],
+    },
   ];
 
   return (
@@ -1834,15 +1869,24 @@ function App() {
       <div>
         <h1>Drawer 抽屉</h1>
         <Button onClick={() => setshowDrawer(true)}>Drawer</Button>
-        <Drawer title="什么玩意啊" visible={showDrawer} placement="right" onClose={() => setshowDrawer(false)}>
+        <Drawer
+          title="什么玩意啊"
+          visible={showDrawer}
+          placement="right"
+          onClose={() => setshowDrawer(false)}
+        >
           123... 什么玩意啊
         </Drawer>
       </div>
 
       {/* Cascader */}
-      <div>
+      <div
+        style={{
+          height: 500,
+        }}
+      >
         <h1>Cascader</h1>
-        <Cascader />
+        <Cascader placeholder="什么玩意" options={options} />
       </div>
 
       <div></div>

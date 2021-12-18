@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-03 15:13:35
- * @LastEditTime: 2021-12-09 16:33:07
+ * @LastEditTime: 2021-12-18 11:23:23
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\datePicker\index.tsx
@@ -357,6 +357,7 @@ function DatePicker(Props: IProps) {
     <div className={[Style.n_datePicker].join(" ")} ref={datePickerRef}>
       <Input
         suffix={<Calendar color="#BFBFBF" />}
+        readOnly={true}
         onFocus={handleFocusInput}
         onBlur={handleBlurInput}
         value={dateValue}
@@ -1610,6 +1611,7 @@ function RangePicker(Props: RangeProps) {
           <input
             placeholder="开始日期"
             ref={startInputRef}
+            readOnly={true}
             onFocus={handleStartInputFocus}
             onBlur={handleStartInputBlur}
             onChange={handleStartInputChange}
@@ -1623,6 +1625,7 @@ function RangePicker(Props: RangeProps) {
           <input
             placeholder="结束日期"
             ref={endInputRef}
+            readOnly={true}
             onFocus={handleEndInputFocus}
             onBlur={handleEndInputBlur}
             onChange={handleEndInputChange}

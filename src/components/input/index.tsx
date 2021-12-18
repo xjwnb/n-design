@@ -26,6 +26,7 @@ interface IProps {
   maxLength?: number;
   style?: object;
   allowClear?: boolean;
+  readOnly?: boolean;
 
   onChange?: Function;
   onBlur?: Function;
@@ -42,6 +43,7 @@ export default function Input(props: IProps) {
     maxLength,
     style,
     allowClear = false,
+    readOnly = false,
 
     onChange,
     onBlur,
@@ -161,6 +163,7 @@ export default function Input(props: IProps) {
           placeholder={placeholder}
           value={inputValue}
           ref={inputRef}
+          readOnly={readOnly}
           maxLength={maxLength}
           onChange={handleChange}
           onFocus={handleFocus}
