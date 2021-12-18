@@ -45,16 +45,17 @@
     left: 0;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    display: flex;
     box-sizing: border-box;
+
+    .n_cascader_content_container {
+      display: flex;
+    }
 
     .n_cascader_content {
       width: 150px;
       height: 200px;
       background: #fff;
-      display: inline-block;
       box-sizing: border-box;
-      position: relative;
 
       .n_cascader_option_label {
         padding: 8px 10px;

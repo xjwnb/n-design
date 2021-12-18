@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-18 09:50:02
- * @LastEditTime: 2021-12-18 16:34:30
+ * @LastEditTime: 2021-12-18 17:04:25
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\cascader\index.tsx
@@ -200,49 +200,24 @@ function Cascader(Props: IProps) {
           display: showContent ? "block" : "none",
         }}
       >
-        <div className={[Style.n_cascader_content].join(" ")}>
-          <div className={[Style.n_cascader_option_item].join(" ")}>
-            {firstOption.map((item) => (
-              <div
-                key={item.value}
-                className={[
-                  Style.n_cascader_option_label,
-                  selectValue.includes(item.value)
-                    ? Style.n_cascader_option_label_active
-                    : "",
-                ].join(" ")}
-                onClick={() => handleSelectOption(item, 0)}
-              >
-                <span>{item.label}</span>
-                <span
-                  style={{
-                    display: item.children?.length ? "block" : "none",
-                  }}
-                >
-                  <Right width={12} height={12} color="#858585" />
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-        {otherOption?.map((item, index) => (
-          <div key={index} className={[Style.n_cascader_content].join(" ")}>
+        <div className={[Style.n_cascader_content_container].join(" ")}>
+          <div className={[Style.n_cascader_content].join(" ")}>
             <div className={[Style.n_cascader_option_item].join(" ")}>
-              {item?.map((it: OptionParam) => (
+              {firstOption.map((item) => (
                 <div
-                  key={it.value}
+                  key={item.value}
                   className={[
                     Style.n_cascader_option_label,
-                    selectValue.includes(it.value)
+                    selectValue.includes(item.value)
                       ? Style.n_cascader_option_label_active
                       : "",
                   ].join(" ")}
-                  onClick={() => handleSelectOption(it, index + 1)}
+                  onClick={() => handleSelectOption(item, 0)}
                 >
-                  <span>{it.label}</span>
+                  <span>{item.label}</span>
                   <span
                     style={{
-                      display: it.children?.length ? "block" : "none",
+                      display: item.children?.length ? "block" : "none",
                     }}
                   >
                     <Right width={12} height={12} color="#858585" />
@@ -251,7 +226,34 @@ function Cascader(Props: IProps) {
               ))}
             </div>
           </div>
-        ))}
+          {otherOption?.map((item, index) => (
+            <div key={index} className={[Style.n_cascader_content].join(" ")}>
+              <div className={[Style.n_cascader_option_item].join(" ")}>
+                {item?.map((it: OptionParam) => (
+                  <div
+                    key={it.value}
+                    className={[
+                      Style.n_cascader_option_label,
+                      selectValue.includes(it.value)
+                        ? Style.n_cascader_option_label_active
+                        : "",
+                    ].join(" ")}
+                    onClick={() => handleSelectOption(it, index + 1)}
+                  >
+                    <span>{it.label}</span>
+                    <span
+                      style={{
+                        display: it.children?.length ? "block" : "none",
+                      }}
+                    >
+                      <Right width={12} height={12} color="#858585" />
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
