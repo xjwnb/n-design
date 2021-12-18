@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-18 09:50:02
- * @LastEditTime: 2021-12-18 16:10:23
+ * @LastEditTime: 2021-12-18 16:20:52
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\cascader\index.tsx
@@ -206,7 +206,7 @@ function Cascader(Props: IProps) {
           <div className={[Style.n_cascader_option_item].join(" ")}>
             {firstOption.map((item) => (
               <div
-                key={item.label}
+                key={item.value}
                 className={[
                   Style.n_cascader_option_label,
                   selectValue.includes(item.value)
@@ -232,7 +232,7 @@ function Cascader(Props: IProps) {
             <div className={[Style.n_cascader_option_item].join(" ")}>
               {item.map((it: OptionParam) => (
                 <div
-                  key={it.label}
+                  key={it.value}
                   className={[
                     Style.n_cascader_option_label,
                     selectValue.includes(it.value)
