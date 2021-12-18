@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-18 09:50:02
- * @LastEditTime: 2021-12-18 16:20:52
+ * @LastEditTime: 2021-12-18 16:34:30
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\cascader\index.tsx
@@ -114,7 +114,6 @@ function Cascader(Props: IProps) {
   ): Array<OptParam> {
     return option.map((opt) => {
       const item: OptParam = {
-        // hasChild: false,
         label: opt.label,
         value: opt.value,
         children: opt.children || [],
@@ -151,7 +150,6 @@ function Cascader(Props: IProps) {
     if (!opt.children) {
       setshowContent(false);
       nowSelectValue && setinputValue(nowSelectValue.join("/"));
-
       onChange?.(nowSelectValue);
     }
   };
@@ -227,10 +225,10 @@ function Cascader(Props: IProps) {
             ))}
           </div>
         </div>
-        {otherOption.map((item, index) => (
+        {otherOption?.map((item, index) => (
           <div key={index} className={[Style.n_cascader_content].join(" ")}>
             <div className={[Style.n_cascader_option_item].join(" ")}>
-              {item.map((it: OptionParam) => (
+              {item?.map((it: OptionParam) => (
                 <div
                   key={it.value}
                   className={[
