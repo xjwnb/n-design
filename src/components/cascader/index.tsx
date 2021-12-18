@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-18 09:50:02
- * @LastEditTime: 2021-12-18 14:40:58
+ * @LastEditTime: 2021-12-18 16:07:17
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\cascader\index.tsx
@@ -13,7 +13,7 @@ import { Bottom, Right } from "../../Icons/icon/index";
 interface OptParam {
   label: string;
   value: string;
-  hasChild: boolean;
+  // hasChild: boolean;
   children?: Array<OptionParam>;
 }
 
@@ -27,16 +27,21 @@ interface IProps {
   placeholder?: string;
   width?: number | string;
   options?: Array<OptionParam>;
+
+  onChange?: Function;
 }
 
 function Cascader(Props: IProps) {
-  const { placeholder, width = 186, options = [] } = Props;
+  const { placeholder, width = 186, options = [], onChange } = Props;
 
   const [showContent, setshowContent] = useState(false);
   const [showBorder, setshowBorder] = useState(false);
   const [showShadow, setshowShadow] = useState(false);
   // firstOption
   const [firstOption, setfirstOption] = useState<Array<OptParam>>([]);
+  const [otherOption, setotherOption] = useState<Array<any>>([]);
+  const [selectValue, setselectValue] = useState<Array<string>>([]);
+  const [inputValue, setinputValue] = useState("");
 
   // 整个组件 ref
   const cascaderRef = useRef<HTMLDivElement>(null);
@@ -109,14 +114,11 @@ function Cascader(Props: IProps) {
   ): Array<OptParam> {
     return option.map((opt) => {
       const item: OptParam = {
-        hasChild: false,
+        // hasChild: false,
         label: opt.label,
         value: opt.value,
         children: opt.children || [],
       };
-      if (opt.children?.length) {
-        item.hasChild = true;
-      }
       return item;
     });
   };
@@ -125,15 +127,33 @@ function Cascader(Props: IProps) {
    * 点击 input
    */
   const handleInputClick = function () {
-    console.log(!showContent);
     setshowContent(!showContent);
   };
 
   /**
    * 点击选择 option
    */
-  const handleSelectOption = function (opt: OptParam) {
-    console.log(opt);
+  const handleSelectOption = function (opt: OptParam, index: number) {
+    let nowSelectValue;
+    let currentLabel = opt.label;
+    let firstFilterLabel = firstOption.map((op) => op.label);
+    if (firstFilterLabel.includes(currentLabel)) {
+      opt.children && setotherOption([opt.children]);
+      setselectValue([opt.value]);
+    } else {
+      let nowSelectOption = otherOption.slice(0, index);
+      opt.children && nowSelectOption.push(opt.children);
+      setotherOption(nowSelectOption);
+      nowSelectValue = selectValue.splice(0, index);
+      nowSelectValue.push(opt.value);
+      setselectValue(nowSelectValue);
+    }
+    if (!opt.children) {
+      setshowContent(false);
+      nowSelectValue && setinputValue(nowSelectValue.join("/"));
+      
+      onChange?.(nowSelectValue);
+    }
   };
 
   /**
@@ -163,7 +183,12 @@ function Cascader(Props: IProps) {
           onClick={handleInputClick}
         >
           <span className={[Style.n_cascader_input].join(" ")}>
-            <input type="text" readOnly={true} placeholder={placeholder} />
+            <input
+              type="text"
+              readOnly={true}
+              placeholder={placeholder}
+              value={inputValue}
+            />
           </span>
           <span className={[Style.n_cascader_input_suffix_icon].join(" ")}>
             <Bottom width={12} height={12} color="#C1C1C1" />
@@ -182,17 +207,53 @@ function Cascader(Props: IProps) {
             {firstOption.map((item) => (
               <div
                 key={item.label}
-                className={[Style.n_cascader_option_label].join(" ")}
-                onClick={() => handleSelectOption(item)}
+                className={[
+                  Style.n_cascader_option_label,
+                  selectValue.includes(item.value)
+                    ? Style.n_cascader_option_label_active
+                    : "",
+                ].join(" ")}
+                onClick={() => handleSelectOption(item, 0)}
               >
                 <span>{item.label}</span>
-                <span>
+                <span
+                  style={{
+                    display: item.children?.length ? "block" : "none",
+                  }}
+                >
                   <Right width={12} height={12} color="#858585" />
                 </span>
               </div>
             ))}
           </div>
         </div>
+        {otherOption.map((item, index) => (
+          <div key={index} className={[Style.n_cascader_content].join(" ")}>
+            <div className={[Style.n_cascader_option_item].join(" ")}>
+              {item.map((it: OptionParam) => (
+                <div
+                  key={it.label}
+                  className={[
+                    Style.n_cascader_option_label,
+                    selectValue.includes(it.value)
+                      ? Style.n_cascader_option_label_active
+                      : "",
+                  ].join(" ")}
+                  onClick={() => handleSelectOption(it, index + 1)}
+                >
+                  <span>{it.label}</span>
+                  <span
+                    style={{
+                      display: it.children?.length ? "block" : "none",
+                    }}
+                  >
+                    <Right width={12} height={12} color="#858585" />
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

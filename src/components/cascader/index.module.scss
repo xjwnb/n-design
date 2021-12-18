@@ -38,29 +38,19 @@
         width: 20px;
       }
     }
-
-    /* .input_container {
-      cursor: pointer !important;
-
-      .n_input {
-        cursor: pointer !important;
-
-        input {
-          cursor: pointer !important;
-        }
-      }
-    } */
   }
 
   .n_cascader_content_wrapper {
     position: absolute;
     left: 0;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-    
+    z-index: 1000;
+
     .n_cascader_content {
       width: 150px;
       height: 200px;
       background: #fff;
+      display: inline-block;
 
       .n_cascader_option_label {
         padding: 8px 10px;
@@ -75,6 +65,15 @@
 
         &:hover {
           background: #f5f5f5;
+        }
+      }
+
+      .n_cascader_option_label_active {
+        font-weight: 700;
+        background: #E6F7FF;
+
+        &:hover {
+          background: #E6F7FF;
         }
       }
     }

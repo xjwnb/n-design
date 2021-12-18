@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-18 13:45:44
+ * @LastEditTime: 2021-12-18 16:07:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1886,7 +1886,11 @@ function App() {
         }}
       >
         <h1>Cascader</h1>
-        <Cascader placeholder="什么玩意" options={options} />
+        <Cascader
+          placeholder="什么玩意"
+          options={options}
+          onChange={(val: any) => console.log(val)}
+        />
       </div>
 
       <div></div>
