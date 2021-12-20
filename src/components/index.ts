@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 13:34:55
- * @LastEditTime: 2021-12-18 09:52:10
+ * @LastEditTime: 2021-12-20 13:34:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\components\index.ts
@@ -31,3 +31,4 @@ export { default as Modal } from "./Modal/index";
 export { default as message } from "./message/index";
 export { default as Drawer } from "./drawer/index";
 export { default as Cascader } from "./cascader/index"; 
+export { default as BackTop } from "./backTop/index";

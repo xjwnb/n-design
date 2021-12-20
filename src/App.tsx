@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-18 17:24:47
+ * @LastEditTime: 2021-12-20 16:08:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -40,6 +40,7 @@ import {
   message,
   Drawer,
   Cascader,
+  BackTop,
 } from "./components/index";
 import { Left, Right, Search, Loading } from "./Icons/icon/index";
 
@@ -1891,6 +1892,41 @@ function App() {
           options={options}
           onChange={(val: any) => console.log(val)}
         />
+      </div>
+
+      <div>
+        <h1>BackTop 置顶</h1>
+        <BackTop />
+
+        <div
+          id="backTop"
+          style={{
+            height: 500,
+            border: "1px solid #1890ff",
+            overflowY: "scroll",
+          }}
+        >
+          <div
+            style={{
+              height: 2000,
+            }}
+          ></div>
+          <BackTop target={() => document.getElementById("backTop")} />
+        </div>
+        <div>
+          <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>10</li>
+          </ul>
+        </div>
       </div>
 
       <div></div>

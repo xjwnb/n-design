@@ -1,3 +1,4 @@
+export { default as BackTop } from './BackTop'
 export { default as Bottom } from './Bottom'
 export { default as BoxEmpty } from './BoxEmpty'
 export { default as Calendar } from './Calendar'
