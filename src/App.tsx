@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-20 16:29:11
+ * @LastEditTime: 2021-12-20 16:51:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1896,7 +1896,7 @@ function App() {
 
       <div>
         <h1>BackTop 置顶</h1>
-        <BackTop duration={10000} />
+        <BackTop />
 
         <div
           id="backTop"
