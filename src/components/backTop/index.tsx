@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-20 11:56:26
- * @LastEditTime: 2021-12-20 16:12:09
+ * @LastEditTime: 2021-12-20 16:16:22
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\backTop\index.tsx
@@ -15,6 +15,8 @@ interface IProps {
   target?: () => React.ReactNode | Window | HTMLElement;
   visibilityHeight?: number;
   duration?: number;
+
+  onClick?: () => void;
 }
 
 function BackTop(Props: IProps) {
@@ -23,6 +25,7 @@ function BackTop(Props: IProps) {
     target = () => window,
     visibilityHeight = 400,
     duration = 450,
+    onClick,
   } = Props;
 
   const [isShow, setisShow] = useState(false);
@@ -73,6 +76,7 @@ function BackTop(Props: IProps) {
    * 点击
    */
   const handleClick = function () {
+    onClick?.();
     let topNum = scrollTop / (duration / intervalTime);
     let target: any = null;
     if (isWindow) {
