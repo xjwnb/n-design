@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-20 11:56:26
- * @LastEditTime: 2021-12-20 16:16:22
+ * @LastEditTime: 2021-12-20 16:35:09
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\backTop\index.tsx
@@ -31,7 +31,7 @@ function BackTop(Props: IProps) {
   const [isShow, setisShow] = useState(false);
   const [isWindow, setisWindow] = useState(true);
   const [scrollTop, setscrollTop] = useState(0);
-  const [intervalTime] = useState(1);
+  const [intervalTime] = useState(2);
   const [targetElement, settargetElement] = useState<
     HTMLElement | HTMLDocument | HTMLDivElement
   >(window.document);
@@ -77,7 +77,8 @@ function BackTop(Props: IProps) {
    */
   const handleClick = function () {
     onClick?.();
-    let topNum = scrollTop / (duration / intervalTime);
+    console.time("backTop");
+    let topNum = (scrollTop / (duration / intervalTime)) * 3;
     let target: any = null;
     if (isWindow) {
       target = (targetElement as any).documentElement;
@@ -86,6 +87,7 @@ function BackTop(Props: IProps) {
     }
     let timer = setInterval(() => {
       if (target.scrollTop <= 0) {
+        console.timeEnd("backTop");
         clearInterval(timer);
       } else {
         target.scrollTop = target.scrollTop - topNum;

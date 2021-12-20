@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-20 16:08:00
+ * @LastEditTime: 2021-12-20 16:29:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1896,7 +1896,7 @@ function App() {
 
       <div>
         <h1>BackTop 置顶</h1>
-        <BackTop />
+        <BackTop duration={10000} />
 
         <div
           id="backTop"
@@ -1911,7 +1911,22 @@ function App() {
               height: 2000,
             }}
           ></div>
-          <BackTop target={() => document.getElementById("backTop")} />
+          <BackTop target={() => document.getElementById("backTop")}>
+            <div
+              style={{
+                height: 40,
+                width: 40,
+                lineHeight: "40px",
+                borderRadius: 4,
+                backgroundColor: "#1088e9",
+                color: "#fff",
+                textAlign: "center",
+                fontSize: 14,
+              }}
+            >
+              UP
+            </div>
+          </BackTop>
         </div>
         <div>
           <ul>
