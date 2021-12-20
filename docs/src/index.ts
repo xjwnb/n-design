@@ -1,4 +1,3 @@
-
 export { default as Button } from "./design/button";
 // export { default as Icon } from "./Icons/icon/index.js";
 export { default as Divider } from "./design/divider";
@@ -23,3 +22,4 @@ export { default as Modal } from "./design/Modal";
 export { default as message } from "./design/message";
 export { default as Drawer } from "./design/drawer";
 export { default as Cascader } from "./design/cascader";
+export { default as BackTop } from "./design/backTop/index";

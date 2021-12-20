@@ -1,0 +1,16 @@
+.n_backTop {
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.n_backTop_window {
+  position: fixed;
+  right: 150px;
+  bottom: 100px;
+}
+
+.n_backTop_other {
+  position: absolute;
+  right: 150px;
+  bottom: 50px;
+}
