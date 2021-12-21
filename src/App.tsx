@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-20 16:51:36
+ * @LastEditTime: 2021-12-21 11:13:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -41,6 +41,7 @@ import {
   Drawer,
   Cascader,
   BackTop,
+  Tag,
 } from "./components/index";
 import { Left, Right, Search, Loading } from "./Icons/icon/index";
 
@@ -1942,6 +1943,30 @@ function App() {
             <li>10</li>
           </ul>
         </div>
+      </div>
+
+      <div>
+        <h1>Tag 标签</h1>
+        <Tag>什么玩意</Tag>&emsp;
+        <Tag color="success">什么玩意</Tag>&emsp;
+        <Tag color="blue">什么玩意</Tag>&emsp;
+        <Tag color="purple">
+          <a href="http://www.xiaokache.top/desigin/button">Link</a>
+        </Tag>
+        &emsp;
+        <Tag
+          color="blue"
+          closable
+          onClose={(e) => {
+            console.log("点击了关闭");
+          }}
+        >
+          什么玩意
+        </Tag>
+        &emsp;
+        <Tag color="success">什么玩意</Tag>&emsp;
+        <Tag color="#f50">#f50</Tag>&emsp;
+        <Tag color="success" icon={<Loading />}>什么玩意</Tag>&emsp;
       </div>
 
       <div></div>
