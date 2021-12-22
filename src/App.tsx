@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-22 16:38:24
+ * @LastEditTime: 2021-12-22 16:49:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1993,6 +1993,7 @@ function App() {
         </Collapse>
         <br />
         <br />
+        手风琴
         <Collapse
           onChange={(val) => {
             console.log(val);
@@ -2005,7 +2006,7 @@ function App() {
           <Collapse.Pancel id="2" header="什么玩意2">
             什么玩意儿 children2
           </Collapse.Pancel>
-          <Collapse.Pancel id="3" header="什么玩意3">
+          <Collapse.Pancel id="3" showArrow={false} header="什么玩意3">
             什么玩意儿 children3
           </Collapse.Pancel>
         </Collapse>

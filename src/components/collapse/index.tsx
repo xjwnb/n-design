@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-22 14:51:50
- * @LastEditTime: 2021-12-22 16:37:38
+ * @LastEditTime: 2021-12-22 16:50:55
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\collapse\index.tsx
@@ -58,8 +58,13 @@ function Collapse(Props: IProps) {
               }
               onChange?.(current);
             } else {
-              setcurrentKey([id]);
-              onChange?.([id]);
+              if (currentKey.includes(id)) {
+                setcurrentKey([]);
+                onChange?.([]);
+              } else {
+                setcurrentKey([id]);
+                onChange?.([id]);
+              }
             }
           },
         }}
@@ -77,10 +82,11 @@ interface PancelProps {
   id: string;
   header: string;
   children: React.ReactNode;
+  showArrow?: boolean;
 }
 
 function Pancel(Props: PancelProps) {
-  const { children, header = "", id } = Props;
+  const { children, header = "", id, showArrow = true } = Props;
 
   const [isShow, setisShow] = useState(false);
 
@@ -103,14 +109,18 @@ function Pancel(Props: PancelProps) {
         className={[Style.n_collapse_pancel_header].join(" ")}
         onClick={handleClickHeader}
       >
-        <span
-          className={[Style.n_collapse_pancel_header_icon].join(" ")}
-          style={{
-            transform: isShow ? `rotate(90deg)` : "",
-          }}
-        >
-          <Right width={12} height={12} />
-        </span>
+        {showArrow ? (
+          <span
+            className={[Style.n_collapse_pancel_header_icon].join(" ")}
+            style={{
+              transform: isShow ? `rotate(90deg)` : "",
+            }}
+          >
+            <Right width={12} height={12} />
+          </span>
+        ) : (
+          ""
+        )}
         <span className={[Style.n_collapse_pancel_header_title].join(" ")}>
           {header}
         </span>
