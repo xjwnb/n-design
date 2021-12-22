@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-22 14:51:50
- * @LastEditTime: 2021-12-22 16:50:55
+ * @LastEditTime: 2021-12-22 16:59:58
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\collapse\index.tsx
@@ -14,18 +14,20 @@ interface IProps {
   children: React.ReactNode;
   defaultActiveKey?: Array<any>;
   accordion?: boolean;
+  ghost?: boolean;
 
   onChange?: (value: Array<String>) => void;
 }
 
 interface PancelContextParams {
   currentKeys: Array<any>;
-
+  ghost: boolean;
   onClickPancel: (id: string) => void;
 }
 
 const defaultPancelContext: PancelContextParams = {
   currentKeys: [],
+  ghost: false,
   onClickPancel: (id) => {},
 };
 
@@ -36,6 +38,7 @@ function Collapse(Props: IProps) {
     children,
     defaultActiveKey = [],
     accordion = false,
+    ghost = false,
     onChange,
   } = Props;
 
@@ -46,6 +49,7 @@ function Collapse(Props: IProps) {
       <PancelContext.Provider
         value={{
           currentKeys: currentKey,
+          ghost,
           onClickPancel: (id: string) => {
             if (!accordion) {
               let current = currentKey;
@@ -90,7 +94,7 @@ function Pancel(Props: PancelProps) {
 
   const [isShow, setisShow] = useState(false);
 
-  const { currentKeys, onClickPancel } = useContext(PancelContext);
+  const { currentKeys, onClickPancel, ghost } = useContext(PancelContext);
 
   useEffect(() => {
     setisShow(currentKeys.includes(id));
@@ -104,10 +108,18 @@ function Pancel(Props: PancelProps) {
   };
 
   return (
-    <div className={[Style.n_collapse_pancel].join(" ")}>
+    <div
+      className={[Style.n_collapse_pancel].join(" ")}
+      style={{
+        border: ghost ? "" : `1px solid #dcdcdc`,
+      }}
+    >
       <div
         className={[Style.n_collapse_pancel_header].join(" ")}
         onClick={handleClickHeader}
+        style={{
+          background: `rgba(255, 255, 255, 0)`,
+        }}
       >
         {showArrow ? (
           <span
@@ -129,6 +141,7 @@ function Pancel(Props: PancelProps) {
         className={[Style.n_collapse_pancel_content_wrapper].join(" ")}
         style={{
           maxHeight: isShow ? "10000px" : "0px",
+          background: `rgba(255, 255, 255, 0)`,
         }}
       >
         <div className={[Style.n_collapse_pancel_content].join(" ")}>

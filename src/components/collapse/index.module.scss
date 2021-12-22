@@ -1,6 +1,6 @@
 .n_collapse_pancel {
   font-size: 12px;
-  border: 1px solid #dcdcdc;
+  // border: 1px solid #dcdcdc;
   border-collapse: collapse;
 
   .n_collapse_pancel_header {
@@ -24,6 +24,7 @@
   .n_collapse_pancel_content_wrapper {
     transition: all 0.3s;
     overflow: hidden;
+    background: #fff;
 
     .n_collapse_pancel_content {
       padding: 16px;

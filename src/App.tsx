@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-22 16:49:44
+ * @LastEditTime: 2021-12-22 17:00:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1999,6 +1999,23 @@ function App() {
             console.log(val);
           }}
           accordion
+        >
+          <Collapse.Pancel id="1" header="什么玩意1">
+            什么玩意儿 children1
+          </Collapse.Pancel>
+          <Collapse.Pancel id="2" header="什么玩意2">
+            什么玩意儿 children2
+          </Collapse.Pancel>
+          <Collapse.Pancel id="3" showArrow={false} header="什么玩意3">
+            什么玩意儿 children3
+          </Collapse.Pancel>
+        </Collapse>
+        ghost
+        <Collapse
+          onChange={(val) => {
+            console.log(val);
+          }}
+          ghost
         >
           <Collapse.Pancel id="1" header="什么玩意1">
             什么玩意儿 children1
