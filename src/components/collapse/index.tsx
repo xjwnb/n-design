@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-22 14:51:50
- * @LastEditTime: 2021-12-22 16:23:45
+ * @LastEditTime: 2021-12-22 16:37:38
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\collapse\index.tsx
@@ -13,6 +13,7 @@ import { Right } from "../../Icons/icon/index";
 interface IProps {
   children: React.ReactNode;
   defaultActiveKey?: Array<any>;
+  accordion?: boolean;
 
   onChange?: (value: Array<String>) => void;
 }
@@ -31,7 +32,12 @@ const defaultPancelContext: PancelContextParams = {
 const PancelContext = createContext(defaultPancelContext);
 
 function Collapse(Props: IProps) {
-  const { children, defaultActiveKey = [], onChange } = Props;
+  const {
+    children,
+    defaultActiveKey = [],
+    accordion = false,
+    onChange,
+  } = Props;
 
   const [currentKey, setcurrentKey] = useState(defaultActiveKey);
 
@@ -41,15 +47,20 @@ function Collapse(Props: IProps) {
         value={{
           currentKeys: currentKey,
           onClickPancel: (id: string) => {
-            let current = currentKey;
-            if (currentKey.includes(id)) {
-              current = currentKey.filter((item) => item !== id);
-              setcurrentKey(current);
+            if (!accordion) {
+              let current = currentKey;
+              if (currentKey.includes(id)) {
+                current = currentKey.filter((item) => item !== id);
+                setcurrentKey(current);
+              } else {
+                current = [...currentKey, id];
+                setcurrentKey(current);
+              }
+              onChange?.(current);
             } else {
-              current = [...currentKey, id];
-              setcurrentKey(current);
+              setcurrentKey([id]);
+              onChange?.([id]);
             }
-            onChange?.(current);
           },
         }}
       >
