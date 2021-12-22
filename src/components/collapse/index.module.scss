@@ -1,0 +1,32 @@
+.n_collapse_pancel {
+  font-size: 12px;
+  border: 1px solid #dcdcdc;
+  border-collapse: collapse;
+
+  .n_collapse_pancel_header {
+    background: #fafafa;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 12px 16px;
+    color: #000000d9;
+    line-height: 1.5715;
+    cursor: pointer;
+    transition: all 0.3s;
+    cursor: pointer;
+
+    .n_collapse_pancel_header_icon {
+      margin-right: 5px;
+      transition: all 0.3s;
+    }
+  }
+
+  .n_collapse_pancel_content_wrapper {
+    transition: all 0.3s;
+    overflow: hidden;
+
+    .n_collapse_pancel_content {
+      padding: 16px;
+    }
+  }
+}
