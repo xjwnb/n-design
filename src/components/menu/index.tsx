@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-02 08:31:24
- * @LastEditTime: 2021-12-23 17:08:45
+ * @LastEditTime: 2021-12-23 17:26:45
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\menu\index.tsx
@@ -31,12 +31,14 @@ interface MenuContextParam {
   onClick: Function;
   selectIdList: string[];
   theme: "light" | "dark";
+  mode: "vertical" | "horizontal" | "inline";
 }
 
 const defaultMenuContext: MenuContextParam = {
   onClick: () => {},
   selectIdList: [],
   theme: "light",
+  mode: "vertical",
 };
 
 const MenuContext = createContext(defaultMenuContext);
@@ -102,7 +104,11 @@ function Menu(Props: IProps) {
         width: 250,
         ...style,
       }}
-      className={[Style.n_menu, Style[`n_menu_${mode}`], Style[`n_menu_${theme}`]].join(" ")}
+      className={[
+        Style.n_menu,
+        Style[`n_menu_${mode}`],
+        Style[`n_menu_${theme}`],
+      ].join(" ")}
     >
       <MenuContext.Provider
         value={{
@@ -112,7 +118,8 @@ function Menu(Props: IProps) {
             onChange?.(keyList);
           },
           selectIdList: idList,
-          theme
+          theme,
+          mode,
         }}
       >
         {children}
@@ -137,7 +144,7 @@ function SubMenu(Props: submenuProps) {
   const [isShow, setisShow] = useState(false);
   const [iconColor, seticonColor] = useState("#000");
 
-  const { selectIdList, theme } = useContext(MenuContext);
+  const { selectIdList, theme, mode } = useContext(MenuContext);
 
   const subMenuRef = useRef<HTMLDivElement>(null);
 
@@ -159,29 +166,36 @@ function SubMenu(Props: submenuProps) {
   }, []);
 
   return (
-    <div className={[Style.n_submenu, Style[`n_submenu_${theme}`]].join(" ")} ref={subMenuRef}>
+    <div
+      className={[
+        Style.n_submenu,
+        Style[`n_submenu_${theme}`],
+        Style[`n_submenu_${mode}`],
+      ].join(" ")}
+      ref={subMenuRef}
+    >
       <div className={[Style.n_submenu_content].join(" ")}>
         <div
           className={[
             Style.n_submenu_main,
             selectIdList.includes(id) ? Style.n_submenu_main_active : "",
           ].join(" ")}
-          style={{
-            // color: isShow ? "#1890FF" : "",
-          }}
+          style={
+            {
+              // color: isShow ? "#1890FF" : "",
+            }
+          }
         >
           {icon && <div>{icon}</div>}
           <div className={[Style.n_submenu_title].join(" ")}>{title}</div>
         </div>
         {/* icon */}
-        <div>
-          {children && (
-            <Right color={iconColor} />
-          )}
-        </div>
+        <div>{children && <Right color={iconColor} />}</div>
       </div>
       <div
-        className={[Style.n_submenu_inner, Style[`n_submenu_${theme}`]].join(" ")}
+        className={[Style.n_submenu_inner, Style[`n_submenu_${theme}`]].join(
+          " "
+        )}
         style={{
           display: isShow ? "block" : "none",
         }}
@@ -205,6 +219,8 @@ function ItemGroup(Props: groupProps) {
 
   const [nowChild, setnowChild] = useState(children);
 
+  const { mode } = useContext(MenuContext);
+
   useEffect(() => {
     const child: any[] = [];
     children.forEach((element: any, index: number) => {
@@ -221,7 +237,9 @@ function ItemGroup(Props: groupProps) {
   }, [children]);
 
   return (
-    <div className={[Style.n_itemgroup].join(" ")}>
+    <div
+      className={[Style.n_itemgroup, Style[`n_itemgroup_${mode}`]].join(" ")}
+    >
       <div className={[Style.n_itemgroup_title].join(" ")}>{title}</div>
       <div className={[Style.n_itemgroup_inner].join(" ")}>{nowChild}</div>
     </div>
@@ -240,7 +258,7 @@ interface itemProps {
 function Item(Props: itemProps) {
   const { children, style, id } = Props;
 
-  const { onClick, selectIdList, theme } = useContext(MenuContext);
+  const { onClick, selectIdList, theme, mode } = useContext(MenuContext);
 
   const [hrefVal, sethrefVal] = useState("");
 
@@ -264,6 +282,7 @@ function Item(Props: itemProps) {
     <div
       className={[
         Style.n_item,
+        Style[`n_item_${mode}`],
         Style[`n_item_${theme}`],
         selectIdList.includes(id) ? Style[`n_item_${theme}_active`] : "",
       ].join(" ")}
