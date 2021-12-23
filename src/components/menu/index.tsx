@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-02 08:31:24
- * @LastEditTime: 2021-12-23 16:19:05
+ * @LastEditTime: 2021-12-23 16:32:53
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\menu\index.tsx
@@ -223,11 +223,22 @@ function Item(Props: itemProps) {
 
   const { onClick, selectIdList } = useContext(MenuContext);
 
+  const [hrefVal, sethrefVal] = useState("");
+
+  useEffect(() => {
+    if (children.props?.href) {
+      sethrefVal(children.props.href);
+    }
+  }, [children]);
+
   /**
    * 点击
    */
   const handleClickItem = function (key: string) {
     onClick(key);
+    if (hrefVal) {
+      window.location.href = hrefVal;
+    }
   };
 
   return (
