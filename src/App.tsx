@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-22 17:13:14
+ * @LastEditTime: 2021-12-23 16:21:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1663,7 +1663,9 @@ function App() {
             <Menu.SubMenu id="sub3" title="submenu3">
               <Menu.Item id="it6">Item6</Menu.Item>
               <Menu.Item id="it7">Item7</Menu.Item>
-              <Menu.Item id="it8">Item8</Menu.Item>
+              <Menu.Item id="it8">
+                <a href="http://www.xiaokache.top/xkcBlog">Blog</a>
+              </Menu.Item>
             </Menu.SubMenu>
           </Menu.SubMenu>
           <Menu.SubMenu id="sub4" title="submenu4">

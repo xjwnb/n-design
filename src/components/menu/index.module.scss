@@ -69,6 +69,15 @@
     &:hover {
       color: #1890ff;
     }
+
+    a,
+    a:link,
+    a:visited,
+    a:hover,
+    a:active {
+      text-decoration: none;
+      color: inherit;
+    }
   }
 
   .n_item_active {

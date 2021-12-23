@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-02 08:31:24
- * @LastEditTime: 2021-12-23 16:14:16
+ * @LastEditTime: 2021-12-23 16:19:05
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\menu\index.tsx
@@ -64,7 +64,6 @@ function Menu(Props: IProps) {
       let flag = false;
       if (newVal instanceof Array) {
         newVal?.forEach((j: any) => {
-          // console.log(j)
           if (j.props.id === newId) {
             newCid_list.push(j.props.id);
             flag = true;
