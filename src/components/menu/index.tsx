@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-02 08:31:24
- * @LastEditTime: 2021-12-23 10:48:34
+ * @LastEditTime: 2021-12-23 11:12:54
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\menu\index.tsx
@@ -39,16 +39,20 @@ function Menu(Props: IProps) {
   const getIds = function (
     child: any,
     id: string,
+    root: any,
     result: string[] = []
   ): string[] {
     for (let i = 0; i < child.length; i++) {
       child[i].props?.id && result.push(child[i].props?.id);
 
       if (child[i].props?.id === id) {
+        console.log(root);
+        console.log(child[i]);
+        console.log("找到");
         break;
       } else {
         if (child[i].props?.children && child[i].props?.children.length > 0) {
-          result = getIds(child[i].props.children, id, result);
+          result = getIds(child[i].props.children, id, root, result);
           if (result[result.length - 1] === id) {
             break;
           }
@@ -70,7 +74,7 @@ function Menu(Props: IProps) {
         value={{
           onClick: (key: string) => {
             console.log(key, children);
-            console.log(getIds(children, key));
+            console.log(getIds(children, key, children));
           },
         }}
       >
