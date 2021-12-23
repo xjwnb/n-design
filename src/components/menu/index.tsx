@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-02 08:31:24
- * @LastEditTime: 2021-12-23 11:12:54
+ * @LastEditTime: 2021-12-23 16:14:16
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\menu\index.tsx
@@ -16,50 +16,76 @@ import {
 } from "react";
 // Style
 import Style from "./index.module.scss";
+import { Right } from "../../Icons/icon/index";
 
 interface IProps {
   children?: any;
   mode?: "vertical" | "horizontal" | "inline";
   style?: object;
+
+  onChange?: (val: string[]) => void;
 }
 
 interface MenuContextParam {
   onClick: Function;
+  selectIdList: string[];
 }
 
-const defaultMenuContext = {
+const defaultMenuContext: MenuContextParam = {
   onClick: () => {},
+  selectIdList: [],
 };
 
-const MenuContext = createContext<MenuContextParam>(defaultMenuContext);
+const MenuContext = createContext(defaultMenuContext);
 
 function Menu(Props: IProps) {
-  const { children, mode = "vertical", style } = Props;
+  const { children, mode = "vertical", style, onChange } = Props;
 
-  const getIds = function (
-    child: any,
-    id: string,
-    root: any,
-    result: string[] = []
-  ): string[] {
-    for (let i = 0; i < child.length; i++) {
-      child[i].props?.id && result.push(child[i].props?.id);
+  const [idList, setidList] = useState<Array<string>>([]);
 
-      if (child[i].props?.id === id) {
-        console.log(root);
-        console.log(child[i]);
-        console.log("找到");
-        break;
+  const getCidList = function (val: any, id: any) {
+    let cid_list: any[] = [];
+    val.forEach((item: any, index: number) => {
+      if (item.props.id === id) {
+        cid_list = [item.props.id];
+        return false;
       } else {
-        if (child[i].props?.children && child[i].props?.children.length > 0) {
-          result = getIds(child[i].props.children, id, root, result);
-          if (result[result.length - 1] === id) {
-            break;
+        if (item.props.children) {
+          let newCid_list = [item.props.id];
+          let list = nodefun(item.props.children, id, newCid_list);
+          if (list) {
+            cid_list = list;
           }
         }
       }
+    });
+    // 递归函数
+    function nodefun(newVal: any, newId: any, newCid_list: any) {
+      let flag = false;
+      if (newVal instanceof Array) {
+        newVal?.forEach((j: any) => {
+          // console.log(j)
+          if (j.props.id === newId) {
+            newCid_list.push(j.props.id);
+            flag = true;
+          } else {
+            if (j.props.children) {
+              let cid_list = JSON.parse(JSON.stringify(newCid_list));
+              cid_list.push(j.props.id);
+              let list = nodefun(j.props.children, newId, cid_list);
+              if (list) {
+                newCid_list = list;
+                flag = true;
+              }
+            }
+          }
+        });
+      }
+      if (flag) {
+        return newCid_list;
+      }
     }
-    return result;
+    return cid_list.filter((item) => !!item === true);
   };
 
   return (
@@ -73,9 +99,11 @@ function Menu(Props: IProps) {
       <MenuContext.Provider
         value={{
           onClick: (key: string) => {
-            console.log(key, children);
-            console.log(getIds(children, key, children));
+            let keyList = getCidList(children, key);
+            setidList(keyList);
+            onChange?.(keyList);
           },
+          selectIdList: idList,
         }}
       >
         {children}
@@ -95,9 +123,11 @@ interface submenuProps {
 }
 
 function SubMenu(Props: submenuProps) {
-  const { children, icon, title } = Props;
+  const { children, icon, title, id } = Props;
 
   const [isShow, setisShow] = useState(false);
+
+  const { selectIdList } = useContext(MenuContext);
 
   const subMenuRef = useRef<HTMLDivElement>(null);
 
@@ -114,7 +144,10 @@ function SubMenu(Props: submenuProps) {
     <div className={[Style.n_submenu].join(" ")} ref={subMenuRef}>
       <div className={[Style.n_submenu_content].join(" ")}>
         <div
-          className={[Style.n_submenu_main].join(" ")}
+          className={[
+            Style.n_submenu_main,
+            selectIdList.includes(id) ? Style.n_submenu_main_active : "",
+          ].join(" ")}
           style={{
             color: isShow ? "#1890FF" : "",
           }}
@@ -123,6 +156,11 @@ function SubMenu(Props: submenuProps) {
           <div className={[Style.n_submenu_title].join(" ")}>{title}</div>
         </div>
         {/* icon */}
+        <div>
+          {children && (
+            <Right color={selectIdList.includes(id) ? "#1890ff" : "#333"} />
+          )}
+        </div>
       </div>
       <div
         className={[Style.n_submenu_inner].join(" ")}
@@ -184,7 +222,7 @@ interface itemProps {
 function Item(Props: itemProps) {
   const { children, style, id } = Props;
 
-  const { onClick } = useContext(MenuContext);
+  const { onClick, selectIdList } = useContext(MenuContext);
 
   /**
    * 点击
@@ -195,7 +233,10 @@ function Item(Props: itemProps) {
 
   return (
     <div
-      className={[Style.n_item].join(" ")}
+      className={[
+        Style.n_item,
+        selectIdList.includes(id) ? Style.n_item_active : "",
+      ].join(" ")}
       style={{
         ...style,
       }}

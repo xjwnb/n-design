@@ -31,6 +31,10 @@
     .n_submenu_main {
     }
 
+    .n_submenu_main_active {
+      color: #1890ff;
+    }
+
     .n_submenu_title {
     }
 
@@ -65,5 +69,10 @@
     &:hover {
       color: #1890ff;
     }
+  }
+
+  .n_item_active {
+    background-color: #e6f7ff;
+    color: #1890ff;
   }
 }

@@ -1644,7 +1644,11 @@ function App() {
       {/* Menu */}
       <div>
         <h1>Menu</h1>
-        <Menu>
+        <Menu
+          onChange={(val) => {
+            console.log(val);
+          }}
+        >
           <Menu.SubMenu id="sub1" title="submenu1">
             <Menu.Item id="it1">Item1</Menu.Item>
             <Menu.Item id="it2">Item2</Menu.Item>
