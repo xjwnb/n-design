@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-23 16:21:30
+ * @LastEditTime: 2021-12-23 16:44:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1648,6 +1648,40 @@ function App() {
           onChange={(val) => {
             console.log(val);
           }}
+        >
+          <Menu.SubMenu id="sub1" title="submenu1">
+            <Menu.Item id="it1">Item1</Menu.Item>
+            <Menu.Item id="it2">Item2</Menu.Item>
+            <Menu.Item id="it3">Item3</Menu.Item>
+          </Menu.SubMenu>
+
+          <Menu.SubMenu id="sub2" title="submenu2">
+            <Menu.ItemGroup title="ItemGroup1">
+              <Menu.Item id="it4">Item4</Menu.Item>
+              <Menu.Item id="it5">Item5</Menu.Item>
+            </Menu.ItemGroup>
+            <Menu.SubMenu id="sub3" title="submenu3">
+              <Menu.Item id="it6">Item6</Menu.Item>
+              <Menu.Item id="it7">Item7</Menu.Item>
+              <Menu.Item id="it8">
+                <a href="http://www.xiaokache.top/xkcBlog">Blog</a>
+              </Menu.Item>
+            </Menu.SubMenu>
+          </Menu.SubMenu>
+          <Menu.SubMenu id="sub4" title="submenu4">
+            <Menu.Item id="it9">Item9</Menu.Item>
+            <Menu.Item id="it10">Item10</Menu.Item>
+            <Menu.Item id="it11">Item11</Menu.Item>
+          </Menu.SubMenu>
+        </Menu>
+
+        <br />
+        <br />
+        <Menu
+          onChange={(val) => {
+            console.log(val);
+          }}
+          theme="dark"
         >
           <Menu.SubMenu id="sub1" title="submenu1">
             <Menu.Item id="it1">Item1</Menu.Item>

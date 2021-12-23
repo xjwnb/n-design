@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-02 08:31:24
- * @LastEditTime: 2021-12-23 16:32:53
+ * @LastEditTime: 2021-12-23 17:06:57
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\menu\index.tsx
@@ -22,6 +22,7 @@ interface IProps {
   children?: any;
   mode?: "vertical" | "horizontal" | "inline";
   style?: object;
+  theme?: "light" | "dark";
 
   onChange?: (val: string[]) => void;
 }
@@ -29,17 +30,25 @@ interface IProps {
 interface MenuContextParam {
   onClick: Function;
   selectIdList: string[];
+  theme: "light" | "dark";
 }
 
 const defaultMenuContext: MenuContextParam = {
   onClick: () => {},
   selectIdList: [],
+  theme: "light",
 };
 
 const MenuContext = createContext(defaultMenuContext);
 
 function Menu(Props: IProps) {
-  const { children, mode = "vertical", style, onChange } = Props;
+  const {
+    children,
+    mode = "vertical",
+    style,
+    theme = "light",
+    onChange,
+  } = Props;
 
   const [idList, setidList] = useState<Array<string>>([]);
 
@@ -93,7 +102,7 @@ function Menu(Props: IProps) {
         width: 250,
         ...style,
       }}
-      className={[Style.n_menu, Style[`n_menu_${mode}`]].join(" ")}
+      className={[Style.n_menu, Style[`n_menu_${mode}`], Style[`n_menu_${theme}`]].join(" ")}
     >
       <MenuContext.Provider
         value={{
@@ -103,6 +112,7 @@ function Menu(Props: IProps) {
             onChange?.(keyList);
           },
           selectIdList: idList,
+          theme
         }}
       >
         {children}
@@ -125,10 +135,19 @@ function SubMenu(Props: submenuProps) {
   const { children, icon, title, id } = Props;
 
   const [isShow, setisShow] = useState(false);
+  const [iconColor, seticonColor] = useState("#000");
 
-  const { selectIdList } = useContext(MenuContext);
+  const { selectIdList, theme } = useContext(MenuContext);
 
   const subMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (theme === "light") {
+      seticonColor(selectIdList.includes(id) ? "#1890ff" : "#333");
+    } else if (theme === "dark") {
+      seticonColor("#fff");
+    }
+  }, [selectIdList, theme]);
 
   useEffect(() => {
     subMenuRef.current?.addEventListener("mouseover", () => {
@@ -140,7 +159,7 @@ function SubMenu(Props: submenuProps) {
   }, []);
 
   return (
-    <div className={[Style.n_submenu].join(" ")} ref={subMenuRef}>
+    <div className={[Style.n_submenu, Style[`n_submenu_${theme}`]].join(" ")} ref={subMenuRef}>
       <div className={[Style.n_submenu_content].join(" ")}>
         <div
           className={[
@@ -148,7 +167,7 @@ function SubMenu(Props: submenuProps) {
             selectIdList.includes(id) ? Style.n_submenu_main_active : "",
           ].join(" ")}
           style={{
-            color: isShow ? "#1890FF" : "",
+            // color: isShow ? "#1890FF" : "",
           }}
         >
           {icon && <div>{icon}</div>}
@@ -157,12 +176,12 @@ function SubMenu(Props: submenuProps) {
         {/* icon */}
         <div>
           {children && (
-            <Right color={selectIdList.includes(id) ? "#1890ff" : "#333"} />
+            <Right color={iconColor} />
           )}
         </div>
       </div>
       <div
-        className={[Style.n_submenu_inner].join(" ")}
+        className={[Style.n_submenu_inner, Style[`n_submenu_${theme}`]].join(" ")}
         style={{
           display: isShow ? "block" : "none",
         }}
@@ -221,7 +240,7 @@ interface itemProps {
 function Item(Props: itemProps) {
   const { children, style, id } = Props;
 
-  const { onClick, selectIdList } = useContext(MenuContext);
+  const { onClick, selectIdList, theme } = useContext(MenuContext);
 
   const [hrefVal, sethrefVal] = useState("");
 
@@ -245,7 +264,8 @@ function Item(Props: itemProps) {
     <div
       className={[
         Style.n_item,
-        selectIdList.includes(id) ? Style.n_item_active : "",
+        Style[`n_item_${theme}`],
+        selectIdList.includes(id) ? Style[`n_item_${theme}_active`] : "",
       ].join(" ")}
       style={{
         ...style,
