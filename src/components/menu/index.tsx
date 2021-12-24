@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-02 08:31:24
- * @LastEditTime: 2021-12-23 17:26:45
+ * @LastEditTime: 2021-12-24 09:23:40
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\menu\index.tsx
@@ -16,7 +16,7 @@ import {
 } from "react";
 // Style
 import Style from "./index.module.scss";
-import { Right } from "../../Icons/icon/index";
+import { Right, Bottom } from "../../Icons/icon/index";
 
 interface IProps {
   children?: any;
@@ -147,23 +147,32 @@ function SubMenu(Props: submenuProps) {
   const { selectIdList, theme, mode } = useContext(MenuContext);
 
   const subMenuRef = useRef<HTMLDivElement>(null);
+  const subMenuContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // if (mode === "vertical") {
     if (theme === "light") {
       seticonColor(selectIdList.includes(id) ? "#1890ff" : "#333");
     } else if (theme === "dark") {
       seticonColor("#fff");
     }
-  }, [selectIdList, theme, id]);
+    // }
+  }, [selectIdList, theme, id, mode]);
 
   useEffect(() => {
-    subMenuRef.current?.addEventListener("mouseover", () => {
-      setisShow(true);
-    });
-    subMenuRef.current?.addEventListener("mouseleave", () => {
-      setisShow(false);
-    });
-  }, []);
+    if (mode === "vertical") {
+      subMenuRef.current?.addEventListener("mouseover", () => {
+        setisShow(true);
+      });
+      subMenuRef.current?.addEventListener("mouseleave", () => {
+        setisShow(false);
+      });
+    } else {
+      subMenuContentRef.current?.addEventListener("click", () => {
+        setisShow(!isShow);
+      });
+    }
+  }, [mode, isShow]);
 
   return (
     <div
@@ -174,7 +183,10 @@ function SubMenu(Props: submenuProps) {
       ].join(" ")}
       ref={subMenuRef}
     >
-      <div className={[Style.n_submenu_content].join(" ")}>
+      <div
+        className={[Style.n_submenu_content].join(" ")}
+        ref={subMenuContentRef}
+      >
         <div
           className={[
             Style.n_submenu_main,
@@ -190,7 +202,19 @@ function SubMenu(Props: submenuProps) {
           <div className={[Style.n_submenu_title].join(" ")}>{title}</div>
         </div>
         {/* icon */}
-        <div>{children && <Right color={iconColor} />}</div>
+        {mode === "vertical" && (
+          <div>{children && <Right color={iconColor} />}</div>
+        )}
+        {mode === "inline" && (
+          <div
+            className={[Style.n_submenu_icon].join(" ")}
+            style={{
+              transform: isShow ? `rotate(${-180}deg)` : "",
+            }}
+          >
+            {children && <Bottom color={iconColor} />}
+          </div>
+        )}
       </div>
       <div
         className={[Style.n_submenu_inner, Style[`n_submenu_${theme}`]].join(
