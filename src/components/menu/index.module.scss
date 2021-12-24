@@ -77,17 +77,12 @@
     }
 
     .n_submenu_content {
-      /* display: flex;
-      align-items: center;
-      justify-content: space-between; */
-
       cursor: pointer;
       padding: 10px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       transition: all 0.3s;
-      // transform: rotate();
 
       .n_submenu_icon {
         transition: all 0.3s;
@@ -121,9 +116,6 @@
           font-size: 14px;
           color: #8c8c8c;
         }
-
-        .n_itemgroup_inner {
-        }
       }
 
       .n_submenu {
@@ -146,9 +138,6 @@
       padding: 10px 20px;
       font-size: 14px;
       color: #8c8c8c;
-    }
-
-    .n_itemgroup_inner {
     }
   }
 
@@ -187,7 +176,6 @@
   }
 
   .n_submenu_inner {
-    // left: 10px;
     position: absolute;
     min-width: 100px;
     z-index: 1000;
@@ -205,9 +193,6 @@
   flex-direction: column;
   border-right: 1px solid #f0f0f0;
 
-  .n_menu_inner {
-  }
-
   .n_submenu {
     position: relative;
     display: inline-block;
@@ -223,14 +208,8 @@
       transition: all 0.3s;
     }
 
-    .n_submenu_main {
-    }
-
     .n_submenu_main_active {
       color: #1890ff;
-    }
-
-    .n_submenu_title {
     }
 
     .n_submenu_inner {
@@ -257,9 +236,6 @@
       padding: 10px 20px;
       font-size: 14px;
       color: #8c8c8c;
-    }
-
-    .n_itemgroup_inner {
     }
   }
 

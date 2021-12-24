@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-24 10:33:41
+ * @LastEditTime: 2021-12-24 10:51:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -1820,6 +1820,8 @@ function App() {
           }}
           mode="horizontal"
           theme="dark"
+          defaultSelectedKeys={["it7"]}
+          defaultOpenKeys={["sub1"]}
         >
           <Menu.SubMenu id="sub1" title="submenu1 - horizontal">
             <Menu.Item id="it1">Item1</Menu.Item>
