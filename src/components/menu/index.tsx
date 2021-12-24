@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-02 08:31:24
- * @LastEditTime: 2021-12-24 10:27:24
+ * @LastEditTime: 2021-12-24 10:34:36
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\menu\index.tsx
@@ -227,7 +227,7 @@ function SubMenu(Props: submenuProps) {
           display: isShow ? "block" : "none",
           width:
             mode === "horizontal"
-              ? Number(subMenuContentRef.current?.clientWidth) + 20
+              ? Number(subMenuContentRef.current?.clientWidth || 0) + 20
               : "",
         }}
       >
