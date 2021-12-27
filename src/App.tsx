@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-24 11:00:49
+ * @LastEditTime: 2021-12-27 15:50:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -43,6 +43,7 @@ import {
   BackTop,
   Tag,
   Collapse,
+  Progress,
 } from "./components/index";
 import { Left, Right, Search, Loading } from "./Icons/icon/index";
 
@@ -58,6 +59,22 @@ function App() {
     }>
   >([]);
   const [showDrawer, setshowDrawer] = useState(false);
+
+  const [percent, setpercent] = useState(0);
+
+  useEffect(() => {
+    let timer: any = null;
+    clearTimeout(timer);
+    if (percent === 100) {
+      return;
+    }
+    timer = setTimeout(() => {
+      if (percent === 100) {
+        clearTimeout(timer);
+      }
+      setpercent((per) => per + 1);
+    }, 1000);
+  }, [percent]);
 
   useEffect(() => {
     let data = [];
@@ -1949,6 +1966,7 @@ function App() {
         <h1>Modal</h1>
         <Button onClick={() => setisShowModal(true)}>Modal</Button>
         <Modal
+          width={1000}
           title="Basic Modal"
           visible={isShowModal}
           onCancel={() => setisShowModal(false)}
@@ -2206,6 +2224,26 @@ function App() {
             什么玩意儿 children3
           </Collapse.Pancel>
         </Collapse>
+      </div>
+
+      <div>
+        <h1>Progress</h1>
+        <Progress percent={80} />
+        <Progress percent={80} status={"exception"} />
+        <Progress percent={100} />
+        <Progress percent={100} showInfo={false} />
+        <br />
+        <br />
+        <Progress size="small" percent={80} />
+        <Progress size="small" percent={80} status={"exception"} />
+        <Progress size="small" percent={100} />
+        <Progress size="small" percent={100} showInfo={false} />
+
+        <Progress type="circle" percent={80} />
+        <Progress type="circle" percent={80} status="exception" />
+        <Progress type="circle" percent={100} />
+
+        <Progress type="circle" percent={percent} />
       </div>
 
       <div></div>

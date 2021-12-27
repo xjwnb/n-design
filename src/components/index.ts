@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 13:34:55
- * @LastEditTime: 2021-12-22 15:06:06
+ * @LastEditTime: 2021-12-27 11:01:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\components\index.ts
@@ -34,3 +34,4 @@ export { default as Cascader } from "./cascader/index";
 export { default as BackTop } from "./backTop/index";
 export { default as Tag } from "./tag/index";
 export { default as Collapse } from "./collapse/index";
+export { default as Progress } from "./progress/index";
