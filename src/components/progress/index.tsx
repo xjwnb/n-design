@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-27 10:38:00
- * @LastEditTime: 2021-12-27 15:47:29
+ * @LastEditTime: 2021-12-27 16:17:22
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\progress\index.tsx
@@ -69,8 +69,8 @@ function Progress(Props: IProps) {
       outerDraw(ctx: CanvasRenderingContext2D) {
         ctx.beginPath();
         ctx.arc(
-          this.radius + 8,
-          this.radius + 8,
+          this.radius + 6,
+          this.radius + 7,
           this.radius,
           0,
           Math.PI * 2,
@@ -85,15 +85,14 @@ function Progress(Props: IProps) {
         ctx.beginPath();
         let anglePerSec = (2 * Math.PI) / (100 / this.percent);
         ctx.arc(
-          this.radius + 8,
-          this.radius + 8,
+          this.radius + 6,
+          this.radius + 7,
           this.radius,
           0,
           anglePerSec,
           false
         );
         ctx.strokeStyle = this.innerStyle;
-        // ctx.lineCap = this.lineCap;
         ctx.lineCap = "round";
         ctx.stroke();
         ctx.closePath();
@@ -106,19 +105,6 @@ function Progress(Props: IProps) {
       }
 
       fillText(text: number | string, ctx: CanvasRenderingContext2D) {
-        // ctx.fillText(text, width )
-        /* console.log(statusVal);
-    if (["exception"].includes(statusVal)) {
-      this.drawErrorIcon(ctx);
-      return;
-    }
-    if (statusVal === "success") {
-      this.drawSuccessIcon(ctx);
-      return;
-    }
-    ctx.font = `${width / 2 / 2}px serif`;
-    ctx.fillText(`${text}%`, width / 2 - 20, width / 2 + 10, width - 20); */
-        console.log(statusVal, text);
         this.clearPath(ctx);
         switch (statusVal) {
           case "success":
@@ -129,12 +115,12 @@ function Progress(Props: IProps) {
             break;
           case "active":
             if (percent !== 100) {
-              ctx.font = `${width / 2 / 2}px serif`;
+              ctx.font = `${width / 2 / 2.3}px serif`;
               ctx.fillText(
                 `${text}%`,
-                width / 2 - 20,
+                width / 2 - 10,
                 width / 2 + 10,
-                width - 20
+                width - 0
               );
             }
             break;
@@ -164,7 +150,8 @@ function Progress(Props: IProps) {
       }
 
       clearPath(ctx: CanvasRenderingContext2D) {
-        ctx.clearRect(width / 2 - 30, width / 2 - 30, width / 2, width / 2);
+        ctx.clearRect(width / 2 - 25, width / 2 - 10, this.radius + 5, this.radius - 10 );
+        // ctx.fillRect(width / 2 - 30, width / 2 - 10, this.radius + 5, this.radius - 10 );
       }
     }
 
@@ -175,17 +162,9 @@ function Progress(Props: IProps) {
       if (ctx) {
         const circle = new CircleProgress();
         circle.draw(ctx);
-        // circle.fillText(percent, ctx);
-        /* if (status === "exception") {
-          circle.drawErrorIcon(ctx);
-        } */
       }
     }
   }, [percent, statusVal, type, width]);
-
-  /* useEffect(() => {
-    
-  }, [CircleProgress, type]); */
 
   return (
     <div
