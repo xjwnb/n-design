@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-27 10:38:00
- * @LastEditTime: 2021-12-27 16:17:22
+ * @LastEditTime: 2021-12-27 16:21:33
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\progress\index.tsx
@@ -118,7 +118,7 @@ function Progress(Props: IProps) {
               ctx.font = `${width / 2 / 2.3}px serif`;
               ctx.fillText(
                 `${text}%`,
-                width / 2 - 10,
+                width / 2 - 12,
                 width / 2 + 10,
                 width - 0
               );
@@ -151,7 +151,6 @@ function Progress(Props: IProps) {
 
       clearPath(ctx: CanvasRenderingContext2D) {
         ctx.clearRect(width / 2 - 25, width / 2 - 10, this.radius + 5, this.radius - 10 );
-        // ctx.fillRect(width / 2 - 30, width / 2 - 10, this.radius + 5, this.radius - 10 );
       }
     }
 
