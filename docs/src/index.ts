@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2021-12-13 11:49:21
- * @LastEditTime: 2021-12-24 10:55:47
- * @LastEditors: Please set LastEditors
- * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: \n-design\docs\src\index.ts
- */
 export { default as Button } from "./design/button";
 // export { default as Icon } from "./Icons/icon/index.js";
 export { default as Divider } from "./design/divider";
@@ -34,3 +26,4 @@ export { default as BackTop } from "./design/backTop/index";
 export { default as Tag } from "./design/tag/index";
 export { default as Collapse } from "./design/collapse/index";
 export { default as Menu } from "./design/menu/index";
+export { default as Progress } from "./design/progress/index";

@@ -1,13 +1,13 @@
 /*
  * @Author: your name
  * @Date: 2021-12-27 10:38:00
- * @LastEditTime: 2021-12-27 16:42:44
+ * @LastEditTime: 2021-12-27 16:44:42
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\progress\index.tsx
  */
 import React, { useState, useEffect, useRef } from "react";
-import { ErrorFill, SuccessFill } from "../../Icons/icon/index";
+import { ErrorFill, SuccessFill } from "../Icons/icon/index";
 import Style from "./index.module.scss";
 
 const colorMap = {

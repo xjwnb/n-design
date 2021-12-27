@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-22 14:51:50
- * @LastEditTime: 2021-12-22 17:09:53
+ * @LastEditTime: 2021-12-27 16:33:40
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\collapse\index.tsx
@@ -119,7 +119,7 @@ function Pancel(Props: PancelProps) {
           <span
             className={[Style.n_collapse_pancel_header_icon].join(' ')}
             style={{
-              transform: isShow ? `rotate(90deg)` : '#fafafa',
+              transform: isShow ? `rotate(90deg)` : '',
             }}
           >
             <Right width={12} height={12} />

@@ -1,0 +1,46 @@
+.n_progress_line {
+  display: flex;
+  align-items: center;
+
+  .n_progress_outer {
+    flex: 1;
+    .n_progress_inner {
+      width: 100%;
+      background: #f5f5f5;
+      border-radius: 100px;
+
+      .n_progress_bg {
+        border-radius: 100px;
+      }
+
+      .n_progress_bg_active {
+        background: #1890ff;
+      }
+
+      .n_progress_bg_exception {
+        background: #ff4d4f;
+      }
+
+      .n_progress_bg_success {
+        background: #52c41a;
+      }
+    }
+  }
+}
+
+.n_progress_circle {
+  display: inline-block;
+}
+
+.n_progress_small {
+  .n_progress_text {
+    font-size: 12px;
+  }
+}
+
+.n_progress_showInfo {
+  .n_progress_text {
+    width: calc(2em + 8px);
+    margin-left: 10px;
+  }
+}

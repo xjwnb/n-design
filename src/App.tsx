@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-27 15:57:00
+ * @LastEditTime: 2021-12-27 16:50:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -2245,6 +2245,12 @@ function App() {
 
         <Progress type="circle" percent={percent} />
         <Progress type="circle" percent={percent} width={80} />
+        <Progress
+          type="circle"
+          percent={percent}
+          width={80}
+          strokeLinecap="square"
+        />
       </div>
 
       <div></div>
