@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-28 09:43:53
- * @LastEditTime: 2021-12-28 11:54:09
+ * @LastEditTime: 2021-12-28 12:00:04
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\rate\index.tsx
@@ -13,15 +13,16 @@ import { FivePointedStar } from "../../Icons/icon/index";
 interface IProps {
   allowHalf?: boolean;
   count?: number;
+  value?: number;
 
   onChange?(value: number): void;
 }
 
 function Rate(Props: IProps) {
-  const { allowHalf = false, count = 5, onChange } = Props;
+  const { allowHalf = false, count = 5, value = 0, onChange } = Props;
 
   const [hoverVal, sethoverVal] = useState(0);
-  const [val, setval] = useState(0);
+  const [val, setval] = useState(value);
   const [countArr, setcountArr] = useState<number[]>([]);
 
   const ulRef = useRef<HTMLUListElement>(null);
@@ -29,6 +30,10 @@ function Rate(Props: IProps) {
   useEffect(() => {
     setcountArr(Array.from(new Array(count).keys()));
   }, [count]);
+
+  useEffect(() => {
+    setval(value)
+  }, [value]);
 
   useEffect(() => {
     ulRef.current?.addEventListener("mousemove", (e: any) => {

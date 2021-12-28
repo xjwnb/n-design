@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-28 11:35:01
+ * @LastEditTime: 2021-12-28 11:58:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -2256,8 +2256,8 @@ function App() {
 
       <div>
         <h1>Rate</h1>
-        <Rate />
-        <Rate allowHalf />
+        <Rate value={4} />
+        <Rate allowHalf value={4.5} />
       </div>
 
       <div></div>
