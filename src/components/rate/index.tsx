@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-28 09:43:53
- * @LastEditTime: 2021-12-28 13:57:01
+ * @LastEditTime: 2021-12-28 14:13:30
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\rate\index.tsx
@@ -21,6 +21,7 @@ interface IProps {
   count?: number;
   value?: number;
   character?: React.ReactNode | string;
+  style?: React.CSSProperties;
 
   onChange?(value: number): void;
 }
@@ -31,6 +32,7 @@ function Rate(Props: IProps) {
     count = 5,
     value = 0,
     character,
+    style = {},
     onChange,
   } = Props;
 
@@ -52,11 +54,9 @@ function Rate(Props: IProps) {
   useEffect(() => {
     ulRef.current?.addEventListener("mousemove", (e: any) => {
       let target = null;
-      // if (e.target.localName !== "span") {
       target = e.target.parentElement;
       let idx = target.dataset.index;
       idx && sethoverVal(Number(idx));
-      // }
     });
     ulRef.current?.addEventListener("mouseleave", () => {
       sethoverVal(val);
@@ -67,7 +67,6 @@ function Rate(Props: IProps) {
    * 点击 li
    */
   const handleClickLi = function (value: number) {
-    console.log(value);
     if (value === val) {
       setval(0);
       onChange?.(0);
@@ -90,33 +89,32 @@ function Rate(Props: IProps) {
                     hoverVal === item + 1 ? Style.n_rate_span_active : "",
                   ].join(" ")}
                 >
-                  {character ? (
-                    typeof character === "string" ? (
-                      cloneElement(<span>{character}</span>, {
-                        "data-index": item + 1,
-                        style: {
+                  {character
+                    ? typeof character === "string"
+                      ? cloneElement(<span>{character}</span>, {
+                          "data-index": item + 1,
+                          style: {
+                            width: 20,
+                            height: 20,
+                            fontSize: 20,
+                            color: hoverVal >= item + 1 ? "#FADB14" : "#F0F0F0",
+                            ...style,
+                          },
+                        })
+                      : cloneElement(character as ReactElement, {
+                          "data-index": item + 1,
                           width: 20,
                           height: 20,
-                          fontSize: 20,
                           color: hoverVal >= item + 1 ? "#FADB14" : "#F0F0F0",
-                        },
-                      })
-                    ) : (
-                      cloneElement(character as ReactElement, {
+                          ...style,
+                        })
+                    : cloneElement(<FivePointedStar />, {
                         "data-index": item + 1,
                         width: 20,
                         height: 20,
                         color: hoverVal >= item + 1 ? "#FADB14" : "#F0F0F0",
-                      })
-                    )
-                  ) : (
-                    <FivePointedStar
-                      data-index={item + 1}
-                      width={20}
-                      height={20}
-                      color={hoverVal >= item + 1 ? "#FADB14" : "#F0F0F0"}
-                    />
-                  )}
+                        ...style,
+                      })}
                 </span>
               </li>
             );
@@ -128,66 +126,65 @@ function Rate(Props: IProps) {
                   className={[Style.n_rate_span_left].join(" ")}
                   onClick={() => handleClickLi(item + 0.5)}
                 >
-                  {character ? (
-                    typeof character === "string" ? (
-                      cloneElement(<span>{character}</span>, {
-                        "data-index": item + 0.5,
-                        style: {
+                  {character
+                    ? typeof character === "string"
+                      ? cloneElement(<span>{character}</span>, {
+                          "data-index": item + 0.5,
+                          style: {
+                            width: 20,
+                            height: 20,
+                            fontSize: 20,
+                            color:
+                              hoverVal >= item + 0.5 ? "#FADB14" : "#F0F0F0",
+                            ...style,
+                          },
+                        })
+                      : cloneElement(character as ReactElement, {
+                          "data-index": item + 0.5,
                           width: 20,
                           height: 20,
-                          fontSize: 20,
                           color: hoverVal >= item + 0.5 ? "#FADB14" : "#F0F0F0",
-                        },
-                      })
-                    ) : (
-                      cloneElement(character as ReactElement, {
+                          ...style,
+                        })
+                    : cloneElement(<FivePointedStar />, {
                         "data-index": item + 0.5,
                         width: 20,
                         height: 20,
                         color: hoverVal >= item + 0.5 ? "#FADB14" : "#F0F0F0",
-                      })
-                    )
-                  ) : (
-                    <FivePointedStar
-                      data-index={item + 0.5}
-                      width={20}
-                      height={20}
-                      color={hoverVal >= item + 0.5 ? "#FADB14" : "#F0F0F0"}
-                    />
-                  )}
+                        ...style,
+                      })}
                 </span>
                 <span
                   data-index={item + 1}
                   className={[Style.n_rate_span_right].join(" ")}
                   onClick={() => handleClickLi(item + 1)}
                 >
-                  {character ? (
-                    typeof character === "string" ? (
-                      cloneElement(<span>{character}</span>, {
-                        "data-index": item + 1,
-                        style: {
+                  {character
+                    ? typeof character === "string"
+                      ? cloneElement(<span>{character}</span>, {
+                          "data-index": item + 1,
+                          style: {
+                            width: 20,
+                            height: 20,
+                            fontSize: 20,
+                            color: hoverVal >= item + 1 ? "#FADB14" : "#F0F0F0",
+                            ...style,
+                          },
+                        })
+                      : cloneElement(character as ReactElement, {
+                          "data-index": item + 1,
                           width: 20,
                           height: 20,
-                          fontSize: 20,
                           color: hoverVal >= item + 1 ? "#FADB14" : "#F0F0F0",
-                        },
-                      })
-                    ) : (
-                      cloneElement(character as ReactElement, {
+                          ...style,
+                        })
+                    : cloneElement(<FivePointedStar />, {
                         "data-index": item + 1,
                         width: 20,
                         height: 20,
                         color: hoverVal >= item + 1 ? "#FADB14" : "#F0F0F0",
-                      })
-                    )
-                  ) : (
-                    <FivePointedStar
-                      data-index={item + 1}
-                      width={20}
-                      height={20}
-                      color={hoverVal >= item + 1 ? "#FADB14" : "#F0F0F0"}
-                    />
-                  )}
+                        ...style,
+                      })}
                 </span>
               </li>
             );

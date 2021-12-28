@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-28 13:54:44
+ * @LastEditTime: 2021-12-28 14:06:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -2265,9 +2265,30 @@ function App() {
             console.log(value);
           }}
         />
-        <Rate character={<Search />} value={3} allowHalf />
-        <Rate character={"A"} value={3} />
-        <Rate character={"A"} value={3} allowHalf />
+        <Rate
+          character={<Search />}
+          value={3}
+          allowHalf
+          style={{
+            width: 50,
+            height: 50,
+          }}
+        />
+        <Rate
+          character={"A"}
+          value={3}
+          style={{
+            fontSize: 50,
+          }}
+        />
+        <Rate
+          character={"A"}
+          value={3}
+          allowHalf
+          style={{
+            fontSize: 50,
+          }}
+        />
       </div>
 
       <div></div>
