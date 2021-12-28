@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-28 08:35:21
+ * @LastEditTime: 2021-12-28 09:53:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -44,6 +44,7 @@ import {
   Tag,
   Collapse,
   Progress,
+  Rate,
 } from "./components/index";
 import { Left, Right, Search, Loading } from "./Icons/icon/index";
 
@@ -138,7 +139,7 @@ function App() {
    * select Change
    */
   const handleSelectChange = function (value: string) {
-    console.log(value);
+    // console.log(value);
   };
 
   /**
@@ -1282,7 +1283,7 @@ function App() {
           rowSelection={{
             type: "checkbox",
             onChange: (keyList: any, selectRows: any) => {
-              console.log(keyList, selectRows);
+              // console.log(keyList, selectRows);
             },
           }}
           columns={[
@@ -2243,14 +2244,19 @@ function App() {
         <Progress type="circle" percent={80} status="exception" />
         <Progress type="circle" percent={100} />
 
-        <Progress type="circle" percent={percent} />
+        {/* <Progress type="circle" percent={percent} />
         <Progress type="circle" percent={percent} width={80} />
         <Progress
           type="circle"
           percent={percent}
           width={80}
           strokeLinecap="square"
-        />
+        /> */}
+      </div>
+
+      <div>
+        <h1>Rate</h1>
+        <Rate />
       </div>
 
       <div></div>

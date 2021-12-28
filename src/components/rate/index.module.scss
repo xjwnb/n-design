@@ -1,0 +1,26 @@
+.n_rate {
+  ul {
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+
+    li {
+      display: inline-block;
+      list-style: none;
+      margin-right: 8px;
+      cursor: pointer;
+
+      span {
+        transition: all 0.3s;
+
+        svg {
+          transition: all 0.3s;
+        }
+      }
+
+      .n_rate_span_active {
+        transform: scale(2);
+      }
+    }
+  }
+}
