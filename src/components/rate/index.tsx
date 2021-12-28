@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-28 09:43:53
- * @LastEditTime: 2021-12-28 11:27:52
+ * @LastEditTime: 2021-12-28 11:54:09
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\rate\index.tsx
@@ -37,6 +37,7 @@ function Rate(Props: IProps) {
         target = e.target.parentElement;
         let idx = target.dataset.index;
         idx && sethoverVal(Number(idx));
+        console.log(idx);
       }
     });
     ulRef.current?.addEventListener("mouseleave", () => {
@@ -48,8 +49,13 @@ function Rate(Props: IProps) {
    * 点击 li
    */
   const handleClickLi = function (value: number) {
-    setval(value);
-    onChange?.(value);
+    if (value === val) {
+      setval(0);
+      onChange?.(0);
+    } else {
+      setval(value);
+      onChange?.(value);
+    }
   };
 
   return (
@@ -75,7 +81,34 @@ function Rate(Props: IProps) {
               </li>
             );
           } else {
-            return <></>;
+            return (
+              <li key={item}>
+                <span
+                  data-index={item + 0.5}
+                  className={[Style.n_rate_span_left].join(" ")}
+                  onClick={() => handleClickLi(item + 0.5)}
+                >
+                  <FivePointedStar
+                    data-index={item + 0.5}
+                    width={20}
+                    height={20}
+                    color={hoverVal >= item + 0.5 ? "#FADB14" : "#F0F0F0"}
+                  />
+                </span>
+                <span
+                  data-index={item + 1}
+                  className={[Style.n_rate_span_right].join(" ")}
+                  onClick={() => handleClickLi(item + 1)}
+                >
+                  <FivePointedStar
+                    data-index={item + 1}
+                    width={20}
+                    height={20}
+                    color={hoverVal >= item + 1 ? "#FADB14" : "#F0F0F0"}
+                  />
+                </span>
+              </li>
+            );
           }
         })}
       </ul>
