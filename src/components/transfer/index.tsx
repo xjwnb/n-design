@@ -1,12 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2021-12-30 14:05:27
- * @LastEditTime: 2021-12-30 16:57:25
+ * @LastEditTime: 2021-12-30 17:23:31
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\transfer\index.tsx
  */
-import React, { useState, useEffect, BaseSyntheticEvent } from "react";
+import React, { useState, useEffect, useRef, BaseSyntheticEvent } from "react";
 import Style from "./index.module.scss";
 import { Checkbox, Button } from "../index";
 import { Left, Right } from "../../Icons/icon/index";
@@ -34,7 +34,10 @@ interface IProps {
     direction: "left" | "right",
     moveKeys: string[]
   ) => void;
-  onScroll?: (direction: "left" | "right", e: BaseSyntheticEvent) => void;
+  onScroll?: (
+    direction: "left" | "right",
+    element: HTMLDivElement | null
+  ) => void;
   onSelectChange?: (
     sourceSelectedKeys: string[],
     targetSelectedKeys: string[]
@@ -48,6 +51,8 @@ function Transfer(Props: IProps) {
     targetKeys = [],
 
     render,
+    onChange,
+    onScroll,
   } = Props;
 
   const [sourceArr, setsourceArr] = useState<DataSourceParam[]>([]);
@@ -63,6 +68,9 @@ function Transfer(Props: IProps) {
   const [rightIndeter, setrightIndeter] = useState(false);
   const [leftAllVal, setleftAllVal] = useState(false);
   const [rightAllVal, setrightAllVal] = useState(false);
+
+  const leftContentRef = useRef<HTMLDivElement>(null);
+  const rightContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let target: DataSourceParam[] = [],
@@ -127,6 +135,16 @@ function Transfer(Props: IProps) {
     // eslint-disable-next-line
   }, [targetSelectKeys]);
 
+  useEffect(() => {
+    leftContentRef.current?.addEventListener("scroll", () => {
+      onScroll?.("left", leftContentRef.current);
+    });
+
+    rightContentRef.current?.addEventListener("scroll", () => {
+      onScroll?.("right", rightContentRef.current);
+    });
+  }, [leftContentRef, rightContentRef, onScroll]);
+
   /**
    * left 选项 change 事件
    */
@@ -187,12 +205,19 @@ function Transfer(Props: IProps) {
    * right btn
    */
   const handleRightBtn = function () {
-    settargetArr([
+    let targetArrResult = [];
+    targetArrResult = [
       ...targetArr,
       ...dataSource.filter((item) => sourceSelectKeys.includes(item.key)),
-    ]);
+    ];
+    settargetArr([...targetArrResult]);
     setsourceArr(
       sourceArr.filter((item) => !sourceSelectKeys.includes(item.key))
+    );
+    onChange?.(
+      targetArrResult.map((item) => item.key),
+      "right",
+      sourceSelectKeys
     );
     setsourceSelectKeys([]);
   };
@@ -201,14 +226,20 @@ function Transfer(Props: IProps) {
    * left btn
    */
   const handleLeftBtn = function () {
+    let targetArrResult = [];
+    targetArrResult = targetArr.filter(
+      (item) => !targetSelectKeys.includes(item.key)
+    );
     setsourceArr([
       ...sourceArr,
       ...dataSource.filter((item) => targetSelectKeys.includes(item.key)),
     ]);
-    settargetArr(
-      targetArr.filter((item) => !targetSelectKeys.includes(item.key))
+    settargetArr(targetArrResult);
+    onChange?.(
+      targetArrResult.map((item) => item.key),
+      "left",
+      targetSelectKeys
     );
-
     settargetSelectKeys([]);
   };
 
@@ -229,7 +260,10 @@ function Transfer(Props: IProps) {
             {titles[0]}
           </div>
         </div>
-        <div className={[Style.n_transfer_content].join(" ")}>
+        <div
+          className={[Style.n_transfer_content].join(" ")}
+          ref={leftContentRef}
+        >
           {sourceArr.map((source) => {
             return (
               <div
@@ -242,6 +276,7 @@ function Transfer(Props: IProps) {
                     handleCheckboxChange(e, source.key, "left")
                   }
                   defaultChecked={sourceSelectKeys.includes(source.key)}
+                  disabled={source.disabled}
                 >
                   {`${render ? render(source) : source.title}`}
                 </Checkbox>
@@ -292,7 +327,10 @@ function Transfer(Props: IProps) {
             {titles[1]}
           </div>
         </div>
-        <div className={[Style.n_transfer_content].join(" ")}>
+        <div
+          className={[Style.n_transfer_content].join(" ")}
+          ref={rightContentRef}
+        >
           {targetArr.map((target) => {
             return (
               <div
@@ -305,6 +343,7 @@ function Transfer(Props: IProps) {
                     handleCheckboxChange(e, target.key, "right")
                   }
                   defaultChecked={targetSelectKeys.includes(target.key)}
+                  disabled={target.disabled}
                 >
                   {`${render ? render(target) : target.title}`}
                 </Checkbox>

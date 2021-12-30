@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-30 15:17:29
+ * @LastEditTime: 2021-12-30 17:22:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -2296,7 +2296,12 @@ function App() {
         <h1>Transfer</h1>
         <Transfer
           dataSource={[
-            { key: "1", title: "title 1", description: "des 1" },
+            {
+              key: "1",
+              title: "title 1",
+              description: "des 1",
+              disabled: true,
+            },
             { key: "2", title: "title 2", description: "des 2" },
             { key: "3", title: "title 3", description: "des 3" },
             { key: "4", title: "title 4", description: "des 4" },
@@ -2306,6 +2311,13 @@ function App() {
           titles={["Source", "target"]}
           targetKeys={["1", "2", "3"]}
           selectedKeys={[]}
+          onChange={(
+            nextTargetKeys: string[],
+            direction: "left" | "right",
+            moveKeys: string[]
+          ) => {
+            console.log(nextTargetKeys, direction, moveKeys);
+          }}
         />
       </div>
 
