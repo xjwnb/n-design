@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-28 14:17:39
+ * @LastEditTime: 2021-12-30 15:17:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -45,6 +45,7 @@ import {
   Collapse,
   Progress,
   Rate,
+  Transfer,
 } from "./components/index";
 import { Left, Right, Search, Loading } from "./Icons/icon/index";
 
@@ -2288,6 +2289,23 @@ function App() {
           style={{
             fontSize: 50,
           }}
+        />
+      </div>
+
+      <div>
+        <h1>Transfer</h1>
+        <Transfer
+          dataSource={[
+            { key: "1", title: "title 1", description: "des 1" },
+            { key: "2", title: "title 2", description: "des 2" },
+            { key: "3", title: "title 3", description: "des 3" },
+            { key: "4", title: "title 4", description: "des 4" },
+            { key: "5", title: "title 5", description: "des 5" },
+            { key: "6", title: "title 6", description: "des 6" },
+          ]}
+          titles={["Source", "target"]}
+          targetKeys={["1", "2", "3"]}
+          selectedKeys={[]}
         />
       </div>
 

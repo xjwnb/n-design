@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 13:34:55
- * @LastEditTime: 2021-12-28 09:45:39
+ * @LastEditTime: 2021-12-30 14:26:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\components\index.ts
@@ -36,3 +36,4 @@ export { default as Tag } from "./tag/index";
 export { default as Collapse } from "./collapse/index";
 export { default as Progress } from "./progress/index";
 export { default as Rate } from "./rate/index";
+export { default as Transfer } from "./transfer/index";
