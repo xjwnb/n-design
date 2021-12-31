@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-31 09:58:49
+ * @LastEditTime: 2021-12-31 10:23:31
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -2315,7 +2315,6 @@ function App() {
           ]}
           titles={["Source", "target"]}
           targetKeys={["1", "2", "3"]}
-          selectedKeys={[]}
           onChange={(
             nextTargetKeys: string[],
             direction: "left" | "right",

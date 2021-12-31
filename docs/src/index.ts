@@ -28,3 +28,4 @@ export { default as Collapse } from "./design/collapse/index";
 export { default as Menu } from "./design/menu/index";
 export { default as Progress } from "./design/progress/index";
 export { default as Rate } from "./design/rate/index";
+export { default as Transfer } from "./design/transfer/index";
