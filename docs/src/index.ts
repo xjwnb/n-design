@@ -29,3 +29,4 @@ export { default as Menu } from "./design/menu/index";
 export { default as Progress } from "./design/progress/index";
 export { default as Rate } from "./design/rate/index";
 export { default as Transfer } from "./design/transfer/index";
+export { default as Alert } from "./design/alert/index";

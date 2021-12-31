@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-31 15:04:08
+ * @LastEditTime: 2021-12-31 15:23:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -2354,28 +2354,28 @@ function App() {
         <Alert
           message="什么玩意儿"
           type="success"
-          description="description 什么玩意儿啊23435443554345"
+          description="description 什么玩意儿啊"
           closable
           showIcon
         />
         <Alert
           message="什么玩意儿"
           type="info"
-          description="description 什么玩意儿啊23435443554345"
+          description="description 什么玩意儿啊"
           closable
           showIcon
         />
         <Alert
           message="什么玩意儿"
           type="warning"
-          description="description 什么玩意儿啊23435443554345"
+          description="description 什么玩意儿啊"
           closable
           showIcon
         />
         <Alert
           message="什么玩意儿"
           type="error"
-          description="description 什么玩意儿啊23435443554345"
+          description="description 什么玩意儿啊"
           closable
           showIcon
         />
