@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-30 14:05:27
- * @LastEditTime: 2021-12-30 17:31:02
+ * @LastEditTime: 2021-12-31 08:40:57
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\transfer\index.tsx
@@ -146,6 +146,11 @@ function Transfer(Props: IProps) {
     });
   }, [leftContentRef, rightContentRef, onScroll]);
 
+  useEffect(() => {
+    onSelectChange?.(sourceSelectKeys, targetSelectKeys);
+    // eslint-disable-next-line
+  }, [sourceSelectKeys, targetSelectKeys]);
+
   /**
    * content 选项 change 事件
    */
@@ -154,22 +159,21 @@ function Transfer(Props: IProps) {
     key: string,
     type: "left" | "right"
   ) {
-    console.log(e.target.checked, key);
-    let sourceKeys: string[] = [],
-      targetKeys: string[] = [];
+    let sourceKeys: string[] = sourceSelectKeys,
+      targetKeys: string[] = targetSelectKeys;
     switch (type) {
       case "left":
         if (e.target.checked) {
-          sourceKeys = [...sourceSelectKeys, key];
+          sourceKeys = [...sourceKeys, key];
         } else {
-          sourceKeys = sourceSelectKeys.filter((item) => item !== key);
+          sourceKeys = sourceKeys.filter((item) => item !== key);
         }
         break;
       case "right":
         if (e.target.checked) {
-          targetKeys = [...targetSelectKeys, key];
+          targetKeys = [...targetKeys, key];
         } else {
-          targetKeys = targetSelectKeys.filter((item) => item !== key);
+          targetKeys = targetKeys.filter((item) => item !== key);
         }
         break;
     }
