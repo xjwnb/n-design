@@ -1,12 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2021-12-31 13:34:50
- * @LastEditTime: 2021-12-31 14:51:49
+ * @LastEditTime: 2021-12-31 15:03:03
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\alert\index.tsx
  */
-import React, { useState } from "react";
+import React, { BaseSyntheticEvent, useState } from "react";
 import Style from "./index.module.scss";
 import {
   SuccessFill,
@@ -28,7 +28,7 @@ interface IProps {
   closeText?: string;
   showIcon?: boolean;
 
-  onClose?: (e: MouseEvent) => void;
+  onClose?: (e: BaseSyntheticEvent) => void;
 }
 
 const TypeObj = {
@@ -65,6 +65,9 @@ function Alert(Props: IProps) {
     description = "",
     showIcon = false,
     closable = false,
+    closeText = "",
+
+    onClose,
   } = Props;
 
   const [visiabled, setvisiabled] = useState(true);
@@ -72,8 +75,9 @@ function Alert(Props: IProps) {
   /**
    * 点击关闭 icon
    */
-  const handleIconClose = function () {
+  const handleIconClose = function (e: BaseSyntheticEvent) {
     setvisiabled(false);
+    onClose?.(e);
   };
 
   return (
@@ -118,7 +122,7 @@ function Alert(Props: IProps) {
               className={[Style.n_alert_close_icon].join(" ")}
               onClick={handleIconClose}
             >
-              <Close />
+              {closeText ? closeText : <Close color="#00000073" />}
             </div>
           )}
         </div>
