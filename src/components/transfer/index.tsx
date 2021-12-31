@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-30 14:05:27
- * @LastEditTime: 2021-12-31 09:39:18
+ * @LastEditTime: 2021-12-31 09:55:58
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\transfer\index.tsx
@@ -49,12 +49,16 @@ function Transfer(Props: IProps) {
     titles = ["left", "right"],
     dataSource = [],
     targetKeys = [],
+    disabled = false,
+    oneWay = false,
 
     render,
     onChange,
     onScroll,
     onSelectChange,
   } = Props;
+
+  const [dataAllSource, setdataAllSource] = useState(dataSource);
 
   const [sourceArr, setsourceArr] = useState<DataSourceParam[]>([]);
   const [targetArr, settargetArr] = useState<DataSourceParam[]>([]);
@@ -74,9 +78,22 @@ function Transfer(Props: IProps) {
   const rightContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (disabled) {
+      setdataAllSource(
+        dataSource.map((item) => {
+          return {
+            ...item,
+            disabled: true,
+          };
+        })
+      );
+    }
+  }, [disabled, dataSource]);
+
+  useEffect(() => {
     let target: DataSourceParam[] = [],
       source: DataSourceParam[] = [];
-    dataSource.forEach((item: DataSourceParam) => {
+    dataAllSource.forEach((item: DataSourceParam) => {
       if (targetKeys.includes(item.key)) {
         target.push(item);
       } else {
@@ -86,7 +103,7 @@ function Transfer(Props: IProps) {
     setsourceArr(source);
     settargetArr(target);
     // eslint-disable-next-line
-  }, []);
+  }, [dataAllSource]);
 
   useEffect(() => {
     sourceSelectKeys.length ? setcanRight(false) : setcanRight(true);
@@ -318,15 +335,17 @@ function Transfer(Props: IProps) {
               onClick={handleRightBtn}
             ></Button>
           </span>
-          <span>
-            <Button
-              type="primary"
-              size="small"
-              disabled={canLeft}
-              icon={<Left color={canLeft ? "#D9D9D9" : "#fff"} />}
-              onClick={handleLeftBtn}
-            ></Button>
-          </span>
+          {!oneWay && (
+            <span>
+              <Button
+                type="primary"
+                size="small"
+                disabled={canLeft}
+                icon={<Left color={canLeft ? "#D9D9D9" : "#fff"} />}
+                onClick={handleLeftBtn}
+              ></Button>
+            </span>
+          )}
         </div>
       </div>
 

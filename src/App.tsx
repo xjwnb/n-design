@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-31 09:40:54
+ * @LastEditTime: 2021-12-31 09:57:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -2329,6 +2329,8 @@ function App() {
           onScroll={(direction: "left" | "right", ele: any) => {
             console.log(direction, ele);
           }}
+          // disabled
+          oneWay
         />
       </div>
 
