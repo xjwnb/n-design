@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-31 10:23:31
+ * @LastEditTime: 2021-12-31 14:16:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -46,6 +46,7 @@ import {
   Progress,
   Rate,
   Transfer,
+  Alert,
 } from "./components/index";
 import { Left, Right, Search, Loading } from "./Icons/icon/index";
 
@@ -2331,6 +2332,16 @@ function App() {
           // disabled
           // oneWay
         />
+      </div>
+
+      <div>
+        <h1>Alert</h1>
+        <Alert message="什么玩意儿" type="success" />
+        <Alert message="什么玩意儿" type="info" />
+        <Alert message="什么玩意儿" type="warning" />
+        <Alert message="什么玩意儿" type="error" />
+        <Alert message="什么玩意儿" type="info" closable />
+
       </div>
 
       <div></div>

@@ -1,0 +1,16 @@
+.n_alert {
+  padding: 8px 15px;
+  border-radius: 2px;
+  box-sizing: border-box;
+  font-size: 14px;
+
+  .n_alert_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .n_alert_close_icon {
+      cursor: pointer;
+    }
+  }
+}
