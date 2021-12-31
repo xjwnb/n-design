@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-30 14:05:27
- * @LastEditTime: 2021-12-30 17:23:31
+ * @LastEditTime: 2021-12-30 17:31:02
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\transfer\index.tsx
@@ -53,6 +53,7 @@ function Transfer(Props: IProps) {
     render,
     onChange,
     onScroll,
+    onSelectChange,
   } = Props;
 
   const [sourceArr, setsourceArr] = useState<DataSourceParam[]>([]);
@@ -146,7 +147,7 @@ function Transfer(Props: IProps) {
   }, [leftContentRef, rightContentRef, onScroll]);
 
   /**
-   * left 选项 change 事件
+   * content 选项 change 事件
    */
   const handleCheckboxChange = function (
     e: BaseSyntheticEvent,
@@ -154,22 +155,26 @@ function Transfer(Props: IProps) {
     type: "left" | "right"
   ) {
     console.log(e.target.checked, key);
+    let sourceKeys: string[] = [],
+      targetKeys: string[] = [];
     switch (type) {
       case "left":
         if (e.target.checked) {
-          setsourceSelectKeys([...sourceSelectKeys, key]);
+          sourceKeys = [...sourceSelectKeys, key];
         } else {
-          setsourceSelectKeys(sourceSelectKeys.filter((item) => item !== key));
+          sourceKeys = sourceSelectKeys.filter((item) => item !== key);
         }
         break;
       case "right":
         if (e.target.checked) {
-          settargetSelectKeys([...targetSelectKeys, key]);
+          targetKeys = [...targetSelectKeys, key];
         } else {
-          settargetSelectKeys(targetSelectKeys.filter((item) => item !== key));
+          targetKeys = targetSelectKeys.filter((item) => item !== key);
         }
         break;
     }
+    setsourceSelectKeys(sourceKeys);
+    settargetSelectKeys(targetKeys);
   };
 
   /**

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-30 17:22:20
+ * @LastEditTime: 2021-12-30 17:27:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -2305,7 +2305,12 @@ function App() {
             { key: "2", title: "title 2", description: "des 2" },
             { key: "3", title: "title 3", description: "des 3" },
             { key: "4", title: "title 4", description: "des 4" },
-            { key: "5", title: "title 5", description: "des 5" },
+            {
+              key: "5",
+              title: "title 5",
+              description: "des 5",
+              disabled: true,
+            },
             { key: "6", title: "title 6", description: "des 6" },
           ]}
           titles={["Source", "target"]}
