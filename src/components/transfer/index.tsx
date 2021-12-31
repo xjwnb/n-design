@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-30 14:05:27
- * @LastEditTime: 2021-12-31 08:40:57
+ * @LastEditTime: 2021-12-31 09:39:18
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\transfer\index.tsx
@@ -9,7 +9,7 @@
 import React, { useState, useEffect, useRef, BaseSyntheticEvent } from "react";
 import Style from "./index.module.scss";
 import { Checkbox, Button } from "../index";
-import { Left, Right } from "../../Icons/icon/index";
+import { Left, Right, BoxEmpty } from "../../Icons/icon/index";
 
 interface DataSourceParam {
   key: string;
@@ -273,25 +273,36 @@ function Transfer(Props: IProps) {
           className={[Style.n_transfer_content].join(" ")}
           ref={leftContentRef}
         >
-          {sourceArr.map((source) => {
-            return (
-              <div
-                key={source.key}
-                className={[Style.n_transfer_content_item].join(" ")}
-              >
-                <Checkbox
-                  value={source.title}
-                  onChange={(e: BaseSyntheticEvent) =>
-                    handleCheckboxChange(e, source.key, "left")
-                  }
-                  defaultChecked={sourceSelectKeys.includes(source.key)}
-                  disabled={source.disabled}
+          {sourceArr.length ? (
+            sourceArr.map((source) => {
+              return (
+                <div
+                  key={source.key}
+                  className={[Style.n_transfer_content_item].join(" ")}
                 >
-                  {`${render ? render(source) : source.title}`}
-                </Checkbox>
+                  <Checkbox
+                    value={source.title}
+                    onChange={(e: BaseSyntheticEvent) =>
+                      handleCheckboxChange(e, source.key, "left")
+                    }
+                    defaultChecked={sourceSelectKeys.includes(source.key)}
+                    disabled={source.disabled}
+                  >
+                    {`${render ? render(source) : source.title}`}
+                  </Checkbox>
+                </div>
+              );
+            })
+          ) : (
+            <div className={[Style.n_transfer_content_empty].join(" ")}>
+              <div className={[Style.n_transfer_content_empty_icon].join(" ")}>
+                <BoxEmpty color="#E2E2E2" />
               </div>
-            );
-          })}
+              <div className={[Style.n_transfer_content_empty_text].join(" ")}>
+                暂无数据
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -340,25 +351,36 @@ function Transfer(Props: IProps) {
           className={[Style.n_transfer_content].join(" ")}
           ref={rightContentRef}
         >
-          {targetArr.map((target) => {
-            return (
-              <div
-                key={target.key}
-                className={[Style.n_transfer_content_item].join(" ")}
-              >
-                <Checkbox
-                  value={target.title}
-                  onChange={(e: BaseSyntheticEvent) =>
-                    handleCheckboxChange(e, target.key, "right")
-                  }
-                  defaultChecked={targetSelectKeys.includes(target.key)}
-                  disabled={target.disabled}
+          {targetArr.length ? (
+            targetArr.map((target) => {
+              return (
+                <div
+                  key={target.key}
+                  className={[Style.n_transfer_content_item].join(" ")}
                 >
-                  {`${render ? render(target) : target.title}`}
-                </Checkbox>
+                  <Checkbox
+                    value={target.title}
+                    onChange={(e: BaseSyntheticEvent) =>
+                      handleCheckboxChange(e, target.key, "right")
+                    }
+                    defaultChecked={targetSelectKeys.includes(target.key)}
+                    disabled={target.disabled}
+                  >
+                    {`${render ? render(target) : target.title}`}
+                  </Checkbox>
+                </div>
+              );
+            })
+          ) : (
+            <div className={[Style.n_transfer_content_empty].join(" ")}>
+              <div className={[Style.n_transfer_content_empty_icon].join(" ")}>
+                <BoxEmpty color="#E2E2E2" />
               </div>
-            );
-          })}
+              <div className={[Style.n_transfer_content_empty_text].join(" ")}>
+                暂无数据
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

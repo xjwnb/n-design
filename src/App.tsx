@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-31 08:38:10
+ * @LastEditTime: 2021-12-31 09:40:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -2300,7 +2300,7 @@ function App() {
               key: "1",
               title: "title 1",
               description: "des 1",
-              disabled: true,
+              // disabled: true,
             },
             { key: "2", title: "title 2", description: "des 2" },
             { key: "3", title: "title 3", description: "des 3" },
@@ -2309,7 +2309,7 @@ function App() {
               key: "5",
               title: "title 5",
               description: "des 5",
-              disabled: true,
+              // disabled: true,
             },
             { key: "6", title: "title 6", description: "des 6" },
           ]}
@@ -2325,6 +2325,9 @@ function App() {
           }}
           onSelectChange={(sourceKeys, targetKeys) => {
             console.log(sourceKeys, targetKeys);
+          }}
+          onScroll={(direction: "left" | "right", ele: any) => {
+            console.log(direction, ele);
           }}
         />
       </div>
