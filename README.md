@@ -1,6 +1,7 @@
 # N_Design
 > react UI 组件库
 
+-   [Alert 警告提示](http://www.xiaokache.top/design/alert)
 -   [BackTop 置顶](http://www.xiaokache.top/design/back-top)
 -   [Button 按钮](http://www.xiaokache.top/design/button)
 -   [Card 卡片](http://www.xiaokache.top/design/card)
@@ -30,5 +31,6 @@
 -   [Tabs 标签页](http://www.xiaokache.top/design/tabs)
 -   [Tag 标签](http://www.xiaokache.top/design/tag)
 -   [Tooltip 文字提示](http://www.xiaokache.top/design/tooltip)
+-   [Transfer 穿梭框](http://www.xiaokache.top/design/transfer)
 
 觉得不错的话，麻烦在 右上角上点一下 star。非常感激！！！
