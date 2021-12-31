@@ -4,10 +4,25 @@
   box-sizing: border-box;
   font-size: 14px;
 
+  .n_alert_wrapper {
+    display: flex;
+
+    .n_alert_type_icon {
+      margin-right: 8px;
+    }
+  }
+
   .n_alert_content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex: 1;
+
+    /* .n_alert_inner {
+      .n_alert_message {
+        font-weight: 600;
+      }
+    } */
 
     .n_alert_close_icon {
       cursor: pointer;

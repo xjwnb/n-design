@@ -1,13 +1,24 @@
 /*
  * @Author: your name
  * @Date: 2021-12-31 13:34:50
- * @LastEditTime: 2021-12-31 14:14:25
+ * @LastEditTime: 2021-12-31 14:51:49
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \n-design\src\components\alert\index.tsx
  */
+import React, { useState } from "react";
 import Style from "./index.module.scss";
-import { SuccessFill, Close } from "../../Icons/icon/index";
+import {
+  SuccessFill,
+  Close,
+  Success,
+  Info,
+  Infofill,
+  WarningCircle,
+  WarningFill,
+  Error,
+  ErrorFill,
+} from "../../Icons/icon/index";
 
 interface IProps {
   message?: string | React.ReactNode;
@@ -24,18 +35,26 @@ const TypeObj = {
   success: {
     background: "#F6FFED",
     border: "1px solid #B7EB8F",
+    iconFill: <SuccessFill color="#52C41A" />,
+    icon: <Success color="#52C41A" width={24} height={24} />,
   },
   info: {
     background: "#E6F7FF",
     border: "1px solid #91D5FF",
+    iconFill: <Infofill color="#1890FF" />,
+    icon: <Info color="#1890FF" width={24} height={24} />,
   },
   warning: {
     background: "#FFFBE6",
     border: "1px solid #FFE58F",
+    iconFill: <WarningFill color="#FAAD14" />,
+    icon: <WarningCircle color="#FAAD14" width={24} height={24} />,
   },
   error: {
     background: "#FFF2F0",
     border: "1px solid #FFCCC7",
+    iconFill: <ErrorFill color="#FF4D4F" />,
+    icon: <Error color="#FF4D4F" width={24} height={24} />,
   },
 };
 
@@ -48,33 +67,61 @@ function Alert(Props: IProps) {
     closable = false,
   } = Props;
 
+  const [visiabled, setvisiabled] = useState(true);
+
+  /**
+   * 点击关闭 icon
+   */
+  const handleIconClose = function () {
+    setvisiabled(false);
+  };
+
   return (
     <div
       className={[Style.n_alert].join(" ")}
       style={{
         background: TypeObj[type].background,
         border: TypeObj[type].border,
+        display: visiabled ? "block" : "none",
       }}
     >
-      {showIcon && (
-        <span>
-          <SuccessFill />
-        </span>
-      )}
-      <div className={[Style.n_alert_content].join(" ")}>
-        <div className={[Style.n_alert_inner].join(" ")}>
-          <div className={[Style.n_alert_message].join(" ")}>{message}</div>
-          {description && (
-            <div className={[Style.n_alert_description].join(" ")}>
-              {description}
+      <div className={[Style.n_alert_wrapper].join(" ")}>
+        {showIcon && !description && (
+          <span className={[Style.n_alert_type_icon].join(" ")}>
+            {TypeObj[type].iconFill}
+          </span>
+        )}
+        {showIcon && description && (
+          <span className={[Style.n_alert_type_icon].join(" ")}>
+            {TypeObj[type].icon}
+          </span>
+        )}
+        <div className={[Style.n_alert_content].join(" ")}>
+          <div className={[Style.n_alert_inner].join(" ")}>
+            <div
+              className={[Style.n_alert_message].join(" ")}
+              style={{
+                fontSize: description ? 16 : 14,
+                marginBottom: description ? 10 : 0,
+              }}
+            >
+              {message}
+            </div>
+            {description && (
+              <div className={[Style.n_alert_description].join(" ")}>
+                {description}
+              </div>
+            )}
+          </div>
+          {closable && (
+            <div
+              className={[Style.n_alert_close_icon].join(" ")}
+              onClick={handleIconClose}
+            >
+              <Close />
             </div>
           )}
         </div>
-        {closable && (
-          <div className={[Style.n_alert_close_icon].join(" ")}>
-            <Close />
-          </div>
-        )}
       </div>
     </div>
   );

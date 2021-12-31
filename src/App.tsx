@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-31 14:16:35
+ * @LastEditTime: 2021-12-31 14:48:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -2341,7 +2341,44 @@ function App() {
         <Alert message="什么玩意儿" type="warning" />
         <Alert message="什么玩意儿" type="error" />
         <Alert message="什么玩意儿" type="info" closable />
-
+        <Alert
+          message="什么玩意儿"
+          type="info"
+          description="description 什么玩意儿啊23435443554345"
+          closable
+        />
+        <Alert message="什么玩意儿" type="success" showIcon />
+        <Alert message="什么玩意儿" type="info" showIcon />
+        <Alert message="什么玩意儿" type="warning" showIcon />
+        <Alert message="什么玩意儿" type="error" showIcon />
+        <Alert
+          message="什么玩意儿"
+          type="success"
+          description="description 什么玩意儿啊23435443554345"
+          closable
+          showIcon
+        />
+        <Alert
+          message="什么玩意儿"
+          type="info"
+          description="description 什么玩意儿啊23435443554345"
+          closable
+          showIcon
+        />
+        <Alert
+          message="什么玩意儿"
+          type="warning"
+          description="description 什么玩意儿啊23435443554345"
+          closable
+          showIcon
+        />
+        <Alert
+          message="什么玩意儿"
+          type="error"
+          description="description 什么玩意儿啊23435443554345"
+          closable
+          showIcon
+        />
       </div>
 
       <div></div>
