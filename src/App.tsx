@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 11:38:45
- * @LastEditTime: 2021-12-31 15:23:19
+ * @LastEditTime: 2022-01-04 08:41:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\App.tsx
@@ -48,7 +48,37 @@ import {
   Transfer,
   Alert,
 } from "./components/index";
-import { Left, Right, Search, Loading } from "./Icons/icon/index";
+import {
+  Left,
+  Right,
+  Search,
+  Loading,
+  BackTop as backTop,
+  Bottom,
+  BoxEmpty,
+  Calendar,
+  Close,
+  Closefill,
+  DoubleLeft,
+  DoubleRight,
+  Enlarge,
+  Error,
+  ErrorFill,
+  EyeClose,
+  EyeOpen,
+  FivePointedStar,
+  Info,
+  Infofill,
+  Narrow,
+  RotateLeft,
+  RotateRight,
+  Success,
+  SuccessFill,
+  SwapRight,
+  True,
+  WarningCircle,
+  WarningFill,
+} from "./Icons/icon/index";
 
 function App() {
   const [inputValue] = useState("");
