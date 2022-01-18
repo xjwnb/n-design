@@ -1,0 +1,258 @@
+.n_menu {
+  display: flex;
+
+  .n_submenu_main_active {
+    color: #1890ff;
+  }
+}
+
+.n_menu_dark {
+  background-color: #001529;
+
+  .n_item_dark {
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .n_item_dark_active {
+    background-color: #1890ff;
+    color: #fff;
+  }
+
+  .n_submenu_dark {
+    background-color: #001529;
+    color: #a6aaa5;
+
+    .n_submenu_content {
+      background: #001529;
+      &:hover {
+        color: #fff !important;
+      }
+    }
+  }
+
+  .n_submenu_inner {
+    background: #000c17 !important;
+  }
+}
+
+.n_menu_light {
+  .n_item {
+    &:hover {
+      color: #1890ff;
+    }
+  }
+
+  .n_item_light {
+    &:hover {
+      color: #1890ff;
+    }
+  }
+
+  .n_item_light_active {
+    background-color: #e6f7ff;
+    color: #1890ff;
+  }
+
+  .n_submenu_light {
+    .n_submenu_content {
+      &:hover {
+        color: #1890ff;
+      }
+    }
+  }
+}
+
+.n_menu_inline {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #f0f0f0;
+
+  .n_submenu_inline {
+    width: 250px;
+
+    .n_submenu {
+      background: #fff;
+    }
+
+    .n_submenu_content {
+      cursor: pointer;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s;
+
+      .n_submenu_icon {
+        transition: all 0.3s;
+      }
+    }
+
+    .n_submenu_inner {
+      padding: 8px 0;
+      background: #fafafa;
+
+      .n_item {
+        padding: 10px 30px;
+        margin-bottom: 5px;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-overflow: ellipsis;
+
+        a,
+        a:link,
+        a:visited,
+        a:hover,
+        a:active {
+          text-decoration: none;
+          color: inherit;
+        }
+      }
+
+      .n_itemgroup {
+        .n_itemgroup_title {
+          padding: 10px 20px;
+          font-size: 14px;
+          color: #8c8c8c;
+        }
+      }
+
+      .n_submenu {
+        .n_submenu_content {
+          padding: 10px 20px 10px 30px;
+        }
+        .n_item {
+          padding: 10px 20px 10px 40px;
+        }
+      }
+    }
+  }
+}
+
+.n_menu_horizontal {
+  width: auto;
+
+  .n_itemgroup {
+    .n_itemgroup_title {
+      padding: 10px 20px;
+      font-size: 14px;
+      color: #8c8c8c;
+    }
+  }
+
+  .n_item {
+    padding: 10px 30px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-overflow: ellipsis;
+
+    a,
+    a:link,
+    a:visited,
+    a:hover,
+    a:active {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+
+  .n_submenu_active_bar {
+    height: 2px;
+    width: 100%;
+    bottom: 0px;
+    position: absolute;
+    background: #1890ff;
+    z-index: 1000;
+    transition: all 0.3s;
+  }
+
+  .n_submenu_content {
+    padding: 10px 0px;
+    cursor: pointer;
+    margin: 0 10px;
+    position: relative;
+  }
+
+  .n_submenu_inner {
+    position: absolute;
+    min-width: 100px;
+    z-index: 1000;
+    background: #fff;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .n_item {
+    cursor: pointer;
+    padding: 10px 20px;
+  }
+}
+
+.n_menu_vertical {
+  flex-direction: column;
+  border-right: 1px solid #f0f0f0;
+
+  .n_submenu {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 5px;
+    width: 100%;
+
+    .n_submenu_content {
+      cursor: pointer;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s;
+    }
+
+    .n_submenu_main_active {
+      color: #1890ff;
+    }
+
+    .n_submenu_inner {
+      position: absolute;
+      top: 0;
+      left: 100%;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+      min-width: 250px;
+      padding: 8px 0;
+
+      .n_submenu {
+        .n_submenu_content {
+          padding: 10px 20px 10px 30px;
+        }
+        .n_item {
+          padding: 10px 20px 10px 40px;
+        }
+      }
+    }
+  }
+
+  .n_itemgroup {
+    .n_itemgroup_title {
+      padding: 10px 20px;
+      font-size: 14px;
+      color: #8c8c8c;
+    }
+  }
+
+  .n_item {
+    padding: 10px 20px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-overflow: ellipsis;
+
+    a,
+    a:link,
+    a:visited,
+    a:hover,
+    a:active {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+}

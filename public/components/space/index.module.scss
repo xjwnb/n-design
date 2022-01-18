@@ -1,0 +1,31 @@
+.n_space {
+  display: inline-flex;
+}
+
+.n_space_vertical {
+  flex-direction: column;
+}
+
+.n_space_horizontal {
+  flex-direction: row;
+}
+
+.n_space_align_start {
+  align-items: flex-start;
+}
+
+.n_space_align_end {
+  align-items: flex-end;
+}
+
+.n_space_align_center {
+  align-items: center;
+}
+
+.n_space_align_baseline {
+  align-items: baseline;
+}
+
+.n_space_item {
+  display: inline-block;
+}

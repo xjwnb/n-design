@@ -1,0 +1,39 @@
+.n_form {
+  box-sizing: border-box;
+}
+
+.n_form_item {
+  margin: 0 0 24px;
+  box-sizing: border-box;
+  padding: 0;
+  color: #000;
+  font-size: 14px;
+  transition: margin-bottom 0.3s 17ms linear;
+}
+
+.n_form_item_key {
+  text-align: right;
+}
+
+.n_form_item_col {
+  vertical-align: middle;
+}
+
+.n_form_item_label {
+  margin-right: 10px;
+}
+
+.n_form_item_label::after {
+  content: "：";
+}
+
+.n_form_item_required {
+  color: #ff4d4f;
+  font-weight: 700;
+  margin-right: 5px;
+}
+
+.n_form_item_message {
+  color: #ff4d4f;
+  position: absolute;
+}

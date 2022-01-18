@@ -1,0 +1,51 @@
+.n_carousel {
+  min-width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.n_carousel_list {
+  position: relative;
+  display: flex;
+  min-width: 100%;
+}
+
+.n_carousel_container {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.n_carousel_dots {
+  position: absolute;
+  // bottom: 30px;
+  bottom: 10%;
+  z-index: 999;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  margin: 0 auto;
+  width: 100%;
+  justify-content: center;
+
+  li {
+    width: 30px;
+    height: 6px;
+    background: #7282a1;
+    border-radius: 4px;
+    margin: 0 5px;
+    cursor: pointer;
+    opacity: 0.3;
+    transition: all 0.5s;
+
+    &:hover {
+      background: #cdd2dd;
+      opacity: 1;
+    }
+  }
+
+  .n_carousel_dots_active {
+    width: 50px;
+    opacity: 1;
+    background: #ffffff;
+  }
+}

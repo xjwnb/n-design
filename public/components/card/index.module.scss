@@ -1,0 +1,84 @@
+@import "../assets/css/common.scss";
+
+.n_card {
+  box-sizing: border-box;
+  font-size: 14px;
+  color: #262626;
+  background: #fff;
+}
+
+.n_card_bordered {
+  border-radius: 2px;
+  border: 1px solid #f0f0f0;
+}
+
+.n_card_head {
+  padding: 0 24px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+  font-weight: 500;
+  font-size: 16px;
+  border-radius: 2px 2px 0 0;
+}
+
+.n_card_head_wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.n_card_head_title {
+  font-weight: 700;
+}
+
+.n_card_head_extra {
+  a {
+    text-decoration: none;
+    color: $primary;
+  }
+}
+
+.n_card_body {
+  padding: 24px;
+}
+
+.n_card_small {
+  .n_card_head {
+    min-height: 36px;
+    padding: 0 12px;
+    font-size: 14px;
+  }
+
+  .n_card_body {
+    padding: 12px;
+  }
+}
+
+.n_card_bordered .n_card_cover {
+  margin-top: -1px;
+  margin-right: -1px;
+  margin-left: -1px;
+}
+
+.n_card_cover img {
+  border-radius: 2px 2px 0 0;
+  vertical-align: middle;
+  border-style: none;
+}
+
+.n_card_cover > * {
+  display: block;
+  width: 100%;
+}
+
+.n_card_hoverable {
+  cursor: pointer;
+  transition: box-shadow 0.3s, border-color 0.3s;
+
+  &:hover {
+    box-shadow: 0 5px 8px rgba(#cecece, 0.8);
+  }
+}
