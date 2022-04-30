@@ -402,6 +402,7 @@ function Item(Props: itemProps) {
           );
           break;
         } else if (children.type === Input.Password) {
+          if (!name) return;
           setnewChildren(
             cloneElement(children, {
               value: name && initValues[name],
@@ -448,7 +449,9 @@ function Item(Props: itemProps) {
     }
 
     // eslint-disable-next-line
-  }, [formValue, children]);
+  }, [formValue
+    // , children
+  ]);
 
   useEffect(() => {
     addPropsFromBtn();

@@ -4,6 +4,7 @@ import React, {
   BaseSyntheticEvent,
   ReactElement,
   useEffect,
+  Fragment,
 } from "react";
 import {
   EyeOpen,
@@ -11,7 +12,7 @@ import {
   Search as SearchIcon,
   Closefill,
   Loading,
-} from "../../Icons/icon/index";
+} from "../../Icons/icon";
 import { Button } from "../index";
 import Style from "./index.module.scss";
 
@@ -43,7 +44,6 @@ export default function Input(props: IProps) {
     maxLength,
     style,
     allowClear = false,
-    readOnly = false,
 
     onChange,
     onBlur,
@@ -163,7 +163,6 @@ export default function Input(props: IProps) {
           placeholder={placeholder}
           value={inputValue}
           ref={inputRef}
-          readOnly={readOnly}
           maxLength={maxLength}
           onChange={handleChange}
           onFocus={handleFocus}

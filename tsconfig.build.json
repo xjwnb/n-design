@@ -1,0 +1,16 @@
+
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "declaration": true, // 指定是否在编译的时候生成相应的d.ts声明文件，如果设为true,编译每个ts文件之后会生成一个js文件和一个声明文件，但是declaration和allowJs不能同时设为true
+    "declarationMap": false, // 指定编译时是否生成.map文件
+    "sourceMap": true, // 编译时是否生成.map文件
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

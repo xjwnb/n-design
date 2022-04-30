@@ -997,7 +997,7 @@ function App() {
               { pattern: /[a-zA-Z]+/g, message: "正则验证" },
             ]}
           >
-            <Input.Password placeholder="密码交出来" />
+            <Input.Password onChange={(val: any) => console.log(val)} placeholder="密码交出来" />
           </Form.Item>
 
           <Form.Item label="是否记住" name="remember">

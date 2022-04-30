@@ -7,7 +7,7 @@
  * @FilePath: \n-design\src\components\button\index.tsx
  */
 import style from "./style.module.scss";
-import { ReactElement, SyntheticEvent } from "react";
+import { ReactElement, SyntheticEvent, useState } from "react";
 
 type typeValue = "primary" | "dashed" | "text" | "link" | "";
 type sizeValue = "large" | "default" | "small" | "";
