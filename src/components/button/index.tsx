@@ -7,7 +7,9 @@
  * @FilePath: \n-design\src\components\button\index.tsx
  */
 import style from "./style.module.scss";
+import "./style.scss";
 import { ReactElement, SyntheticEvent, useState } from "react";
+import classnames from "classnames";
 
 type typeValue = "primary" | "dashed" | "text" | "link" | "";
 type sizeValue = "large" | "default" | "small" | "";
@@ -65,15 +67,24 @@ function Button(Props: IProps) {
     <button
       ref={ref}
       disabled={disabled && disabled !== undefined ? true : false}
-      className={[
-        `${style.n_btn}`,
-        `${type ? `${style[`n_btn_${type}`]}` : ""}`,
-        `${size && size === "large" ? style.n_btn_lg : ""}`,
-        `${size && size === "small" ? style.n_btn_sm : ""}`,
-        `${shape ? `${style[`n_btn_${shape}`]}` : ""}`,
-        `${danger ? `${style.n_btn_dangerous}` : ""}`,
-        `${className}`,
-      ].join(" ")}
+      // className={[
+      //   `${style.n_btn}`,
+      //   `${type ? `${style[`n_btn_${type}`]}` : ""}`,
+      //   `${size && size === "large" ? style.n_btn_lg : ""}`,
+      //   `${size && size === "small" ? style.n_btn_sm : ""}`,
+      //   `${shape ? `${style[`n_btn_${shape}`]}` : ""}`,
+      //   `${danger ? `${style.n_btn_dangerous}` : ""}`,
+      //   `${className}`,
+      // ].join(" ")}
+      className={classnames(
+        `n_btn`,
+        type ? `n_btn_${type}` : "",
+        size && size === "large" ? "n_btn_lg" : "",
+        size && size === "small" ? "n_btn_sm" : "",
+        shape ? `n_btn_${shape}` : "",
+        danger ? "n_btn_dangerous" : "",
+        className
+      )}
       style={{
         width: block ? "100%" : "",
         ...styleObj,
@@ -81,16 +92,16 @@ function Button(Props: IProps) {
       onClick={handleClick}
       type={htmlType}
     >
-      <div className={style.n_btn_content}>
+      <div className={classnames("n_btn_content")}>
         {/* Icon */}
         {icon && (
-          <div className={style.btn_icon} style={{ paddingTop: 4 }}>
+          <div className={classnames("btn_icon")} style={{ paddingTop: 4 }}>
             {icon}
           </div>
         )}
         {/* children */}
         {children && (
-          <div className={style.btn_icon} style={{ padding: "4px 0" }}>
+          <div className={classnames("btn_icon")} style={{ padding: "4px 0" }}>
             {children}
           </div>
         )}
