@@ -1,4 +1,3 @@
-
 import {
   useRef,
   useState,
@@ -8,7 +7,8 @@ import {
   createContext,
 } from "react";
 import ReactDOM from "react-dom";
-import style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 
 import PreviewContaine from "./components/previewContainer/index";
 
@@ -98,9 +98,9 @@ export default function Image(Props: IProps) {
   };
 
   return (
-    <div className={[`${style.n_image}`].join(" ")}>
+    <div className={classnames(`n_image`)}>
       <img
-        className={[`${style.n_image_img}`].join(" ")}
+        className={classnames("n_image_img")}
         src={!isError ? src : fallback}
         alt={alt}
         width={width}
@@ -109,9 +109,9 @@ export default function Image(Props: IProps) {
         ref={imgRef}
       />
       {preview && !isError && (
-        <div className={style.n_image_preview}>
+        <div className={classnames("n_image_preview")}>
           <span
-            className={style.n_image_preview_text}
+            className={classnames("n_image_preview_text")}
             onClick={handleClickPreview}
           >
             预览
@@ -160,6 +160,6 @@ function PreviewGroup(Props: groupProps) {
       ))}
     </PreviewList.Provider>
   );
-};
+}
 
 Image.PreviewGroup = PreviewGroup;

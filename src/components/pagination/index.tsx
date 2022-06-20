@@ -13,7 +13,8 @@ import React, {
   MouseEventHandler,
   BaseSyntheticEvent,
 } from "react";
-import Style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 import { Left, Right } from "../../Icons/icon/index";
 // components
 import { Select, Input } from "../index";
@@ -179,13 +180,13 @@ function Pagination(Props: IProps) {
   };
 
   return (
-    <div className={[Style.n_pagination].join(" ")}>
+    <div className={classnames("n_pagination")}>
       {showTotal && (
-        <div className={[Style.n_pagination_total].join(" ")}>
+        <div className={classnames("n_pagination_total")}>
           {showTotal && showTotal(total)}
         </div>
       )}
-      <div className={[Style.n_pagination_content].join(" ")}>
+      <div className={classnames("n_pagination_content")}>
         <PaginationButton
           lastPage={lastPage}
           defaultCurrent={currentPage}
@@ -262,8 +263,8 @@ function Pagination(Props: IProps) {
 
       {/* showQuickJumper */}
       {showQuickJumper && (
-        <div className={[Style.n_pagination_quickJumper].join(" ")}>
-          <div className={[Style.n_pagination_quickJumper_select].join(" ")}>
+        <div className={classnames("n_pagination_quickJumper")}>
+          <div className={classnames("n_pagination_quickJumper_select")}>
             <Select
               defaultValue={String(selectDefaultValue)}
               style={{
@@ -280,17 +281,17 @@ function Pagination(Props: IProps) {
               })}
             </Select>
           </div>
-          <span className={[Style.n_pagination_quickJumper_text].join(" ")}>
+          <span className={classnames("n_pagination_quickJumper_text")}>
             跳转
           </span>
-          <div className={[Style.n_pagination_quickJumper_input].join(" ")}>
+          <div className={classnames("n_pagination_quickJumper_input")}>
             <Input
               onBlur={handleInputBlur}
               value={inputValue}
               onChange={handleInputChange}
             />
           </div>
-          <span className={[Style.n_pagination_quickJumper_text].join(" ")}>
+          <span className={classnames("n_pagination_quickJumper_text")}>
             页
           </span>
         </div>
@@ -322,21 +323,21 @@ function PaginationButton(Props: btnProps) {
 
   return (
     <div
-      className={[
-        Style.n_pagination_button,
+      className={classnames(
+        "n_pagination_button",
         `${
           defaultCurrent === Number(children)
-            ? Style.n_pagination_button_active
+            ? "n_pagination_button_active"
             : ""
         }`,
         `${
           (defaultCurrent === 1 && children?.type === Left) ||
           (defaultCurrent === lastPage && children?.type === Right) ||
           disabled
-            ? Style.n_pagination_button_disabled
+            ? "n_pagination_button_disabled"
             : ""
-        }`,
-      ].join(" ")}
+        }`
+      )}
       onClick={handleClick}
     >
       {children}

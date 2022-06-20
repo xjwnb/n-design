@@ -7,7 +7,8 @@
  * @FilePath: \n-design\src\components\collapse\index.tsx
  */
 import React, { useState, useEffect, createContext, useContext } from "react";
-import Style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 import { Right } from "../../Icons/icon/index";
 
 interface IProps {
@@ -45,7 +46,7 @@ function Collapse(Props: IProps) {
   const [currentKey, setcurrentKey] = useState(defaultActiveKey);
 
   return (
-    <div className={[Style.n_collapse].join(" ")}>
+    <div className={classnames("n_collapse")}>
       <PancelContext.Provider
         value={{
           currentKeys: currentKey,
@@ -109,13 +110,13 @@ function Pancel(Props: PancelProps) {
 
   return (
     <div
-      className={[Style.n_collapse_pancel].join(" ")}
+      className={classnames("n_collapse_pancel")}
       style={{
         border: ghost ? "" : `1px solid #dcdcdc`,
       }}
     >
       <div
-        className={[Style.n_collapse_pancel_header].join(" ")}
+        className={classnames("n_collapse_pancel_header")}
         onClick={handleClickHeader}
         style={{
           background: ghost ? `rgba(255, 255, 255, 0)` : "",
@@ -123,7 +124,7 @@ function Pancel(Props: PancelProps) {
       >
         {showArrow ? (
           <span
-            className={[Style.n_collapse_pancel_header_icon].join(" ")}
+            className={classnames("n_collapse_pancel_header_icon")}
             style={{
               transform: isShow ? `rotate(90deg)` : "",
             }}
@@ -133,18 +134,18 @@ function Pancel(Props: PancelProps) {
         ) : (
           ""
         )}
-        <span className={[Style.n_collapse_pancel_header_title].join(" ")}>
+        <span className={classnames("n_collapse_pancel_header_title")}>
           {header}
         </span>
       </div>
       <div
-        className={[Style.n_collapse_pancel_content_wrapper].join(" ")}
+        className={classnames("n_collapse_pancel_content_wrapper")}
         style={{
           maxHeight: isShow ? "10000px" : "0px",
           background: ghost ? `rgba(255, 255, 255, 0)` : "#fff",
         }}
       >
-        <div className={[Style.n_collapse_pancel_content].join(" ")}>
+        <div className={classnames("n_collapse_pancel_content")}>
           {children}
         </div>
       </div>

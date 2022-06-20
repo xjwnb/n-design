@@ -15,7 +15,8 @@ import {
   createContext,
   BaseSyntheticEvent,
 } from "react";
-import style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 
 interface Context {
   radioName: string;
@@ -65,21 +66,21 @@ export default function Radio(Props: radioProps) {
 
   return optionType === "button" ? (
     <label
-      className={[
-        `${style.n_radio_button_wrapper}`,
-        `${disabled ? style.n_radio_button_disabled : ""}`,
+      className={classnames(
+        "n_radio_button_wrapper",
+        `${disabled ? "n_radio_button_disabled" : ""}`,
         `${
           String(radioValue) === String(value) && buttonStyle !== "solid"
-            ? style.n_radio_button_checked
+            ? "n_radio_button_checked"
             : buttonStyle === "solid" && String(radioValue) === String(value)
-            ? style.n_radio_button_solid_checked
+            ? "n_radio_button_solid_checked"
             : ""
-        }`,
-      ].join(" ")}
+        }`
+      )}
     >
-      <span className={[`${style.n_button_radio}`].join(" ")}>
+      <span className={"n_button_radio"}>
         <input
-          className={[`${style.n_radio_input}`].join(" ")}
+          className={"n_radio_input"}
           type="radio"
           name={radioName}
           value={value}
@@ -87,27 +88,25 @@ export default function Radio(Props: radioProps) {
           checked={String(radioValue) === String(value)}
           onChange={handleRadioChange}
         />
-        <span className={style.n_radio_inner}></span>
+        <span className={classnames("n_radio_inner")}></span>
       </span>
-      <span className={style.n_radio_text}>{children}</span>
+      <span className={classnames("n_radio_text")}>{children}</span>
     </label>
   ) : (
     <label
-      className={[
-        `${style.n_radio_wrapper}`,
-        `${disabled ? style.n_radio_disabled : ""}`,
-      ].join(" ")}
+      className={classnames(
+        `n_radio_wrapper`,
+        `${disabled ? "n_radio_disabled" : ""}`
+      )}
     >
       <span
-        className={[
-          `${style.n_radio}`,
-          `${
-            String(radioValue) === String(value) ? style.n_radio_checked : ""
-          }`,
-        ].join(" ")}
+        className={classnames(
+          `n_radio`,
+          `${String(radioValue) === String(value) ? "n_radio_checked" : ""}`
+        )}
       >
         <input
-          className={[`${style.n_radio_input}`].join(" ")}
+          className={classnames("n_radio_input")}
           type="radio"
           name={radioName}
           value={value}
@@ -115,9 +114,9 @@ export default function Radio(Props: radioProps) {
           checked={String(radioValue) === String(value)}
           onChange={handleRadioChange}
         />
-        <span className={style.n_radio_inner}></span>
+        <span className={classnames("n_radio_inner")}></span>
       </span>
-      <span className={style.n_radio_text}>{children}</span>
+      <span className={classnames("n_radio_text")}>{children}</span>
     </label>
   );
 }
@@ -149,7 +148,7 @@ Radio.Group = function Group(Props: groupProps) {
   const name = `radioName${Math.round(Math.random() * (10000 - 10) + 1)}`;
 
   return (
-    <div className={style.n_radio_group}>
+    <div className={classnames("n_radio_group")}>
       <GroupContext.Provider
         value={{
           radioName: name,

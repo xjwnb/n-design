@@ -14,7 +14,8 @@ import {
   useContext,
   BaseSyntheticEvent,
 } from "react";
-import Style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 
 interface checkboxProps {
   children?: string;
@@ -86,31 +87,31 @@ function Checkbox(Props: checkboxProps) {
 
   return (
     <label
-      className={[
-        Style.n_checkbox_wrapper,
-        disabledVal ? Style.n_checkbox_wrapper_disabled : "",
-      ].join(" ")}
+      className={classnames(
+        "n_checkbox_wrapper",
+        disabledVal ? "n_checkbox_wrapper_disabled" : ""
+      )}
     >
       <span
-        className={[
-          Style.n_checkbox,
-          checkedVal ? Style.n_checkbox_checked : "",
-          disabledVal ? Style.n_checkbox_disabled : "",
-          indeterminateVal ? Style.n_checkbox_indeterminate : "",
-        ].join(" ")}
+        className={classnames(
+          "n_checkbox",
+          checkedVal ? "n_checkbox_checked" : "",
+          disabledVal ? "n_checkbox_disabled" : "",
+          indeterminateVal ? "n_checkbox_indeterminate" : ""
+        )}
       >
         <input
           type="checkbox"
           disabled={disabledVal}
-          className={Style.n_checkbox_input}
+          className={classnames("n_checkbox_input")}
           ref={checkboxInputRef}
           checked={checkedVal}
           onChange={handleCheckboxChange}
           value={value}
         />
-        <span className={Style.n_checkbox_input_inner}></span>
+        <span className={classnames("n_checkbox_input_inner")}></span>
       </span>
-      <span className={Style.n_checkbox_text}>{children}</span>
+      <span className={classnames("n_checkbox_text")}>{children}</span>
     </label>
   );
 }
@@ -160,7 +161,7 @@ function Group(Props: groupProps) {
   }, [groupVal, onChange]);
 
   return (
-    <div className={[Style.n_checkbox_group].join(" ")}>
+    <div className={classnames("n_checkbox_group")}>
       <GroupContext.Provider
         value={{
           checkChange: function (value: string, checked: boolean) {

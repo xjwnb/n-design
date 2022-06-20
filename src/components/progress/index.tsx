@@ -8,7 +8,8 @@
  */
 import React, { useState, useEffect, useRef } from "react";
 import { ErrorFill, SuccessFill } from "../../Icons/icon/index";
-import Style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 
 const colorMap = {
   active: "#1890ff",
@@ -174,28 +175,28 @@ function Progress(Props: IProps) {
 
   return (
     <div
-      className={[
-        Style.n_progress,
-        Style[`n_progress_${type}`],
-        Style[`n_progress_${size}`],
-        showInfo ? Style.n_progress_showInfo : "",
-      ].join(" ")}
+      className={classnames(
+        "n_progress",
+        `n_progress_${type}`,
+        `n_progress_${size}`,
+        showInfo ? "n_progress_showInfo" : ""
+      )}
     >
       {/* line */}
       {type === "line" && (
         <>
-          <div className={[Style.n_progress_outer].join(" ")}>
+          <div className={classnames("n_progress_outer")}>
             <div
-              className={[Style.n_progress_inner].join(" ")}
+              className={classnames("n_progress_inner")}
               style={{
                 height: size === "normal" ? 8 : 6,
               }}
             >
               <div
-                className={[
-                  Style.n_progress_bg,
-                  Style[`n_progress_bg_${statusVal}`],
-                ].join(" ")}
+                className={classnames(
+                  "n_progress_bg",
+                  `n_progress_bg_${statusVal}`
+                )}
                 style={{
                   height: size === "normal" ? 8 : 6,
                   width: `${percent}%`,
@@ -204,12 +205,10 @@ function Progress(Props: IProps) {
             </div>
           </div>
           {showInfo && ["active"].includes(statusVal) && (
-            <span className={[Style.n_progress_text].join(" ")}>
-              {percent}%
-            </span>
+            <span className={classnames("n_progress_text")}>{percent}%</span>
           )}
           {["exception"].includes(statusVal) && (
-            <span className={[Style.n_progress_text].join(" ")}>
+            <span className={classnames("n_progress_text")}>
               <ErrorFill
                 color="#ff4d4f"
                 width={size !== "small" ? 15 : 12}
@@ -218,7 +217,7 @@ function Progress(Props: IProps) {
             </span>
           )}
           {["success"].includes(statusVal) && showInfo && (
-            <span className={[Style.n_progress_text].join(" ")}>
+            <span className={classnames("n_progress_text")}>
               <SuccessFill
                 color="#52c41a"
                 width={size !== "small" ? 15 : 12}

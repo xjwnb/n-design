@@ -15,8 +15,6 @@ import React, {
 } from "react";
 // component
 import { Input } from "../index";
-// Style
-import Style from "./index.module.scss";
 // icon
 import {
   Calendar,
@@ -26,6 +24,8 @@ import {
   DoubleRight,
   SwapRight,
 } from "../../Icons/icon/index";
+import "./index.scss";
+import classnames from "classnames";
 
 const weekList = ["一", "二", "三", "四", "五", "六", "日"];
 
@@ -354,7 +354,7 @@ function DatePicker(Props: IProps) {
   };
 
   return (
-    <div className={[Style.n_datePicker].join(" ")} ref={datePickerRef}>
+    <div className={classnames("n_datePicker")} ref={datePickerRef}>
       <Input
         suffix={<Calendar color="#BFBFBF" />}
         readOnly={true}
@@ -366,7 +366,7 @@ function DatePicker(Props: IProps) {
       />
 
       <div
-        className={[Style.n_datePicker_panel_container].join(" ")}
+        className={classnames("n_datePicker_panel_container")}
         style={{
           display: showPanel ? "block" : "none",
         }}
@@ -854,17 +854,17 @@ function PickerPanel(Props: PanelProps) {
 
   return (
     <div
-      className={[Style.n_picker_panel].join(" ")}
+      className={classnames("n_picker_panel")}
       style={{
         minWidth: 280,
       }}
     >
       {/* header */}
-      <div className={[Style.n_picker_header].join(" ")}>
-        <div className={[Style.n_picker_header_left].join(" ")}>
+      <div className={classnames("n_picker_header")}>
+        <div className={classnames("n_picker_header_left")}>
           {!hiddenLeftControl && (
             <span
-              className={[Style.n_picker_header_icon].join(" ")}
+              className={classnames("n_picker_header_icon")}
               onClick={handleDoubleLeft}
             >
               <DoubleLeft />
@@ -872,25 +872,25 @@ function PickerPanel(Props: PanelProps) {
           )}
           {["date", "week"].includes(picker) && !hiddenLeftControl && (
             <span
-              className={[Style.n_picker_header_icon].join(" ")}
+              className={classnames("n_picker_header_icon")}
               onClick={handleLeft}
             >
               <Left />
             </span>
           )}
         </div>
-        <div className={[Style.n_picker_header_text].join(" ")}>
+        <div className={classnames("n_picker_header_text")}>
           {/* picker === "date" | "week" */}
           {["date", "week"].includes(picker) && (
             <span>
               <span
-                className={[Style.n_picker_month_text].join(" ")}
+                className={classnames("n_picker_month_text")}
                 onClick={handleClickCurrentYear}
               >
                 {currentTime.year}年
               </span>{" "}
               <span
-                className={[Style.n_picker_month_text].join(" ")}
+                className={classnames("n_picker_month_text")}
                 onClick={handleClickCurrentMonth}
               >
                 {currentTime.month}月
@@ -899,7 +899,7 @@ function PickerPanel(Props: PanelProps) {
           )}
           {picker === "month" && (
             <span
-              className={[Style.n_picker_month_text].join(" ")}
+              className={classnames("n_picker_month_text")}
               onClick={handleClickCurrentYear}
             >
               {currentTime.year}年
@@ -911,10 +911,10 @@ function PickerPanel(Props: PanelProps) {
             </span>
           )}
         </div>
-        <div className={[Style.n_picker_header_right].join(" ")}>
+        <div className={classnames("n_picker_header_right")}>
           {["date", "week"].includes(picker) && !hiddenRightControl && (
             <span
-              className={[Style.n_picker_header_icon].join(" ")}
+              className={classnames("n_picker_header_icon")}
               onClick={handleRight}
             >
               <Right />
@@ -922,7 +922,7 @@ function PickerPanel(Props: PanelProps) {
           )}
           {!hiddenRightControl && (
             <span
-              className={[Style.n_picker_header_icon].join(" ")}
+              className={classnames("n_picker_header_icon")}
               onClick={handleDoubleRight}
             >
               <DoubleRight />
@@ -932,9 +932,9 @@ function PickerPanel(Props: PanelProps) {
       </div>
 
       {/* body */}
-      <div className={[Style.n_picker_body].join(" ")}>
+      <div className={classnames("n_picker_body")}>
         {day.length && ["date", "week"].includes(picker) && (
-          <table className={[Style.n_picker_content].join(" ")}>
+          <table className={classnames("n_picker_content")}>
             <thead>
               <tr>
                 {picker === "week" ? <th key={"week"}></th> : null}
@@ -951,21 +951,21 @@ function PickerPanel(Props: PanelProps) {
                   [0, 1, 2, 3, 4, 5].map((item) => (
                     <tr
                       key={item}
-                      className={[
-                        picker === "week" ? Style.n_picker_tr_week : "",
+                      className={classnames(
+                        picker === "week" ? "n_picker_tr_week" : "",
                         picker === "week" &&
-                        weekIndex === weekNum[item] &&
-                        currentTime.year === weekTime.year &&
-                        currentTime.month === weekTime.month
-                          ? Style.n_picker_tr_active
-                          : "",
-                      ].join(" ")}
+                          weekIndex === weekNum[item] &&
+                          currentTime.year === weekTime.year &&
+                          currentTime.month === weekTime.month
+                          ? "n_picker_tr_active"
+                          : ""
+                      )}
                       date-week={weekNum[item]}
                     >
                       {picker === "week" && weekNum.length ? (
                         <td
                           key={`week${weekNum[item]}`}
-                          className={[Style.n_picker_cell].join(" ")}
+                          className={classnames("n_picker_cell")}
                         >
                           {weekNum[item] || ""}
                         </td>
@@ -974,37 +974,37 @@ function PickerPanel(Props: PanelProps) {
                         [0, 1, 2, 3, 4, 5, 6].map((it) => {
                           return (
                             <td
-                              className={[
-                                Style.n_picker_cell,
+                              className={classnames(
+                                "n_picker_cell",
                                 `${
                                   item * 7 + it > firstIndex &&
                                   item * 7 + it <= lastIndex
-                                    ? Style.n_picker_cell_in_view
+                                    ? "n_picker_cell_in_view"
                                     : ""
                                 }`,
                                 `${
                                   range && dayType[item * 7 + it] === "disable"
-                                    ? Style.n_picker_cell_in_disable
+                                    ? "n_picker_cell_in_disable"
                                     : ""
                                 }`,
                                 `${
                                   range && dayType[item * 7 + it] === "range"
-                                    ? Style.n_picker_cell_in_range
+                                    ? "n_picker_cell_in_range"
                                     : ""
-                                }`,
-                              ].join(" ")}
+                                }`
+                              )}
                               key={day[item * 7 + it]}
                             >
                               <div
-                                className={[
-                                  Style.n_picker_cell_inner,
+                                className={classnames(
+                                  "n_picker_cell_inner",
                                   `${
                                     currentTime.year === nowTime.year &&
                                     currentTime.month === nowTime.month &&
                                     day[item * 7 + it] === nowTime.date &&
                                     item * 7 + it > firstIndex &&
                                     item * 7 + it < lastIndex
-                                      ? Style.n_picker_cell_in_today
+                                      ? "n_picker_cell_in_today"
                                       : ""
                                   }`,
                                   `${
@@ -1017,7 +1017,7 @@ function PickerPanel(Props: PanelProps) {
                                       Number(selectDateArr[1]) &&
                                     Number(selectDateArr[2]) ===
                                       day[item * 7 + it]
-                                      ? Style.n_picker_cell_active
+                                      ? "n_picker_cell_active"
                                       : ""
                                   }`,
                                   `${
@@ -1031,7 +1031,7 @@ function PickerPanel(Props: PanelProps) {
                                       Number(rangeTime[0].split("-")[1]) &&
                                     Number(rangeTime[0].split("-")[2]) ===
                                       day[item * 7 + it]
-                                      ? Style.n_picker_cell_active
+                                      ? "n_picker_cell_active"
                                       : ""
                                   }`,
                                   `${
@@ -1045,10 +1045,10 @@ function PickerPanel(Props: PanelProps) {
                                       Number(rangeTime[1].split("-")[1]) &&
                                     Number(rangeTime[1].split("-")[2]) ===
                                       day[item * 7 + it]
-                                      ? Style.n_picker_cell_active
+                                      ? "n_picker_cell_active"
                                       : ""
-                                  }`,
-                                ].join(" ")}
+                                  }`
+                                )}
                                 data-index={item * 7 + it}
                                 title={titleArr[item * 7 + it]}
                               >
@@ -1066,18 +1066,18 @@ function PickerPanel(Props: PanelProps) {
 
         {/* picker === "month" */}
         {picker === "month" && (
-          <div className={[Style.n_picker_month].join(" ")}>
+          <div className={classnames("n_picker_month")}>
             {monthList.map((item) => (
-              <div key={item} className={[Style.n_picker_month_item].join(" ")}>
+              <div key={item} className={classnames("n_picker_month_item")}>
                 <div
                   onClick={() => handleSelectMonth(item)}
-                  className={[
-                    Style.n_picker_month_inner,
+                  className={classnames(
+                    "n_picker_month_inner",
                     currentTime.year === monthValue[0] &&
-                    item === String(monthValue[1])
-                      ? Style.n_picker_month_inner_active
-                      : "",
-                  ].join(" ")}
+                      item === String(monthValue[1])
+                      ? "n_picker_month_inner_active"
+                      : ""
+                  )}
                 >
                   {item}月
                 </div>
@@ -1087,16 +1087,16 @@ function PickerPanel(Props: PanelProps) {
         )}
 
         {picker === "year" && (
-          <div className={[Style.n_picker_year].join(" ")}>
+          <div className={classnames("n_picker_year")}>
             {yearList.map((item) => (
-              <div key={item} className={[Style.n_picker_year_item].join(" ")}>
+              <div key={item} className={classnames("n_picker_year_item")}>
                 <div
-                  className={[
-                    Style.n_picker_year_inner,
+                  className={classnames(
+                    "n_picker_year_inner",
                     currentTime.year === item
-                      ? Style.n_picker_year_inner_active
-                      : "",
-                  ].join(" ")}
+                      ? "n_picker_year_inner_active"
+                      : ""
+                  )}
                   onClick={() => handleSelectYear(item)}
                 >
                   {item}
@@ -1596,11 +1596,11 @@ function RangePicker(Props: RangeProps) {
     }
   };
   return (
-    <div className={[Style.n_rangepicker].join(" ")} ref={rangePickerRef}>
-      <div className={[Style.n_rangepicker_container].join(" ")}>
+    <div className={classnames("n_rangepicker")} ref={rangePickerRef}>
+      <div className={classnames("n_rangepicker_container")}>
         {/* Input */}
         <div
-          className={[Style.n_rangepicker_input].join(" ")}
+          className={classnames("n_rangepicker_input")}
           ref={inputContainerRef}
           style={{
             borderColor: showBorder ? "#1890ff" : "#D9D9D9",
@@ -1618,7 +1618,7 @@ function RangePicker(Props: RangeProps) {
             value={oneDateValue}
           />
           {/* middle icon */}
-          <span className={[Style.n_rangepicker_icon].join(" ")}>
+          <span className={classnames("n_rangepicker_icon")}>
             <SwapRight color="#BFBFBF" />
           </span>
           {/* endTime */}
@@ -1632,13 +1632,13 @@ function RangePicker(Props: RangeProps) {
             value={twoDateValue}
           />
           {/* icon */}
-          <span className={[Style.n_rangepicker_icon].join(" ")}>
+          <span className={classnames("n_rangepicker_icon")}>
             <Calendar color="#BFBFBF" />
           </span>
 
           {/* active_bar */}
           <div
-            className={[Style.n_rangepicker_bar].join(" ")}
+            className={classnames("n_rangepicker_bar")}
             style={{
               width: barWidth,
               opacity: showBar ? 1 : 0,
@@ -1650,7 +1650,7 @@ function RangePicker(Props: RangeProps) {
 
       {/* picker container */}
       <div
-        className={[Style.n_datePicker_panel_container].join(" ")}
+        className={classnames("n_datePicker_panel_container")}
         style={{
           display: showRangePanel ? "block" : "none",
         }}

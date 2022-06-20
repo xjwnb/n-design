@@ -1,5 +1,6 @@
 import { useState, BaseSyntheticEvent, ReactElement } from "react";
-import style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 
 interface IProps {
   defaultValue?: boolean;
@@ -32,15 +33,15 @@ export default function Switch(Props: IProps) {
 
   return (
     <button
-      className={[
-        `${style.n_switch}`,
-        `${value ? style.n_switch_checked : ""}`,
-        `${disabled ? style.n_switch_disabled : ""}`,
-      ].join(" ")}
+      className={classnames(
+        "n_switch",
+        `${value ? "n_switch_checked" : ""}`,
+        `${disabled ? "n_switch_disabled" : ""}`
+      )}
       onClick={handleClick}
     >
-      <div className={style.n_switch_handle}></div>
-      <span className={style.n_switch_inner}>
+      <div className={classnames("n_switch_handle")}></div>
+      <span className={classnames("n_switch_inner")}>
         {value ? checkedChildren : unCheckedChildren}
       </span>
     </button>

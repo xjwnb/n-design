@@ -25,7 +25,9 @@ import {
   rulesErrorParam,
 } from "./interface";
 // style
-import Style from "./index.module.scss";
+// import Style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 // components
 import { Row, Col, Button, Checkbox, Input, Select, Switch } from "../index";
 import Radio from "../radio";
@@ -212,7 +214,7 @@ const Form = function (Props: formProps) {
   };
 
   return (
-    <div className={[Style.n_form].join(" ")}>
+    <div className={classnames("n_form")}>
       <FormContext.Provider
         value={{
           labelCol,
@@ -449,7 +451,8 @@ function Item(Props: itemProps) {
     }
 
     // eslint-disable-next-line
-  }, [formValue
+  }, [
+    formValue,
     // , children
   ]);
 
@@ -459,24 +462,26 @@ function Item(Props: itemProps) {
   }, [formValue]);
 
   return (
-    <div className={[Style.n_form_item].join(" ")}>
-      <Row className={Style.n_form_item_row} align="middle">
+    <div className={classnames("n_form_item")}>
+      <Row className={classnames("n_form_item_row")} align="middle">
         {/* label */}
         <Col
-          className={Style.n_form_item_col}
+          className={classnames("n_form_item_col")}
           span={labelCol?.span || 8}
           offset={labelCol?.offset || 0}
         >
-          <div className={Style.n_form_item_key}>
-            {required && <span className={Style.n_form_item_required}>*</span>}
+          <div className={classnames("n_form_item_key")}>
+            {required && (
+              <span className={classnames("n_form_item_required")}>*</span>
+            )}
             {label && (
-              <label className={Style.n_form_item_label}>{label}</label>
+              <label className={classnames("n_form_item_label")}>{label}</label>
             )}
           </div>
         </Col>
         <Col span={wrapperCol?.span || 16} offset={wrapperCol?.offset || 0}>
-          <div className={Style.n_form_item_content}>{newChildren}</div>
-          <span className={Style.n_form_item_message}>{errorMsg}</span>
+          <div className={classnames("n_form_item_content")}>{newChildren}</div>
+          <span className={classnames("n_form_item_message")}>{errorMsg}</span>
         </Col>
       </Row>
     </div>

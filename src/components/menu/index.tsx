@@ -15,7 +15,9 @@ import {
   cloneElement,
 } from "react";
 // Style
-import Style from "./index.module.scss";
+// import Style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 import { Right, Bottom } from "../../Icons/icon/index";
 
 interface IProps {
@@ -116,11 +118,7 @@ function Menu(Props: IProps) {
         width: mode !== "horizontal" ? 250 : "",
         ...style,
       }}
-      className={[
-        Style.n_menu,
-        Style[`n_menu_${mode}`],
-        Style[`n_menu_${theme}`],
-      ].join(" ")}
+      className={classnames("n_menu", `n_menu_${mode}`, `n_menu_${theme}`)}
     >
       <MenuContext.Provider
         value={{
@@ -194,22 +192,19 @@ function SubMenu(Props: submenuProps) {
 
   return (
     <div
-      className={[
-        Style.n_submenu,
-        Style[`n_submenu_${theme}`],
-        Style[`n_submenu_${mode}`],
-      ].join(" ")}
+      className={classnames(
+        "n_submenu",
+        `n_submenu_${theme}`,
+        `n_submenu_${mode}`
+      )}
       ref={subMenuRef}
     >
-      <div
-        className={[Style.n_submenu_content].join(" ")}
-        ref={subMenuContentRef}
-      >
+      <div className={classnames("n_submenu_content")} ref={subMenuContentRef}>
         <div
-          className={[
-            Style.n_submenu_main,
-            selectIdList.includes(id) ? Style.n_submenu_main_active : "",
-          ].join(" ")}
+          className={classnames(
+            "n_submenu_main",
+            selectIdList.includes(id) ? "n_submenu_main_active" : ""
+          )}
           style={
             {
               // color: isShow ? "#1890FF" : "",
@@ -217,7 +212,7 @@ function SubMenu(Props: submenuProps) {
           }
         >
           {icon && <div>{icon}</div>}
-          <div className={[Style.n_submenu_title].join(" ")}>{title}</div>
+          <div className={classnames("n_submenu_title")}>{title}</div>
         </div>
         {/* icon */}
         {mode === "vertical" && (
@@ -225,7 +220,7 @@ function SubMenu(Props: submenuProps) {
         )}
         {mode === "inline" && (
           <div
-            className={[Style.n_submenu_icon].join(" ")}
+            className={classnames("n_submenu_icon")}
             style={{
               transform: isShow ? `rotate(${-180}deg)` : "",
             }}
@@ -234,13 +229,11 @@ function SubMenu(Props: submenuProps) {
           </div>
         )}
         {mode === "horizontal" && isShow && (
-          <div className={[Style.n_submenu_active_bar].join(" ")}></div>
+          <div className={classnames("n_submenu_active_bar")}></div>
         )}
       </div>
       <div
-        className={[Style.n_submenu_inner, Style[`n_submenu_${theme}`]].join(
-          " "
-        )}
+        className={classnames("n_submenu_inner", `n_submenu_${theme}`)}
         style={{
           display: isShow ? "block" : "none",
           width:
@@ -286,11 +279,9 @@ function ItemGroup(Props: groupProps) {
   }, [children]);
 
   return (
-    <div
-      className={[Style.n_itemgroup, Style[`n_itemgroup_${mode}`]].join(" ")}
-    >
-      <div className={[Style.n_itemgroup_title].join(" ")}>{title}</div>
-      <div className={[Style.n_itemgroup_inner].join(" ")}>{nowChild}</div>
+    <div className={classnames("n_itemgroup", `n_itemgroup_${mode}`)}>
+      <div className={classnames("n_itemgroup_title")}>{title}</div>
+      <div className={classnames("n_itemgroup_inner")}>{nowChild}</div>
     </div>
   );
 }
@@ -329,12 +320,12 @@ function Item(Props: itemProps) {
 
   return (
     <div
-      className={[
-        Style.n_item,
-        Style[`n_item_${mode}`],
-        Style[`n_item_${theme}`],
-        selectIdList.includes(id) ? Style[`n_item_${theme}_active`] : "",
-      ].join(" ")}
+      className={classnames(
+        "n_item",
+        `n_item_${mode}`,
+        `n_item_${theme}`,
+        selectIdList.includes(id) ? `n_item_${theme}_active` : ""
+      )}
       style={{
         ...style,
       }}

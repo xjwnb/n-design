@@ -1,6 +1,8 @@
 import { useEffect, useState, ReactElement } from "react";
 
-import style from "./index.module.scss";
+// import style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 
 interface layoutProps {
   children: Array<ReactElement>;
@@ -19,7 +21,7 @@ export default function Layout(Props: layoutProps) {
 
   return (
     <section
-      className={[`${style.n_layout}`].join(" ")}
+      className="n_layout"
       style={{
         flexDirection: hasAside ? "row" : "column",
       }}
@@ -39,7 +41,7 @@ interface contentProps {
 function Content(Props: contentProps) {
   const { children } = Props;
 
-  return <main className={style.n_layout_main}>{children}</main>;
+  return <main className={classnames("n_layout_main")}>{children}</main>;
 }
 
 Layout.Content = Content;
@@ -54,7 +56,7 @@ interface headerProps {
 function Header(Props: headerProps) {
   const { children } = Props;
 
-  return <header className={style.n_layout_header}>{children}</header>;
+  return <header className={classnames("n_layout_header")}>{children}</header>;
 }
 
 Layout.Header = Header;
@@ -69,7 +71,7 @@ interface footerProps {
 function Footer(Props: footerProps) {
   const { children } = Props;
 
-  return <footer className={style.n_layout_footer}>{children}</footer>;
+  return <footer className={classnames("n_layout_footer")}>{children}</footer>;
 }
 
 Layout.Footer = Footer;
@@ -84,7 +86,7 @@ interface asideProps {
 function Sider(Props: asideProps) {
   const { children } = Props;
 
-  return <aside className={style.n_layout_aside}>{children}</aside>;
+  return <aside className={classnames("n_layout_aside")}>{children}</aside>;
 }
 
 Layout.Sider = Sider;

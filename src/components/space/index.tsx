@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 
 interface IProps {
   children: Array<any>;
@@ -47,19 +48,19 @@ function Space(Props: IProps) {
 
   return (
     <div
-      className={[
-        `${style.n_space}`,
-        `${direction ? style[`n_space_${direction}`] : ""}`,
-        `${align ? style[`n_space_${align}`] : ""}`,
-        `${className}`,
-      ].join(" ")}
+      className={classnames(
+        "style.n_space",
+        `${direction ? `n_space_${direction}` : ""}`,
+        `${align ? `n_space_${align}` : ""}`,
+        `${className}`
+      )}
       style={{
         gap: gap,
         flexWrap: wrap ? "wrap" : "nowrap",
       }}
     >
       {children.map((item, index) => (
-        <div key={index} className={style.n_space_item}>
+        <div key={index} className={"n_space_item"}>
           {item}
         </div>
       ))}

@@ -8,7 +8,8 @@
  */
 import React, { useState, useEffect, useRef } from "react";
 // style
-import Style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 
 interface IProps {
   children: Array<React.ReactNode>;
@@ -103,18 +104,18 @@ function Carousel(Props: IProps) {
   }, [autoplay, autoplaySpeed, currentIndex, hasTransition]);
 
   return (
-    <div className={[Style.n_carousel].join(" ")} ref={elRef}>
+    <div className={classnames("n_carousel")} ref={elRef}>
       <div
         style={{
           width: width * (childNode as []).length,
           transform: `translateX(${translateX}px)`,
           transition: hasTransition ? "all 1s" : "",
         }}
-        className={[Style.n_carousel_list].join(" ")}
+        className={classnames("n_carousel_list")}
       >
         {Array.from(childNode as []).map((item: any, index) => (
           <div
-            className={[Style.n_carousel_container].join(" ")}
+            className={classnames("n_carousel_container")}
             data-index={item?.props.index}
             key={index}
             style={{
@@ -127,12 +128,12 @@ function Carousel(Props: IProps) {
       </div>
 
       {/* list */}
-      <ul className={[Style.n_carousel_dots].join(" ")}>
+      <ul className={classnames("n_carousel_dots")}>
         {children?.map((item, index) => (
           <li
-            className={[
-              currentIndex === index ? Style.n_carousel_dots_active : "",
-            ].join(" ")}
+            className={classnames(
+              currentIndex === index ? "n_carousel_dots_active" : ""
+            )}
             key={index}
             onClick={() => {
               setcurrentIndex(index);

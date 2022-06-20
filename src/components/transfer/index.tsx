@@ -7,7 +7,8 @@
  * @FilePath: \n-design\src\components\transfer\index.tsx
  */
 import React, { useState, useEffect, useRef, BaseSyntheticEvent } from "react";
-import Style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 import { Checkbox, Button } from "../index";
 import { Left, Right, BoxEmpty } from "../../Icons/icon/index";
 
@@ -270,11 +271,11 @@ function Transfer(Props: IProps) {
   };
 
   return (
-    <div className={[Style.n_transfer].join(" ")}>
+    <div className={classnames("n_transfer")}>
       {/* left */}
-      <div className={[Style.n_transfer_content_wrapper].join(" ")}>
-        <div className={[Style.n_transfer_content_header_wrapper].join(" ")}>
-          <div className={[Style.n_transfer_content_header_control].join(" ")}>
+      <div className={classnames("n_transfer_content_wrapper")}>
+        <div className={classnames("n_transfer_content_header_wrapper")}>
+          <div className={classnames("n_transfer_content_header_control")}>
             <Checkbox
               indeterminate={leftIndeter}
               defaultChecked={leftAllVal}
@@ -283,20 +284,17 @@ function Transfer(Props: IProps) {
             ></Checkbox>
             <span>{`${sourceArr.length}项`}</span>
           </div>
-          <div className={[Style.n_transfer_content_header_title].join(" ")}>
+          <div className={classnames("n_transfer_content_header_title")}>
             {titles[0]}
           </div>
         </div>
-        <div
-          className={[Style.n_transfer_content].join(" ")}
-          ref={leftContentRef}
-        >
+        <div className={"n_transfer_content"} ref={leftContentRef}>
           {sourceArr.length ? (
             sourceArr.map((source) => {
               return (
                 <div
                   key={source.key}
-                  className={[Style.n_transfer_content_item].join(" ")}
+                  className={classnames("n_transfer_content_item")}
                 >
                   <Checkbox
                     value={source.title}
@@ -312,11 +310,11 @@ function Transfer(Props: IProps) {
               );
             })
           ) : (
-            <div className={[Style.n_transfer_content_empty].join(" ")}>
-              <div className={[Style.n_transfer_content_empty_icon].join(" ")}>
+            <div className={classnames("n_transfer_content_empty")}>
+              <div className={classnames("n_transfer_content_empty_icon")}>
                 <BoxEmpty color="#E2E2E2" />
               </div>
-              <div className={[Style.n_transfer_content_empty_text].join(" ")}>
+              <div className={classnames("n_transfer_content_empty_text")}>
                 暂无数据
               </div>
             </div>
@@ -325,8 +323,8 @@ function Transfer(Props: IProps) {
       </div>
 
       {/* middle */}
-      <div className={[Style.n_transfer_middle_wrapper].join(" ")}>
-        <div className={[Style.n_transfer_middle_content].join(" ")}>
+      <div className={classnames("n_transfer_middle_wrapper")}>
+        <div className={classnames("n_transfer_middle_content")}>
           <span>
             <Button
               type="primary"
@@ -351,9 +349,9 @@ function Transfer(Props: IProps) {
       </div>
 
       {/* right */}
-      <div className={[Style.n_transfer_content_wrapper].join(" ")}>
-        <div className={[Style.n_transfer_content_header_wrapper].join(" ")}>
-          <div className={[Style.n_transfer_content_header_control].join(" ")}>
+      <div className={classnames("n_transfer_content_wrapper")}>
+        <div className={classnames("n_transfer_content_header_wrapper")}>
+          <div className={classnames("n_transfer_content_header_control")}>
             <Checkbox
               indeterminate={rightIndeter}
               defaultChecked={rightAllVal}
@@ -364,21 +362,15 @@ function Transfer(Props: IProps) {
             ></Checkbox>
             <span>{`${targetArr.length}项`}</span>
           </div>
-          <div className={[Style.n_transfer_content_header_title].join(" ")}>
+          <div className={classnames("n_transfer_content_header_title")}>
             {titles[1]}
           </div>
         </div>
-        <div
-          className={[Style.n_transfer_content].join(" ")}
-          ref={rightContentRef}
-        >
+        <div className={classnames("n_transfer_content")} ref={rightContentRef}>
           {targetArr.length ? (
             targetArr.map((target) => {
               return (
-                <div
-                  key={target.key}
-                  className={[Style.n_transfer_content_item].join(" ")}
-                >
+                <div key={target.key} className={"n_transfer_content_item"}>
                   <Checkbox
                     value={target.title}
                     onChange={(e: BaseSyntheticEvent) =>
@@ -393,11 +385,11 @@ function Transfer(Props: IProps) {
               );
             })
           ) : (
-            <div className={[Style.n_transfer_content_empty].join(" ")}>
-              <div className={[Style.n_transfer_content_empty_icon].join(" ")}>
+            <div className={classnames("n_transfer_content_empty")}>
+              <div className={classnames("n_transfer_content_empty_icon")}>
                 <BoxEmpty color="#E2E2E2" />
               </div>
-              <div className={[Style.n_transfer_content_empty_text].join(" ")}>
+              <div className={classnames("n_transfer_content_empty_text")}>
                 暂无数据
               </div>
             </div>

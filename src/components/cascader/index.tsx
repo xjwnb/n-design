@@ -7,7 +7,8 @@
  * @FilePath: \n-design\src\components\cascader\index.tsx
  */
 import { useState, useEffect, useRef } from "react";
-import Style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 import { Bottom, Right } from "../../Icons/icon/index";
 
 interface OptParam {
@@ -161,26 +162,26 @@ function Cascader(Props: IProps) {
 
   return (
     <div
-      className={[Style.n_cascader].join(" ")}
+      className={classnames("n_cascader")}
       ref={cascaderRef}
       onClick={handleCascaderClick}
     >
       <div
-        className={[Style.n_cascader_input_wrapper].join(" ")}
+        className={classnames("n_cascader_input_wrapper")}
         style={{
           width,
         }}
         ref={inputContainerRef}
       >
         <div
-          className={[Style.n_cascader_input_container].join(" ")}
+          className={classnames("n_cascader_input_container")}
           style={{
             border: showBorder ? "1px solid #1890ff" : "1px solid #D9D9D9",
             boxShadow: showShadow ? "0 0 2px #1890ff" : "",
           }}
           onClick={handleInputClick}
         >
-          <span className={[Style.n_cascader_input].join(" ")}>
+          <span className={classnames("n_cascader_input")}>
             <input
               type="text"
               readOnly={true}
@@ -188,30 +189,30 @@ function Cascader(Props: IProps) {
               value={inputValue}
             />
           </span>
-          <span className={[Style.n_cascader_input_suffix_icon].join(" ")}>
+          <span className={classnames("n_cascader_input_suffix_icon")}>
             <Bottom width={12} height={12} color="#C1C1C1" />
           </span>
         </div>
       </div>
       {/* content */}
       <div
-        className={[Style.n_cascader_content_wrapper].join(" ")}
+        className={classnames("n_cascader_content_wrapper")}
         style={{
           display: showContent ? "block" : "none",
         }}
       >
-        <div className={[Style.n_cascader_content_container].join(" ")}>
-          <div className={[Style.n_cascader_content].join(" ")}>
-            <div className={[Style.n_cascader_option_item].join(" ")}>
+        <div className={classnames("n_cascader_content_container")}>
+          <div className={classnames("n_cascader_content")}>
+            <div className={classnames("n_cascader_option_item")}>
               {firstOption.map((item) => (
                 <div
                   key={item.value}
-                  className={[
-                    Style.n_cascader_option_label,
+                  className={classnames(
+                    "n_cascader_option_label",
                     selectValue.includes(item.value)
-                      ? Style.n_cascader_option_label_active
-                      : "",
-                  ].join(" ")}
+                      ? "n_cascader_option_label_active"
+                      : ""
+                  )}
                   onClick={() => handleSelectOption(item, 0)}
                 >
                   <span>{item.label}</span>
@@ -227,17 +228,17 @@ function Cascader(Props: IProps) {
             </div>
           </div>
           {otherOption?.map((item, index) => (
-            <div key={index} className={[Style.n_cascader_content].join(" ")}>
-              <div className={[Style.n_cascader_option_item].join(" ")}>
+            <div key={index} className={classnames("n_cascader_content")}>
+              <div className={classnames("n_cascader_option_item")}>
                 {item?.map((it: OptionParam) => (
                   <div
                     key={it.value}
-                    className={[
-                      Style.n_cascader_option_label,
+                    className={classnames(
+                      "n_cascader_option_label",
                       selectValue.includes(it.value)
-                        ? Style.n_cascader_option_label_active
-                        : "",
-                    ].join(" ")}
+                        ? "n_cascader_option_label_active"
+                        : ""
+                    )}
                     onClick={() => handleSelectOption(it, index + 1)}
                   >
                     <span>{it.label}</span>

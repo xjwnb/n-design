@@ -18,8 +18,8 @@ import {
 } from "react";
 // interface
 import { tabParam, tabsContextParam } from "./interface";
-// Style
-import Style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 
 interface tabsProps {
   children: any;
@@ -132,10 +132,10 @@ function Tabs(Props: tabsProps) {
   }, [currentKey, children, tabPosition]);
 
   return (
-    <div className={[Style.n_tabs, Style[`n_tabs_${tabPosition}`]].join(" ")}>
+    <div className={classnames("n_tabs", `n_tabs_${tabPosition}`)}>
       {/* 标签 */}
       <div
-        className={Style.n_tabs_container}
+        className={classnames("n_tabs_container")}
         ref={tabBtnRef}
         style={{
           justifyContent: centered ? "center" : "flex-start",
@@ -143,17 +143,17 @@ function Tabs(Props: tabsProps) {
       >
         {tabList.map((item: tabParam) => (
           <div
-            className={Style.n_tabs_tab}
+            className={classnames("n_tabs_tab")}
             key={item.id}
             onClick={(e) => handleTabsChange(item.id, e)}
             data-currentid={item.id}
           >
             <div
-              className={[
-                Style.n_tabs_tab_btn,
-                item.id === currentKey ? Style.n_tabs_tab_btn_active : "",
-                item.disabled ? Style.n_tabs_tab_btn_disabled : "",
-              ].join(" ")}
+              className={classnames(
+                "n_tabs_tab_btn",
+                item.id === currentKey ? "n_tabs_tab_btn_active" : "",
+                item.disabled ? "n_tabs_tab_btn_disabled" : ""
+              )}
             >
               {item.text}
             </div>
@@ -161,7 +161,7 @@ function Tabs(Props: tabsProps) {
         ))}
         {/* 移动 bar */}
         <div
-          className={Style.n_tabs_active_bar}
+          className={classnames("n_tabs_active_bar")}
           style={{
             left: ["top", "bottom"].includes(tabPosition)
               ? left
@@ -178,7 +178,7 @@ function Tabs(Props: tabsProps) {
           }}
         ></div>
       </div>
-      <div className={Style.n_tabs_content}>
+      <div className={classnames("n_tabs_content")}>
         <TabsContext.Provider
           value={{
             activeKey: currentKey,
@@ -207,9 +207,9 @@ function TabPane(Props: tabPaneProps) {
   const { activeKey } = useContext(TabsContext);
 
   return (
-    <div className={[Style.n_tabs_tabPane].join(" ")}>
+    <div className={classnames("n_tabs_tabPane")}>
       {activeKey === id && (
-        <div className={Style.n_tabs_tabPane_content}>{children}</div>
+        <div className={classnames("n_tabs_tabPane_content")}>{children}</div>
       )}
     </div>
   );

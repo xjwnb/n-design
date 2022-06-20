@@ -14,7 +14,9 @@ import {
   ErrorFill,
   WarningFill,
 } from "../../Icons/icon";
-import Style from "./index.module.scss";
+// import Style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 
 interface IProps {
   content: string;
@@ -61,13 +63,13 @@ function Message(Props: IProps) {
   return (
     <div
       id={`n_message_${id}`}
-      className={[Style.n_message_wrapper, className].join(" ")}
+      className={classnames("n_message_wrapper", className)}
       onClick={handleClickMessage}
     >
-      <div className={[Style.n_message_icon].join(" ")}>
+      <div className={classnames("n_message_icon")}>
         {icon ? <span>{icon}</span> : <span>{iconNode}</span>}
       </div>
-      <div className={[Style.n_message_content].join(" ")}>{content}</div>
+      <div className={classnames("n_message_content")}>{content}</div>
     </div>
   );
 }
@@ -94,7 +96,7 @@ function MessageControl(
     const el = document.createElement("div");
     el.appendChild(messageEle);
     // document.getElementsByClassName("App")[0]?.appendChild(el);
-    document.getElementById('root')?.appendChild(el);
+    document.getElementById("root")?.appendChild(el);
     ReactDom.render(
       <Message id={uid} type={type} content={innerText} {...props} />,
       messageEle,

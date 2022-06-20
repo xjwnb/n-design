@@ -8,7 +8,8 @@
  */
 
 import { CSSProperties } from "react";
-import Style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 
 interface IProps {
   type?: "horizontal" | "vertical";
@@ -32,24 +33,20 @@ function Divider(Props: IProps) {
 
   return (
     <div
-      className={[
-        Style.n_divider,
-        Style[`n_divider_${type}`],
-        dashed ? Style.n_divider_dashed : "",
-        children && orientation === "center" ? Style.n_divider_with_text : "",
-        children && orientation === "left"
-          ? Style.n_divider_with_text_left
-          : "",
-        children && orientation === "right"
-          ? Style.n_divider_with_text_right
-          : "",
-        className,
-      ].join(" ")}
+      className={classnames(
+        "n_divider",
+        `n_divider_${type}`,
+        dashed ? "n_divider_dashed" : "",
+        children && orientation === "center" ? "n_divider_with_text" : "",
+        children && orientation === "left" ? "n_divider_with_text_left" : "",
+        children && orientation === "right" ? "n_divider_with_text_right" : "",
+        className
+      )}
       style={{
         ...style,
       }}
     >
-      <span className={Style.n_divider_inner_text}>{children}</span>
+      <span className={classnames("n_divider_inner_text")}>{children}</span>
     </div>
   );
 }

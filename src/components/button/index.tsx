@@ -6,7 +6,6 @@
  * @Description: In User Settings Edit
  * @FilePath: \n-design\src\components\button\index.tsx
  */
-import style from "./style.module.scss";
 import "./style.scss";
 import { ReactElement, SyntheticEvent, useState } from "react";
 import classnames from "classnames";

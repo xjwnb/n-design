@@ -8,7 +8,8 @@
  */
 import { useRef, useEffect, useState } from "react";
 // style
-import Style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 
 interface IProps {
   children: any;
@@ -98,16 +99,16 @@ function Tooltip(Props: IProps) {
   }, [title, placement]);
 
   return (
-    <span className={Style.n_tooltip}>
-      <div className={Style.n_tooltip_content}>
-        <span className={Style.n_tooltip_children} ref={childRef}>
+    <span className={classnames("n_tooltip")}>
+      <div className={classnames("n_tooltip_content")}>
+        <span className={classnames("n_tooltip_children")} ref={childRef}>
           {children}
         </span>
         <span
-          className={[
-            Style.n_tooltip_title,
-            placement !== "top" ? Style[`n_tooltip_title_${placement}`] : "",
-          ].join(" ")}
+          className={classnames(
+            "n_tooltip_title",
+            placement !== "top" ? `n_tooltip_title_${placement}` : ""
+          )}
           style={{
             visibility: showTip ? "visible" : "hidden",
             left: left,
@@ -141,7 +142,7 @@ function Tooltip(Props: IProps) {
                 ? color
                 : "",
             }}
-            className={[Style.n_tooltip_title_tip].join(" ")}
+            className={classnames("n_tooltip_title_tip")}
           ></div>
         </span>
       </div>

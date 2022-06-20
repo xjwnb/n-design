@@ -8,7 +8,9 @@
  */
 import { useRef, useEffect, useState, CSSProperties } from "react";
 import ReactDOM from "react-dom";
-import Style from "./index.module.scss";
+// import Style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 // icon
 import { Close, Info, Success, Error, WarningCircle } from "../../Icons/icon";
 import Button from "../button";
@@ -124,43 +126,43 @@ function Modal(Props: IProps) {
 
   return (
     <div
-      className={Style.n_modal_root}
+      className={classnames("n_modal_root")}
       style={{
         display: visible ? "block" : "none",
       }}
     >
       {mask && (
         <div
-          className={Style.n_modal_mask}
+          className={classnames("n_modal_mask")}
           style={{
             ...maskStyle,
           }}
         ></div>
       )}
-      <div className={Style.n_modal_wrap} ref={wrapRef}>
+      <div className={classnames("n_modal_wrap")} ref={wrapRef}>
         <div
-          className={Style.n_modal}
+          className={classnames("n_modal")}
           style={{
             width: width,
             zIndex,
           }}
           ref={modalRef}
         >
-          <div className={[Style.n_modal_content].join(" ")}>
+          <div className={classnames("n_modal_content")}>
             {closable && (
               <div
-                className={[Style.n_modal_close].join(" ")}
+                className={classnames("n_modal_close")}
                 onClick={handleClose}
               >
                 {/* <Close /> */}
                 {closeIcon}
               </div>
             )}
-            <div className={[Style.n_modal_header].join(" ")}>
-              <div className={[Style.n_modal_title].join(" ")}>{title}</div>
+            <div className={classnames("n_modal_header")}>
+              <div className={classnames("n_modal_title")}>{title}</div>
             </div>
-            <div className={[Style.n_modal_body].join(" ")}>{children}</div>
-            <div className={[Style.n_modal_footer].join(" ")}>
+            <div className={classnames("n_modal_body")}>{children}</div>
+            <div className={classnames("n_modal_footer")}>
               {footer ? (
                 footer
               ) : (
@@ -256,38 +258,39 @@ function Confirm(Props: ConfirmProps) {
   };
 
   return (
-    <div id={idName} className={[Style.n_modal_root].join(" ")}>
-      <div className={Style.n_modal_mask} style={{ ...maskStyle }}></div>
-      <div className={Style.n_modal_wrap}>
+    <div id={idName} className={classnames("n_modal_root")}>
+      <div
+        className={classnames("n_modal_mask")}
+        style={{ ...maskStyle }}
+      ></div>
+      <div className={classnames("n_modal_wrap")}>
         <div
-          className={Style.n_modal}
+          className={classnames("n_modal")}
           style={{
             width,
             zIndex,
           }}
         >
-          <div className={[Style.n_modal_content].join(" ")}>
-            <div className={[Style.n_modal_body].join(" ")}>
-              <div className={[Style.n_modal_confirm_wrapper].join(" ")}>
+          <div className={classnames("n_modal_content")}>
+            <div className={classnames("n_modal_body")}>
+              <div className={classnames("n_modal_confirm_wrapper")}>
                 {/* {title} */}
-                <div className={[Style.n_modal_confirm_body].join(" ")}>
+                <div className={classnames("n_modal_confirm_body")}>
                   {icon ? <span>{icon}</span> : <span>{iconNode}</span>}
-                  <div className={[Style.n_modal_confirm_info].join(" ")}>
+                  <div className={classnames("n_modal_confirm_info")}>
                     {title && (
-                      <div className={[Style.n_modal_confirm_title].join(" ")}>
+                      <div className={classnames("n_modal_confirm_title")}>
                         {title}
                       </div>
                     )}
                     {content && (
-                      <div
-                        className={[Style.n_modal_confirm_content].join(" ")}
-                      >
+                      <div className={classnames("n_modal_confirm_content")}>
                         {content}
                       </div>
                     )}
                   </div>
                 </div>
-                <div className={[Style.n_modal_confirm_btns].join(" ")}>
+                <div className={classnames("n_modal_confirm_btns")}>
                   <Button type="primary" onClick={handleClickOK}>
                     知道了
                   </Button>

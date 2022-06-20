@@ -7,7 +7,8 @@
  * @FilePath: \n-design\src\components\tag\index.tsx
  */
 import React, { useEffect, useState, useRef, BaseSyntheticEvent } from "react";
-import Style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 import { Close } from "../../Icons/icon/index";
 
 // 预置颜色
@@ -158,7 +159,7 @@ function Tag(Props: IProps) {
 
   return (
     <span
-      className={[Style.n_tag].join(" ")}
+      className={classnames("n_tag")}
       style={{
         color: fontColor,
         border: `1px solid ${border}`,

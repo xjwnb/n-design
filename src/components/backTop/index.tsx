@@ -8,7 +8,8 @@
  */
 import React, { useState, useEffect } from "react";
 import { BackTop as BackTopIcon } from "../../Icons/icon/index";
-import Style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 
 interface IProps {
   children?: React.ReactNode;
@@ -95,10 +96,10 @@ function BackTop(Props: IProps) {
 
   return (
     <div
-      className={[
-        Style.n_backTop,
-        isWindow ? Style.n_backTop_window : Style.n_backTop_other,
-      ].join(" ")}
+      className={classnames(
+        "n_backTop",
+        isWindow ? "n_backTop_window" : "n_backTop_other"
+      )}
       style={{
         display: isShow ? "block" : "none",
         bottom: isWindow ? 100 : -scrollTop + 100,

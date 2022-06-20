@@ -13,7 +13,8 @@ import React, {
   cloneElement,
   ReactElement,
 } from "react";
-import Style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 import { FivePointedStar } from "../../Icons/icon/index";
 
 interface IProps {
@@ -77,7 +78,7 @@ function Rate(Props: IProps) {
   };
 
   return (
-    <div className={[Style.n_rate].join(" ")}>
+    <div className={classnames("n_rate")}>
       <ul ref={ulRef}>
         {countArr.map((item) => {
           if (!allowHalf) {
@@ -85,9 +86,9 @@ function Rate(Props: IProps) {
               <li key={item} onClick={() => handleClickLi(item + 1)}>
                 <span
                   data-index={item + 1}
-                  className={[
-                    hoverVal === item + 1 ? Style.n_rate_span_active : "",
-                  ].join(" ")}
+                  className={classnames(
+                    hoverVal === item + 1 ? "n_rate_span_active" : ""
+                  )}
                 >
                   {character
                     ? typeof character === "string"
@@ -123,7 +124,7 @@ function Rate(Props: IProps) {
               <li key={item}>
                 <span
                   data-index={item + 0.5}
-                  className={[Style.n_rate_span_left].join(" ")}
+                  className={classnames("n_rate_span_left")}
                   onClick={() => handleClickLi(item + 0.5)}
                 >
                   {character
@@ -156,7 +157,7 @@ function Rate(Props: IProps) {
                 </span>
                 <span
                   data-index={item + 1}
-                  className={[Style.n_rate_span_right].join(" ")}
+                  className={classnames("n_rate_span_right")}
                   onClick={() => handleClickLi(item + 1)}
                 >
                   {character

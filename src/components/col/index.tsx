@@ -9,7 +9,9 @@
 import { useContext } from "react";
 import { RowContext } from "../row/index";
 // style
-import Style from "./index.module.scss";
+// import Style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 
 interface colProps {
   span: number;
@@ -27,7 +29,7 @@ function Col(Props: colProps) {
 
   return (
     <div
-      className={[`${gutter} && ${Style.gutter_row}`, className].join(" ")}
+      className={classnames(gutter && "gutter_row", className)}
       style={{
         flex: span > 0 ? `0 0 ${(span / 24) * 100}%` : "",
         display: span === 0 ? "none" : "block",

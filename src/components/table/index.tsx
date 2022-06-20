@@ -8,7 +8,8 @@
  */
 import { BaseSyntheticEvent, useEffect, useState } from "react";
 // style
-import Style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 // interface
 import { IProps } from "./interface";
 // icon
@@ -147,11 +148,11 @@ function Table(Props: IProps) {
   }, [selectRows, keyList, rowSelection]);
 
   return (
-    <div className={Style.n_table_wrapper}>
+    <div className={classnames("n_table_wrapper")}>
       {/* content */}
-      <div className={[Style.n_table_content].join(" ")}>
+      <div className={classnames("n_table_content")}>
         {/* table */}
-        <table className={[Style.n_table].join(" ")}>
+        <table className={classnames("n_table")}>
           {/* thead */}
           <thead>
             <tr>
@@ -177,7 +178,7 @@ function Table(Props: IProps) {
           {/* tbody */}
           {/* {currentData.length && ( */}
           {currentData.length ? (
-            <tbody className={Style.n_table_tbody}>
+            <tbody className={"n_table_tbody"}>
               {currentData.length &&
                 currentData?.map(
                   (
@@ -238,16 +239,16 @@ function Table(Props: IProps) {
         </table>
         {/* empty */}
         {dataSource.length === 0 && (
-          <div className={Style.n_table_empty_wrapper}>
-            <div className={Style.n_table_empty_icon}>
+          <div className={"n_table_empty_wrapper"}>
+            <div className={"n_table_empty_icon"}>
               <BoxEmpty color={"#f0f0f0"} />
             </div>
-            <div className={Style.n_table_empty_text}>数据为空</div>
+            <div className={classnames("n_table_empty_text")}>数据为空</div>
           </div>
         )}
       </div>
 
-      <div className={Style.n_table_pagination_container}>
+      <div className={"n_table_pagination_container"}>
         <Pagination total={totalData} onChange={handlePaginationChange} />
       </div>
     </div>

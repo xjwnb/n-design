@@ -14,7 +14,8 @@ import {
   Loading,
 } from "../../Icons/icon";
 import { Button } from "../index";
-import Style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 
 type sizeValue = "large" | "middle" | "small";
 
@@ -122,7 +123,7 @@ export default function Input(props: IProps) {
 
   return (
     <div
-      className={Style.input_container}
+      className={classnames('input_container')}
       style={{
         ...style,
       }}
@@ -145,19 +146,19 @@ export default function Input(props: IProps) {
       )} */}
       {/* {prefix && ( */}
       <div
-        className={[
-          Style.input_flex_content,
-          `${Style.n_input}`,
-          `${size && size === "large" ? Style.n_input_lg : ""}`,
-          `${size && size === "small" ? Style.n_input_sm : ""}`,
-        ].join(" ")}
+        className={classnames(
+          'input_flex_content',
+          `n_input`,
+          size && size === "large" ? 'n_input_lg' : "",
+          size && size === "small" ? 'n_input_sm' : "",
+        )}
         ref={inputContainerRef}
         style={{
           borderColor: showBorder ? "#1890ff" : "#D9D9D9",
           boxShadow: showShadow ? "0 0 3px #40a9ff" : "none",
         }}
       >
-        {prefix && <span className={Style.iconPrefix}>{prefix}</span>}
+        {prefix && <span className={classnames('iconPrefix')}>{prefix}</span>}
         {/* {prefix && ( */}
         <input
           placeholder={placeholder}
@@ -168,9 +169,9 @@ export default function Input(props: IProps) {
           onFocus={handleFocus}
           onBlur={handleBlur}
         />
-        {suffix && <span className={Style.iconSuffix}>{suffix}</span>}
+        {suffix && <span className="iconSuffix">{suffix}</span>}
         {allowClear && showClear && (
-          <span className={Style.iconSuffix} onClick={handleClearValue}>
+          <span className="iconSuffix" onClick={handleClearValue}>
             <Closefill color="#BFBFBF" />
           </span>
         )}
@@ -267,13 +268,13 @@ function Password(pwdProps: PwdProps) {
 
   return (
     <div
-      className={Style.n_input_password}
+      className="n_input_password"
       style={{
         ...style,
       }}
     >
       <input
-        className={[`${Style.n_input}`].join(" ")}
+        className="n_input"
         type={type}
         placeholder={placeholder}
         value={pwdVal}
@@ -283,11 +284,11 @@ function Password(pwdProps: PwdProps) {
         onFocus={handlePwdFocus}
       />
       {eye ? (
-        <span className={Style.suffix_eye} onClick={handleEyeClick}>
+        <span className="suffix_eye" onClick={handleEyeClick}>
           <EyeOpen />
         </span>
       ) : (
-        <span className={Style.suffix_eye} onClick={handleEyeClick}>
+        <span className="suffix_eye" onClick={handleEyeClick}>
           <EyeClose />
         </span>
       )}
@@ -386,7 +387,7 @@ function Search(searchProps: searchProps) {
         return <SearchIcon />;
       } else {
         return (
-          <span className={Style.n_search_icons}>
+          <span className="n_search_icons">
             <Loading />
           </span>
         );
@@ -434,14 +435,14 @@ function Search(searchProps: searchProps) {
 
   return (
     <div
-      className={Style.n_input_search}
+      className="n_input_search"
       style={{
         width: width,
         ...style,
       }}
     >
       <span
-        className={Style.n_search_input_container}
+        className="n_search_input_container"
         ref={inputContainerRef}
         style={{
           paddingRight: allowClear ? 25 : "",
@@ -451,7 +452,7 @@ function Search(searchProps: searchProps) {
       >
         <input
           type="text"
-          className={[`${Style.n_search_input}`].join(" ")}
+          className="n_search_input"
           placeholder={placeholder}
           value={searchValue}
           ref={searchInputRef}
@@ -460,13 +461,13 @@ function Search(searchProps: searchProps) {
           onBlur={handleBlur}
         />
         {showClear && (
-          <span className={Style.closeFill} onClick={handleClickClose}>
+          <span className="closeFill" onClick={handleClickClose}>
             <Closefill />
           </span>
         )}
       </span>
       <span
-        className={Style.n_input_search_container}
+        className="n_input_search_container"
         onClick={handleClickSearch}
       >
         {/* 搜索按钮*/}
@@ -558,7 +559,7 @@ function TextArea(Props: textAreaProps) {
   return (
     <>
       <textarea
-        className={[`${Style.n_input_textarea}`].join(" ")}
+        className="n_input_textarea"
         cols={cols}
         rows={rows}
         placeholder={placeholder}

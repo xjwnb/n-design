@@ -7,7 +7,8 @@
  * @FilePath: \n-design\src\components\alert\index.tsx
  */
 import React, { BaseSyntheticEvent, useState } from "react";
-import Style from "./index.module.scss";
+import classnames from "classnames";
+import "./index.scss";
 import {
   SuccessFill,
   Close,
@@ -82,28 +83,28 @@ function Alert(Props: IProps) {
 
   return (
     <div
-      className={[Style.n_alert].join(" ")}
+      className={classnames("n_alert")}
       style={{
         background: TypeObj[type].background,
         border: TypeObj[type].border,
         display: visiabled ? "block" : "none",
       }}
     >
-      <div className={[Style.n_alert_wrapper].join(" ")}>
+      <div className={classnames("n_alert_wrapper")}>
         {showIcon && !description && (
-          <span className={[Style.n_alert_type_icon].join(" ")}>
+          <span className={classnames("n_alert_type_icon")}>
             {TypeObj[type].iconFill}
           </span>
         )}
         {showIcon && description && (
-          <span className={[Style.n_alert_type_icon].join(" ")}>
+          <span className={classnames("n_alert_type_icon")}>
             {TypeObj[type].icon}
           </span>
         )}
-        <div className={[Style.n_alert_content].join(" ")}>
-          <div className={[Style.n_alert_inner].join(" ")}>
+        <div className={classnames("n_alert_content")}>
+          <div className={classnames("n_alert_inner")}>
             <div
-              className={[Style.n_alert_message].join(" ")}
+              className={classnames("n_alert_message")}
               style={{
                 fontSize: description ? 16 : 14,
                 marginBottom: description ? 10 : 0,
@@ -112,14 +113,14 @@ function Alert(Props: IProps) {
               {message}
             </div>
             {description && (
-              <div className={[Style.n_alert_description].join(" ")}>
+              <div className={classnames("n_alert_description")}>
                 {description}
               </div>
             )}
           </div>
           {closable && (
             <div
-              className={[Style.n_alert_close_icon].join(" ")}
+              className={classnames("n_alert_close_icon")}
               onClick={handleIconClose}
             >
               {closeText ? closeText : <Close color="#00000073" />}

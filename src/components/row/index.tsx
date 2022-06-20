@@ -8,7 +8,8 @@
  */
 import { ReactElement, useState, useEffect, createContext } from "react";
 // style
-import Style from "./index.module.scss";
+import "./index.scss";
+import classnames from "classnames";
 
 interface rowProps {
   gutter?: number | Array<number>;
@@ -56,7 +57,7 @@ function Row(Props: rowProps) {
 
   return (
     <div
-      className={[Style.n_row, className].join(" ")}
+      className={classnames("n_row", className)}
       style={{
         marginLeft: `-${mgl / 2}px`,
         marginRight: `-${mgl / 2}px`,
